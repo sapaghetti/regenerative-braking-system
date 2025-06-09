@@ -1,0 +1,127 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  
+}
+
+variables
+{
+  msTimer speedTimer;
+  enum STATE
+  {
+    NOMAR_MODE,
+    BOOTLOADER_MODE,
+    OTA_COMPLETE
+  }cgwState = BOOTLOADER_MODE;
+  int otaRequestReceived = 0; 
+  dword versionFile;
+  char cur_ver[2];
+  int cur_cgw_version = 0;
+  int version_num[11] = {0, 1, 2, 3, 4, 5,
+                         6, 7, 8, 9, 10};
+  message 0x501 userResponseMsg;
+}
+void readBootloader()
+{
+  versionFile = openFileRead("CGW_version.txt", 0);
+  fileGetString(cur_ver, 2, versionFile);
+  @sysvar::Cur_Ver[1] = _atoi64(cur_ver);
+  cur_cgw_version = @sysvar::Cur_Ver[1];
+  fileClose(versionFile);
+}
+on start
+{
+  write(">>> 프로그램 시작");
+  //write("%d", @sysvar::Cur_Version);
+  readBootloader();
+  //write("%d", @sysvar::Cur_Version);
+  setTimer(speedTimer, 100);
+}
+
+on timer speedTimer
+{
+  switch (cgwState)
+  {
+    case NOMAR_MODE: // Default
+      if (cur_cgw_version >= version_num[1])
+      {
+        
+      }
+      else if (cur_cgw_version >= version_num[2])
+      {
+        
+      }
+      break;
+    case BOOTLOADER_MODE:
+      readBootloader(); // 현재 cgw 버전 읽어오기
+      break;
+    case OTA_COMPLETE:
+     
+      break;
+  }
+    setTimer(speedTimer, 100);
+}
+
+on message 0x500
+{
+  if (this.byte(0) == 0x01)
+  {
+    write(">>> TMU 로부터 OTA 승인 요청 수신 (0x500)");
+
+    otaRequestReceived = 1;
+    write(">>> OTA 설치 진행할까요?");
+  }
+  else if (this.byte(0) == 0x03)
+  {
+    // EDT 로 메세지 보내서 OTA 수행
+    otaRequestReceived = 0;
+    write(">>> CGW->EDT 수행 명령 및 .bin파일 전송");
+    userResponseMsg.byte(0) = 0x04; 
+    output(userResponseMsg);
+  }
+}
+on message 0x502
+{
+  if (this.byte(0) == 0x05)
+  {
+    // EDT로부터 OTA 결과 수신
+    write(">>> Receive OTA Success from EDT");
+    write(">>> Transmit OTA Result to TMU");
+    userResponseMsg.byte(0) = 0x05; 
+    output(userResponseMsg);
+  }
+  else if (this.byte(0) == 0xFF)
+  {
+    write(">>> Receive OTA Fail from EDT");
+    write(">> Transmit OTA Fail to TMU");
+    userResponseMsg.byte(0) = 0xFF;
+    output(userResponseMsg);
+  }
+}
+on sysvar OTA_UserSelect
+{
+  if (otaRequestReceived == 1)  // 승인 요청이 들어온 경우에만 처리
+  {
+    if (@sysvar::OTA_UserSelect == 1)
+    {
+      userResponseMsg.byte(0) = 0x01;  // 사용자 승인
+      output(userResponseMsg);
+      write(">>> 사용자 승인 전송 완료");
+
+      otaRequestReceived = 0;  // 상태 초기화
+    }
+    else if (@sysvar::OTA_UserSelect == 2)
+    {
+      userResponseMsg.byte(0) = 0x02;  // 사용자 거부
+      output(userResponseMsg);
+      write(">>> 사용자 거부 전송 완료");
+
+      otaRequestReceived = 0;  // 상태 초기화
+    }
+  }
+  else if (otaRequestReceived == 2)
+  {
+    write(">>> OTA 승인 요청 상태가 아님 → 사용자 입력 무시");
+  }
+}
+
