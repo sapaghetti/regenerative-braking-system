@@ -1,6 +1,4 @@
 ﻿/*@!Encoding:65001*/
-/* TMU 측 CAPL */
-
 variables
 {
   msTimer checkTimer;
@@ -10,14 +8,20 @@ variables
   char change_buf[256];
   char ecu_info[4][10] = {"Init", "CGW", "TMU", "EDT"};
   char system_ver_buf[256];
+  char system_ver[10][10];
+  char ota_result;
   int i;
   int ecu_cnt = 3;
   int otaReady = 0;    // -1: , 0: 준비 안됨, 1: 사용자 승인 대기, 2: 승인됨, 3: 거부됨 4: 업데이트 완료
   int ecu_num = 0;
+  int cur_version[11];
+  int next_version[11];
   long result;
   long len = 256;
   
-  message 0x500 otaRequestMsg;
+  message TMU_CGW_E_OTA_REQ otaReqMsg;
+  message TMU_CGW_PE_OTA_DATA otaDataMsg;
+  
 }
 
 on start
@@ -31,6 +35,7 @@ on timer checkTimer
   if (otaReady == 0)
   {
     // OTA flag 감지 -> 
+    
     hFile = openFileRead("C:\\vscodestudy\\OTA_download\\Sapaghetti.bin", 0);
     if (hFile != 0)
     {
@@ -38,16 +43,16 @@ on timer checkTimer
       result = fileGetString(ecu_buffer, len, hFile);
       result = fileGetString(version_buffer, len, hFile);
       ecu_num = ecu_buffer[0] - '0';
-      @sysvar::Next_Ver[ecu_num] = version_buffer[0] - '0';
-      
+      //@sysvar::Next_Ver[ecu_num] = version_buffer[0] - '0';
+      next_version[ecu_num] = version_buffer[0] - '0';
       fileClose(hFile);
-      if (result > 0 && @sysvar::Cur_Ver[ecu_num] != @sysvar::Next_Ver[ecu_num])
+      if (result > 0 && cur_version[ecu_num] != next_version[ecu_num])
       {
         write(">>> OTA 준비됨 → CGW 에 승인 요청 전송");
-        write(">> OTA ECU: %d, NEW VERSION %d", ecu_num, @sysvar::Next_Ver[ecu_num]);
+        write(">> OTA ECU: %d, NEW VERSION %d", ecu_num, next_version[ecu_num]);
         // CGW 에 승인 요청 전송
-        otaRequestMsg.byte(0) = 0x01;  // OTA 승인 요청
-        output(otaRequestMsg);
+        otaReqMsg.byte(0) = 0x01;  // OTA 승인 요청
+        output(otaReqMsg);
         otaReady = 1;  // 사용자 응답 대기 상태로 변경
       }
     }
@@ -56,27 +61,19 @@ on timer checkTimer
   {
     otaReady = -1;
     write("TMU -> CGW OTA 수행 명령 및 .bin 파일 전달");
-    otaRequestMsg.byte(0) = 0x03;  // TMU -> CGW
-    output(otaRequestMsg);
+    otaDataMsg.byte(0) = 0x03;  // TMU -> CGW
+    otaDataMsg.byte(1) = (0x00 | (ecu_num << 4)) | next_version[ecu_num]; // 0x12 => 0001 -> ecu 정보, 0011 -> 버전 정보
+     //write("%d",otaRequestMsg.byte(1));
+    output(otaDataMsg);
   }
   else if (otaReady == 3)
   {
-    // 사용자 거부됨 → flag 상태 업데이트 (STATUS: REJECTED)
-    /*hFile = openFileWrite("C:\\vscodestudy\\OTA_flag\\ota_complete.flag", 0);
-    if (hFile != 0)
-    {
-      snprintf(change_buf, len, "STATUS: REJECTED");
-      filePutString(change_buf, len, hFile);
-      fileClose(hFile);
-      write(">>> OTA 거부됨 → STATUS: REJECTED 로 업데이트");
-    }
-    */
      otaReady = 1;  // 사용자 응답 대기 상태로 변경
      write(">>> CGW에 승인 요청 재전송");
-     write(">> OTA ECU: %d, NEW VERSION %d", ecu_num, @sysvar::Next_Ver[ecu_num]);
+     write(">> OTA ECU: %d, NEW VERSION %d", ecu_num, next_version[ecu_num]);
      // CGW 에 승인 요청 전송
-     otaRequestMsg.byte(0) = 0x01;  // OTA 승인 요청
-     output(otaRequestMsg);
+     otaReqMsg.byte(0) = 0x01;  // OTA 승인 요청
+     output(otaReqMsg);
   }
   else if (otaReady == 4)
   {
@@ -86,9 +83,11 @@ on timer checkTimer
     if (hFile != 0)
     {
       write(">>> System_version 작성");
+      cur_version[(ota_result & 0xF0) >> 4] = ota_result & 0x0F;
       for (i = 1; i <= ecu_cnt; i++)
       {
-        snprintf(system_ver_buf, len, "%s: %d\n", ecu_info[i], @sysvar::Cur_Ver[i]);
+        //snprintf(system_ver_buf, len, "%s: %d\n", ecu_info[i], @sysvar::Cur_Ver[i]);
+        snprintf(system_ver_buf, len, "%s: %d\n", ecu_info[i], cur_version[i]);
         filePutString(system_ver_buf, len, hFile);
       }
       fileClose(hFile);
@@ -98,10 +97,8 @@ on timer checkTimer
   setTimer(checkTimer, 1000);
 }
 
-on message 0x501
+on message CGW_TMU_E_OTA_REQ
 {
-  //write(">>> CGW 응답 수신: Data[0] = %d", this.byte(0));
-
   if (this.byte(0) == 0x01)
   {
     otaReady = 2;  // 사용자 승인됨
@@ -110,8 +107,20 @@ on message 0x501
   {
     otaReady = 3;  // 사용자 거부됨
   }
-  else if (this.byte(0) == 0x05)  // OTA 완료
+}
+on message CGW_TMU_E_OTA_RESULT
+{
+  if (this.byte(0) == 0x05)  // OTA 완료
   {
     otaReady = 4;
+    ota_result = this.byte(1);
   }
+}
+on message CGW_TMU_E_VER_INFO
+{
+  cur_version[(this.byte(0) & 0xF0) >> 4] = this.byte(0) & 0x0F;
+}
+on message EDT_TMU_E_VER_INFO
+{
+  cur_version[(this.byte(0) & 0xF0) >> 4] = this.byte(0) & 0x0F;
 }

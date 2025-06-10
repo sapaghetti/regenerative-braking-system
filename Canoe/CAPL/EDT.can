@@ -7,24 +7,31 @@ includes
 variables
 {
   msTimer otaTimer;
+  message EDT_CGW_E_OTA_RESULT otaResMsg;
+  message EDT_TMU_E_VER_INFO edtVerMsg;
   enum STATE
   {
     NOMAR_MODE,
     BOOTLOADER_MODE,
     OTA_COMPLETE
   }edtState = BOOTLOADER_MODE;
-  message 0x502 OTAResultMsg;
+ 
   dword hFile;
   char update_ver[1];
   char cur_ver[2];
-  byte bytebuffer[256];
+  char ota_data[2];
+  //byte bytebuffer[256];
   long len = 256;
   long result;
+  int i = 0;
   int mode = 0; // 0 : 첫 부팅시 부트로더 모드, 1 : ota로 인한 부트로더 모드, 2 : 기본
   int ota_result = 0;
   int cur_edt_version = 0;
+  int edt_num = 3;
   int version_num[11] = {0, 1, 2, 3, 4, 5,
                          6, 7, 8, 9, 10};
+                         
+
 }
 on start
 {
@@ -48,16 +55,23 @@ int writeBootloader()
 }
 void updateVersion()
 {
-  @sysvar::Cur_Ver[3] = @sysvar::Next_Ver[3];
-  cur_edt_version = @sysvar::Next_Ver[3];
+  //@sysvar::Cur_Ver[3] = @sysvar::Next_Ver[3];
+ // cur_edt_version = @sysvar::Next_Ver[3];
+  cur_edt_version = (ota_data[1] & 0x0F);
 }
-void readBootloader()
+void readBootloader() // 현재 버전 읽어오기
 {
   hFile = openFileRead("EDT_version.txt", 0);
   fileGetString(cur_ver, 2, hFile);
-  @sysvar::Cur_Ver[3] = _atoi64(cur_ver);
-  cur_edt_version = @sysvar::Cur_Ver[3];
+  //@sysvar::Cur_Ver[3] = _atoi64(cur_ver);
+  //cur_edt_version = @sysvar::Cur_Ver[3];
+  cur_edt_version = _atoi64(cur_ver);
   fileClose(hFile);
+}
+void sendEdtVersion()
+{
+  edtVerMsg.byte(0) = ((0x00 | edt_num << 4) | cur_edt_version);
+  output(edtVerMsg);
 }
 on timer otaTimer
 {
@@ -68,7 +82,7 @@ on timer otaTimer
       {
         // version : 1
       }
-      if (cur_edt_version >= version_num[2])
+      /*if (cur_edt_version >= version_num[2])
       {
         // version : 2
         if (@sysvar::Distance > 20)
@@ -86,12 +100,14 @@ on timer otaTimer
           }
         } 
       }
+      */
       break;
     case BOOTLOADER_MODE:
       if (mode == 0)
       {
-        write(">>> 첫 부팅 bootMode 진입");
+        write(">>> EDT 첫 부팅 bootMode 진입");
         readBootloader(); // 현재 저장된 버전 가져오기
+        sendEdtVersion();
         edtState = NOMAR_MODE;
       }
       else if (mode == 1)
@@ -108,13 +124,14 @@ on timer otaTimer
       if (ota_result == 1)
       {
         write(">>> OTA Success!");
-        OTAResultMsg.byte(0) = 0x05; // Send Complete Msg to CGW
-        output(OTAResultMsg);
+        otaResMsg.byte(0) = 0x05; // Send Complete Msg to CGW
+        otaResMsg.byte(1) = ((0x00 | (edt_num << 4)) | cur_edt_version);
+        output(otaResMsg);
       }
       else
       {
         write(">>> OTA Fail!");
-        OTAResultMsg.byte(0) = 0xFF;
+        otaResMsg.byte(0) = 0xFF;
       }
       edtState = NOMAR_MODE;
       break;
@@ -122,15 +139,24 @@ on timer otaTimer
   setTimer(otaTimer, 100);
 }
 
-on message 0x501
+on message CGW_EDT_PE_OTA_DATA
 {
   if (this.byte(0) == 0x04)
   {
-    if (@sysvar::Next_Ver[3] != 0)
+    
+    if ((this.byte(1) & 0xF0) == 0x30)
+    {
+      mode = 1;
+      edtState = BOOTLOADER_MODE;
+      ota_data[1] = this.byte(1);
+      //write("%d", ota_data[1]);
+    }
+    /*if (@sysvar::Next_Ver[3] != 0)
     {
       mode = 1;
       edtState = BOOTLOADER_MODE;
     }
+    */
   }
 }
 

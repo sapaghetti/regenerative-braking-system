@@ -1,0 +1,98 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: EDT TMU CGW
+
+
+BO_ 260 CGW_TMU_E_OTA_REQ: 1 CGW
+ SG_ request : 0|8@1- (1,0) [0|10] ""  TMU
+
+BO_ 259 CGW_TMU_E_OTA_RESULT: 2 CGW
+ SG_ edt_result : 0|8@1- (1,0) [0|1] ""  TMU
+
+BO_ 258 CGW_EDT_PE_OTA_DATA: 2 CGW
+ SG_ data : 0|8@1+ (1,0) [0|1] ""  EDT
+
+BO_ 514 TMU_CGW_E_OTA_REQ: 1 TMU
+ SG_ request : 0|8@1- (1,0) [0|10] ""  CGW
+
+BO_ 513 TMU_Version: 1 Vector__XXX
+ SG_ tmu_version : 0|8@1- (1,0) [0|10] "" Vector__XXX
+
+BO_ 257 CGW_TMU_E_VER_INFO: 1 CGW
+ SG_ cgw_version : 0|8@1- (1,0) [0|127] ""  TMU
+
+BO_ 769 EDT_TMU_E_VER_INFO: 1 EDT
+ SG_ edt_version : 0|8@1- (1,0) [0|127] ""  TMU
+
+BO_ 771 EDT_CGW_E_OTA_RESULT: 2 EDT
+ SG_ edt_result : 0|8@1- (1,0) [0|1] ""  CGW
+
+BO_ 515 TMU_CGW_PE_OTA_DATA: 2 TMU
+ SG_ data : 0|8@1+ (1,0) [0|1] ""  CGW
+
+
+
+BA_DEF_  "MultiplexExtEnabled" ENUM  "No","Yes";
+BA_DEF_ BO_  "CANFD_BRS" ENUM  "0","1";
+BA_DEF_  "DBName" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 0;
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+BA_DEF_DEF_  "MultiplexExtEnabled" "No";
+BA_DEF_DEF_  "CANFD_BRS" "1";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_DEF_DEF_  "VFrameFormat" "StandardCAN";
+BA_ "BusType" "CAN FD";
+BA_ "DBName" "test1";
+BA_ "VFrameFormat" BO_ 258 14;
+BA_ "VFrameFormat" BO_ 514 14;
+BA_ "VFrameFormat" BO_ 257 14;
+BA_ "VFrameFormat" BO_ 769 14;
+BA_ "VFrameFormat" BO_ 771 14;
+BA_ "VFrameFormat" BO_ 515 14;
+
