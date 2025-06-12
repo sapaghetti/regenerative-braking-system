@@ -1,0 +1,106 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: SW_Button Voice_Rec ZCU_Center
+VAL_TABLE_ New_Value_Table_7 ;
+VAL_TABLE_ vtbSensorReqCause 15 "SNA" 2 "by Request 2" 1 "by Request 1" 0 "normal cycle" ;
+VAL_TABLE_ vtbErrorDescription 255 "ERROR" ;
+
+
+BO_ 513 L003_Voice_Command: 8 Voice_Rec
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  ZCU_Center
+ SG_ Voice_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  ZCU_Center
+ SG_ Language_ID : 24|8@1+ (1,0) [0|1] ""  ZCU_Center
+ SG_ Confidence_Level : 16|8@1+ (1,0) [0|100] "%"  ZCU_Center
+ SG_ Command_Value : 8|8@1+ (1,0) [0|255] ""  ZCU_Center
+ SG_ Command_Type : 0|8@1+ (1,0) [0|2] ""  ZCU_Center
+
+BO_ 514 L004_SW_Button_Input: 8 SW_Button
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  ZCU_Center
+ SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  ZCU_Center
+ SG_ Event_Counter : 24|8@1+ (1,0) [0|255] ""  ZCU_Center
+ SG_ Press_Duration : 16|8@1+ (10,0) [0|2550] "ms"  ZCU_Center
+ SG_ Button_Action : 8|8@1+ (1,0) [0|2] ""  ZCU_Center
+ SG_ Button_ID : 0|8@1+ (1,0) [0|3] ""  ZCU_Center
+
+
+
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+BA_DEF_  "DatabaseVersion" STRING ;
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes","vector_leerstring";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes","vector_leerstring";
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ SG_  "GenSigStartValue" FLOAT 0 1215752192;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed";
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 100000;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","NotUsed","NotUsed","NotUsed","NotUsed","Cyclic","NotUsed","IfActive","NoMsgSendType","NotUsed","vector_leerstring";
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 999999;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 50000;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 50000;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgFastOnStart" INT 0 100000;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 100000;
+BA_DEF_DEF_  "VFrameFormat" "ExtendedCAN_FD";
+BA_DEF_DEF_  "DatabaseVersion" "";
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "Manufacturer" "Vector";
+BA_DEF_DEF_  "NodeLayerModules" "CANoeILNLVector.dll";
+BA_DEF_DEF_  "BusType" "CAN";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "Cyclic";
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenMsgSendType" "NoMsgSendType";
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTime" 200;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 20;
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "GenMsgFastOnStart" 0;
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_ "BusType" "CAN FD";
+BA_ "DatabaseVersion" "1.1";
+BA_ "VFrameFormat" BO_ 513 14;
+BA_ "VFrameFormat" BO_ 514 14;
+VAL_ 513 Language_ID 1 "English" 0 "Korean" ;
+VAL_ 513 Command_Type 2 "System_Info" 1 "Profile_Change" 0 "Mode_Change" ;
+VAL_ 514 Button_Action 2 "Long_Press" 1 "Release" 0 "Press" ;
+VAL_ 514 Button_ID 3 "Auto_Toggle" 2 "Profile_Change" 1 "Mode_Down" 0 "Mode_Up" ;
+
