@@ -199,21 +199,6 @@ BO_ 2235566337 M016_Diagnostic_Data_4: 8 ZCU_Rear
  SG_ CPU_Usage : 8|8@1+ (1,0) [0|100] "%" ZCU_Center,ZCU_Front,HPC
  SG_ ECU_ID : 0|8@1+ (1,0) [0|255] "" ZCU_Center,ZCU_Front,HPC
 
-BO_ 2232421121 M019_Energy_Efficiency: 8 HPC
- SG_ Data_Quality : 56|8@1+ (1,0) [0|100] "%"  ZCU_Rear,ZCU_Center,ZCU_Front
- SG_ Efficiency_Ratio : 48|8@1+ (0.5,0) [0|127.5] "%"  ZCU_Rear,ZCU_Center,ZCU_Front
- SG_ Total_Regen_Energy : 32|16@1+ (1,0) [0|65535] "Wh"  ZCU_Rear,ZCU_Center,ZCU_Front
- SG_ Average_Regen_Voltage : 16|16@1+ (0.1,0) [0|6553.5] "V"  ZCU_Rear,ZCU_Center,ZCU_Front
- SG_ Integrated_Regen_Current : 0|16@1+ (0.01,0) [0|655.35] "Ah"  ZCU_Rear,ZCU_Center,ZCU_Front
-
-BO_ 2232421122 M020_Brake_Performance: 8 HPC
- SG_ Analysis_Confidence : 56|8@1+ (1,0) [0|100] "%"  ZCU_Rear,ZCU_Center,ZCU_Front
- SG_ Blending_Efficiency : 48|8@1+ (1,0) [0|100] "%"  ZCU_Rear,ZCU_Center,ZCU_Front
- SG_ Average_Deceleration : 32|16@1+ (0.01,0) [0|655.35] "m/s^2"  ZCU_Rear,ZCU_Center,ZCU_Front
- SG_ Max_Jerk_Recorded : 16|16@1+ (0.1,0) [0|6553.5] "m/s^3"  ZCU_Rear,ZCU_Center,ZCU_Front
- SG_ Friction_Brake_Ratio : 8|8@1+ (1,0) [0|100] "%"  ZCU_Rear,ZCU_Center,ZCU_Front
- SG_ Regen_Brake_Ratio : 0|8@1+ (1,0) [0|100] "%"  ZCU_Rear,ZCU_Center,ZCU_Front
-
 BO_ 2149647873 M021_Functional_Safety_2: 8 ZCU_Front
  SG_ Safety_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
  SG_ Safe_State_Transition : 40|8@1+ (1,0) [0|255] ""  HPC
@@ -342,7 +327,7 @@ BA_DEF_DEF_  "GenMsgILSupport" "Yes";
 BA_DEF_DEF_  "GenMsgFastOnStart" 0;
 BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
 BA_ "BusType" "CAN FD";
-BA_ "DatabaseVersion" "1.3";
+BA_ "DatabaseVersion" "";
 BA_ "VFrameFormat" BO_ 2151679489 15;
 BA_ "VFrameFormat" BO_ 2150630913 15;
 BA_ "VFrameFormat" BO_ 2149582337 15;
@@ -374,10 +359,6 @@ BA_ "VFrameFormat" BO_ 2215838977 15;
 BA_ "VFrameFormat" BO_ 2215904514 15;
 BA_ "GenMsgCycleTime" BO_ 2232420609 1000;
 BA_ "VFrameFormat" BO_ 2232420609 15;
-BA_ "GenMsgCycleTime" BO_ 2232421121 200;
-BA_ "VFrameFormat" BO_ 2232421121 15;
-BA_ "GenMsgCycleTime" BO_ 2232421122 500;
-BA_ "VFrameFormat" BO_ 2232421122 15;
 BA_ "GenMsgCycleTime" BO_ 2149647873 100;
 BA_ "VFrameFormat" BO_ 2149647873 15;
 BA_ "GenMsgCycleTime" BO_ 2150696449 100;
