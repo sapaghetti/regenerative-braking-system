@@ -1,0 +1,144 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  
+}
+
+variables
+{
+  int currentMode = 0;
+  message M001_Regen_Torque_Cmd tmp_Regen_Torque_Cmd;
+  enum Regen_Mode // CAN-93
+  {
+    LEVEL_0 = 0,
+    LEVEL_1 = 1,
+    LEVEL_2 = 2,
+    LEVEL_3 = 3,
+    AUTO    = 4
+  };
+  
+/* ================================= */
+  enum bool
+  {
+    true = 1,
+    false = 0
+  };
+  
+  int vehicleSpeed = 0;
+  int e2eCounter = 0;
+  int batterySoC = 0;
+  
+  int batteryTemp = 25;
+  enum bool limitTorque = false;
+  float torqueCmd = 0.0; // 계산된 회생 토크
+  float torqueCurrent = 0.0; // 실제 회생 토크
+  
+  msTimer t_regenCalcTorque;
+  msTimer t_softLimitTorque;
+  
+/* ================================= */
+  msTimer t_CLUInfo;
+}
+
+void setRegenMode(int mode) // CAN-94
+{
+  if(mode < 0 || mode > 4)
+  {
+    write("Invalid regen mode: %d", mode);
+    return;
+  }
+  
+  currentMode = mode;
+  write("Regen Mode changed to: %d", currentMode);
+  
+  tmp_Regen_Torque_Cmd.Regen_Mode = currentMode;
+  output(tmp_Regen_Torque_Cmd);
+}
+
+on key '0' {setRegenMode(LEVEL_0); }
+on key '1' {setRegenMode(LEVEL_1); }
+on key '2' {setRegenMode(LEVEL_2); }
+on key '3' {setRegenMode(LEVEL_3); }
+on key '4' {setRegenMode(AUTO); }
+
+/* ================================= */
+on message M005_Vehicle_Dynamics
+{
+  //get vehicleSpeed
+}
+
+on timer t_regenCalcTorque // CAN-95
+{
+  float tempTorque = 0.0;
+
+  switch (currentMode)
+  {
+    case 0: tempTorque = 0.0; break;
+    case 1: tempTorque = -0.05 * vehicleSpeed; break;
+    case 2: tempTorque = -0.1  * vehicleSpeed; break;
+    case 3: tempTorque = -0.15 * vehicleSpeed; break;
+    case 4: tempTorque = -0.1  * vehicleSpeed; break;
+  }
+
+  // 범위 제한
+  if (tempTorque < -3200) tempTorque = -3200;
+  if (tempTorque >  3200) tempTorque =  3200;
+
+  torqueCmd = tempTorque;
+
+  if (!limitTorque)
+  {
+    torqueCurrent = torqueCmd;
+  }
+
+  // 메시지 전송
+  tmp_Regen_Torque_Cmd.Target_Regen_Torque = torqueCurrent;
+  tmp_Regen_Torque_Cmd.Regen_Mode = currentMode;
+  tmp_Regen_Torque_Cmd.Torque_Rate_Limit = 50;
+  tmp_Regen_Torque_Cmd.Max_Regen_Power = 40;
+  tmp_Regen_Torque_Cmd.E2E_Counter = e2eCounter;
+  tmp_Regen_Torque_Cmd.E2E_CRC16 = 0xFFFF; // 실제는 calcCRC16 함수로 대체
+  output(tmp_Regen_Torque_Cmd);
+
+  e2eCounter = (e2eCounter + 1) % 256;
+
+  setTimer(t_regenCalcTorque, 200);
+}
+
+on message M006_Battery_Basic // CAN-99
+{
+  batterySoC = this.Battery_SOC;
+  batteryTemp = this.Battery_Temp;
+  
+  if(batterySoC >= 95 || batteryTemp < 0 || batteryTemp > 45)
+  {
+    limitTorque = true;
+    setTimer(t_softLimitTorque, 50);
+  }
+  else
+  {
+    limitTorque = false;
+    torqueCurrent = torqueCmd;
+  }
+}
+
+on timer t_softLimitTorque
+{
+  // 선형 감소 (50ms마다 10%씩 줄이기)
+  torqueCurrent = torqueCurrent * 0.9;
+
+  // 거의 0에 도달하면 멈춤
+  if (abs(torqueCurrent) < 1.0)
+  {
+    torqueCurrent = 0.0;
+    return;
+  }
+
+  setTimer(t_softLimitTorque, 50);
+}
+
+on timer t_CLUInfo
+{
+  // send to ZCU_Center as M012
+  setTimer(t_CLUInfo, 100);
+}
