@@ -2,106 +2,112 @@
 
 ECU : TMU, CGW, EDT
 
-app.py로 서버 구동, Client는 download_file.py을 실행시켜 최신 업데이트 파일 감지
-
-TMU가 파일 감지해서 각 CGW로 승인요청을 보내 사용자 승인을 받고 각 ECU에 업데이트 메세지 전송
-
-## 🚗 1️⃣ app.py — OTA 서버 (Flask 기반 웹 서버)
-### 전체 역할
-* 클라이언트가 다운로드 받을 OTA 업데이트 파일(.bin) 을 업로드하고 관리
-
-* 최신 버전 정보를 제공 (/latest_version)
-
-* 다운로드 요청 시 Nonce 기반 인증 후 파일 전송 (/ota_download/<filename>)
-
-* 로그인 및 권한 관리 (Admin만 업로드 가능)
-
-* IP 접근 제한
-
-* Audit Log 기록 (로그인, 다운로드, 업로드 기록)
-
-### 주요 구성
-* 로그인 화면 =>	 /login (CSRF 적용)
-* 로그아웃 => /logout
-* 파일 업로드 화면	=> /
-* 파일 업로드 API => /upload
-* 파일 다운로드 API (Admin 전용) => /upload/<filename>
-* Nonce 발급 => /get_nonce
-* 최신 버전 정보 제공 => /latest_version
-* OTA 다운로드 (Nonce 인증) => /ota_download/<filename>
-
-### 보안 기능
-✅ Nonce 발급 후 인증 다운로드 (재사용 불가)
-
-✅ CSRF 보호 적용
-
-✅ IP 제한 (허용 IP만 접근 가능)
-
-✅ 로그인 시 bcrypt 해시 사용
-
-✅ Audit Log 기록
-
-✅ Session 기반 권한 관리 (Admin role만 업로드 가능)
-
-
-### OTA 흐름 (서버 관점)
-1️⃣ Client가 /latest_version 호출 → 최신 버전 정보 획득
-
-2️⃣ Client가 /get_nonce 호출 → Nonce 획득
-
-3️⃣ Client가 /ota_download/<filename>?nonce=... 로 다운로드 요청
-
-4️⃣ 서버는 Nonce 검증 후 파일 전송
+### OTA 시스템 보안 설계 요약 (make\_bin\_file\_hybrid.py / app.py / download\_file.py)
 
 ---
 
-## 📥 2️⃣ download_file.py — OTA 클라이언트 (자동 다운로드 스크립트)
-### 전체 역할
-* 주기적으로 OTA 서버 /latest_version API 확인
+## ✅ 전체 시스템 개요
 
-* 서버에 새로운 버전이 있으면 다운로드 수행
+이 OTA 시스템은 **하이브리드 암호화 (RSA + AES)**, **전자서명**, **SHA256 해시**, **Nonce**, **타임스탬프** 등을 조합하여 **기밀성, 무결성, 인증, 최신성**을 보장합니다.
 
-* Nonce 발급 후 다운로드 시도
+---
 
-* SHA256 무결성 검사 후 성공/실패 기록
+## 📦 1. make\_bin\_file\_hybrid.py – 보안 펌웨어 생성
 
-* 진행률 파일 (progress.txt) 기록
+| 주요 역할      | 설명                                                                                |
+| ---------- | --------------------------------------------------------------------------------- |
+| 펌웨어 로드     | `firmware.bin` 로드                                                                 |
+| 키 로딩       | 서버 RSA 개인키(서명용), 차량 RSA 공개키(AES 키 암호화용)                                           |
+| SHA256 해시  | 펌웨어 코드 해싱 → 헤더 포함, 서명 대상                                                          |
+| 전자서명 생성    | 해시에 서버 RSA 개인키로 서명 (PKCS#1 v1.5)                                                  |
+| AES 대칭키 생성 | 매번 새로운 AES 키 및 nonce 생성                                                           |
+| 펌웨어 암호화    | AES CTR 모드로 코드 암호화                                                                |
+| AES 키 암호화  | 차량 RSA 공개키로 암호화 (PKCS#1 OAEP)                                                     |
+| 헤더 구성      | Magic, Timestamp, ECU ID, Version, Code Len, SHA256 해시, AES Nonce 포함              |
+| 최종 파일 생성   | header + enc\_aes\_key + signature + enc\_firmware → `firmware_secure_hybrid.bin` |
 
-* 마지막으로 성공한 파일의 SHA 기록 (downloaded_sha.txt)
+### 🔒 보안 보장 요소
 
-### 주요 구성
+* **기밀성**: AES + RSA 하이브리드 암호화
+* **무결성**: SHA256 해시 + 전자서명
+* **인증**: 서버 개인키 기반 서명
+* **최신성**: 타임스탬프 포함
 
-* /latest_version 조회                     => 서버에서 최신 버전 정보 확인
-* /get_nonce 요청                          => 다운로드용 Nonce 발급 받음
-* /ota_download/<filename>?nonce=... 요청  => 다운로드 시도
-* SHA256 체크                              => 다운로드 후 파일 무결성 확인
-* 성공 시 SHA 기록                          => downloaded_sha.txt 에 기록
-* 다운로드 진행률 기록                      => progress.txt 파일로 진행 상태 표시
-* 다운로드 주기                             => 기본 10초마다 체크
+---
 
-### 보안/신뢰성 기능
-✅ Nonce 기반 다운로드 (재사용 불가)
+## 🌐 2. app.py – OTA 서버 (Flask 기반)
 
-✅ SHA256 무결성 검증
+| 기능 분류     | 설명                                                          |
+| --------- | ----------------------------------------------------------- |
+| 웹 서버 구현   | Flask 기반 API: 업로드/다운로드/버전 보고 등 제공                           |
+| 관리자 인증    | `/login`, `/upload_firmware`, `/vehicles`, `/users`는 로그인 필요 |
+| 펌웨어 업로드   | `firmware.bin` 업로드 → 보안 처리 대상                               |
+| 최신 정보 제공  | `/latest_version`: 최신 버전명, SHA256 해시 제공                     |
+| nonce 발급  | `/get_nonce`: 1회용 난수 발급 → 재사용 공격 방지                         |
+| 다운로드 제공   | `/ota_download/<filename>`: nonce + 토큰 필요                   |
+| ECU 버전 보고 | `/report_versions`: 차량 토큰 기반, versions.json 저장              |
+| 보안 로깅     | `audit.log`에 로그인, 다운로드, 보고 기록 저장                            |
 
-✅ 다운로드 실패 시 재시도(MAX 3회)
+### 🔐 보안 보장 요소
+
+* **인증**: 차량 토큰 + 관리자 로그인
+* **최신성**: nonce 기반 다운로드 요청
+* **무결성 보조**: SHA256 해시 제공
+* **감사 가능성**: 로그 기록
+
+---
+
+## 🚗 3. download\_file.py – OTA 클라이언트
+
+| 기능 분류      | 설명                                                                  |
+| ---------- | ------------------------------------------------------------------- |
+| 서버 통신      | `latest_version`, `get_nonce`, `ota_download`, `report_versions` 요청 |
+| 키 로딩       | 차량 RSA 개인키, 서버 RSA 공개키 로딩                                           |
+| 펌웨어 다운로드   | nonce 포함된 요청 → firmware\_secure\_hybrid.bin 수신                      |
+| 무결성 확인 (1) | 다운로드 완료 후 SHA256 → 서버 제공 해시와 비교                                     |
+| 파일 파싱      | header 분석 → Magic, Timestamp, ECU ID, Version, 등 추출                 |
+| 최신성 확인     | 타임스탬프가 30일 이내인지 확인                                                  |
+| AES 키 복호화  | 차량 개인키로 암호화된 AES 키 복호화                                              |
+| 펌웨어 복호화    | AES 키 + nonce로 원본 복원                                                |
+| 무결성 확인 (2) | 복호화된 코드의 SHA256과 헤더 해시 비교                                           |
+| 전자서명 검증    | 해시 + 전자서명 → 서버 공개키로 검증                                              |
+| CANoe 연동   | 시스템 변수 설정 → 사용자 승인 / 결과 확인 / ECU 버전 조회                              |
+| 서버에 보고     | OTA 완료 후 ECU 버전 정보를 다시 전송                                           |
+
+### 🔒 보안 보장 요소
+
+* **기밀성**: 복호화 시에만 원본 확인 가능 (RSA + AES)
+* **무결성**: 2단계 SHA256 해시 확인
+* **인증**: 서버 서명 검증
+* **최신성**: 타임스탬프 유효성 검사
+* **재사용 방지**: nonce 사용
+
+---
+
+## 🔐 전체 보안 흐름 요약
+
+| 단계         | 적용 보안 요소                                                 |
+| ---------- | -------------------------------------------------------- |
+| 생성 (서버)    | 인증(서명), 기밀성(RSA+AES), 무결성(SHA256), 최신성(타임스탬프)            |
+| 배포 (서버)    | 인증(토큰), 재사용 방지(nonce), 무결성 검증용 해시, 로그 기록                 |
+| 설치 (클라이언트) | 기밀성(AES 복호화), 무결성(SHA256x2), 인증(서명 검증), 최신성 검사, nonce 사용 |
+
+---
+
+## System Variable
+
+| NameSpace        | Name      | Detail      | 
+| ---------- | ------------------------ |------------------------ |
+| CAR    | addSpeed            | 가속도           |
+| CAR    | Distance            | 앞차와의 거리    |
+| CAR    | vehSpeed            | 차량 속도        |
+| OTA    | Cur_version[]             | ecu들의 현재 버전        |
+| OTA    | Next_version[]            | ecu들의 업데이트 될 버전        |
+| OTA    | ECU_id            | target ecu id        |
+| OTA    | ECU_ver            | target ecu version        |
+| OTA    | Ota_flag            | ota 승인, 거절 진행등 ota 상태        |
+| OTA    | Version_num[]            | 1~10까지의 버전 정보        |
+| OTA    | OTA_UserSelect            | 승인/거절 입력        |
 
 
-### OTA 흐름 (클라이언트 관점)
-1️⃣ /latest_version API 호출 → 최신 SHA256 확인
-
-2️⃣ 기존에 다운로드한 SHA와 비교
-
-→ 이미 최신이면 skip
-
-→ 다르면 다운로드 시도
-3️⃣ /get_nonce 호출 → Nonce 발급
-
-4️⃣ 다운로드 시도
-
-5️⃣ 다운로드 후 SHA256 검사
-
-6️⃣ 성공 시 SHA 기록
-
-7️⃣ 실패 시 재시도 (최대 3회)
 
