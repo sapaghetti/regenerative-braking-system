@@ -5,6 +5,7 @@ variables
   const int SYSTEM_VERSION = 0x0100;
   const int MAIN_CYCLE = 10;
   const int TIMEOUT_HPC = 100;
+  const int TIMEOUT_ADAS = 150;
   const int MAX_COMM_FAILURES = 3;
 
   const float APS_MIN = 0.0;
@@ -16,7 +17,8 @@ variables
   const dword FAULT_APS_SENSOR = 0x00000001;
   const dword FAULT_BPPS_SENSOR = 0x00000002;
   const dword FAULT_HPC_COMM = 0x00000004;
-  const dword FAULT_CROSS_CHECK = 0x00000008;
+  const dword FAULT_ADAS_COMM = 0x00000008;
+  const dword FAULT_CROSS_CHECK = 0x00000010;
 
   enum SystemState {
     STATE_INIT = 0,
@@ -29,15 +31,15 @@ variables
   enum SystemState previousState;
 
   struct SensorData {
-    float apsPosition, bppsPosition, vehicleSpeed;
-    byte apsStatus, bppsStatus, sensorsValid;
+    float apsPosition, bppsPosition, vehicleSpeed, frontVehicleDistance, frontVehicleSpeed;
+    byte apsStatus, bppsStatus, laneChangeIndicator, roadCondition, sensorsValid;
   };
   struct SensorData sensors;
 
   struct CommMonitor {
-    dword lastRxTime_HPC;
-    int failureCount_HPC;
-    byte firstMsgReceived_HPC;
+    dword lastRxTime_HPC, lastRxTime_ADAS;
+    int failureCount_HPC, failureCount_ADAS;
+    byte firstMsgReceived_HPC, firstMsgReceived_ADAS;
   };
   struct CommMonitor commMon;
 

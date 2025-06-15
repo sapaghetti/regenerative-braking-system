@@ -51,6 +51,30 @@ on timer timerMainTask
   gTaskCounter++;
 }
 
+on message L002_ADAS_Sensor
+{
+  if(commMon.firstMsgReceived_ADAS == 0)
+  {
+    write("ZCU_Front: First ADAS message received.");
+    commMon.firstMsgReceived_ADAS = 1;
+  }
+  commMon.lastRxTime_ADAS = timeNowNS() / 1000000;
+  
+  sensors.frontVehicleDistance = this.Front_Vehicle_Distance;
+  sensors.frontVehicleSpeed = this.Front_Vehicle_Speed;
+  sensors.laneChangeIndicator = this.Lane_Change_Indicator;
+  sensors.roadCondition = this.Road_Condition;
+  
+  if (sensors.frontVehicleDistance >= 0 && sensors.frontVehicleDistance <= 6553.5 &&
+      sensors.frontVehicleSpeed >= 0 && sensors.frontVehicleSpeed <= 6553.5) {
+    sensors.sensorsValid |= 0x02;
+    commMon.failureCount_ADAS = 0;
+    ClearFault(FAULT_ADAS_COMM);
+  } else {
+    sensors.sensorsValid &= ~0x02;
+  }
+}
+
 on key 'f'
 {
   write("ZCU_Front: Manual fault injection - HPC_COMM");
@@ -63,6 +87,7 @@ on key 'c'
   faultRegister = 0;
   diagnostics.errorFlags = 0;
   commMon.failureCount_HPC = 0;
+  commMon.failureCount_ADAS = 0;
   TransitionToState(STATE_INIT);
 }
 
@@ -71,6 +96,7 @@ on key 's'
   write("=== ZCU_Front Status ===");
   write("State: %d, Faults: 0x%08X", currentState, faultRegister);
   write("APS: %.1f%%, BPPS: %.1f%%, Speed: %.1fkm/h", sensors.apsPosition, sensors.bppsPosition, sensors.vehicleSpeed);
-  write("Comm: HPC Fail=%d", commMon.failureCount_HPC);
+  write("ADAS: Distance=%.1fm, Speed=%.1fkm/h", sensors.frontVehicleDistance, sensors.frontVehicleSpeed);
+  write("Comm: HPC Fail=%d, ADAS Fail=%d", commMon.failureCount_HPC, commMon.failureCount_ADAS);
   write("========================");
 }

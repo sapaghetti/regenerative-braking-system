@@ -58,8 +58,13 @@ void UpdateSystemState()
     return;
   }
   
+  if (faultRegister & FAULT_ADAS_COMM) {
+    if (currentState != STATE_DEGRADED && currentState != STATE_FAIL_SAFE) TransitionToState(STATE_DEGRADED);
+    return;
+  }
+  
   if (faultRegister == 0) {
-    if (currentState == STATE_INIT && commMon.firstMsgReceived_HPC) {
+    if (currentState == STATE_INIT && commMon.firstMsgReceived_HPC && commMon.firstMsgReceived_ADAS) {
         TransitionToState(STATE_NORMAL);
     } else if (currentState != STATE_NORMAL && currentState != STATE_INIT) {
         TransitionToState(STATE_NORMAL);
@@ -244,6 +249,17 @@ void MonitorCommunication()
       }
     }
   }
+  
+  if (commMon.firstMsgReceived_ADAS) {
+    elapsedTime = currentTime - commMon.lastRxTime_ADAS;
+    if (elapsedTime > TIMEOUT_ADAS) {
+      commMon.failureCount_ADAS++;
+      if (commMon.failureCount_ADAS >= MAX_COMM_FAILURES) {
+        SetFault(FAULT_ADAS_COMM);
+        sensors.sensorsValid &= ~0x02;
+      }
+    }
+  }
 }
 
 void InitializeGlobals()
@@ -253,11 +269,16 @@ void InitializeGlobals()
   initTime = timeNowNS() / 1000000;
 
   sensors.apsPosition = 0; sensors.bppsPosition = 0; sensors.apsStatus = 0;
-  sensors.bppsStatus = 0; sensors.vehicleSpeed = 0; sensors.sensorsValid = 0;
+  sensors.bppsStatus = 0; sensors.vehicleSpeed = 0; sensors.frontVehicleDistance = 0;
+  sensors.frontVehicleSpeed = 0; sensors.laneChangeIndicator = 0; sensors.roadCondition = 0;
+  sensors.sensorsValid = 0;
 
   commMon.lastRxTime_HPC = initTime;
+  commMon.lastRxTime_ADAS = initTime;
   commMon.failureCount_HPC = 0;
+  commMon.failureCount_ADAS = 0;
   commMon.firstMsgReceived_HPC = 0;
+  commMon.firstMsgReceived_ADAS = 0;
 
   diagnostics.errorFlags = 0;
   
