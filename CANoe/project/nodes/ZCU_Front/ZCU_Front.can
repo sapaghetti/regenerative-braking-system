@@ -1,10 +1,22 @@
 /*@!Encoding:65001*/
+/**
+ * @file ZCU_Front.can
+ * @brief ZCU_Front의 메인 CAPL 스크립트
+ * @author jjongs2
+ * @version 1.00
+ * @date 2025-06-15
+ */
+
 includes
 {
   #include "ZCU_Front_Config.cin"
   #include "ZCU_Front_Functions.cin"
 }
 
+/**
+ * @brief 시뮬레이션 시작 시 호출되는 이벤트 핸들러
+ * @note 전역 변수 초기화, 보안 부팅, 자체 테스트 수행 및 주기적 타이머 설정
+ */
 on start
 {
   write("ZCU_Front ECU Starting - Version %d.%02d", (SYSTEM_VERSION >> 8), (SYSTEM_VERSION & 0xFF));
@@ -22,12 +34,24 @@ on start
   setTimerCyclic(timerMainTask, MAIN_CYCLE);
 }
 
+/**
+ * @brief 시뮬레이션 중지 시 호출되는 이벤트 핸들러
+ * @note 시스템 종료 작업을 수행
+ */
 on stopMeasurement
 {
   write("ZCU_Front: Shutting down...");
   write("ZCU_Front: Shutdown complete");
 }
 
+/**
+ * @brief 주기적인 메인 태스크 타이머 이벤트 핸들러
+ * @note 시스템 상태에 따라 다양한 주기로 작업을 예약하고 실행
+ *       - 10ms: 브레이크 페달 메시지 전송
+ *       - 20ms: 차량 동역학 메시지 전송
+ *       - 50ms: 워치독 검사
+ *       - 100ms: 진단, 통신 모니터링, 상태 업데이트
+ */
 on timer timerMainTask
 {
   if(currentState != STATE_FAIL_SAFE)
@@ -58,6 +82,10 @@ on timer timerMainTask
   gTaskCounter++;
 }
 
+/**
+ * @brief EPAS 데이터 메시지 수신 이벤트 핸들러
+ * @note EPAS로부터 조향 데이터를 수신하고 통신 상태 및 센서 유효성 검증
+ */
 on message L001_EPAS_Data
 {
   if(commMon.firstMsgReceived_EPAS == 0)
@@ -99,6 +127,10 @@ on message L001_EPAS_Data
   gLastEpasCounter = this.Message_Counter;
 }
 
+/**
+ * @brief ADAS 센서 데이터 메시지 수신 이벤트 핸들러
+ * @note ADAS로부터 센서 데이터를 수신하고 통신 상태 및 센서 유효성 검증
+ */
 on message L002_ADAS_Sensor
 {
   if(commMon.firstMsgReceived_ADAS == 0)
@@ -128,12 +160,20 @@ on message L002_ADAS_Sensor
   }
 }
 
+/**
+ * @brief 키보드 'f' 키 입력 이벤트 핸들러
+ * @note 수동으로 EPAS 통신 폴트를 주입하여 테스트
+ */
 on key 'f'
 {
   write("ZCU_Front: Manual fault injection - EPAS_COMM");
   SetFault(FAULT_EPAS_COMM);
 }
 
+/**
+ * @brief 키보드 'c' 키 입력 이벤트 핸들러
+ * @note 모든 폴트를 지우고 상태를 초기화
+ */
 on key 'c'
 {
   write("ZCU_Front: Clearing all faults");
@@ -144,6 +184,10 @@ on key 'c'
   TransitionToState(STATE_INIT);
 }
 
+/**
+ * @brief 키보드 's' 키 입력 이벤트 핸들러
+ * @note 현재 ZCU_Front의 모든 주요 상태 정보를 콘솔에 출력
+ */
 on key 's'
 {
   write("=== ZCU_Front Status ===");

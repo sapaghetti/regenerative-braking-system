@@ -1,4 +1,21 @@
 /*@!Encoding:65001*/
+/**
+ * @file ZCU_Front_Functions.cin
+ * @brief ZCU_Front의 모든 함수 정의
+ * @author jjongs2
+ * @version 1.00
+ * @date 2025-06-15
+ */
+
+/*******************************************************************************
+ * 보안 기능
+ ******************************************************************************/
+
+/**
+ * @brief 시스템 부팅 시 보안 검증을 수행
+ * @return 검증 성공 시 1, 실패 시 0
+ * @note 펌웨어 서명을 검증하여 변조된 소프트웨어 실행을 방지
+ */
 byte PerformSecureBoot()
 {
   dword expectedSignature, actualSignature;
@@ -19,22 +36,43 @@ byte PerformSecureBoot()
   return 1;
 }
 
+/*******************************************************************************
+ * 상태 관리 함수
+ ******************************************************************************/
+
+/**
+ * @brief FAIL_SAFE 상태 진입 시 호출되는 함수
+ * @note 시스템 안전을 보장하기 위해 모든 CAN 전송을 중지하고 고장 상태를 전파
+ */
 void OnEnterFailSafe()
 {
   write("ZCU_Front: FAIL-SAFE mode activated. Transmissions stopped.");
   SendFailSafeStatus(0x01);
 }
 
+/**
+ * @brief DEGRADED 상태 진입 시 호출되는 함수
+ * @note 시스템이 제한된 기능으로 작동함을 알림
+ */
 void OnEnterDegraded()
 {
   write("ZCU_Front: DEGRADED mode activated");
 }
 
+/**
+ * @brief NORMAL 상태 진입 시 호출되는 함수
+ * @note 시스템이 완전히 작동 중임을 알림
+ */
 void OnEnterNormal()
 {
   write("ZCU_Front: NORMAL operation resumed");
 }
 
+/**
+ * @brief 시스템 상태 간의 전환을 관리
+ * @param newState 전환할 새로운 상태
+ * @note 상태 변경 시 해당 상태의 진입 함수를 호출
+ */
 void TransitionToState(enum SystemState newState)
 {
   if (newState != currentState)
@@ -54,6 +92,10 @@ void TransitionToState(enum SystemState newState)
   }
 }
 
+/**
+ * @brief 현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트
+ * @note 활성화된 폴트를 평가하고 적절한 시스템 상태를 결정
+ */
 void UpdateSystemState()
 {
   if (faultRegister & (FAULT_APS_SENSOR | FAULT_BPPS_SENSOR | FAULT_CROSS_CHECK | FAULT_SYSTEM_OVERLOAD))
@@ -81,12 +123,24 @@ void UpdateSystemState()
   }
 }
 
+/*******************************************************************************
+ * 폴트 관리 함수
+ ******************************************************************************/
+
+/**
+ * @brief 폴트 레지스터에서 특정 폴트 비트를 지움
+ * @param faultBit 지울 폴트 비트
+ */
 void ClearFault(dword faultBit)
 {
   faultRegister &= ~faultBit;
   diagnostics.errorFlags = faultRegister;
 }
 
+/**
+ * @brief 폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거
+ * @param faultBit 설정할 폴트 비트
+ */
 void SetFault(dword faultBit)
 {
   if((faultRegister & faultBit) == 0)
@@ -97,27 +151,55 @@ void SetFault(dword faultBit)
   }
 }
 
+/*******************************************************************************
+ * 센서 데이터 처리 함수
+ ******************************************************************************/
+
+/**
+ * @brief 시뮬레이션 환경에서 가속 페달 위치를 읽음
+ * @return 현재 APS 위치 (%)
+ */
 float ReadAPS()
 {
   return sysGetVariableFloat("ZCU_Sim", "APS_Position");
 }
 
+/**
+ * @brief 시뮬레이션 환경에서 브레이크 페달 위치를 읽음
+ * @return 현재 BPPS 위치 (%)
+ */
 float ReadBPPS()
 {
   return sysGetVariableFloat("ZCU_Sim", "BPPS_Position");
 }
 
+/**
+ * @brief 시뮬레이션 환경에서 차량 속도를 읽음
+ * @return 현재 차량 속도 (km/h)
+ */
 float ReadVehicleSpeed()
 {
   return sysGetVariableFloat("ZCU_Sim", "Vehicle_Speed");
 }
 
+/**
+ * @brief 센서 값이 정의된 최소/최대 범위 내에 있는지 확인
+ * @param value 확인할 센서 값
+ * @param min 허용되는 최소값
+ * @param max 허용되는 최대값
+ * @return 유효하면 0, 유효하지 않으면 2
+ */
 byte ValidateSensorRange(float value, float min, float max)
 {
   if (value >= min && value <= max) return 0;
   return 2;
 }
 
+/**
+ * @brief APS와 BPPS가 동시에 눌리는 비정상적인 상황을 교차 확인
+ * @return 유효하면 0, 유효하지 않으면 2
+ * @note 가속과 제동이 동시에 입력되는 위험 상황을 감지
+ */
 byte ValidateAPSBPPS()
 {
   if (sensors.apsPosition > 5.0 && sensors.bppsPosition > 5.0)
@@ -128,6 +210,15 @@ byte ValidateAPSBPPS()
   return 0;
 }
 
+/*******************************************************************************
+ * 메시지 전송 함수
+ ******************************************************************************/
+
+/**
+ * @brief Fail-Safe 상태 메시지(M004)를 전송
+ * @param faultLevel 보고할 폴트 레벨
+ * @note 시스템 고장 발생 시 다른 ECU에 상태를 전파
+ */
 void SendFailSafeStatus(byte faultLevel)
 {
   message M004_FailSafe_Status_2 msg;
@@ -164,6 +255,10 @@ void SendFailSafeStatus(byte faultLevel)
   output(msg);
 }
 
+/**
+ * @brief 주요 차량 동역학 메시지(M005)를 전송
+ * @note 속도, APS, 조향각과 같은 핵심 차량 데이터를 포함
+ */
 void SendM005_VehicleDynamics()
 {
   message M005_Vehicle_Dynamics msg;
@@ -214,6 +309,10 @@ void SendM005_VehicleDynamics()
   output(msg);
 }
 
+/**
+ * @brief 브레이크 페달 위치 메시지(M005_EXT)를 전송
+ * @note 운전자의 제동 의도를 감지하고 전송
+ */
 void SendM005_EXT_BrakePedal()
 {
   message M005_EXT_Brake_Pedal msg;
@@ -252,6 +351,14 @@ void SendM005_EXT_BrakePedal()
   output(msg);
 }
 
+/*******************************************************************************
+ * 주기적 태스크 및 모니터링 함수
+ ******************************************************************************/
+
+/**
+ * @brief 주기적인 진단 검사를 수행
+ * @note CPU, 메모리 사용량 및 동작 시간을 업데이트하고 과부하 상태를 감지
+ */
 void PerformDiagnostics()
 {
   diagnostics.cpuUsage = (byte)(random(31) + 20);
@@ -268,6 +375,10 @@ void PerformDiagnostics()
   if (diagnostics.cpuUsage > 90 || diagnostics.memoryUsage > 90) SetFault(FAULT_SYSTEM_OVERLOAD);
 }
 
+/**
+ * @brief 다른 ECU와의 통신 타임아웃을 모니터링
+ * @note 설정된 타임아웃 시간을 초과하면 통신 폴트를 설정
+ */
 void MonitorCommunication()
 {
   dword currentTime;
@@ -306,6 +417,10 @@ void MonitorCommunication()
   }
 }
 
+/**
+ * @brief 메인 루프가 실행 중인지 확인하기 위해 워치독 검사를 수행
+ * @note 설정된 시간 내에 응답이 없으면 시스템 과부하 폴트를 설정
+ */
 void PerformWatchdog()
 {
   dword currentTime;
@@ -323,6 +438,14 @@ void PerformWatchdog()
   gWatchdogCounter = (gWatchdogCounter + 1) % 256;
 }
 
+/*******************************************************************************
+ * 초기화 함수
+ ******************************************************************************/
+
+/**
+ * @brief 시작 시 모든 전역 변수를 기본 상태로 초기화
+ * @note 시스템 시작 시 모든 데이터 구조체와 변수를 안전한 초기값으로 설정
+ */
 void InitializeGlobals()
 {
   dword initTime;
@@ -358,6 +481,10 @@ void InitializeGlobals()
   gTaskCounter = 0;
 }
 
+/**
+ * @brief 시작 시 중요한 센서에 대한 자체 테스트를 수행
+ * @note APS, BPPS 센서의 초기 상태를 확인하고 교차 검증을 수행
+ */
 void PerformInitialSelfTest()
 {
   write("ZCU_Front: Performing initial self-test...");
