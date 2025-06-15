@@ -60,6 +60,20 @@ variables
   };
   struct HMIInputData hmiInput;
 
+  struct ClusterDisplayData
+  {
+    byte currentDisplayMode;
+    dword instantRegenPower;
+    dword cumulativeRegenEnergy;
+    byte warningStatus;
+    byte activeProfile;
+    byte clusterConnected;
+    dword lastUpdateTime;
+    byte displayDataValid;
+    byte comfortModeEnabled;
+  };
+  struct ClusterDisplayData clusterDisplay;
+
   struct CommMonitor
   {
     dword lastRxTime_M012;

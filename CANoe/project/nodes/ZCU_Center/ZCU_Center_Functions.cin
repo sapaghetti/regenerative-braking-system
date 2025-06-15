@@ -1,4 +1,19 @@
 /*@!Encoding:65001*/
+void UpdateOTAComfortMode(byte profileType)
+{
+  if (profileType == PROFILE_COMFORT && !clusterDisplay.comfortModeEnabled)
+  {
+    clusterDisplay.comfortModeEnabled = 1;
+    write("ZCU_Center: OTA Comfort Mode activated");
+    
+    sysSetVariableInt("ZCU_Sim", "OTA_Comfort_Activated", 1);
+  }
+  else if (profileType == PROFILE_EFFICIENCY && clusterDisplay.comfortModeEnabled)
+  {
+    write("ZCU_Center: Switched to Efficiency mode (Comfort mode still available)");
+  }
+}
+
 byte PerformSecureBoot()
 {
   dword expectedSignature, actualSignature;
@@ -132,16 +147,16 @@ byte DetermineRequestedModeFromButton(byte buttonID, byte buttonAction)
   switch (buttonID)
   {
     case BUTTON_MODE_UP:
-      requestedMode = (hmiInput.requestedMode + 1) % MAX_REGEN_MODES;
+      requestedMode = (clusterDisplay.currentDisplayMode + 1) % MAX_REGEN_MODES;
       break;
       
     case BUTTON_MODE_DOWN:
-      requestedMode = (hmiInput.requestedMode == 0) ? 
-                      (MAX_REGEN_MODES - 1) : (hmiInput.requestedMode - 1);
+      requestedMode = (clusterDisplay.currentDisplayMode == 0) ? 
+                      (MAX_REGEN_MODES - 1) : (clusterDisplay.currentDisplayMode - 1);
       break;
       
     case BUTTON_AUTO_TOGGLE:
-      requestedMode = (hmiInput.requestedMode == MODE_AUTO) ? MODE_LEVEL_0 : MODE_AUTO;
+      requestedMode = (clusterDisplay.currentDisplayMode == MODE_AUTO) ? MODE_LEVEL_0 : MODE_AUTO;
       break;
       
     case BUTTON_PROFILE_CHANGE:
@@ -373,6 +388,16 @@ void InitializeGlobals()
   hmiInput.pendingModeRequest = 0;
   hmiInput.requestedMode = MODE_LEVEL_0;
   hmiInput.requestSource = REQUEST_SOURCE_BUTTON;
+
+  clusterDisplay.currentDisplayMode = MODE_LEVEL_0;
+  clusterDisplay.instantRegenPower = 0;
+  clusterDisplay.cumulativeRegenEnergy = 0;
+  clusterDisplay.warningStatus = 0;
+  clusterDisplay.activeProfile = PROFILE_EFFICIENCY;
+  clusterDisplay.clusterConnected = 0;
+  clusterDisplay.lastUpdateTime = initTime;
+  clusterDisplay.displayDataValid = 0;
+  clusterDisplay.comfortModeEnabled = 0;
 
   commMon.lastRxTime_M012 = initTime;
   commMon.lastRxTime_M009 = initTime;

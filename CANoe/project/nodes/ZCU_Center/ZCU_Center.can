@@ -90,17 +90,18 @@ on message L003_Voice_Command
   requestedMode = DetermineRequestedModeFromVoice(this.Command_Type, this.Command_Value);
   if (requestedMode != 0xFF)
   {
-    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_VOICE, PROFILE_EFFICIENCY);
+    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_VOICE, clusterDisplay.activeProfile);
   }
   else if (this.Command_Type == VOICE_CMD_PROFILE_CHANGE)
   {
     byte newProfile;
-    newProfile = (PROFILE_EFFICIENCY == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
-    SendModeChangeRequest(hmiInput.requestedMode, REQUEST_SOURCE_VOICE, newProfile);
+    newProfile = (clusterDisplay.activeProfile == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
+    SendModeChangeRequest(clusterDisplay.currentDisplayMode, REQUEST_SOURCE_VOICE, newProfile);
   }
   else if (this.Command_Type == VOICE_CMD_SYSTEM_INFO)
   {
-    write("ZCU_Center: System info request via voice - Mode=%d", hmiInput.requestedMode);
+    write("ZCU_Center: System info request via voice - Mode=%d, Profile=%d", 
+          clusterDisplay.currentDisplayMode, clusterDisplay.activeProfile);
   }
 }
 
@@ -147,16 +148,85 @@ on message L004_SW_Button_Input
   if (this.Button_ID == BUTTON_PROFILE_CHANGE && this.Button_Action == BUTTON_ACTION_PRESS)
   {
     byte newProfile;
-    newProfile = (PROFILE_EFFICIENCY == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
-    SendModeChangeRequest(hmiInput.requestedMode, REQUEST_SOURCE_BUTTON, newProfile);
+    newProfile = (clusterDisplay.activeProfile == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
+    SendModeChangeRequest(clusterDisplay.currentDisplayMode, REQUEST_SOURCE_BUTTON, newProfile);
     return;
   }
 
   requestedMode = DetermineRequestedModeFromButton(this.Button_ID, this.Button_Action);
   if (requestedMode != 0xFF)
   {
-    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_BUTTON, PROFILE_EFFICIENCY);
+    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_BUTTON, clusterDisplay.activeProfile);
   }
+}
+
+on message M009_Mode_Change_Resp
+{
+  dword currentTime, responseTime;
+  byte dataArray[6];
+
+  currentTime = timeNowNS() / 1000000;
+
+  if(commMon.firstMsgReceived_M009 == 0)
+  {
+    write("ZCU_Center: First M009 message received.");
+    commMon.firstMsgReceived_M009 = 1;
+  }
+  commMon.lastRxTime_M009 = currentTime;
+
+  write("ZCU_Center: Mode change response received - Status=%d, Mode=%d, Profile=%d, Reason=%d", 
+        this.Mode_Change_Status, this.Current_Mode, this.Active_Profile, this.Failure_Reason);
+
+  dataArray[0] = this.Current_Mode;
+  dataArray[1] = this.Mode_Change_Status;
+  dataArray[2] = this.Active_Profile;
+  dataArray[3] = this.Failure_Reason;
+  dataArray[4] = (byte)(this.Response_Timestamp & 0xFF);
+  dataArray[5] = (byte)((this.Response_Timestamp >> 8) & 0xFF);
+  
+  if (!VerifyE2EProtection(dataArray, elcount(dataArray), this.CRC16_Checksum))
+  {
+    write("ZCU_Center: Mode change response E2E verification failed, ignoring");
+    return;
+  }
+
+  if (commMon.waitingForResponse)
+  {
+    responseTime = currentTime - commMon.lastTxTime_M008;
+    diagnostics.lastResponseTime = responseTime;
+    if (diagnostics.averageResponseTime == 0)
+      diagnostics.averageResponseTime = responseTime;
+    else
+      diagnostics.averageResponseTime = (diagnostics.averageResponseTime + responseTime) / 2;
+
+    write("ZCU_Center: HMI response time: %dms (average: %dms)", responseTime, diagnostics.averageResponseTime);
+  }
+
+  commMon.waitingForResponse = 0;
+  hmiInput.pendingModeRequest = 0;
+
+  if (this.Mode_Change_Status == 0)
+  {
+    clusterDisplay.currentDisplayMode = this.Current_Mode;
+    clusterDisplay.activeProfile = this.Active_Profile;
+    
+    UpdateOTAComfortMode(this.Active_Profile);
+    
+    ClearFault(FAULT_MODE_CHANGE_FAIL);
+    ClearFault(FAULT_HMI_TIMEOUT);
+    
+    write("ZCU_Center: Mode change successful - New mode: %d, Profile: %d", 
+          this.Current_Mode, this.Active_Profile);
+  }
+  else
+  {
+    SetFault(FAULT_MODE_CHANGE_FAIL);
+    write("ZCU_Center: Mode change failed - Reason: %d", this.Failure_Reason);
+  }
+
+  commMon.failureCount_M009 = 0;
+  ClearFault(FAULT_HPC_COMM);
+  commMon.commStatus |= 0x02;
 }
 
 on key 'f'
@@ -171,8 +241,8 @@ on key 'b'
   if (!commMon.waitingForResponse)
   {
     byte requestedMode;
-    requestedMode = (hmiInput.requestedMode + 1) % MAX_REGEN_MODES;
-    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_BUTTON, PROFILE_EFFICIENCY);
+    requestedMode = (clusterDisplay.currentDisplayMode + 1) % MAX_REGEN_MODES;
+    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_BUTTON, clusterDisplay.activeProfile);
   }
   else
   {
@@ -186,7 +256,23 @@ on key 'v'
   
   if (!commMon.waitingForResponse)
   {
-    SendModeChangeRequest(MODE_AUTO, REQUEST_SOURCE_VOICE, PROFILE_EFFICIENCY);
+    SendModeChangeRequest(MODE_AUTO, REQUEST_SOURCE_VOICE, clusterDisplay.activeProfile);
+  }
+  else
+  {
+    write("ZCU_Center: Already waiting for response, ignoring simulation");
+  }
+}
+
+on key 'p'
+{
+  write("ZCU_Center: Simulating profile change");
+  
+  if (!commMon.waitingForResponse)
+  {
+    byte newProfile;
+    newProfile = (clusterDisplay.activeProfile == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
+    SendModeChangeRequest(clusterDisplay.currentDisplayMode, REQUEST_SOURCE_BUTTON, newProfile);
   }
   else
   {
