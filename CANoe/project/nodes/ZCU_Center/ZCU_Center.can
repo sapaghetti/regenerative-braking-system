@@ -46,7 +46,150 @@ on timer timerMainTask
   gTaskCounter++;
 }
 
+on message L003_Voice_Command
+{
+  dword currentTime;
+  byte requestedMode;
+  byte dataArray[6];
+
+  currentTime = timeNowNS() / 1000000;
+
+  write("ZCU_Center: Voice command received - Type=%d, Value=%d, Confidence=%d%%", 
+        this.Command_Type, this.Command_Value, this.Confidence_Level);
+
+  dataArray[0] = this.Command_Type;
+  dataArray[1] = this.Command_Value;
+  dataArray[2] = this.Confidence_Level;
+  dataArray[3] = this.Language_ID;
+  dataArray[4] = (byte)(this.Voice_Timestamp & 0xFF);
+  dataArray[5] = (byte)((this.Voice_Timestamp >> 8) & 0xFF);
+  
+  if (!VerifyE2EProtection(dataArray, elcount(dataArray), this.CRC16_Checksum))
+  {
+    write("ZCU_Center: Voice command E2E verification failed, ignoring");
+    return;
+  }
+
+  if (!ValidateVoiceInput(this.Command_Type, this.Command_Value, this.Confidence_Level, currentTime))
+  {
+    return;
+  }
+
+  hmiInput.lastVoiceTime = currentTime;
+  hmiInput.lastVoiceCommandType = this.Command_Type;
+  hmiInput.lastVoiceCommandValue = this.Command_Value;
+  hmiInput.lastVoiceConfidence = this.Confidence_Level;
+  hmiInput.voiceValid = 1;
+
+  if (commMon.waitingForResponse)
+  {
+    write("ZCU_Center: Already waiting for mode change response, ignoring voice command");
+    return;
+  }
+
+  requestedMode = DetermineRequestedModeFromVoice(this.Command_Type, this.Command_Value);
+  if (requestedMode != 0xFF)
+  {
+    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_VOICE, PROFILE_EFFICIENCY);
+  }
+  else if (this.Command_Type == VOICE_CMD_PROFILE_CHANGE)
+  {
+    byte newProfile;
+    newProfile = (PROFILE_EFFICIENCY == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
+    SendModeChangeRequest(hmiInput.requestedMode, REQUEST_SOURCE_VOICE, newProfile);
+  }
+  else if (this.Command_Type == VOICE_CMD_SYSTEM_INFO)
+  {
+    write("ZCU_Center: System info request via voice - Mode=%d", hmiInput.requestedMode);
+  }
+}
+
+on message L004_SW_Button_Input
+{
+  dword currentTime;
+  byte requestedMode;
+  byte dataArray[6];
+
+  currentTime = timeNowNS() / 1000000;
+
+  write("ZCU_Center: Button input received - ID=%d, Action=%d, Duration=%dms", 
+        this.Button_ID, this.Button_Action, this.Press_Duration);
+
+  dataArray[0] = this.Button_ID;
+  dataArray[1] = this.Button_Action;
+  dataArray[2] = (byte)(this.Press_Duration & 0xFF);
+  dataArray[3] = (byte)((this.Press_Duration >> 8) & 0xFF);
+  dataArray[4] = (byte)(this.Event_Timestamp & 0xFF);
+  dataArray[5] = (byte)((this.Event_Timestamp >> 8) & 0xFF);
+  
+  if (!VerifyE2EProtection(dataArray, elcount(dataArray), this.CRC16_Checksum))
+  {
+    write("ZCU_Center: Button input E2E verification failed, ignoring");
+    return;
+  }
+
+  if (!ValidateButtonInput(this.Button_ID, this.Button_Action, this.Press_Duration, currentTime))
+  {
+    return;
+  }
+
+  hmiInput.lastButtonTime = currentTime;
+  hmiInput.lastButtonID = this.Button_ID;
+  hmiInput.lastButtonAction = this.Button_Action;
+  hmiInput.buttonValid = 1;
+
+  if (commMon.waitingForResponse)
+  {
+    write("ZCU_Center: Already waiting for mode change response, ignoring button input");
+    return;
+  }
+
+  if (this.Button_ID == BUTTON_PROFILE_CHANGE && this.Button_Action == BUTTON_ACTION_PRESS)
+  {
+    byte newProfile;
+    newProfile = (PROFILE_EFFICIENCY == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
+    SendModeChangeRequest(hmiInput.requestedMode, REQUEST_SOURCE_BUTTON, newProfile);
+    return;
+  }
+
+  requestedMode = DetermineRequestedModeFromButton(this.Button_ID, this.Button_Action);
+  if (requestedMode != 0xFF)
+  {
+    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_BUTTON, PROFILE_EFFICIENCY);
+  }
+}
+
 on key 'f'
 {
   SetFault(FAULT_HPC_COMM);
+}
+
+on key 'b'
+{
+  write("ZCU_Center: Simulating button press - Mode Up");
+  
+  if (!commMon.waitingForResponse)
+  {
+    byte requestedMode;
+    requestedMode = (hmiInput.requestedMode + 1) % MAX_REGEN_MODES;
+    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_BUTTON, PROFILE_EFFICIENCY);
+  }
+  else
+  {
+    write("ZCU_Center: Already waiting for response, ignoring simulation");
+  }
+}
+
+on key 'v'
+{
+  write("ZCU_Center: Simulating voice command - Auto mode");
+  
+  if (!commMon.waitingForResponse)
+  {
+    SendModeChangeRequest(MODE_AUTO, REQUEST_SOURCE_VOICE, PROFILE_EFFICIENCY);
+  }
+  else
+  {
+    write("ZCU_Center: Already waiting for response, ignoring simulation");
+  }
 }

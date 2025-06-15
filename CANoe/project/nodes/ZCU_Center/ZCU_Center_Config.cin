@@ -8,9 +8,29 @@ variables
   const int TIMEOUT_HPC_M012 = 300;
   const int TIMEOUT_HPC_M009 = 1000;
   const int MAX_COMM_FAILURES = 3;
+  const int HMI_RESPONSE_TIMEOUT = 200;
+
+  const int MIN_BUTTON_PRESS_TIME = 50;
+  const int MAX_BUTTON_PRESS_TIME = 5000;
+  const int MIN_VOICE_CONFIDENCE = 70;
+  const int MIN_INPUT_INTERVAL = 300;
+
+  const int MAX_REGEN_MODES = 5;
+  const byte MODE_LEVEL_0 = 0;
+  const byte MODE_LEVEL_1 = 1;
+  const byte MODE_LEVEL_2 = 2;
+  const byte MODE_LEVEL_3 = 3;
+  const byte MODE_AUTO = 4;
+
+  const byte PROFILE_EFFICIENCY = 0;
+  const byte PROFILE_COMFORT = 1;
 
   const dword FAULT_HPC_COMM = 0x00000001;
+  const dword FAULT_BUTTON_INPUT = 0x00000002;
+  const dword FAULT_VOICE_INPUT = 0x00000004;
+  const dword FAULT_HMI_TIMEOUT = 0x00000010;
   const dword FAULT_SYSTEM_OVERLOAD = 0x00000020;
+  const dword FAULT_MODE_CHANGE_FAIL = 0x00000040;
 
   enum SystemState
   {
@@ -22,6 +42,23 @@ variables
 
   enum SystemState currentState;
   enum SystemState previousState;
+
+  struct HMIInputData
+  {
+    dword lastButtonTime;
+    dword lastVoiceTime;
+    byte lastButtonID;
+    byte lastButtonAction;
+    byte lastVoiceCommandType;
+    byte lastVoiceCommandValue;
+    byte lastVoiceConfidence;
+    byte buttonValid;
+    byte voiceValid;
+    byte pendingModeRequest;
+    byte requestedMode;
+    byte requestSource;
+  };
+  struct HMIInputData hmiInput;
 
   struct CommMonitor
   {
@@ -49,10 +86,29 @@ variables
   };
   struct DiagnosticData diagnostics;
 
+  byte counter_M008;
   byte counter_M004;
   byte counter_M016;
   dword faultRegister;
   msTimer timerMainTask;
   dword gTaskCounter;
   int gHourCounter;
+  dword gLastE2EFailTime;
+
+  const byte REQUEST_SOURCE_BUTTON = 0;
+  const byte REQUEST_SOURCE_VOICE = 1;
+  const byte REQUEST_SOURCE_AUTO = 2;
+
+  const byte BUTTON_MODE_UP = 0;
+  const byte BUTTON_MODE_DOWN = 1;
+  const byte BUTTON_PROFILE_CHANGE = 2;
+  const byte BUTTON_AUTO_TOGGLE = 3;
+
+  const byte BUTTON_ACTION_PRESS = 0;
+  const byte BUTTON_ACTION_RELEASE = 1;
+  const byte BUTTON_ACTION_LONG_PRESS = 2;
+
+  const byte VOICE_CMD_MODE_CHANGE = 0;
+  const byte VOICE_CMD_PROFILE_CHANGE = 1;
+  const byte VOICE_CMD_SYSTEM_INFO = 2;
 }

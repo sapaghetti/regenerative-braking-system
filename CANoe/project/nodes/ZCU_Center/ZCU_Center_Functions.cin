@@ -43,7 +43,7 @@ void OnEnterFailSafe()
 
 void UpdateSystemState()
 {
-  if (faultRegister & (FAULT_SYSTEM_OVERLOAD))
+  if (faultRegister & (FAULT_SYSTEM_OVERLOAD | FAULT_HMI_TIMEOUT))
   {
     if (currentState != STATE_FAIL_SAFE) 
     {
@@ -53,7 +53,7 @@ void UpdateSystemState()
     return;
   }
 
-  if (faultRegister & FAULT_HPC_COMM)
+  if (faultRegister & (FAULT_HPC_COMM | FAULT_BUTTON_INPUT | FAULT_VOICE_INPUT))
   {
     if (currentState != STATE_DEGRADED && currentState != STATE_FAIL_SAFE) 
       currentState = STATE_DEGRADED;
@@ -71,6 +71,163 @@ void UpdateSystemState()
       currentState = STATE_NORMAL;
     }
   }
+}
+
+byte ValidateButtonInput(byte buttonID, byte buttonAction, word pressDuration, dword currentTime)
+{
+  if (buttonID > BUTTON_AUTO_TOGGLE)
+  {
+    SetFault(FAULT_BUTTON_INPUT);
+    return 0;
+  }
+
+  if (buttonAction == BUTTON_ACTION_PRESS && 
+      (pressDuration < MIN_BUTTON_PRESS_TIME || pressDuration > MAX_BUTTON_PRESS_TIME))
+  {
+    SetFault(FAULT_BUTTON_INPUT);
+    return 0;
+  }
+
+  if ((currentTime - hmiInput.lastButtonTime) < MIN_INPUT_INTERVAL)
+  {
+    write("ZCU_Center: Button input too frequent, ignoring");
+    return 0;
+  }
+
+  ClearFault(FAULT_BUTTON_INPUT);
+  return 1;
+}
+
+byte ValidateVoiceInput(byte commandType, byte commandValue, byte confidence, dword currentTime)
+{
+  if (commandType > VOICE_CMD_SYSTEM_INFO)
+  {
+    SetFault(FAULT_VOICE_INPUT);
+    return 0;
+  }
+
+  if (confidence < MIN_VOICE_CONFIDENCE)
+  {
+    write("ZCU_Center: Voice confidence too low (%d%%), ignoring", confidence);
+    return 0;
+  }
+
+  if ((currentTime - hmiInput.lastVoiceTime) < MIN_INPUT_INTERVAL)
+  {
+    write("ZCU_Center: Voice input too frequent, ignoring");
+    return 0;
+  }
+
+  ClearFault(FAULT_VOICE_INPUT);
+  return 1;
+}
+
+byte DetermineRequestedModeFromButton(byte buttonID, byte buttonAction)
+{
+  byte requestedMode = 0xFF;
+
+  if (buttonAction != BUTTON_ACTION_PRESS && buttonAction != BUTTON_ACTION_LONG_PRESS)
+    return 0xFF;
+
+  switch (buttonID)
+  {
+    case BUTTON_MODE_UP:
+      requestedMode = (hmiInput.requestedMode + 1) % MAX_REGEN_MODES;
+      break;
+      
+    case BUTTON_MODE_DOWN:
+      requestedMode = (hmiInput.requestedMode == 0) ? 
+                      (MAX_REGEN_MODES - 1) : (hmiInput.requestedMode - 1);
+      break;
+      
+    case BUTTON_AUTO_TOGGLE:
+      requestedMode = (hmiInput.requestedMode == MODE_AUTO) ? MODE_LEVEL_0 : MODE_AUTO;
+      break;
+      
+    case BUTTON_PROFILE_CHANGE:
+      return 0xFF;
+      
+    default:
+      break;
+  }
+
+  return requestedMode;
+}
+
+byte DetermineRequestedModeFromVoice(byte commandType, byte commandValue)
+{
+  if (commandType != VOICE_CMD_MODE_CHANGE)
+    return 0xFF;
+
+  if (commandValue >= MAX_REGEN_MODES)
+    return 0xFF;
+
+  return commandValue;
+}
+
+void SendModeChangeRequest(byte requestedMode, byte requestSource, byte profileType)
+{
+  message M008_Mode_Change_Req msg;
+  byte dataArray[6];
+  long retval;
+  dword crc, currentTime;
+
+  currentTime = timeNowNS() / 1000000;
+  counter_M008 = (counter_M008 + 1) % 16;
+
+  msg.Requested_Mode = requestedMode;
+  msg.Request_Source = requestSource;
+  msg.Profile_Type = profileType;
+  msg.Event_Counter = counter_M008;
+  msg.Event_Timestamp = (word)currentTime;
+
+  dataArray[0] = msg.Requested_Mode;
+  dataArray[1] = msg.Request_Source;
+  dataArray[2] = msg.Profile_Type;
+  dataArray[3] = msg.Event_Counter;
+  dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
+
+  retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  if (retval == 0)
+  {
+    msg.CRC16_Checksum = (word)crc;
+  }
+  else
+  {
+    msg.CRC16_Checksum = 0x0000;
+  }
+
+  output(msg);
+
+  commMon.lastTxTime_M008 = currentTime;
+  commMon.waitingForResponse = 1;
+  hmiInput.pendingModeRequest = 1;
+  hmiInput.requestedMode = requestedMode;
+
+  write("ZCU_Center: Mode change request sent - Mode=%d, Source=%d, Profile=%d", 
+        requestedMode, requestSource, profileType);
+}
+
+byte VerifyE2EProtection(byte dataArray[], int dataLength, word receivedCRC)
+{
+  long retval;
+  dword calculatedCRC;
+
+  retval = Crc_CalculateCRC16(dataArray, dataLength, 0, dataLength, 0, 1, calculatedCRC);
+  if (retval != 0)
+  {
+    write("ZCU_Center: CRC calculation failed with error: %d", retval);
+    return 0;
+  }
+
+  if ((word)calculatedCRC != receivedCRC)
+  {
+    gLastE2EFailTime = timeNowNS() / 1000000;
+    return 0;
+  }
+
+  return 1;
 }
 
 void MonitorCommunication()
@@ -91,6 +248,23 @@ void MonitorCommunication()
         SetFault(FAULT_HPC_COMM);
         commMon.commStatus &= ~0x01;
       }
+    }
+  }
+
+  if (commMon.waitingForResponse)
+  {
+    elapsedTime = currentTime - commMon.lastTxTime_M008;
+    if (elapsedTime > HMI_RESPONSE_TIMEOUT)
+    {
+      SetFault(FAULT_HMI_TIMEOUT);
+      commMon.waitingForResponse = 0;
+      hmiInput.pendingModeRequest = 0;
+      
+      diagnostics.lastResponseTime = elapsedTime;
+      if (diagnostics.averageResponseTime == 0)
+        diagnostics.averageResponseTime = elapsedTime;
+      else
+        diagnostics.averageResponseTime = (diagnostics.averageResponseTime + elapsedTime) / 2;
     }
   }
 }
@@ -187,6 +361,19 @@ void InitializeGlobals()
   dword initTime;
   initTime = timeNowNS() / 1000000;
 
+  hmiInput.lastButtonTime = 0;
+  hmiInput.lastVoiceTime = 0;
+  hmiInput.lastButtonID = 0xFF;
+  hmiInput.lastButtonAction = 0xFF;
+  hmiInput.lastVoiceCommandType = 0xFF;
+  hmiInput.lastVoiceCommandValue = 0xFF;
+  hmiInput.lastVoiceConfidence = 0;
+  hmiInput.buttonValid = 0;
+  hmiInput.voiceValid = 0;
+  hmiInput.pendingModeRequest = 0;
+  hmiInput.requestedMode = MODE_LEVEL_0;
+  hmiInput.requestSource = REQUEST_SOURCE_BUTTON;
+
   commMon.lastRxTime_M012 = initTime;
   commMon.lastRxTime_M009 = initTime;
   commMon.failureCount_M012 = 0;
@@ -209,9 +396,11 @@ void InitializeGlobals()
   currentState = STATE_INIT;
   previousState = STATE_INIT;
 
+  counter_M008 = 0;
   counter_M004 = 0;
   counter_M016 = 0;
 
   gHourCounter = 0;
   gTaskCounter = 0;
+  gLastE2EFailTime = 0;
 }
