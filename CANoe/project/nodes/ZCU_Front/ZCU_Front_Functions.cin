@@ -1,4 +1,23 @@
 /*@!Encoding:65001*/
+byte PerformSecureBoot()
+{
+  dword expectedSignature, actualSignature;
+  
+  write("ZCU_Front: Starting Secure Boot verification...");
+  
+  expectedSignature = 0xDEADBEEF;
+  actualSignature = sysGetVariableInt("ZCU_Sim", "Firmware_Signature");
+  
+  if (actualSignature != expectedSignature) {
+    write("ZCU_Front: Secure Boot FAILED - Invalid firmware signature (Expected: 0x%08X, Actual: 0x%08X)", 
+          expectedSignature, actualSignature);
+    return 0;
+  }
+  
+  write("ZCU_Front: Secure Boot verification PASSED");
+  return 1;
+}
+
 void OnEnterFailSafe()
 {
   write("ZCU_Front: FAIL-SAFE mode activated. Transmissions stopped.");

@@ -9,6 +9,12 @@ on start
 {
   write("ZCU_Front ECU Starting - Version %d.%02d", (SYSTEM_VERSION >> 8), (SYSTEM_VERSION & 0xFF));
   
+  if (!PerformSecureBoot()) {
+    write("ZCU_Front: Secure Boot FAILED - System halted");
+    stop();
+    return;
+  }
+  
   InitializeGlobals();
   
   PerformInitialSelfTest();
