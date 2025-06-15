@@ -7,7 +7,18 @@ includes
 
 on start
 {
+  write("ZCU_Center ECU Starting - Version %d.%02d", (SYSTEM_VERSION >> 8), (SYSTEM_VERSION & 0xFF));
+
+  if (!PerformSecureBoot())
+  {
+    write("ZCU_Center: Secure Boot FAILED - System halted");
+    stop();
+    return;
+  }
+
   InitializeGlobals();
+  
+  write("ZCU_Center: Initialization complete. Starting timers...");
   setTimerCyclic(timerMainTask, MAIN_CYCLE);
 }
 

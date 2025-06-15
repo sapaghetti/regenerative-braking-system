@@ -1,4 +1,24 @@
 /*@!Encoding:65001*/
+byte PerformSecureBoot()
+{
+  dword expectedSignature, actualSignature;
+
+  write("ZCU_Center: Starting Secure Boot verification...");
+
+  expectedSignature = 0xDEADBEEF;
+  actualSignature = sysGetVariableInt("ZCU_Sim", "Firmware_Signature");
+
+  if (actualSignature != expectedSignature)
+  {
+    write("ZCU_Center: Secure Boot FAILED - Invalid firmware signature (Expected: 0x%08X, Actual: 0x%08X)",
+          expectedSignature, actualSignature);
+    return 0;
+  }
+
+  write("ZCU_Center: Secure Boot verification PASSED");
+  return 1;
+}
+
 void SetFault(dword faultBit)
 {
   if((faultRegister & faultBit) == 0)
