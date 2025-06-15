@@ -1,0 +1,213 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  
+}
+
+variables
+{
+  msTimer otaTimer;
+  message EDT_CGW_E_OTA_RESULT otaResMsg;
+  message EDT_TMU_E_VER_INFO edtVerMsg;
+  enum STATE
+  {
+    NOMAR_MODE,
+    BOOTLOADER_MODE,
+    OTA_COMPLETE
+  }edtState = BOOTLOADER_MODE;
+ 
+  dword hFile;
+  char update_ver[1];
+  char cur_ver[2];
+  int mode = 0; // 0 : 첫 부팅시 부트로더 모드, 1 : ota로 인한 부트로더 모드, 2 : 기본
+  int ota_result = 0;
+  int cur_edt_version = 0;
+  int edt_num = 3;
+  char filename[128];
+  byte chunk[61];
+  byte header;
+  byte ecu_id = 0;
+  byte version = 0;
+  int chunk_len = 0;
+  int is_receiving = 0;
+  int frameIndex;
+  int lastFrameIndex = -1;
+  int otaStartFlag = 0;
+  int code_len = 0;
+  int frameCount = 0;
+  int lastFrameLength = 0;
+  long payloadLen = 0;
+                                    
+}
+on start
+{
+  setTimer(otaTimer, 50);
+}
+
+int writeBootloader()
+{
+  hFile = openFileWrite("EDT_version.txt", 0);
+  if (hFile != 0)
+  {
+    snprintf(update_ver, 8, "%d", cur_edt_version);
+    filePutString(update_ver, 1, hFile);
+    fileClose(hFile);
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
+}
+void updateVersion()
+{
+  cur_edt_version = version;
+}
+void readBootloader() // 현재 버전 읽어오기
+{
+  hFile = openFileRead("EDT_version.txt", 0);
+  fileGetString(cur_ver, 2, hFile);
+  cur_edt_version = _atoi64(cur_ver);
+  fileClose(hFile);
+}
+void sendEdtVersion()
+{
+  edtVerMsg.byte(0) = ((0x00 | edt_num << 4) | cur_edt_version);
+  output(edtVerMsg);
+}
+
+int getFdLength(int dlc) {
+  switch (dlc) {
+    case 9: return 12;
+    case 10: return 16;
+    case 11: return 20;
+    case 12: return 24;
+    case 13: return 32;
+    case 14: return 48;
+    case 15: return 64;
+    default: return dlc; // 0~8은 그대로
+  }
+}
+on timer otaTimer
+{
+  switch (edtState)
+  {
+    case NOMAR_MODE: // Default
+      if (cur_edt_version >= @OTA::Version_num[1])
+      {
+        // version : 1
+      }
+      if (cur_edt_version >= @OTA::Version_num[2])
+      {
+        // version : 2
+        if (@sysvar::CAR::Distance > 20)
+        {
+          if (@sysvar::CAR::vehSpeed <= 200)
+          {
+            @sysvar::CAR::vehSpeed += @sysvar::CAR::addSpeed*0.0002;
+          }
+        }
+        else
+        {
+          if (@sysvar::CAR::vehSpeed > 0)
+          {
+            @sysvar::CAR::vehSpeed--;   
+          }
+        } 
+      }
+      
+      break;
+    case BOOTLOADER_MODE:
+      if (mode == 0)
+      {
+        write(">>> EDT 첫 부팅 bootMode 진입");
+        readBootloader(); // 현재 저장된 버전 가져오기
+        sendEdtVersion();
+        edtState = NOMAR_MODE;
+      }
+      else if (mode == 1)
+      {
+        write(">>> OTA bootMode 진입");
+        updateVersion();
+        ota_result = writeBootloader();
+        edtState = OTA_COMPLETE;
+      }
+      
+      break;
+    case OTA_COMPLETE:
+      write(">>> 버전 %d로 업데이트", cur_edt_version);
+      if (ota_result == 1)
+      {
+        ota_result = 0;
+        write(">>> OTA Success!");
+        otaResMsg.byte(0) = 0x05; // Send Complete Msg to CGW
+        otaResMsg.byte(1) = ((edt_num << 4) | cur_edt_version);
+        output(otaResMsg);
+      }
+      else
+      {
+        write(">>> OTA Fail!");
+        otaResMsg.byte(0) = 0xFF;
+      }
+      edtState = NOMAR_MODE;
+      break;
+  }
+  setTimer(otaTimer, 50);
+}
+
+on message CGW_EDT_E_OTA_START
+{
+  write("EDT START MSG 수신");
+  ecu_id = ((this.byte(0) & 0xF0) >> 4);
+  version = (this.byte(0) & 0x0F);
+  if (ecu_id == edt_num)
+  {
+    code_len = this.byte(1) + (this.byte(2) << 8)
+              + (this.byte(3) << 16) + (this.byte(4) << 24);
+    frameCount = this.byte(5) + (this.byte(6) << 8);
+    lastFrameLength = this.byte(7);
+    otaStartFlag = 1;
+  }
+}
+on message CGW_EDT_PE_OTA_DATA
+{
+  int i;
+  ecu_id = ((this.byte(0) & 0xF0) >> 4);
+  version = (this.byte(0) & 0x0F);
+  frameIndex = this.byte(1) + (this.byte(2) << 8);
+  payloadLen = getFdLength(this.dlc) - 3;
+  
+  if (otaStartFlag == 1 && ecu_id == edt_num)
+  {
+     if (!is_receiving)
+     {
+       snprintf(filename, elCount(filename), "firmware_ecu_%d_ver%d.bin", ecu_id, version);
+       hFile = openFileWrite(filename, 1);
+       is_receiving = 1;
+     }
+     if (frameIndex < lastFrameIndex)
+     {
+       write("⚠️ 프레임 순서 이상: %d → %d", lastFrameIndex, frameIndex);
+     }
+     lastFrameIndex = frameIndex;
+     for (i = 0; i < payloadLen; i++)
+     {
+       chunk[i] = this.byte(i + 3);
+     }
+     write("%d 번째 FrameIndex 저장", frameIndex);
+     fileWriteBinaryBlock(chunk, payloadLen, hFile); 
+     
+     if (frameIndex + 1 == frameCount)
+     {
+       mode = 1;
+       edtState = BOOTLOADER_MODE;
+       otaStartFlag = 0;
+       is_receiving = 0;
+       lastFrameIndex = -1;
+       fileClose(hFile);
+       write("✅ OTA 수신 완료: 파일 닫음 → %s", filename);
+     }
+  }
+}
+
+
