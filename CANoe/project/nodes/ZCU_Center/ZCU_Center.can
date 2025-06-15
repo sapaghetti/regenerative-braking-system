@@ -17,21 +17,37 @@ on start
   }
 
   InitializeGlobals();
+  PerformInitialSelfTest();
   
   write("ZCU_Center: Initialization complete. Starting timers...");
   setTimerCyclic(timerMainTask, MAIN_CYCLE);
+}
+
+on stopMeasurement
+{
+  write("ZCU_Center: Shutting down...");
+  
+  sysSetVariableInt("ZCU_Sim", "Center_System_Status", 0);
+  
+  write("ZCU_Center: Shutdown complete");
 }
 
 on timer timerMainTask
 {
   if(currentState != STATE_FAIL_SAFE)
   {
+    if ((gTaskCounter % 5) == 0)
+    {
+      PerformWatchdog();
+    }
+
     if ((gTaskCounter % 10) == 0)
     {
       if (currentState != STATE_INIT)
       {
         MonitorCommunication();
       }
+      UpdateSystemState();
     }
 
     if ((gTaskCounter % 100) == 0)
@@ -43,6 +59,7 @@ on timer timerMainTask
       }
     }
   }
+
   gTaskCounter++;
 }
 
@@ -222,6 +239,22 @@ on message M009_Mode_Change_Resp
   {
     SetFault(FAULT_MODE_CHANGE_FAIL);
     write("ZCU_Center: Mode change failed - Reason: %d", this.Failure_Reason);
+    
+    switch (this.Failure_Reason)
+    {
+      case 1:
+        clusterDisplay.warningStatus |= WARNING_SYSTEM_FAULT;
+        break;
+      case 2:
+        clusterDisplay.warningStatus |= WARNING_BATTERY;
+        break;
+      case 3:
+        clusterDisplay.warningStatus |= WARNING_SYSTEM_FAULT;
+        break;
+      default:
+        break;
+    }
+    UpdateClusterDisplay();
   }
 
   commMon.failureCount_M009 = 0;
@@ -229,8 +262,48 @@ on message M009_Mode_Change_Resp
   commMon.commStatus |= 0x02;
 }
 
+on message M012_Cluster_Display
+{
+  dword currentTime;
+  byte dataArray[6];
+
+  currentTime = timeNowNS() / 1000000;
+
+  if(commMon.firstMsgReceived_M012 == 0)
+  {
+    write("ZCU_Center: First M012 message received.");
+    commMon.firstMsgReceived_M012 = 1;
+  }
+  commMon.lastRxTime_M012 = currentTime;
+
+  dataArray[0] = this.Display_Mode;
+  dataArray[1] = (byte)(this.Instant_Regen_Power & 0xFF);
+  dataArray[2] = (byte)((this.Instant_Regen_Power >> 8) & 0xFF);
+  dataArray[3] = (byte)(this.Cumulative_Regen_Energy & 0xFF);
+  dataArray[4] = (byte)((this.Cumulative_Regen_Energy >> 8) & 0xFF);
+  dataArray[5] = this.Warning_Status;
+  
+  if (!VerifyE2EProtection(dataArray, elcount(dataArray), this.CRC16_Checksum))
+  {
+    write("ZCU_Center: Cluster display data E2E verification failed, ignoring");
+    return;
+  }
+
+  clusterDisplay.currentDisplayMode = this.Display_Mode;
+  clusterDisplay.instantRegenPower = this.Instant_Regen_Power;
+  clusterDisplay.cumulativeRegenEnergy = this.Cumulative_Regen_Energy;
+  clusterDisplay.warningStatus = this.Warning_Status;
+
+  UpdateClusterDisplay();
+
+  commMon.failureCount_M012 = 0;
+  ClearFault(FAULT_HPC_COMM);
+  commMon.commStatus |= 0x01;
+}
+
 on key 'f'
 {
+  write("ZCU_Center: Manual fault injection - HPC_COMM");
   SetFault(FAULT_HPC_COMM);
 }
 
@@ -278,4 +351,44 @@ on key 'p'
   {
     write("ZCU_Center: Already waiting for response, ignoring simulation");
   }
+}
+
+on key 'c'
+{
+  write("ZCU_Center: Clearing all faults");
+  faultRegister = 0;
+  diagnostics.errorFlags = 0;
+  commMon.failureCount_M012 = 0;
+  commMon.failureCount_M009 = 0;
+  commMon.waitingForResponse = 0;
+  hmiInput.pendingModeRequest = 0;
+  clusterDisplay.warningStatus = 0;
+  UpdateClusterDisplay();
+  TransitionToState(STATE_INIT);
+}
+
+on key 's'
+{
+  write("=== ZCU_Center Status ===");
+  write("State: %d, Faults: 0x%08X", currentState, faultRegister);
+  write("Current Mode: %d, Active Profile: %d", clusterDisplay.currentDisplayMode, clusterDisplay.activeProfile);
+  write("Instant Power: %dW, Cumulative Energy: %dWh", clusterDisplay.instantRegenPower, clusterDisplay.cumulativeRegenEnergy);
+  write("Warning Status: 0x%02X, Comfort Mode: %d", clusterDisplay.warningStatus, clusterDisplay.comfortModeEnabled);
+  write("Comm Status: 0x%02X, M012 Fail: %d, M009 Fail: %d", 
+        commMon.commStatus, commMon.failureCount_M012, commMon.failureCount_M009);
+  write("Waiting for Response: %d, Pending Request: %d", commMon.waitingForResponse, hmiInput.pendingModeRequest);
+  write("Last Response Time: %dms, Average: %dms", diagnostics.lastResponseTime, diagnostics.averageResponseTime);
+  write("CPU: %d%%, Memory: %d%%, Temp: %d°C", diagnostics.cpuUsage, diagnostics.memoryUsage, diagnostics.temperature);
+  write("========================");
+}
+
+on key 't'
+{
+  write("ZCU_Center: Testing cluster display with sample data");
+  
+  clusterDisplay.instantRegenPower = 5000;
+  clusterDisplay.cumulativeRegenEnergy = 1500;
+  clusterDisplay.warningStatus = WARNING_BATTERY;
+  
+  UpdateClusterDisplay();
 }

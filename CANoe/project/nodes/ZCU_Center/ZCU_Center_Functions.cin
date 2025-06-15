@@ -1,19 +1,4 @@
 /*@!Encoding:65001*/
-void UpdateOTAComfortMode(byte profileType)
-{
-  if (profileType == PROFILE_COMFORT && !clusterDisplay.comfortModeEnabled)
-  {
-    clusterDisplay.comfortModeEnabled = 1;
-    write("ZCU_Center: OTA Comfort Mode activated");
-    
-    sysSetVariableInt("ZCU_Sim", "OTA_Comfort_Activated", 1);
-  }
-  else if (profileType == PROFILE_EFFICIENCY && clusterDisplay.comfortModeEnabled)
-  {
-    write("ZCU_Center: Switched to Efficiency mode (Comfort mode still available)");
-  }
-}
-
 byte PerformSecureBoot()
 {
   dword expectedSignature, actualSignature;
@@ -34,13 +19,70 @@ byte PerformSecureBoot()
   return 1;
 }
 
-void SetFault(dword faultBit)
+void OnEnterFailSafe()
 {
-  if((faultRegister & faultBit) == 0)
+  write("ZCU_Center: FAIL-SAFE mode activated. HMI processing stopped.");
+  SendFailSafeStatus(0x01);
+  
+  clusterDisplay.warningStatus |= WARNING_SYSTEM_FAULT;
+  UpdateClusterDisplay();
+}
+
+void OnEnterDegraded()
+{
+  write("ZCU_Center: DEGRADED mode activated - Limited HMI functionality");
+  clusterDisplay.warningStatus |= WARNING_COMM_ERROR;
+}
+
+void OnEnterNormal()
+{
+  write("ZCU_Center: NORMAL operation resumed");
+  clusterDisplay.warningStatus &= ~(WARNING_COMM_ERROR | WARNING_SYSTEM_FAULT);
+}
+
+void TransitionToState(enum SystemState newState)
+{
+  if (newState != currentState)
   {
-    faultRegister |= faultBit;
-    diagnostics.errorFlags = faultRegister;
-    UpdateSystemState();
+    previousState = currentState;
+    currentState = newState;
+
+    write("ZCU_Center: State transition %d -> %d", previousState, currentState);
+
+    switch (newState)
+    {
+      case STATE_FAIL_SAFE: OnEnterFailSafe(); break;
+      case STATE_DEGRADED: OnEnterDegraded(); break;
+      case STATE_NORMAL: OnEnterNormal(); break;
+      default: break;
+    }
+  }
+}
+
+void UpdateSystemState()
+{
+  if (faultRegister & (FAULT_SYSTEM_OVERLOAD | FAULT_HMI_TIMEOUT))
+  {
+    if (currentState != STATE_FAIL_SAFE) TransitionToState(STATE_FAIL_SAFE);
+    return;
+  }
+
+  if (faultRegister & (FAULT_HPC_COMM | FAULT_BUTTON_INPUT | FAULT_VOICE_INPUT | FAULT_CLUSTER_DISPLAY))
+  {
+    if (currentState != STATE_DEGRADED && currentState != STATE_FAIL_SAFE) TransitionToState(STATE_DEGRADED);
+    return;
+  }
+
+  if (faultRegister == 0)
+  {
+    if (currentState == STATE_INIT && commMon.firstMsgReceived_M012)
+    {
+      TransitionToState(STATE_NORMAL);
+    }
+    else if (currentState != STATE_NORMAL && currentState != STATE_INIT)
+    {
+      TransitionToState(STATE_NORMAL);
+    }
   }
 }
 
@@ -50,41 +92,13 @@ void ClearFault(dword faultBit)
   diagnostics.errorFlags = faultRegister;
 }
 
-void OnEnterFailSafe()
+void SetFault(dword faultBit)
 {
-  write("ZCU_Center: FAIL-SAFE mode activated. HMI processing stopped.");
-  SendFailSafeStatus(0x01);
-}
-
-void UpdateSystemState()
-{
-  if (faultRegister & (FAULT_SYSTEM_OVERLOAD | FAULT_HMI_TIMEOUT))
+  if((faultRegister & faultBit) == 0)
   {
-    if (currentState != STATE_FAIL_SAFE) 
-    {
-      currentState = STATE_FAIL_SAFE;
-      OnEnterFailSafe();
-    }
-    return;
-  }
-
-  if (faultRegister & (FAULT_HPC_COMM | FAULT_BUTTON_INPUT | FAULT_VOICE_INPUT))
-  {
-    if (currentState != STATE_DEGRADED && currentState != STATE_FAIL_SAFE) 
-      currentState = STATE_DEGRADED;
-    return;
-  }
-
-  if (faultRegister == 0)
-  {
-    if (currentState == STATE_INIT && commMon.firstMsgReceived_M012)
-    {
-      currentState = STATE_NORMAL;
-    }
-    else if (currentState != STATE_NORMAL && currentState != STATE_INIT)
-    {
-      currentState = STATE_NORMAL;
-    }
+    faultRegister |= faultBit;
+    diagnostics.errorFlags = faultRegister;
+    UpdateSystemState();
   }
 }
 
@@ -180,6 +194,40 @@ byte DetermineRequestedModeFromVoice(byte commandType, byte commandValue)
   return commandValue;
 }
 
+void UpdateClusterDisplay()
+{
+  sysSetVariableInt("ZCU_Sim", "Cluster_Display_Mode", clusterDisplay.currentDisplayMode);
+  sysSetVariableInt("ZCU_Sim", "Cluster_Instant_Power", clusterDisplay.instantRegenPower);
+  sysSetVariableInt("ZCU_Sim", "Cluster_Cumulative_Energy", clusterDisplay.cumulativeRegenEnergy);
+  sysSetVariableInt("ZCU_Sim", "Cluster_Warning_Status", clusterDisplay.warningStatus);
+  sysSetVariableInt("ZCU_Sim", "Cluster_Active_Profile", clusterDisplay.activeProfile);
+  sysSetVariableInt("ZCU_Sim", "Cluster_Comfort_Mode", clusterDisplay.comfortModeEnabled);
+
+  clusterDisplay.lastUpdateTime = timeNowNS() / 1000000;
+  clusterDisplay.displayDataValid = 1;
+
+  write("ZCU_Center: Cluster updated - Mode=%d, Power=%dW, Energy=%dWh, Warning=0x%02X",
+        clusterDisplay.currentDisplayMode, clusterDisplay.instantRegenPower, 
+        clusterDisplay.cumulativeRegenEnergy, clusterDisplay.warningStatus);
+}
+
+void UpdateOTAComfortMode(byte profileType)
+{
+  if (profileType == PROFILE_COMFORT && !clusterDisplay.comfortModeEnabled)
+  {
+    clusterDisplay.comfortModeEnabled = 1;
+    write("ZCU_Center: OTA Comfort Mode activated");
+    
+    sysSetVariableInt("ZCU_Sim", "OTA_Comfort_Activated", 1);
+  }
+  else if (profileType == PROFILE_EFFICIENCY && clusterDisplay.comfortModeEnabled)
+  {
+    write("ZCU_Center: Switched to Efficiency mode (Comfort mode still available)");
+  }
+  
+  UpdateClusterDisplay();
+}
+
 void SendModeChangeRequest(byte requestedMode, byte requestSource, byte profileType)
 {
   message M008_Mode_Change_Req msg;
@@ -210,6 +258,7 @@ void SendModeChangeRequest(byte requestedMode, byte requestSource, byte profileT
   }
   else
   {
+    write("CRC Calculation failed for M008_Mode_Change_Req with error: %d", retval);
     msg.CRC16_Checksum = 0x0000;
   }
 
@@ -222,66 +271,6 @@ void SendModeChangeRequest(byte requestedMode, byte requestSource, byte profileT
 
   write("ZCU_Center: Mode change request sent - Mode=%d, Source=%d, Profile=%d", 
         requestedMode, requestSource, profileType);
-}
-
-byte VerifyE2EProtection(byte dataArray[], int dataLength, word receivedCRC)
-{
-  long retval;
-  dword calculatedCRC;
-
-  retval = Crc_CalculateCRC16(dataArray, dataLength, 0, dataLength, 0, 1, calculatedCRC);
-  if (retval != 0)
-  {
-    write("ZCU_Center: CRC calculation failed with error: %d", retval);
-    return 0;
-  }
-
-  if ((word)calculatedCRC != receivedCRC)
-  {
-    gLastE2EFailTime = timeNowNS() / 1000000;
-    return 0;
-  }
-
-  return 1;
-}
-
-void MonitorCommunication()
-{
-  dword currentTime;
-  dword elapsedTime;
-
-  currentTime = timeNowNS() / 1000000;
-
-  if (commMon.firstMsgReceived_M012)
-  {
-    elapsedTime = currentTime - commMon.lastRxTime_M012;
-    if (elapsedTime > TIMEOUT_HPC_M012)
-    {
-      commMon.failureCount_M012++;
-      if (commMon.failureCount_M012 >= MAX_COMM_FAILURES)
-      {
-        SetFault(FAULT_HPC_COMM);
-        commMon.commStatus &= ~0x01;
-      }
-    }
-  }
-
-  if (commMon.waitingForResponse)
-  {
-    elapsedTime = currentTime - commMon.lastTxTime_M008;
-    if (elapsedTime > HMI_RESPONSE_TIMEOUT)
-    {
-      SetFault(FAULT_HMI_TIMEOUT);
-      commMon.waitingForResponse = 0;
-      hmiInput.pendingModeRequest = 0;
-      
-      diagnostics.lastResponseTime = elapsedTime;
-      if (diagnostics.averageResponseTime == 0)
-        diagnostics.averageResponseTime = elapsedTime;
-      else
-        diagnostics.averageResponseTime = (diagnostics.averageResponseTime + elapsedTime) / 2;
-    }
-  }
 }
 
 void SendFailSafeStatus(byte faultLevel)
@@ -313,6 +302,7 @@ void SendFailSafeStatus(byte faultLevel)
   }
   else
   {
+    write("CRC Calculation failed for M004_FailSafe_Status_3 with error: %d", retval);
     msg.CRC16_Checksum = 0x0000;
   }
 
@@ -346,10 +336,32 @@ void SendDiagnosticData()
   }
   else
   {
+    write("CRC Calculation failed for M016_Diagnostic_Data_3 with error: %d", retval);
     msg.CRC16_Checksum = 0x0000;
   }
 
   output(msg);
+}
+
+byte VerifyE2EProtection(byte dataArray[], int dataLength, word receivedCRC)
+{
+  long retval;
+  dword calculatedCRC;
+
+  retval = Crc_CalculateCRC16(dataArray, dataLength, 0, dataLength, 0, 1, calculatedCRC);
+  if (retval != 0)
+  {
+    write("ZCU_Center: CRC calculation failed with error: %d", retval);
+    return 0;
+  }
+
+  if ((word)calculatedCRC != receivedCRC)
+  {
+    gLastE2EFailTime = timeNowNS() / 1000000;
+    return 0;
+  }
+
+  return 1;
 }
 
 void PerformDiagnostics()
@@ -371,9 +383,67 @@ void PerformDiagnostics()
   }
 }
 
+void MonitorCommunication()
+{
+  dword currentTime;
+  dword elapsedTime;
+
+  currentTime = timeNowNS() / 1000000;
+
+  if (commMon.firstMsgReceived_M012)
+  {
+    elapsedTime = currentTime - commMon.lastRxTime_M012;
+    if (elapsedTime > TIMEOUT_HPC_M012)
+    {
+      commMon.failureCount_M012++;
+      if (commMon.failureCount_M012 >= MAX_COMM_FAILURES)
+      {
+        SetFault(FAULT_HPC_COMM);
+        commMon.commStatus &= ~0x01;
+        clusterDisplay.displayDataValid = 0;
+      }
+    }
+  }
+
+  if (commMon.waitingForResponse)
+  {
+    elapsedTime = currentTime - commMon.lastTxTime_M008;
+    if (elapsedTime > HMI_RESPONSE_TIMEOUT)
+    {
+      SetFault(FAULT_HMI_TIMEOUT);
+      commMon.waitingForResponse = 0;
+      hmiInput.pendingModeRequest = 0;
+      
+      diagnostics.lastResponseTime = elapsedTime;
+      if (diagnostics.averageResponseTime == 0)
+        diagnostics.averageResponseTime = elapsedTime;
+      else
+        diagnostics.averageResponseTime = (diagnostics.averageResponseTime + elapsedTime) / 2;
+    }
+  }
+}
+
+void PerformWatchdog()
+{
+  dword currentTime;
+  dword elapsedTime;
+
+  currentTime = timeNowNS() / 1000000;
+
+  elapsedTime = currentTime - gLastWatchdogTime;
+  if (elapsedTime > (MAIN_CYCLE * 2 * 5))
+  {
+    SetFault(FAULT_SYSTEM_OVERLOAD);
+  }
+
+  gLastWatchdogTime = currentTime;
+  gWatchdogCounter = (gWatchdogCounter + 1) % 256;
+}
+
 void InitializeGlobals()
 {
   dword initTime;
+
   initTime = timeNowNS() / 1000000;
 
   hmiInput.lastButtonTime = 0;
@@ -426,6 +496,29 @@ void InitializeGlobals()
   counter_M016 = 0;
 
   gHourCounter = 0;
+  gWatchdogCounter = 0;
+  gLastWatchdogTime = initTime;
   gTaskCounter = 0;
+
+  gRollingCounter = 0;
   gLastE2EFailTime = 0;
+}
+
+void PerformInitialSelfTest()
+{
+  write("ZCU_Center: Performing initial self-test...");
+  
+  clusterDisplay.clusterConnected = sysGetVariableInt("ZCU_Sim", "Cluster_Connected");
+  if (!clusterDisplay.clusterConnected)
+  {
+    SetFault(FAULT_CLUSTER_DISPLAY);
+    write("ZCU_Center: Warning - Cluster not connected");
+  }
+  else
+  {
+    write("ZCU_Center: Cluster connection verified");
+    UpdateClusterDisplay();
+  }
+
+  write("ZCU_Center: Self-test complete - Faults: 0x%08X", faultRegister);
 }

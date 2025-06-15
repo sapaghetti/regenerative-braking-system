@@ -28,6 +28,7 @@ variables
   const dword FAULT_HPC_COMM = 0x00000001;
   const dword FAULT_BUTTON_INPUT = 0x00000002;
   const dword FAULT_VOICE_INPUT = 0x00000004;
+  const dword FAULT_CLUSTER_DISPLAY = 0x00000008;
   const dword FAULT_HMI_TIMEOUT = 0x00000010;
   const dword FAULT_SYSTEM_OVERLOAD = 0x00000020;
   const dword FAULT_MODE_CHANGE_FAIL = 0x00000040;
@@ -107,6 +108,9 @@ variables
   msTimer timerMainTask;
   dword gTaskCounter;
   int gHourCounter;
+  byte gWatchdogCounter;
+  dword gLastWatchdogTime;
+  byte gRollingCounter;
   dword gLastE2EFailTime;
 
   const byte REQUEST_SOURCE_BUTTON = 0;
@@ -125,4 +129,10 @@ variables
   const byte VOICE_CMD_MODE_CHANGE = 0;
   const byte VOICE_CMD_PROFILE_CHANGE = 1;
   const byte VOICE_CMD_SYSTEM_INFO = 2;
+
+  const byte WARNING_BATTERY = 0x01;
+  const byte WARNING_ABS = 0x02;
+  const byte WARNING_SYSTEM_FAULT = 0x04;
+  const byte WARNING_COMM_ERROR = 0x08;
+  const byte WARNING_OTA_UPDATE = 0x10;
 }
