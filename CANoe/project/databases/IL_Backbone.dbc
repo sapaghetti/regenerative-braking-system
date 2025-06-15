@@ -110,13 +110,13 @@ BO_ 2183201537 M005_Vehicle_Dynamics: 8 ZCU_Front
  SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC
  SG_ Sensor_Status : 40|8@1+ (1,0) [0|255] ""  HPC
  SG_ Steering_Angle : 24|16@1+ (0.1,-3200) [-3200|3200] "deg"  HPC
- SG_ Vehicle_Speed : 8|16@1+ (0.1,0) [0|655.35] "km/h"  HPC
- SG_ APS_Position : 0|8@1+ (0.5,0) [0|127.5] "%"  HPC
+ SG_ Vehicle_Speed : 8|16@1+ (0.01,0) [0|655.35] "km/h"  HPC
+ SG_ APS_Position : 0|8@1+ (0.5,0) [0|100] "%"  HPC
 
-BO_ 2183201538 M005_EXT_Brake_Switch: 4 ZCU_Front
+BO_ 2183201538 M005_EXT_Brake_Pedal: 4 ZCU_Front
  SG_ CRC16_Checksum : 16|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Brake_Pedal_Force : 8|8@1+ (1,0) [0|255] "N"  HPC
- SG_ BSS_Status : 0|8@1+ (1,0) [0|255] ""  HPC
+ SG_ Sensor_Status : 8|8@1+ (1,0) [0|255] ""  HPC
+ SG_ BPPS_Position : 0|8@1+ (0.5,0) [0|100] "%"  HPC
 
 BO_ 2185298690 M006_Battery_Basic: 12 ZCU_Rear
  SG_ Reserved : 80|16@1+ (1,0) [0|0] ""  HPC
@@ -126,7 +126,7 @@ BO_ 2185298690 M006_Battery_Basic: 12 ZCU_Rear
  SG_ Battery_Current : 32|16@1+ (0.1,-3200) [-3200|3200] "A"  HPC
  SG_ Battery_Voltage : 16|16@1+ (0.1,0) [0|6553.5] "V"  HPC
  SG_ Battery_Temp : 8|8@1+ (1,-40) [-40|215] "degC"  HPC
- SG_ Battery_SOC : 0|8@1+ (0.5,0) [0|127.5] "%"  HPC
+ SG_ Battery_SOC : 0|8@1+ (0.5,0) [0|100] "%"  HPC
 
 BO_ 2185298691 M006_EXT_Battery_Detail: 8 ZCU_Rear
  SG_ Reserved : 56|8@1+ (1,0) [0|0] ""  HPC
