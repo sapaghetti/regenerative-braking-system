@@ -2,6 +2,7 @@
 void OnEnterFailSafe()
 {
   write("ZCU_Front: FAIL-SAFE mode activated. Transmissions stopped.");
+  SendFailSafeStatus(0x01);
 }
 
 void OnEnterDegraded()
@@ -63,6 +64,39 @@ void SetFault(dword faultBit)
   }
 }
 
+void SendFailSafeStatus(byte faultLevel)
+{
+  message M004_FailSafe_Status_2 msg;
+  byte dataArray[6];
+  long retval;
+  dword crc;
+  
+  counter_M004 = (counter_M004 + 1) % 16;
+  
+  msg.Fault_Code = faultLevel;
+  msg.Source_ECU = ECU_ID;
+  msg.Fault_Type = (byte)(faultRegister & 0xFF);
+  msg.Event_Counter = counter_M004;
+  msg.Event_Timestamp = (word)(timeNowNS() / 1000000);
+  
+  dataArray[0] = msg.Fault_Code;
+  dataArray[1] = msg.Source_ECU;
+  dataArray[2] = msg.Fault_Type;
+  dataArray[3] = msg.Event_Counter;
+  dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
+  
+  retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  if (retval == 0) {
+    msg.CRC16_Checksum = (word)crc;
+  } else {
+    write("CRC Calculation failed for M004_FailSafe_Status_2 with error: %d", retval);
+    msg.CRC16_Checksum = 0x0000;
+  }
+  
+  output(msg);
+}
+
 void MonitorCommunication()
 {
   dword currentTime;
@@ -99,5 +133,6 @@ void InitializeGlobals()
   currentState = STATE_INIT;
   previousState = STATE_INIT;
   
+  counter_M004 = 0;
   gTaskCounter = 0;
 }

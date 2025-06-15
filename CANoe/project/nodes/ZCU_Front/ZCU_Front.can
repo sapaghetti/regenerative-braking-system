@@ -34,6 +34,12 @@ on timer timerMainTask
   gTaskCounter++;
 }
 
+on key 'f'
+{
+  write("ZCU_Front: Manual fault injection - HPC_COMM");
+  SetFault(FAULT_HPC_COMM);
+}
+
 on key 'c'
 {
   write("ZCU_Front: Clearing all faults");

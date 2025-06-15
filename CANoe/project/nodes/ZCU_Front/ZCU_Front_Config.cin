@@ -36,6 +36,7 @@ variables
   };
   struct DiagnosticData diagnostics;
 
+  byte counter_M004;
   dword faultRegister;
   msTimer timerMainTask;
   dword gTaskCounter;
