@@ -263,7 +263,7 @@ void SendM005_VehicleDynamics()
 {
   message M005_Vehicle_Dynamics msg;
   byte dataArray[6];
-  long tempVal, retval;
+  long retval;
   dword crc;
   byte apsValid, speedValid, steeringValid;
 
@@ -272,9 +272,9 @@ void SendM005_VehicleDynamics()
   sensors.apsStatus = ValidateSensorRange(sensors.apsPosition, APS_MIN, APS_MAX);
   ValidateAPSBPPS();
 
-  msg.APS_Position = sensors.apsPosition;
-  msg.Vehicle_Speed = sensors.vehicleSpeed;
-  msg.Steering_Angle = sensors.steeringAngle;
+  msg.APS_Position = (byte)(sensors.apsPosition * 2);
+  msg.Vehicle_Speed = (word)(sensors.vehicleSpeed * 100);
+  msg.Steering_Angle = (word)((sensors.steeringAngle + 3200.0) * 10);
 
   apsValid = (sensors.apsStatus == 0);
   speedValid = (ValidateSensorRange(sensors.vehicleSpeed, 0, SPEED_MAX) == 0);
@@ -282,17 +282,11 @@ void SendM005_VehicleDynamics()
 
   msg.Sensor_Status = (apsValid << 7) | (speedValid << 6) | (steeringValid << 5);
 
-  tempVal = (long)(msg.APS_Position * 255 / 100);
-  dataArray[0] = (byte)tempVal;
-
-  tempVal = (long)(msg.Vehicle_Speed * 100);
-  dataArray[1] = (byte)(tempVal & 0xFF);
-  dataArray[2] = (byte)((tempVal >> 8) & 0xFF);
-
-  tempVal = (long)msg.Steering_Angle + 3200;
-  dataArray[3] = (byte)(tempVal & 0xFF);
-  dataArray[4] = (byte)((tempVal >> 8) & 0xFF);
-
+  dataArray[0] = msg.APS_Position;
+  dataArray[1] = (byte)(msg.Vehicle_Speed & 0xFF);
+  dataArray[2] = (byte)((msg.Vehicle_Speed >> 8) & 0xFF);
+  dataArray[3] = (byte)(msg.Steering_Angle & 0xFF);
+  dataArray[4] = (byte)((msg.Steering_Angle >> 8) & 0xFF);
   dataArray[5] = msg.Sensor_Status;
 
   retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
@@ -317,7 +311,7 @@ void SendM005_EXT_BrakePedal()
 {
   message M005_EXT_Brake_Pedal msg;
   byte dataArray[2];
-  long tempVal, retval;
+  long retval;
   dword crc;
   byte bppsPressed, bppsValid;
 
@@ -325,16 +319,14 @@ void SendM005_EXT_BrakePedal()
   sensors.bppsStatus = ValidateSensorRange(sensors.bppsPosition, BPPS_MIN, BPPS_MAX);
   ValidateAPSBPPS();
 
-  msg.BPPS_Position = sensors.bppsPosition;
+  msg.BPPS_Position = (byte)(sensors.bppsPosition * 2);
 
   bppsPressed = (sensors.bppsPosition > 0.0);
   bppsValid = (sensors.bppsStatus == 0);
 
   msg.Sensor_Status = (bppsPressed << 7) | (bppsValid << 6);
 
-  tempVal = (long)(msg.BPPS_Position * 255 / 100);
-  dataArray[0] = (byte)tempVal;
-
+  dataArray[0] = msg.BPPS_Position;
   dataArray[1] = msg.Sensor_Status;
 
   retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
