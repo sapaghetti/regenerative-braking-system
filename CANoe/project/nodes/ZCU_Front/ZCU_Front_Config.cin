@@ -7,7 +7,16 @@ variables
   const int TIMEOUT_HPC = 100;
   const int MAX_COMM_FAILURES = 3;
 
-  const dword FAULT_HPC_COMM = 0x00000001;
+  const float APS_MIN = 0.0;
+  const float APS_MAX = 100.0;
+  const float BPPS_MIN = 0.0;
+  const float BPPS_MAX = 100.0;
+  const float SPEED_MAX = 300.0;
+
+  const dword FAULT_APS_SENSOR = 0x00000001;
+  const dword FAULT_BPPS_SENSOR = 0x00000002;
+  const dword FAULT_HPC_COMM = 0x00000004;
+  const dword FAULT_CROSS_CHECK = 0x00000008;
 
   enum SystemState {
     STATE_INIT = 0,
@@ -20,7 +29,8 @@ variables
   enum SystemState previousState;
 
   struct SensorData {
-    byte sensorsValid;
+    float apsPosition, bppsPosition, vehicleSpeed;
+    byte apsStatus, bppsStatus, sensorsValid;
   };
   struct SensorData sensors;
 
@@ -36,7 +46,7 @@ variables
   };
   struct DiagnosticData diagnostics;
 
-  byte counter_M004;
+  byte counter_M005, counter_M005_EXT, counter_M004;
   dword faultRegister;
   msTimer timerMainTask;
   dword gTaskCounter;

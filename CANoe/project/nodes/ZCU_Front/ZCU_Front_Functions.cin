@@ -34,7 +34,7 @@ void TransitionToState(enum SystemState newState)
 
 void UpdateSystemState()
 {
-  if (faultRegister & FAULT_HPC_COMM) {
+  if (faultRegister & (FAULT_APS_SENSOR | FAULT_BPPS_SENSOR | FAULT_CROSS_CHECK | FAULT_HPC_COMM)) {
     if (currentState != STATE_FAIL_SAFE) TransitionToState(STATE_FAIL_SAFE);
     return;
   }
@@ -62,6 +62,36 @@ void SetFault(dword faultBit)
     diagnostics.errorFlags = faultRegister;
     UpdateSystemState();
   }
+}
+
+float ReadAPS()
+{
+  return sysGetVariableFloat("ZCU_Sim", "APS_Position");
+}
+
+float ReadBPPS()
+{
+  return sysGetVariableFloat("ZCU_Sim", "BPPS_Position");
+}
+
+float ReadVehicleSpeed()
+{
+  return sysGetVariableFloat("ZCU_Sim", "Vehicle_Speed");
+}
+
+byte ValidateSensorRange(float value, float min, float max)
+{
+  if (value >= min && value <= max) return 0;
+  return 2;
+}
+
+byte ValidateAPSBPPS()
+{
+  if (sensors.apsPosition > 5.0 && sensors.bppsPosition > 5.0) {
+    SetFault(FAULT_CROSS_CHECK);
+    return 2;
+  }
+  return 0;
 }
 
 void SendFailSafeStatus(byte faultLevel)
@@ -97,6 +127,88 @@ void SendFailSafeStatus(byte faultLevel)
   output(msg);
 }
 
+void SendM005_VehicleDynamics()
+{
+  message M005_Vehicle_Dynamics msg;
+  byte dataArray[6];
+  long tempVal, retval;
+  dword crc;
+  byte apsValid, speedValid, steeringValid;
+  
+  sensors.apsPosition = ReadAPS();
+  sensors.vehicleSpeed = ReadVehicleSpeed();
+  sensors.apsStatus = ValidateSensorRange(sensors.apsPosition, APS_MIN, APS_MAX);
+  ValidateAPSBPPS();
+
+  msg.APS_Position = sensors.apsPosition;
+  msg.Vehicle_Speed = sensors.vehicleSpeed;
+  msg.Steering_Angle = 0.0;
+  
+  apsValid = (sensors.apsStatus == 0);
+  speedValid = (ValidateSensorRange(sensors.vehicleSpeed, 0, SPEED_MAX) == 0);
+  steeringValid = 0;
+  
+  msg.Sensor_Status = (apsValid << 7) | (speedValid << 6) | (steeringValid << 5);
+  
+  tempVal = (long)(msg.APS_Position * 255 / 100);
+  dataArray[0] = (byte)tempVal;
+
+  tempVal = (long)(msg.Vehicle_Speed * 100);
+  dataArray[1] = (byte)(tempVal & 0xFF);
+  dataArray[2] = (byte)((tempVal >> 8) & 0xFF);
+
+  tempVal = (long)msg.Steering_Angle + 3200;
+  dataArray[3] = (byte)(tempVal & 0xFF);
+  dataArray[4] = (byte)((tempVal >> 8) & 0xFF);
+  
+  dataArray[5] = msg.Sensor_Status;
+  
+  retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  if (retval == 0) {
+    msg.CRC16_Checksum = (word)crc;
+  } else {
+    write("CRC Calculation failed for M005_Vehicle_Dynamics with error: %d", retval);
+    msg.CRC16_Checksum = 0x0000;
+  }
+  
+  output(msg);
+}
+
+void SendM005_EXT_BrakePedal()
+{
+  message M005_EXT_Brake_Pedal msg;
+  byte dataArray[2];
+  long tempVal, retval;
+  dword crc;
+  byte bppsPressed, bppsValid;
+
+  sensors.bppsPosition = ReadBPPS();
+  sensors.bppsStatus = ValidateSensorRange(sensors.bppsPosition, BPPS_MIN, BPPS_MAX);
+  ValidateAPSBPPS();
+  
+  msg.BPPS_Position = sensors.bppsPosition;
+  
+  bppsPressed = (sensors.bppsPosition > 0.0);
+  bppsValid = (sensors.bppsStatus == 0);
+  
+  msg.Sensor_Status = (bppsPressed << 7) | (bppsValid << 6);
+  
+  tempVal = (long)(msg.BPPS_Position * 255 / 100);
+  dataArray[0] = (byte)tempVal;
+  
+  dataArray[1] = msg.Sensor_Status;
+
+  retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  if (retval == 0) {
+    msg.CRC16_Checksum = (word)crc;
+  } else {
+    write("CRC Calculation failed for M005_EXT_Brake_Pedal with error: %d", retval);
+    msg.CRC16_Checksum = 0x0000;
+  }
+  
+  output(msg);
+}
+
 void MonitorCommunication()
 {
   dword currentTime;
@@ -121,7 +233,8 @@ void InitializeGlobals()
 
   initTime = timeNowNS() / 1000000;
 
-  sensors.sensorsValid = 0;
+  sensors.apsPosition = 0; sensors.bppsPosition = 0; sensors.apsStatus = 0;
+  sensors.bppsStatus = 0; sensors.vehicleSpeed = 0; sensors.sensorsValid = 0;
 
   commMon.lastRxTime_HPC = initTime;
   commMon.failureCount_HPC = 0;
@@ -133,6 +246,17 @@ void InitializeGlobals()
   currentState = STATE_INIT;
   previousState = STATE_INIT;
   
-  counter_M004 = 0;
+  counter_M005 = 0; counter_M005_EXT = 0; counter_M004 = 0;
   gTaskCounter = 0;
+}
+
+void PerformInitialSelfTest()
+{
+  write("ZCU_Front: Performing initial self-test...");
+  sensors.apsPosition = ReadAPS();
+  sensors.bppsPosition = ReadBPPS();
+  if (ValidateSensorRange(sensors.apsPosition, APS_MIN, APS_MAX) != 0) SetFault(FAULT_APS_SENSOR);
+  if (ValidateSensorRange(sensors.bppsPosition, BPPS_MIN, BPPS_MAX) != 0) SetFault(FAULT_BPPS_SENSOR);
+  ValidateAPSBPPS();
+  write("ZCU_Front: Self-test complete - Faults: 0x%08X", faultRegister);
 }

@@ -11,6 +11,8 @@ on start
   
   InitializeGlobals();
   
+  PerformInitialSelfTest();
+  
   write("ZCU_Front: Initialization complete. Waiting for system to be ready...");
 
   setTimerCyclic(timerMainTask, MAIN_CYCLE);
@@ -24,6 +26,15 @@ on stopMeasurement
 
 on timer timerMainTask
 {
+  if(currentState != STATE_FAIL_SAFE)
+  {
+    SendM005_EXT_BrakePedal();
+
+    if ((gTaskCounter % 2) == 0) {
+      SendM005_VehicleDynamics();
+    }
+  }
+
   if ((gTaskCounter % 10) == 0) {
     if (currentState != STATE_INIT) {
         MonitorCommunication();
@@ -53,6 +64,7 @@ on key 's'
 {
   write("=== ZCU_Front Status ===");
   write("State: %d, Faults: 0x%08X", currentState, faultRegister);
+  write("APS: %.1f%%, BPPS: %.1f%%, Speed: %.1fkm/h", sensors.apsPosition, sensors.bppsPosition, sensors.vehicleSpeed);
   write("Comm: HPC Fail=%d", commMon.failureCount_HPC);
   write("========================");
 }
