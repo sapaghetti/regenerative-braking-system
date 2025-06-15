@@ -2,18 +2,19 @@
 byte PerformSecureBoot()
 {
   dword expectedSignature, actualSignature;
-  
+
   write("ZCU_Front: Starting Secure Boot verification...");
-  
+
   expectedSignature = 0xDEADBEEF;
   actualSignature = sysGetVariableInt("ZCU_Sim", "Firmware_Signature");
-  
-  if (actualSignature != expectedSignature) {
-    write("ZCU_Front: Secure Boot FAILED - Invalid firmware signature (Expected: 0x%08X, Actual: 0x%08X)", 
+
+  if (actualSignature != expectedSignature)
+  {
+    write("ZCU_Front: Secure Boot FAILED - Invalid firmware signature (Expected: 0x%08X, Actual: 0x%08X)",
           expectedSignature, actualSignature);
     return 0;
   }
-  
+
   write("ZCU_Front: Secure Boot verification PASSED");
   return 1;
 }
@@ -36,13 +37,15 @@ void OnEnterNormal()
 
 void TransitionToState(enum SystemState newState)
 {
-  if (newState != currentState) {
+  if (newState != currentState)
+  {
     previousState = currentState;
     currentState = newState;
-    
+
     write("ZCU_Front: State transition %d -> %d", previousState, currentState);
-    
-    switch (newState) {
+
+    switch (newState)
+    {
       case STATE_FAIL_SAFE: OnEnterFailSafe(); break;
       case STATE_DEGRADED: OnEnterDegraded(); break;
       case STATE_NORMAL: OnEnterNormal(); break;
@@ -53,21 +56,27 @@ void TransitionToState(enum SystemState newState)
 
 void UpdateSystemState()
 {
-  if (faultRegister & (FAULT_APS_SENSOR | FAULT_BPPS_SENSOR | FAULT_CROSS_CHECK | FAULT_SYSTEM_OVERLOAD)) {
+  if (faultRegister & (FAULT_APS_SENSOR | FAULT_BPPS_SENSOR | FAULT_CROSS_CHECK | FAULT_SYSTEM_OVERLOAD))
+  {
     if (currentState != STATE_FAIL_SAFE) TransitionToState(STATE_FAIL_SAFE);
     return;
   }
-  
-  if (faultRegister & (FAULT_EPAS_COMM | FAULT_ADAS_COMM | FAULT_SENSOR_RANGE)) {
+
+  if (faultRegister & (FAULT_EPAS_COMM | FAULT_ADAS_COMM | FAULT_SENSOR_RANGE))
+  {
     if (currentState != STATE_DEGRADED && currentState != STATE_FAIL_SAFE) TransitionToState(STATE_DEGRADED);
     return;
   }
-  
-  if (faultRegister == 0) {
-    if (currentState == STATE_INIT && commMon.firstMsgReceived_EPAS && commMon.firstMsgReceived_ADAS) {
-        TransitionToState(STATE_NORMAL);
-    } else if (currentState != STATE_NORMAL && currentState != STATE_INIT) {
-        TransitionToState(STATE_NORMAL);
+
+  if (faultRegister == 0)
+  {
+    if (currentState == STATE_INIT && commMon.firstMsgReceived_EPAS && commMon.firstMsgReceived_ADAS)
+    {
+      TransitionToState(STATE_NORMAL);
+    }
+    else if (currentState != STATE_NORMAL && currentState != STATE_INIT)
+    {
+      TransitionToState(STATE_NORMAL);
     }
   }
 }
@@ -111,7 +120,8 @@ byte ValidateSensorRange(float value, float min, float max)
 
 byte ValidateAPSBPPS()
 {
-  if (sensors.apsPosition > 5.0 && sensors.bppsPosition > 5.0) {
+  if (sensors.apsPosition > 5.0 && sensors.bppsPosition > 5.0)
+  {
     SetFault(FAULT_CROSS_CHECK);
     return 2;
   }
@@ -124,30 +134,33 @@ void SendFailSafeStatus(byte faultLevel)
   byte dataArray[6];
   long retval;
   dword crc;
-  
+
   counter_M004 = (counter_M004 + 1) % 16;
-  
+
   msg.Fault_Code = faultLevel;
   msg.Source_ECU = ECU_ID;
   msg.Fault_Type = (byte)(faultRegister & 0xFF);
   msg.Event_Counter = counter_M004;
   msg.Event_Timestamp = (word)(timeNowNS() / 1000000);
-  
+
   dataArray[0] = msg.Fault_Code;
   dataArray[1] = msg.Source_ECU;
   dataArray[2] = msg.Fault_Type;
   dataArray[3] = msg.Event_Counter;
   dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
   dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
-  
+
   retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
-  if (retval == 0) {
+  if (retval == 0)
+  {
     msg.CRC16_Checksum = (word)crc;
-  } else {
+  }
+  else
+  {
     write("CRC Calculation failed for M004_FailSafe_Status_2 with error: %d", retval);
     msg.CRC16_Checksum = 0x0000;
   }
-  
+
   output(msg);
 }
 
@@ -158,7 +171,7 @@ void SendM005_VehicleDynamics()
   long tempVal, retval;
   dword crc;
   byte apsValid, speedValid, steeringValid;
-  
+
   sensors.apsPosition = ReadAPS();
   sensors.vehicleSpeed = ReadVehicleSpeed();
   sensors.apsStatus = ValidateSensorRange(sensors.apsPosition, APS_MIN, APS_MAX);
@@ -167,13 +180,13 @@ void SendM005_VehicleDynamics()
   msg.APS_Position = sensors.apsPosition;
   msg.Vehicle_Speed = sensors.vehicleSpeed;
   msg.Steering_Angle = sensors.steeringAngle;
-  
+
   apsValid = (sensors.apsStatus == 0);
   speedValid = (ValidateSensorRange(sensors.vehicleSpeed, 0, SPEED_MAX) == 0);
   steeringValid = (sensors.sensorsValid & 0x01);
-  
+
   msg.Sensor_Status = (apsValid << 7) | (speedValid << 6) | (steeringValid << 5);
-  
+
   tempVal = (long)(msg.APS_Position * 255 / 100);
   dataArray[0] = (byte)tempVal;
 
@@ -184,17 +197,20 @@ void SendM005_VehicleDynamics()
   tempVal = (long)msg.Steering_Angle + 3200;
   dataArray[3] = (byte)(tempVal & 0xFF);
   dataArray[4] = (byte)((tempVal >> 8) & 0xFF);
-  
+
   dataArray[5] = msg.Sensor_Status;
-  
+
   retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
-  if (retval == 0) {
+  if (retval == 0)
+  {
     msg.CRC16_Checksum = (word)crc;
-  } else {
+  }
+  else
+  {
     write("CRC Calculation failed for M005_Vehicle_Dynamics with error: %d", retval);
     msg.CRC16_Checksum = 0x0000;
   }
-  
+
   output(msg);
 }
 
@@ -209,27 +225,30 @@ void SendM005_EXT_BrakePedal()
   sensors.bppsPosition = ReadBPPS();
   sensors.bppsStatus = ValidateSensorRange(sensors.bppsPosition, BPPS_MIN, BPPS_MAX);
   ValidateAPSBPPS();
-  
+
   msg.BPPS_Position = sensors.bppsPosition;
-  
+
   bppsPressed = (sensors.bppsPosition > 0.0);
   bppsValid = (sensors.bppsStatus == 0);
-  
+
   msg.Sensor_Status = (bppsPressed << 7) | (bppsValid << 6);
-  
+
   tempVal = (long)(msg.BPPS_Position * 255 / 100);
   dataArray[0] = (byte)tempVal;
-  
+
   dataArray[1] = msg.Sensor_Status;
 
   retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
-  if (retval == 0) {
+  if (retval == 0)
+  {
     msg.CRC16_Checksum = (word)crc;
-  } else {
+  }
+  else
+  {
     write("CRC Calculation failed for M005_EXT_Brake_Pedal with error: %d", retval);
     msg.CRC16_Checksum = 0x0000;
   }
-  
+
   output(msg);
 }
 
@@ -238,13 +257,14 @@ void PerformDiagnostics()
   diagnostics.cpuUsage = (byte)(random(31) + 20);
   diagnostics.memoryUsage = (byte)(random(41) + 30);
   diagnostics.temperature = (byte)(random(61) + 25);
-  
+
   gHourCounter++;
-  if (gHourCounter >= 36000) {
+  if (gHourCounter >= 36000)
+  {
     diagnostics.operatingHours++;
     gHourCounter = 0;
   }
-  
+
   if (diagnostics.cpuUsage > 90 || diagnostics.memoryUsage > 90) SetFault(FAULT_SYSTEM_OVERLOAD);
 }
 
@@ -252,26 +272,32 @@ void MonitorCommunication()
 {
   dword currentTime;
   dword elapsedTime;
-  
+
   currentTime = timeNowNS() / 1000000;
-  
-  if (commMon.firstMsgReceived_EPAS) {
+
+  if (commMon.firstMsgReceived_EPAS)
+  {
     elapsedTime = currentTime - commMon.lastRxTime_EPAS;
-    if (elapsedTime > TIMEOUT_EPAS) {
+    if (elapsedTime > TIMEOUT_EPAS)
+    {
       commMon.failureCount_EPAS++;
-      if (commMon.failureCount_EPAS >= MAX_COMM_FAILURES) {
+      if (commMon.failureCount_EPAS >= MAX_COMM_FAILURES)
+      {
         SetFault(FAULT_EPAS_COMM);
         commMon.commStatus &= ~0x01;
         sensors.sensorsValid &= ~0x01;
       }
     }
   }
-  
-  if (commMon.firstMsgReceived_ADAS) {
+
+  if (commMon.firstMsgReceived_ADAS)
+  {
     elapsedTime = currentTime - commMon.lastRxTime_ADAS;
-    if (elapsedTime > TIMEOUT_ADAS) {
+    if (elapsedTime > TIMEOUT_ADAS)
+    {
       commMon.failureCount_ADAS++;
-      if (commMon.failureCount_ADAS >= MAX_COMM_FAILURES) {
+      if (commMon.failureCount_ADAS >= MAX_COMM_FAILURES)
+      {
         SetFault(FAULT_ADAS_COMM);
         commMon.commStatus &= ~0x02;
         sensors.sensorsValid &= ~0x02;
@@ -288,10 +314,11 @@ void PerformWatchdog()
   currentTime = timeNowNS() / 1000000;
 
   elapsedTime = currentTime - gLastWatchdogTime;
-  if (elapsedTime > (MAIN_CYCLE * 2 * 5)) {
+  if (elapsedTime > (MAIN_CYCLE * 2 * 5))
+  {
     SetFault(FAULT_SYSTEM_OVERLOAD);
   }
-  
+
   gLastWatchdogTime = currentTime;
   gWatchdogCounter = (gWatchdogCounter + 1) % 256;
 }
@@ -318,13 +345,13 @@ void InitializeGlobals()
 
   diagnostics.cpuUsage = 0; diagnostics.memoryUsage = 0; diagnostics.temperature = 0;
   diagnostics.operatingHours = 0; diagnostics.errorFlags = 0;
-  
+
   faultRegister = 0;
   currentState = STATE_INIT;
   previousState = STATE_INIT;
-  
+
   counter_M005 = 0; counter_M005_EXT = 0; counter_M004 = 0; gLastEpasCounter = 0;
-  
+
   gHourCounter = 0;
   gWatchdogCounter = 0;
   gLastWatchdogTime = initTime;

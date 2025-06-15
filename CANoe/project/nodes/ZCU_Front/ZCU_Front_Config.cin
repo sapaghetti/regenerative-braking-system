@@ -23,7 +23,8 @@ variables
   const dword FAULT_CROSS_CHECK = 0x00000020;
   const dword FAULT_SYSTEM_OVERLOAD = 0x00000040;
 
-  enum SystemState {
+  enum SystemState
+  {
     STATE_INIT = 0,
     STATE_NORMAL = 1,
     STATE_DEGRADED = 2,
@@ -33,13 +34,15 @@ variables
   enum SystemState currentState;
   enum SystemState previousState;
 
-  struct SensorData {
+  struct SensorData
+  {
     float apsPosition, bppsPosition, steeringAngle, steeringTorque, angularVelocity, frontVehicleDistance, frontVehicleSpeed, vehicleSpeed;
     byte apsStatus, bppsStatus, epasStatus, laneChangeIndicator, roadCondition, sensorsValid;
   };
   struct SensorData sensors;
 
-  struct CommMonitor {
+  struct CommMonitor
+  {
     dword lastRxTime_EPAS, lastRxTime_ADAS;
     int failureCount_EPAS, failureCount_ADAS;
     byte commStatus;
@@ -48,7 +51,8 @@ variables
   };
   struct CommMonitor commMon;
 
-  struct DiagnosticData {
+  struct DiagnosticData
+  {
     byte cpuUsage, memoryUsage, temperature;
     word operatingHours;
     dword errorFlags;
@@ -59,7 +63,7 @@ variables
   dword faultRegister;
   msTimer timerMainTask;
   dword gTaskCounter;
-  
+
   int gHourCounter;
   byte gWatchdogCounter;
   dword gLastWatchdogTime;
