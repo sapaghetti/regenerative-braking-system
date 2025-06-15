@@ -4,7 +4,7 @@ variables
   const int ECU_ID = 0x02;
   const int SYSTEM_VERSION = 0x0100;
   const int MAIN_CYCLE = 10;
-  const int TIMEOUT_HPC = 100;
+  const int TIMEOUT_EPAS = 60;
   const int TIMEOUT_ADAS = 150;
   const int MAX_COMM_FAILURES = 3;
 
@@ -13,12 +13,15 @@ variables
   const float BPPS_MIN = 0.0;
   const float BPPS_MAX = 100.0;
   const float SPEED_MAX = 300.0;
+  const float STEERING_MAX = 1800.0;
 
   const dword FAULT_APS_SENSOR = 0x00000001;
   const dword FAULT_BPPS_SENSOR = 0x00000002;
-  const dword FAULT_HPC_COMM = 0x00000004;
+  const dword FAULT_EPAS_COMM = 0x00000004;
   const dword FAULT_ADAS_COMM = 0x00000008;
-  const dword FAULT_CROSS_CHECK = 0x00000010;
+  const dword FAULT_SENSOR_RANGE = 0x00000010;
+  const dword FAULT_CROSS_CHECK = 0x00000020;
+  const dword FAULT_SYSTEM_OVERLOAD = 0x00000040;
 
   enum SystemState {
     STATE_INIT = 0,
@@ -31,25 +34,33 @@ variables
   enum SystemState previousState;
 
   struct SensorData {
-    float apsPosition, bppsPosition, vehicleSpeed, frontVehicleDistance, frontVehicleSpeed;
-    byte apsStatus, bppsStatus, laneChangeIndicator, roadCondition, sensorsValid;
+    float apsPosition, bppsPosition, steeringAngle, steeringTorque, angularVelocity, frontVehicleDistance, frontVehicleSpeed, vehicleSpeed;
+    byte apsStatus, bppsStatus, epasStatus, laneChangeIndicator, roadCondition, sensorsValid;
   };
   struct SensorData sensors;
 
   struct CommMonitor {
-    dword lastRxTime_HPC, lastRxTime_ADAS;
-    int failureCount_HPC, failureCount_ADAS;
-    byte firstMsgReceived_HPC, firstMsgReceived_ADAS;
+    dword lastRxTime_EPAS, lastRxTime_ADAS;
+    int failureCount_EPAS, failureCount_ADAS;
+    byte commStatus;
+    byte firstMsgReceived_EPAS;
+    byte firstMsgReceived_ADAS;
   };
   struct CommMonitor commMon;
 
   struct DiagnosticData {
+    byte cpuUsage, memoryUsage, temperature;
+    word operatingHours;
     dword errorFlags;
   };
   struct DiagnosticData diagnostics;
 
-  byte counter_M005, counter_M005_EXT, counter_M004;
+  byte counter_M005, counter_M005_EXT, counter_M004, gLastEpasCounter;
   dword faultRegister;
   msTimer timerMainTask;
   dword gTaskCounter;
+  
+  int gHourCounter;
+  byte gWatchdogCounter;
+  dword gLastWatchdogTime;
 }

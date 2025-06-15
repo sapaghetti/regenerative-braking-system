@@ -53,18 +53,18 @@ void TransitionToState(enum SystemState newState)
 
 void UpdateSystemState()
 {
-  if (faultRegister & (FAULT_APS_SENSOR | FAULT_BPPS_SENSOR | FAULT_CROSS_CHECK | FAULT_HPC_COMM)) {
+  if (faultRegister & (FAULT_APS_SENSOR | FAULT_BPPS_SENSOR | FAULT_CROSS_CHECK | FAULT_SYSTEM_OVERLOAD)) {
     if (currentState != STATE_FAIL_SAFE) TransitionToState(STATE_FAIL_SAFE);
     return;
   }
   
-  if (faultRegister & FAULT_ADAS_COMM) {
+  if (faultRegister & (FAULT_EPAS_COMM | FAULT_ADAS_COMM | FAULT_SENSOR_RANGE)) {
     if (currentState != STATE_DEGRADED && currentState != STATE_FAIL_SAFE) TransitionToState(STATE_DEGRADED);
     return;
   }
   
   if (faultRegister == 0) {
-    if (currentState == STATE_INIT && commMon.firstMsgReceived_HPC && commMon.firstMsgReceived_ADAS) {
+    if (currentState == STATE_INIT && commMon.firstMsgReceived_EPAS && commMon.firstMsgReceived_ADAS) {
         TransitionToState(STATE_NORMAL);
     } else if (currentState != STATE_NORMAL && currentState != STATE_INIT) {
         TransitionToState(STATE_NORMAL);
@@ -166,11 +166,11 @@ void SendM005_VehicleDynamics()
 
   msg.APS_Position = sensors.apsPosition;
   msg.Vehicle_Speed = sensors.vehicleSpeed;
-  msg.Steering_Angle = 0.0;
+  msg.Steering_Angle = sensors.steeringAngle;
   
   apsValid = (sensors.apsStatus == 0);
   speedValid = (ValidateSensorRange(sensors.vehicleSpeed, 0, SPEED_MAX) == 0);
-  steeringValid = 0;
+  steeringValid = (sensors.sensorsValid & 0x01);
   
   msg.Sensor_Status = (apsValid << 7) | (speedValid << 6) | (steeringValid << 5);
   
@@ -233,6 +233,21 @@ void SendM005_EXT_BrakePedal()
   output(msg);
 }
 
+void PerformDiagnostics()
+{
+  diagnostics.cpuUsage = (byte)(random(31) + 20);
+  diagnostics.memoryUsage = (byte)(random(41) + 30);
+  diagnostics.temperature = (byte)(random(61) + 25);
+  
+  gHourCounter++;
+  if (gHourCounter >= 36000) {
+    diagnostics.operatingHours++;
+    gHourCounter = 0;
+  }
+  
+  if (diagnostics.cpuUsage > 90 || diagnostics.memoryUsage > 90) SetFault(FAULT_SYSTEM_OVERLOAD);
+}
+
 void MonitorCommunication()
 {
   dword currentTime;
@@ -240,12 +255,14 @@ void MonitorCommunication()
   
   currentTime = timeNowNS() / 1000000;
   
-  if (commMon.firstMsgReceived_HPC) {
-    elapsedTime = currentTime - commMon.lastRxTime_HPC;
-    if (elapsedTime > TIMEOUT_HPC) {
-      commMon.failureCount_HPC++;
-      if (commMon.failureCount_HPC >= MAX_COMM_FAILURES) {
-        SetFault(FAULT_HPC_COMM);
+  if (commMon.firstMsgReceived_EPAS) {
+    elapsedTime = currentTime - commMon.lastRxTime_EPAS;
+    if (elapsedTime > TIMEOUT_EPAS) {
+      commMon.failureCount_EPAS++;
+      if (commMon.failureCount_EPAS >= MAX_COMM_FAILURES) {
+        SetFault(FAULT_EPAS_COMM);
+        commMon.commStatus &= ~0x01;
+        sensors.sensorsValid &= ~0x01;
       }
     }
   }
@@ -256,10 +273,27 @@ void MonitorCommunication()
       commMon.failureCount_ADAS++;
       if (commMon.failureCount_ADAS >= MAX_COMM_FAILURES) {
         SetFault(FAULT_ADAS_COMM);
+        commMon.commStatus &= ~0x02;
         sensors.sensorsValid &= ~0x02;
       }
     }
   }
+}
+
+void PerformWatchdog()
+{
+  dword currentTime;
+  dword elapsedTime;
+
+  currentTime = timeNowNS() / 1000000;
+
+  elapsedTime = currentTime - gLastWatchdogTime;
+  if (elapsedTime > (MAIN_CYCLE * 2 * 5)) {
+    SetFault(FAULT_SYSTEM_OVERLOAD);
+  }
+  
+  gLastWatchdogTime = currentTime;
+  gWatchdogCounter = (gWatchdogCounter + 1) % 256;
 }
 
 void InitializeGlobals()
@@ -269,24 +303,31 @@ void InitializeGlobals()
   initTime = timeNowNS() / 1000000;
 
   sensors.apsPosition = 0; sensors.bppsPosition = 0; sensors.apsStatus = 0;
-  sensors.bppsStatus = 0; sensors.vehicleSpeed = 0; sensors.frontVehicleDistance = 0;
+  sensors.bppsStatus = 0; sensors.steeringAngle = 0; sensors.steeringTorque = 0;
+  sensors.angularVelocity = 0; sensors.epasStatus = 0; sensors.frontVehicleDistance = 0;
   sensors.frontVehicleSpeed = 0; sensors.laneChangeIndicator = 0; sensors.roadCondition = 0;
-  sensors.sensorsValid = 0;
+  sensors.vehicleSpeed = 0; sensors.sensorsValid = 0;
 
-  commMon.lastRxTime_HPC = initTime;
+  commMon.lastRxTime_EPAS = initTime;
   commMon.lastRxTime_ADAS = initTime;
-  commMon.failureCount_HPC = 0;
+  commMon.failureCount_EPAS = 0;
   commMon.failureCount_ADAS = 0;
-  commMon.firstMsgReceived_HPC = 0;
+  commMon.commStatus = 0;
+  commMon.firstMsgReceived_EPAS = 0;
   commMon.firstMsgReceived_ADAS = 0;
 
-  diagnostics.errorFlags = 0;
+  diagnostics.cpuUsage = 0; diagnostics.memoryUsage = 0; diagnostics.temperature = 0;
+  diagnostics.operatingHours = 0; diagnostics.errorFlags = 0;
   
   faultRegister = 0;
   currentState = STATE_INIT;
   previousState = STATE_INIT;
   
-  counter_M005 = 0; counter_M005_EXT = 0; counter_M004 = 0;
+  counter_M005 = 0; counter_M005_EXT = 0; counter_M004 = 0; gLastEpasCounter = 0;
+  
+  gHourCounter = 0;
+  gWatchdogCounter = 0;
+  gLastWatchdogTime = initTime;
   gTaskCounter = 0;
 }
 
