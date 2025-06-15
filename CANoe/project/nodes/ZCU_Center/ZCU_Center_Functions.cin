@@ -4,12 +4,35 @@ void SetFault(dword faultBit)
   if((faultRegister & faultBit) == 0)
   {
     faultRegister |= faultBit;
+    diagnostics.errorFlags = faultRegister;
     UpdateSystemState();
   }
 }
 
+void ClearFault(dword faultBit)
+{
+  faultRegister &= ~faultBit;
+  diagnostics.errorFlags = faultRegister;
+}
+
+void OnEnterFailSafe()
+{
+  write("ZCU_Center: FAIL-SAFE mode activated. HMI processing stopped.");
+  SendFailSafeStatus(0x01);
+}
+
 void UpdateSystemState()
 {
+  if (faultRegister & (FAULT_SYSTEM_OVERLOAD))
+  {
+    if (currentState != STATE_FAIL_SAFE) 
+    {
+      currentState = STATE_FAIL_SAFE;
+      OnEnterFailSafe();
+    }
+    return;
+  }
+
   if (faultRegister & FAULT_HPC_COMM)
   {
     if (currentState != STATE_DEGRADED && currentState != STATE_FAIL_SAFE) 
@@ -52,6 +75,93 @@ void MonitorCommunication()
   }
 }
 
+void SendFailSafeStatus(byte faultLevel)
+{
+  message M004_FailSafe_Status_3 msg;
+  byte dataArray[6];
+  long retval;
+  dword crc;
+
+  counter_M004 = (counter_M004 + 1) % 16;
+
+  msg.Fault_Code = faultLevel;
+  msg.Source_ECU = ECU_ID;
+  msg.Fault_Type = (byte)(faultRegister & 0xFF);
+  msg.Event_Counter = counter_M004;
+  msg.Event_Timestamp = (word)(timeNowNS() / 1000000);
+
+  dataArray[0] = msg.Fault_Code;
+  dataArray[1] = msg.Source_ECU;
+  dataArray[2] = msg.Fault_Type;
+  dataArray[3] = msg.Event_Counter;
+  dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
+
+  retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  if (retval == 0)
+  {
+    msg.CRC16_Checksum = (word)crc;
+  }
+  else
+  {
+    msg.CRC16_Checksum = 0x0000;
+  }
+
+  output(msg);
+}
+
+void SendDiagnosticData()
+{
+  message M016_Diagnostic_Data_3 msg;
+  byte dataArray[6];
+  long retval;
+  dword crc;
+
+  msg.ECU_ID = ECU_ID;
+  msg.CPU_Usage = diagnostics.cpuUsage;
+  msg.Memory_Usage = diagnostics.memoryUsage;
+  msg.Temperature = diagnostics.temperature;
+  msg.Operating_Hours = diagnostics.operatingHours;
+
+  dataArray[0] = msg.ECU_ID;
+  dataArray[1] = msg.CPU_Usage;
+  dataArray[2] = msg.Memory_Usage;
+  dataArray[3] = msg.Temperature;
+  dataArray[4] = (byte)(msg.Operating_Hours & 0xFF);
+  dataArray[5] = (byte)((msg.Operating_Hours >> 8) & 0xFF);
+
+  retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  if (retval == 0)
+  {
+    msg.CRC16_Checksum = (word)crc;
+  }
+  else
+  {
+    msg.CRC16_Checksum = 0x0000;
+  }
+
+  output(msg);
+}
+
+void PerformDiagnostics()
+{
+  diagnostics.cpuUsage = (byte)(random(41) + 15);
+  diagnostics.memoryUsage = (byte)(random(31) + 25);
+  diagnostics.temperature = (byte)(random(51) + 30);
+
+  gHourCounter++;
+  if (gHourCounter >= 36000)
+  {
+    diagnostics.operatingHours++;
+    gHourCounter = 0;
+  }
+
+  if (diagnostics.cpuUsage > 85 || diagnostics.memoryUsage > 85)
+  {
+    SetFault(FAULT_SYSTEM_OVERLOAD);
+  }
+}
+
 void InitializeGlobals()
 {
   dword initTime;
@@ -67,8 +177,21 @@ void InitializeGlobals()
   commMon.lastTxTime_M008 = 0;
   commMon.waitingForResponse = 0;
 
+  diagnostics.cpuUsage = 0;
+  diagnostics.memoryUsage = 0;
+  diagnostics.temperature = 0;
+  diagnostics.operatingHours = 0;
+  diagnostics.errorFlags = 0;
+  diagnostics.lastResponseTime = 0;
+  diagnostics.averageResponseTime = 0;
+
   faultRegister = 0;
   currentState = STATE_INIT;
   previousState = STATE_INIT;
+
+  counter_M004 = 0;
+  counter_M016 = 0;
+
+  gHourCounter = 0;
   gTaskCounter = 0;
 }

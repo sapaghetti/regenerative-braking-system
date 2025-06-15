@@ -10,6 +10,7 @@ variables
   const int MAX_COMM_FAILURES = 3;
 
   const dword FAULT_HPC_COMM = 0x00000001;
+  const dword FAULT_SYSTEM_OVERLOAD = 0x00000020;
 
   enum SystemState
   {
@@ -36,7 +37,22 @@ variables
   };
   struct CommMonitor commMon;
 
+  struct DiagnosticData
+  {
+    byte cpuUsage;
+    byte memoryUsage;
+    byte temperature;
+    word operatingHours;
+    dword errorFlags;
+    dword lastResponseTime;
+    dword averageResponseTime;
+  };
+  struct DiagnosticData diagnostics;
+
+  byte counter_M004;
+  byte counter_M016;
   dword faultRegister;
   msTimer timerMainTask;
   dword gTaskCounter;
+  int gHourCounter;
 }

@@ -22,6 +22,20 @@ on timer timerMainTask
         MonitorCommunication();
       }
     }
+
+    if ((gTaskCounter % 100) == 0)
+    {
+      PerformDiagnostics();
+      if (currentState != STATE_FAIL_SAFE)
+      {
+        SendDiagnosticData();
+      }
+    }
   }
   gTaskCounter++;
+}
+
+on key 'f'
+{
+  SetFault(FAULT_HPC_COMM);
 }
