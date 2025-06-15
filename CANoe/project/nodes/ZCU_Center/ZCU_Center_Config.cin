@@ -1,0 +1,42 @@
+/*@!Encoding:65001*/
+variables
+{
+  const int ECU_ID = 0x03;
+  const int SYSTEM_VERSION = 0x0100;
+  const int MAIN_CYCLE = 10;
+
+  const int TIMEOUT_HPC_M012 = 300;
+  const int TIMEOUT_HPC_M009 = 1000;
+  const int MAX_COMM_FAILURES = 3;
+
+  const dword FAULT_HPC_COMM = 0x00000001;
+
+  enum SystemState
+  {
+    STATE_INIT = 0,
+    STATE_NORMAL = 1,
+    STATE_DEGRADED = 2,
+    STATE_FAIL_SAFE = 3
+  };
+
+  enum SystemState currentState;
+  enum SystemState previousState;
+
+  struct CommMonitor
+  {
+    dword lastRxTime_M012;
+    dword lastRxTime_M009;
+    int failureCount_M012;
+    int failureCount_M009;
+    byte commStatus;
+    byte firstMsgReceived_M012;
+    byte firstMsgReceived_M009;
+    dword lastTxTime_M008;
+    byte waitingForResponse;
+  };
+  struct CommMonitor commMon;
+
+  dword faultRegister;
+  msTimer timerMainTask;
+  dword gTaskCounter;
+}

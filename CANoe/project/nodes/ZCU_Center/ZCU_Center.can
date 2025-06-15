@@ -1,0 +1,27 @@
+/*@!Encoding:65001*/
+includes
+{
+  #include "ZCU_Center_Config.cin"
+  #include "ZCU_Center_Functions.cin"
+}
+
+on start
+{
+  InitializeGlobals();
+  setTimerCyclic(timerMainTask, MAIN_CYCLE);
+}
+
+on timer timerMainTask
+{
+  if(currentState != STATE_FAIL_SAFE)
+  {
+    if ((gTaskCounter % 10) == 0)
+    {
+      if (currentState != STATE_INIT)
+      {
+        MonitorCommunication();
+      }
+    }
+  }
+  gTaskCounter++;
+}
