@@ -1,10 +1,22 @@
 /*@!Encoding:65001*/
+/**
+ * @file ZCU_Center.can
+ * @brief ZCU_Center의 메인 CAPL 스크립트
+ * @author jjongs2
+ * @version 1.00
+ * @date 2025-06-16
+ */
+
 includes
 {
   #include "ZCU_Center_Config.cin"
   #include "ZCU_Center_Functions.cin"
 }
 
+/**
+ * @brief 시뮬레이션 시작 시 호출되는 이벤트 핸들러
+ * @note 전역 변수 초기화, 보안 부팅, 자체 테스트 수행 및 주기적 타이머 설정
+ */
 on start
 {
   write("ZCU_Center ECU Starting - Version %d.%02d", (SYSTEM_VERSION >> 8), (SYSTEM_VERSION & 0xFF));
@@ -23,24 +35,38 @@ on start
   setTimerCyclic(timerMainTask, MAIN_CYCLE);
 }
 
+/**
+ * @brief 시뮬레이션 중지 시 호출되는 이벤트 핸들러
+ * @note 시스템 종료 작업을 수행
+ */
 on stopMeasurement
 {
   write("ZCU_Center: Shutting down...");
   
+  // 클러스터에 시스템 종료 알림
   sysSetVariableInt("ZCU_Sim", "Center_System_Status", 0);
   
   write("ZCU_Center: Shutdown complete");
 }
 
+/**
+ * @brief 주기적인 메인 태스크 타이머 이벤트 핸들러 (10ms 주기)
+ * @note 시스템 상태에 따라 다양한 주기로 작업을 예약하고 실행
+ *       - 50ms: 워치독 검사
+ *       - 100ms: 통신 모니터링, 상태 업데이트
+ *       - 1000ms: 진단 수행, 진단 데이터 전송
+ */
 on timer timerMainTask
 {
   if(currentState != STATE_FAIL_SAFE)
   {
+    // 50ms 주기 작업 (5 * 10ms)
     if ((gTaskCounter % 5) == 0)
     {
       PerformWatchdog();
     }
 
+    // 100ms 주기 작업 (10 * 10ms)
     if ((gTaskCounter % 10) == 0)
     {
       if (currentState != STATE_INIT)
@@ -50,6 +76,7 @@ on timer timerMainTask
       UpdateSystemState();
     }
 
+    // 1000ms 주기 작업 (100 * 10ms)
     if ((gTaskCounter % 100) == 0)
     {
       PerformDiagnostics();
@@ -63,6 +90,10 @@ on timer timerMainTask
   gTaskCounter++;
 }
 
+/**
+ * @brief 음성 명령 메시지 수신 이벤트 핸들러
+ * @note 음성인식 ECU로부터 음성 명령을 수신하고 처리
+ */
 on message L003_Voice_Command
 {
   dword currentTime;
@@ -74,6 +105,7 @@ on message L003_Voice_Command
   write("ZCU_Center: Voice command received - Type=%d, Value=%d, Confidence=%d%%", 
         this.Command_Type, this.Command_Value, this.Confidence_Level);
 
+  // E2E 보호 검증
   dataArray[0] = this.Command_Type;
   dataArray[1] = this.Command_Value;
   dataArray[2] = this.Confidence_Level;
@@ -87,23 +119,27 @@ on message L003_Voice_Command
     return;
   }
 
+  // 음성 입력 유효성 검증
   if (!ValidateVoiceInput(this.Command_Type, this.Command_Value, this.Confidence_Level, currentTime))
   {
     return;
   }
 
+  // 음성 입력 데이터 저장
   hmiInput.lastVoiceTime = currentTime;
   hmiInput.lastVoiceCommandType = this.Command_Type;
   hmiInput.lastVoiceCommandValue = this.Command_Value;
   hmiInput.lastVoiceConfidence = this.Confidence_Level;
   hmiInput.voiceValid = 1;
 
+  // 응답 대기 중이면 무시
   if (commMon.waitingForResponse)
   {
     write("ZCU_Center: Already waiting for mode change response, ignoring voice command");
     return;
   }
 
+  // 모드 변경 명령 처리
   requestedMode = DetermineRequestedModeFromVoice(this.Command_Type, this.Command_Value);
   if (requestedMode != 0xFF)
   {
@@ -111,17 +147,23 @@ on message L003_Voice_Command
   }
   else if (this.Command_Type == VOICE_CMD_PROFILE_CHANGE)
   {
+    // 프로파일 변경 명령
     byte newProfile;
     newProfile = (clusterDisplay.activeProfile == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
     SendModeChangeRequest(clusterDisplay.currentDisplayMode, REQUEST_SOURCE_VOICE, newProfile);
   }
   else if (this.Command_Type == VOICE_CMD_SYSTEM_INFO)
   {
+    // 시스템 정보 요청 - 클러스터에 상세 정보 표시
     write("ZCU_Center: System info request via voice - Mode=%d, Profile=%d", 
           clusterDisplay.currentDisplayMode, clusterDisplay.activeProfile);
   }
 }
 
+/**
+ * @brief 스티어링 휠 버튼 입력 메시지 수신 이벤트 핸들러
+ * @note 스티어링 휠 버튼 입력을 수신하고 처리
+ */
 on message L004_SW_Button_Input
 {
   dword currentTime;
@@ -133,6 +175,7 @@ on message L004_SW_Button_Input
   write("ZCU_Center: Button input received - ID=%d, Action=%d, Duration=%dms", 
         this.Button_ID, this.Button_Action, this.Press_Duration);
 
+  // E2E 보호 검증
   dataArray[0] = this.Button_ID;
   dataArray[1] = this.Button_Action;
   dataArray[2] = (byte)(this.Press_Duration & 0xFF);
@@ -146,22 +189,26 @@ on message L004_SW_Button_Input
     return;
   }
 
+  // 버튼 입력 유효성 검증
   if (!ValidateButtonInput(this.Button_ID, this.Button_Action, this.Press_Duration, currentTime))
   {
     return;
   }
 
+  // 버튼 입력 데이터 저장
   hmiInput.lastButtonTime = currentTime;
   hmiInput.lastButtonID = this.Button_ID;
   hmiInput.lastButtonAction = this.Button_Action;
   hmiInput.buttonValid = 1;
 
+  // 응답 대기 중이면 무시
   if (commMon.waitingForResponse)
   {
     write("ZCU_Center: Already waiting for mode change response, ignoring button input");
     return;
   }
 
+  // 프로파일 변경 버튼 처리
   if (this.Button_ID == BUTTON_PROFILE_CHANGE && this.Button_Action == BUTTON_ACTION_PRESS)
   {
     byte newProfile;
@@ -170,6 +217,7 @@ on message L004_SW_Button_Input
     return;
   }
 
+  // 모드 변경 버튼 처리
   requestedMode = DetermineRequestedModeFromButton(this.Button_ID, this.Button_Action);
   if (requestedMode != 0xFF)
   {
@@ -177,6 +225,10 @@ on message L004_SW_Button_Input
   }
 }
 
+/**
+ * @brief 모드 변경 응답 메시지 수신 이벤트 핸들러
+ * @note HPC로부터 모드 변경 응답을 수신하고 처리
+ */
 on message M009_Mode_Change_Resp
 {
   dword currentTime, responseTime;
@@ -194,6 +246,7 @@ on message M009_Mode_Change_Resp
   write("ZCU_Center: Mode change response received - Status=%d, Mode=%d, Profile=%d, Reason=%d", 
         this.Mode_Change_Status, this.Current_Mode, this.Active_Profile, this.Failure_Reason);
 
+  // E2E 보호 검증
   dataArray[0] = this.Current_Mode;
   dataArray[1] = this.Mode_Change_Status;
   dataArray[2] = this.Active_Profile;
@@ -207,6 +260,7 @@ on message M009_Mode_Change_Resp
     return;
   }
 
+  // 응답 시간 측정
   if (commMon.waitingForResponse)
   {
     responseTime = currentTime - commMon.lastTxTime_M008;
@@ -219,14 +273,17 @@ on message M009_Mode_Change_Resp
     write("ZCU_Center: HMI response time: %dms (average: %dms)", responseTime, diagnostics.averageResponseTime);
   }
 
+  // 응답 처리
   commMon.waitingForResponse = 0;
   hmiInput.pendingModeRequest = 0;
 
-  if (this.Mode_Change_Status == 0)
+  if (this.Mode_Change_Status == 0)  // 성공
   {
+    // 클러스터 표시 데이터 업데이트
     clusterDisplay.currentDisplayMode = this.Current_Mode;
     clusterDisplay.activeProfile = this.Active_Profile;
     
+    // OTA 편안한 모드 UI 업데이트
     UpdateOTAComfortMode(this.Active_Profile);
     
     ClearFault(FAULT_MODE_CHANGE_FAIL);
@@ -235,20 +292,21 @@ on message M009_Mode_Change_Resp
     write("ZCU_Center: Mode change successful - New mode: %d, Profile: %d", 
           this.Current_Mode, this.Active_Profile);
   }
-  else
+  else  // 실패
   {
     SetFault(FAULT_MODE_CHANGE_FAIL);
     write("ZCU_Center: Mode change failed - Reason: %d", this.Failure_Reason);
     
+    // 실패 사유에 따른 처리
     switch (this.Failure_Reason)
     {
-      case 1:
+      case 1:  // Safety
         clusterDisplay.warningStatus |= WARNING_SYSTEM_FAULT;
         break;
-      case 2:
+      case 2:  // Battery
         clusterDisplay.warningStatus |= WARNING_BATTERY;
         break;
-      case 3:
+      case 3:  // System_Fault
         clusterDisplay.warningStatus |= WARNING_SYSTEM_FAULT;
         break;
       default:
@@ -262,6 +320,10 @@ on message M009_Mode_Change_Resp
   commMon.commStatus |= 0x02;
 }
 
+/**
+ * @brief 클러스터 표시 데이터 메시지 수신 이벤트 핸들러
+ * @note HPC로부터 클러스터 표시 정보를 수신하고 클러스터를 업데이트
+ */
 on message M012_Cluster_Display
 {
   dword currentTime;
@@ -276,6 +338,7 @@ on message M012_Cluster_Display
   }
   commMon.lastRxTime_M012 = currentTime;
 
+  // E2E 보호 검증
   dataArray[0] = this.Display_Mode;
   dataArray[1] = (byte)(this.Instant_Regen_Power & 0xFF);
   dataArray[2] = (byte)((this.Instant_Regen_Power >> 8) & 0xFF);
@@ -289,11 +352,13 @@ on message M012_Cluster_Display
     return;
   }
 
+  // 클러스터 표시 데이터 업데이트
   clusterDisplay.currentDisplayMode = this.Display_Mode;
   clusterDisplay.instantRegenPower = this.Instant_Regen_Power;
   clusterDisplay.cumulativeRegenEnergy = this.Cumulative_Regen_Energy;
   clusterDisplay.warningStatus = this.Warning_Status;
 
+  // 클러스터 하드웨어 업데이트
   UpdateClusterDisplay();
 
   commMon.failureCount_M012 = 0;
@@ -301,12 +366,20 @@ on message M012_Cluster_Display
   commMon.commStatus |= 0x01;
 }
 
+/**
+ * @brief 키보드 'f' 키 입력 이벤트 핸들러
+ * @note 수동으로 HPC 통신 폴트를 주입하여 테스트
+ */
 on key 'f'
 {
   write("ZCU_Center: Manual fault injection - HPC_COMM");
   SetFault(FAULT_HPC_COMM);
 }
 
+/**
+ * @brief 키보드 'b' 키 입력 이벤트 핸들러
+ * @note 수동으로 버튼 입력을 시뮬레이션 (테스트용)
+ */
 on key 'b'
 {
   write("ZCU_Center: Simulating button press - Mode Up");
@@ -323,6 +396,10 @@ on key 'b'
   }
 }
 
+/**
+ * @brief 키보드 'v' 키 입력 이벤트 핸들러
+ * @note 수동으로 음성 명령을 시뮬레이션 (테스트용)
+ */
 on key 'v'
 {
   write("ZCU_Center: Simulating voice command - Auto mode");
@@ -337,6 +414,10 @@ on key 'v'
   }
 }
 
+/**
+ * @brief 키보드 'p' 키 입력 이벤트 핸들러
+ * @note 수동으로 프로파일 변경을 시뮬레이션 (테스트용)
+ */
 on key 'p'
 {
   write("ZCU_Center: Simulating profile change");
@@ -353,6 +434,10 @@ on key 'p'
   }
 }
 
+/**
+ * @brief 키보드 'c' 키 입력 이벤트 핸들러
+ * @note 모든 폴트를 지우고 상태를 초기화
+ */
 on key 'c'
 {
   write("ZCU_Center: Clearing all faults");
@@ -367,6 +452,10 @@ on key 'c'
   TransitionToState(STATE_INIT);
 }
 
+/**
+ * @brief 키보드 's' 키 입력 이벤트 핸들러
+ * @note 현재 ZCU_Center의 모든 주요 상태 정보를 콘솔에 출력
+ */
 on key 's'
 {
   write("=== ZCU_Center Status ===");
@@ -382,12 +471,16 @@ on key 's'
   write("========================");
 }
 
+/**
+ * @brief 키보드 't' 키 입력 이벤트 핸들러
+ * @note 클러스터 표시 테스트용 데이터를 시뮬레이션
+ */
 on key 't'
 {
   write("ZCU_Center: Testing cluster display with sample data");
   
-  clusterDisplay.instantRegenPower = 5000;
-  clusterDisplay.cumulativeRegenEnergy = 1500;
+  clusterDisplay.instantRegenPower = 5000;  // 5kW
+  clusterDisplay.cumulativeRegenEnergy = 1500;  // 1.5kWh
   clusterDisplay.warningStatus = WARNING_BATTERY;
   
   UpdateClusterDisplay();

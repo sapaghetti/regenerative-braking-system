@@ -1,4 +1,21 @@
 /*@!Encoding:65001*/
+/**
+ * @file ZCU_Center_Functions.cin
+ * @brief ZCU_Center의 모든 함수 정의
+ * @author jjongs2
+ * @version 1.00
+ * @date 2025-06-16
+ */
+
+/*******************************************************************************
+ * 보안 기능
+ ******************************************************************************/
+
+/**
+ * @brief 시스템 부팅 시 보안 검증을 수행
+ * @return 검증 성공 시 1, 실패 시 0
+ * @note 펌웨어 서명을 검증하여 변조된 소프트웨어 실행을 방지
+ */
 byte PerformSecureBoot()
 {
   dword expectedSignature, actualSignature;
@@ -19,27 +36,49 @@ byte PerformSecureBoot()
   return 1;
 }
 
+/*******************************************************************************
+ * 상태 관리 함수
+ ******************************************************************************/
+
+/**
+ * @brief FAIL_SAFE 상태 진입 시 호출되는 함수
+ * @note 시스템 안전을 보장하기 위해 HMI 처리를 중지하고 고장 상태를 전파
+ */
 void OnEnterFailSafe()
 {
   write("ZCU_Center: FAIL-SAFE mode activated. HMI processing stopped.");
   SendFailSafeStatus(0x01);
   
+  // 클러스터에 시스템 고장 경고 표시
   clusterDisplay.warningStatus |= WARNING_SYSTEM_FAULT;
   UpdateClusterDisplay();
 }
 
+/**
+ * @brief DEGRADED 상태 진입 시 호출되는 함수
+ * @note 제한된 기능으로 작동함을 알림
+ */
 void OnEnterDegraded()
 {
   write("ZCU_Center: DEGRADED mode activated - Limited HMI functionality");
   clusterDisplay.warningStatus |= WARNING_COMM_ERROR;
 }
 
+/**
+ * @brief NORMAL 상태 진입 시 호출되는 함수
+ * @note 완전한 기능으로 작동 중임을 알림
+ */
 void OnEnterNormal()
 {
   write("ZCU_Center: NORMAL operation resumed");
   clusterDisplay.warningStatus &= ~(WARNING_COMM_ERROR | WARNING_SYSTEM_FAULT);
 }
 
+/**
+ * @brief 시스템 상태 간의 전환을 관리
+ * @param newState 전환할 새로운 상태
+ * @note 상태 변경 시 해당 상태의 진입 함수를 호출
+ */
 void TransitionToState(enum SystemState newState)
 {
   if (newState != currentState)
@@ -59,20 +98,27 @@ void TransitionToState(enum SystemState newState)
   }
 }
 
+/**
+ * @brief 현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트
+ * @note 활성화된 폴트를 평가하고 적절한 시스템 상태를 결정
+ */
 void UpdateSystemState()
 {
+  // 치명적 고장: FAIL_SAFE 상태
   if (faultRegister & (FAULT_SYSTEM_OVERLOAD | FAULT_HMI_TIMEOUT))
   {
     if (currentState != STATE_FAIL_SAFE) TransitionToState(STATE_FAIL_SAFE);
     return;
   }
 
+  // 비치명적 고장: DEGRADED 상태
   if (faultRegister & (FAULT_HPC_COMM | FAULT_BUTTON_INPUT | FAULT_VOICE_INPUT | FAULT_CLUSTER_DISPLAY))
   {
     if (currentState != STATE_DEGRADED && currentState != STATE_FAIL_SAFE) TransitionToState(STATE_DEGRADED);
     return;
   }
 
+  // 모든 폴트 해제: NORMAL 상태
   if (faultRegister == 0)
   {
     if (currentState == STATE_INIT && commMon.firstMsgReceived_M012)
@@ -86,12 +132,24 @@ void UpdateSystemState()
   }
 }
 
+/*******************************************************************************
+ * 폴트 관리 함수
+ ******************************************************************************/
+
+/**
+ * @brief 폴트 레지스터에서 특정 폴트 비트를 지움
+ * @param faultBit 지울 폴트 비트
+ */
 void ClearFault(dword faultBit)
 {
   faultRegister &= ~faultBit;
   diagnostics.errorFlags = faultRegister;
 }
 
+/**
+ * @brief 폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거
+ * @param faultBit 설정할 폴트 비트
+ */
 void SetFault(dword faultBit)
 {
   if((faultRegister & faultBit) == 0)
@@ -102,14 +160,28 @@ void SetFault(dword faultBit)
   }
 }
 
+/*******************************************************************************
+ * HMI 입력 처리 함수
+ ******************************************************************************/
+
+/**
+ * @brief 버튼 입력의 유효성을 검증
+ * @param buttonID 버튼 ID
+ * @param buttonAction 버튼 액션
+ * @param pressDuration 눌림 지속 시간
+ * @param currentTime 현재 시간
+ * @return 유효하면 1, 유효하지 않으면 0
+ */
 byte ValidateButtonInput(byte buttonID, byte buttonAction, word pressDuration, dword currentTime)
 {
+  // 버튼 ID 범위 확인
   if (buttonID > BUTTON_AUTO_TOGGLE)
   {
     SetFault(FAULT_BUTTON_INPUT);
     return 0;
   }
 
+  // 눌림 시간 확인
   if (buttonAction == BUTTON_ACTION_PRESS && 
       (pressDuration < MIN_BUTTON_PRESS_TIME || pressDuration > MAX_BUTTON_PRESS_TIME))
   {
@@ -117,6 +189,7 @@ byte ValidateButtonInput(byte buttonID, byte buttonAction, word pressDuration, d
     return 0;
   }
 
+  // 연속 입력 간격 확인
   if ((currentTime - hmiInput.lastButtonTime) < MIN_INPUT_INTERVAL)
   {
     write("ZCU_Center: Button input too frequent, ignoring");
@@ -127,20 +200,31 @@ byte ValidateButtonInput(byte buttonID, byte buttonAction, word pressDuration, d
   return 1;
 }
 
+/**
+ * @brief 음성 입력의 유효성을 검증
+ * @param commandType 명령 타입
+ * @param commandValue 명령 값
+ * @param confidence 신뢰도
+ * @param currentTime 현재 시간
+ * @return 유효하면 1, 유효하지 않으면 0
+ */
 byte ValidateVoiceInput(byte commandType, byte commandValue, byte confidence, dword currentTime)
 {
+  // 명령 타입 범위 확인
   if (commandType > VOICE_CMD_SYSTEM_INFO)
   {
     SetFault(FAULT_VOICE_INPUT);
     return 0;
   }
 
+  // 신뢰도 확인
   if (confidence < MIN_VOICE_CONFIDENCE)
   {
     write("ZCU_Center: Voice confidence too low (%d%%), ignoring", confidence);
     return 0;
   }
 
+  // 연속 입력 간격 확인
   if ((currentTime - hmiInput.lastVoiceTime) < MIN_INPUT_INTERVAL)
   {
     write("ZCU_Center: Voice input too frequent, ignoring");
@@ -151,6 +235,12 @@ byte ValidateVoiceInput(byte commandType, byte commandValue, byte confidence, dw
   return 1;
 }
 
+/**
+ * @brief 버튼 입력을 기반으로 모드 변경 요청을 생성
+ * @param buttonID 버튼 ID
+ * @param buttonAction 버튼 액션
+ * @return 요청할 모드 (실패시 0xFF)
+ */
 byte DetermineRequestedModeFromButton(byte buttonID, byte buttonAction)
 {
   byte requestedMode = 0xFF;
@@ -174,6 +264,7 @@ byte DetermineRequestedModeFromButton(byte buttonID, byte buttonAction)
       break;
       
     case BUTTON_PROFILE_CHANGE:
+      // 프로파일 변경은 모드 변경이 아님
       return 0xFF;
       
     default:
@@ -183,6 +274,12 @@ byte DetermineRequestedModeFromButton(byte buttonID, byte buttonAction)
   return requestedMode;
 }
 
+/**
+ * @brief 음성 입력을 기반으로 모드 변경 요청을 생성
+ * @param commandType 명령 타입
+ * @param commandValue 명령 값
+ * @return 요청할 모드 (실패시 0xFF)
+ */
 byte DetermineRequestedModeFromVoice(byte commandType, byte commandValue)
 {
   if (commandType != VOICE_CMD_MODE_CHANGE)
@@ -194,8 +291,17 @@ byte DetermineRequestedModeFromVoice(byte commandType, byte commandValue)
   return commandValue;
 }
 
+/*******************************************************************************
+ * 클러스터 표시 제어 함수
+ ******************************************************************************/
+
+/**
+ * @brief 클러스터 디스플레이를 업데이트
+ * @note 현재 클러스터 표시 데이터를 기반으로 실제 클러스터 하드웨어를 제어
+ */
 void UpdateClusterDisplay()
 {
+  // 시뮬레이션 환경에서 클러스터 변수 업데이트
   sysSetVariableInt("ZCU_Sim", "Cluster_Display_Mode", clusterDisplay.currentDisplayMode);
   sysSetVariableInt("ZCU_Sim", "Cluster_Instant_Power", clusterDisplay.instantRegenPower);
   sysSetVariableInt("ZCU_Sim", "Cluster_Cumulative_Energy", clusterDisplay.cumulativeRegenEnergy);
@@ -211,6 +317,10 @@ void UpdateClusterDisplay()
         clusterDisplay.cumulativeRegenEnergy, clusterDisplay.warningStatus);
 }
 
+/**
+ * @brief OTA 편안한 모드 활성화 여부에 따른 UI 업데이트
+ * @param profileType 활성 프로파일
+ */
 void UpdateOTAComfortMode(byte profileType)
 {
   if (profileType == PROFILE_COMFORT && !clusterDisplay.comfortModeEnabled)
@@ -218,16 +328,28 @@ void UpdateOTAComfortMode(byte profileType)
     clusterDisplay.comfortModeEnabled = 1;
     write("ZCU_Center: OTA Comfort Mode activated");
     
+    // 편안한 모드 활성화 알림
     sysSetVariableInt("ZCU_Sim", "OTA_Comfort_Activated", 1);
   }
   else if (profileType == PROFILE_EFFICIENCY && clusterDisplay.comfortModeEnabled)
   {
+    // 효율 모드로 복귀 시에는 편안한 모드를 비활성화하지 않음 (OTA로 추가된 기능 유지)
     write("ZCU_Center: Switched to Efficiency mode (Comfort mode still available)");
   }
   
   UpdateClusterDisplay();
 }
 
+/*******************************************************************************
+ * CAN 메시지 전송 함수
+ ******************************************************************************/
+
+/**
+ * @brief 모드 변경 요청 메시지(M008)를 전송
+ * @param requestedMode 요청할 모드
+ * @param requestSource 요청 소스 (버튼/음성)
+ * @param profileType 프로파일 타입
+ */
 void SendModeChangeRequest(byte requestedMode, byte requestSource, byte profileType)
 {
   message M008_Mode_Change_Req msg;
@@ -244,6 +366,7 @@ void SendModeChangeRequest(byte requestedMode, byte requestSource, byte profileT
   msg.Event_Counter = counter_M008;
   msg.Event_Timestamp = (word)currentTime;
 
+  // E2E 보호를 위한 데이터 배열 구성
   dataArray[0] = msg.Requested_Mode;
   dataArray[1] = msg.Request_Source;
   dataArray[2] = msg.Profile_Type;
@@ -264,6 +387,7 @@ void SendModeChangeRequest(byte requestedMode, byte requestSource, byte profileT
 
   output(msg);
 
+  // 응답 대기 상태 설정
   commMon.lastTxTime_M008 = currentTime;
   commMon.waitingForResponse = 1;
   hmiInput.pendingModeRequest = 1;
@@ -273,6 +397,11 @@ void SendModeChangeRequest(byte requestedMode, byte requestSource, byte profileT
         requestedMode, requestSource, profileType);
 }
 
+/**
+ * @brief Fail-Safe 상태 메시지(M004)를 전송
+ * @param faultLevel 보고할 폴트 레벨
+ * @note 시스템 고장 발생 시 다른 ECU에 상태를 전파
+ */
 void SendFailSafeStatus(byte faultLevel)
 {
   message M004_FailSafe_Status_3 msg;
@@ -309,6 +438,10 @@ void SendFailSafeStatus(byte faultLevel)
   output(msg);
 }
 
+/**
+ * @brief 진단 데이터 메시지(M016)를 전송
+ * @note 주기적으로 시스템 상태를 보고
+ */
 void SendDiagnosticData()
 {
   message M016_Diagnostic_Data_3 msg;
@@ -343,6 +476,17 @@ void SendDiagnosticData()
   output(msg);
 }
 
+/*******************************************************************************
+ * E2E 보호 및 검증 함수
+ ******************************************************************************/
+
+/**
+ * @brief CAN 메시지의 E2E 보호 검증
+ * @param dataArray 데이터 배열
+ * @param dataLength 데이터 길이
+ * @param receivedCRC 수신된 CRC 값
+ * @return 검증 성공 시 1, 실패 시 0
+ */
 byte VerifyE2EProtection(byte dataArray[], int dataLength, word receivedCRC)
 {
   long retval;
@@ -364,6 +508,14 @@ byte VerifyE2EProtection(byte dataArray[], int dataLength, word receivedCRC)
   return 1;
 }
 
+/*******************************************************************************
+ * 주기적 태스크 및 모니터링 함수
+ ******************************************************************************/
+
+/**
+ * @brief 주기적인 진단 검사를 수행
+ * @note CPU, 메모리 사용량 및 동작 시간을 업데이트하고 과부하 상태를 감지
+ */
 void PerformDiagnostics()
 {
   diagnostics.cpuUsage = (byte)(random(41) + 15);
@@ -371,18 +523,23 @@ void PerformDiagnostics()
   diagnostics.temperature = (byte)(random(51) + 30);
 
   gHourCounter++;
-  if (gHourCounter >= 36000)
+  if (gHourCounter >= 36000)  // 100ms * 36000 = 1 hour
   {
     diagnostics.operatingHours++;
     gHourCounter = 0;
   }
 
+  // 시스템 과부하 감지
   if (diagnostics.cpuUsage > 85 || diagnostics.memoryUsage > 85)
   {
     SetFault(FAULT_SYSTEM_OVERLOAD);
   }
 }
 
+/**
+ * @brief HPC와의 통신 타임아웃을 모니터링
+ * @note 설정된 타임아웃 시간을 초과하면 통신 폴트를 설정
+ */
 void MonitorCommunication()
 {
   dword currentTime;
@@ -390,6 +547,7 @@ void MonitorCommunication()
 
   currentTime = timeNowNS() / 1000000;
 
+  // M012 메시지 타임아웃 모니터링
   if (commMon.firstMsgReceived_M012)
   {
     elapsedTime = currentTime - commMon.lastRxTime_M012;
@@ -405,6 +563,7 @@ void MonitorCommunication()
     }
   }
 
+  // M008 응답 타임아웃 모니터링
   if (commMon.waitingForResponse)
   {
     elapsedTime = currentTime - commMon.lastTxTime_M008;
@@ -414,6 +573,7 @@ void MonitorCommunication()
       commMon.waitingForResponse = 0;
       hmiInput.pendingModeRequest = 0;
       
+      // 응답 시간 측정
       diagnostics.lastResponseTime = elapsedTime;
       if (diagnostics.averageResponseTime == 0)
         diagnostics.averageResponseTime = elapsedTime;
@@ -423,6 +583,10 @@ void MonitorCommunication()
   }
 }
 
+/**
+ * @brief 메인 루프가 실행 중인지 확인하기 위해 워치독 검사를 수행
+ * @note 설정된 시간 내에 응답이 없으면 시스템 과부하 폴트를 설정
+ */
 void PerformWatchdog()
 {
   dword currentTime;
@@ -431,7 +595,7 @@ void PerformWatchdog()
   currentTime = timeNowNS() / 1000000;
 
   elapsedTime = currentTime - gLastWatchdogTime;
-  if (elapsedTime > (MAIN_CYCLE * 2 * 5))
+  if (elapsedTime > (MAIN_CYCLE * 2 * 5))  // 5 cycles tolerance
   {
     SetFault(FAULT_SYSTEM_OVERLOAD);
   }
@@ -440,12 +604,21 @@ void PerformWatchdog()
   gWatchdogCounter = (gWatchdogCounter + 1) % 256;
 }
 
+/*******************************************************************************
+ * 초기화 함수
+ ******************************************************************************/
+
+/**
+ * @brief 시작 시 모든 전역 변수를 기본 상태로 초기화
+ * @note 시스템 시작 시 모든 데이터 구조체와 변수를 안전한 초기값으로 설정
+ */
 void InitializeGlobals()
 {
   dword initTime;
 
   initTime = timeNowNS() / 1000000;
 
+  // HMI 입력 데이터 초기화
   hmiInput.lastButtonTime = 0;
   hmiInput.lastVoiceTime = 0;
   hmiInput.lastButtonID = 0xFF;
@@ -459,6 +632,7 @@ void InitializeGlobals()
   hmiInput.requestedMode = MODE_LEVEL_0;
   hmiInput.requestSource = REQUEST_SOURCE_BUTTON;
 
+  // 클러스터 표시 데이터 초기화
   clusterDisplay.currentDisplayMode = MODE_LEVEL_0;
   clusterDisplay.instantRegenPower = 0;
   clusterDisplay.cumulativeRegenEnergy = 0;
@@ -469,6 +643,7 @@ void InitializeGlobals()
   clusterDisplay.displayDataValid = 0;
   clusterDisplay.comfortModeEnabled = 0;
 
+  // 통신 모니터링 데이터 초기화
   commMon.lastRxTime_M012 = initTime;
   commMon.lastRxTime_M009 = initTime;
   commMon.failureCount_M012 = 0;
@@ -479,6 +654,7 @@ void InitializeGlobals()
   commMon.lastTxTime_M008 = 0;
   commMon.waitingForResponse = 0;
 
+  // 진단 데이터 초기화
   diagnostics.cpuUsage = 0;
   diagnostics.memoryUsage = 0;
   diagnostics.temperature = 0;
@@ -487,6 +663,7 @@ void InitializeGlobals()
   diagnostics.lastResponseTime = 0;
   diagnostics.averageResponseTime = 0;
 
+  // 전역 변수 초기화
   faultRegister = 0;
   currentState = STATE_INIT;
   previousState = STATE_INIT;
@@ -504,10 +681,15 @@ void InitializeGlobals()
   gLastE2EFailTime = 0;
 }
 
+/**
+ * @brief 시작 시 HMI 시스템에 대한 자체 테스트를 수행
+ * @note 클러스터 연결 상태 및 HMI 입력 시스템의 초기 상태를 확인
+ */
 void PerformInitialSelfTest()
 {
   write("ZCU_Center: Performing initial self-test...");
   
+  // 클러스터 연결 상태 확인
   clusterDisplay.clusterConnected = sysGetVariableInt("ZCU_Sim", "Cluster_Connected");
   if (!clusterDisplay.clusterConnected)
   {
