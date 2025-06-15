@@ -1,0 +1,52 @@
+/*@!Encoding:65001*/
+includes
+{
+  #include "ZCU_Front_Config.cin"
+  #include "ZCU_Front_Functions.cin"
+}
+
+on start
+{
+  write("ZCU_Front ECU Starting - Version %d.%02d", (SYSTEM_VERSION >> 8), (SYSTEM_VERSION & 0xFF));
+  
+  InitializeGlobals();
+  
+  write("ZCU_Front: Initialization complete. Waiting for system to be ready...");
+
+  setTimerCyclic(timerMainTask, MAIN_CYCLE);
+}
+
+on stopMeasurement
+{
+  write("ZCU_Front: Shutting down...");
+  write("ZCU_Front: Shutdown complete");
+}
+
+on timer timerMainTask
+{
+  if ((gTaskCounter % 10) == 0) {
+    if (currentState != STATE_INIT) {
+        MonitorCommunication();
+    }
+    UpdateSystemState();
+  }
+  
+  gTaskCounter++;
+}
+
+on key 'c'
+{
+  write("ZCU_Front: Clearing all faults");
+  faultRegister = 0;
+  diagnostics.errorFlags = 0;
+  commMon.failureCount_HPC = 0;
+  TransitionToState(STATE_INIT);
+}
+
+on key 's'
+{
+  write("=== ZCU_Front Status ===");
+  write("State: %d, Faults: 0x%08X", currentState, faultRegister);
+  write("Comm: HPC Fail=%d", commMon.failureCount_HPC);
+  write("========================");
+}
