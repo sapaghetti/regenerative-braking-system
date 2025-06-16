@@ -14,7 +14,7 @@ from flask_session import Session
 import logging
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
-
+from werkzeug.middleware.proxy_fix import ProxyFix
 # --- 중요 보안 권장 사항 ---
 # 실제 운영 환경에서는 반드시 HTTPS를 적용하여 서버와 차량 간의 통신을 암호화해야 합니다.
 # 이는 논문에서 언급된 '기밀성(Confidentiality)' 요구사항을 충족하기 위해 필수적입니다. 
@@ -22,6 +22,7 @@ from logging.handlers import RotatingFileHandler
 # ---
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1, x_prefix=1)
 app.secret_key = 'secret_key'
 app.config['WTF_CSRF_SECRET_KEY'] = app.secret_key
 
