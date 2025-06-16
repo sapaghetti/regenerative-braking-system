@@ -1,6 +1,7 @@
 # app.py
 
 from flask import Flask, request, abort, redirect, render_template, url_for, flash, send_from_directory, jsonify, session
+from werkzeug.middleware.proxy_fix import ProxyFix
 import os
 import glob
 import json
@@ -22,6 +23,8 @@ from logging.handlers import RotatingFileHandler
 # ---
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1, x_prefix=1)
+
 app.secret_key = 'secret_key'
 app.config['WTF_CSRF_SECRET_KEY'] = app.secret_key
 
@@ -149,7 +152,7 @@ def get_nonce():
     session['ota_nonce'] = nonce
     return jsonify({'nonce': nonce})
 
-ALLOWED_IPS = ['127.0.0.1', '192.168.0.100', '192.168.0.101', '162.120.185.41']
+ALLOWED_IPS = ['127.0.0.1', '192.168.0.100', '192.168.0.101', '112.218.95.58']
 @app.before_request
 def limit_remote_addr():
     if request.path.startswith('/static'):
