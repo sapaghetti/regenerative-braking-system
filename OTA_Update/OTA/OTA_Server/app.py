@@ -1,7 +1,7 @@
 # app.py
 
 from flask import Flask, request, abort, redirect, render_template, url_for, flash, send_from_directory, jsonify, session
-from werkzeug.middleware.proxy_fix import ProxyFix # 💡 추가: Nginx 프록시 뒤에서 실제 클라이언트 IP를 인식하기 위함
+from werkzeug.middleware.proxy_fix import ProxyFix
 import os
 import glob
 import json
@@ -23,7 +23,6 @@ from logging.handlers import RotatingFileHandler
 # ---
 
 app = Flask(__name__)
-# 💡 추가: Nginx 프록시 뒤에서 실제 클라이언트 IP를 인식하기 위함
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1, x_prefix=1)
 
 app.secret_key = 'secret_key'
@@ -177,8 +176,9 @@ def get_nonce():
     session['ota_nonce'] = nonce
     return jsonify({'nonce': nonce})
 
-# 💡 당신의 실제 공인 IP 주소로 업데이트되어야 합니다. (예: '112.218.95.58')
+
 ALLOWED_IPS = ['127.0.0.1', '192.168.0.100', '192.168.0.101', '112.218.95.58'] # 💡 여기에 당신의 IP를 포함하세요.
+
 @app.before_request
 def limit_remote_addr():
     if request.path.startswith('/static'):
