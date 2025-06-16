@@ -152,8 +152,10 @@ BO_ 2199060994 M009_Mode_Change_Resp: 8 HPC
  SG_ Mode_Change_Status : 8|8@1+ (1,0) [0|2] ""  ZCU_Center
  SG_ Current_Mode : 0|8@1+ (1,0) [0|4] ""  ZCU_Center
 
-BO_ 2215838977 M012_Cluster_Display: 8 HPC
- SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  ZCU_Center
+BO_ 2215838977 M012_Cluster_Display: 12 HPC
+ SG_ CRC16_Checksum : 80|16@1+ (1,0) [0|65535] ""  ZCU_Center
+ SG_ Motor_Speed : 64|16@1+ (1,0) [0|65535] ""  ZCU_Center
+ SG_ Vehicle_Speed : 48|16@1+ (0.01,0) [0|655.35] ""  ZCU_Center
  SG_ Warning_Status : 40|8@1+ (1,0) [0|255] ""  ZCU_Center
  SG_ Cumulative_Regen_Energy : 24|16@1+ (10,0) [0|655350] "Wh"  ZCU_Center
  SG_ Instant_Regen_Power : 8|16@1+ (100,0) [0|6553500] "W"  ZCU_Center
