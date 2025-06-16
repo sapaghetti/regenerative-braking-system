@@ -176,12 +176,9 @@ def get_nonce():
     session['ota_nonce'] = nonce
     return jsonify({'nonce': nonce})
 
-<<<<<<< HEAD
-ALLOWED_IPS = ['127.0.0.1', '192.168.0.100', '192.168.0.101', '112.218.95.58']
-=======
-# 💡 당신의 실제 공인 IP 주소로 업데이트되어야 합니다. (예: '112.218.95.58')
+
 ALLOWED_IPS = ['127.0.0.1', '192.168.0.100', '192.168.0.101', '112.218.95.58'] # 💡 여기에 당신의 IP를 포함하세요.
->>>>>>> 167ce5cd1010fbd3cfbdae04beccbce6f08e42e6
+
 @app.before_request
 def limit_remote_addr():
     if request.path.startswith('/static'):
