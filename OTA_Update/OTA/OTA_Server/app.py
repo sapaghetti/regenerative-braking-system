@@ -51,13 +51,6 @@ audit_logger.addHandler(audit_handler)
 def write_audit_log(message):
     audit_logger.info(message)
 
-# 최신 firmware cache (💡 이제 이 캐시는 사용되지 않습니다. /latest_version에서 직접 스캔합니다.)
-# latest_version_cache = {
-#     'version': None,
-#     'mtime': None,
-#     'sha256': None
-# }
-
 def load_users():
     # 파일이 없으면 초기 사용자 생성 (없을 경우)
     if not os.path.exists(USER_FILE):
@@ -88,7 +81,7 @@ def load_vehicles():
 def login():
     form = LoginForm()
     users = load_users()
-    if form.validate_on_submit():
+    if form.validate_on_submit(): # POST 요청 처리
         username = form.username.data
         password = form.password.data.encode('utf-8')
         if username in users:
@@ -100,8 +93,18 @@ def login():
                 session['role'] = users[username]['role']
                 write_audit_log(f"[LOGIN SUCCESS] user={username}, ip={request.remote_addr}")
                 return redirect(url_for('upload_form'))
+        
+        # 로그인 실패 시 (사용자 이름 없거나 비밀번호 틀림)
         write_audit_log(f"[LOGIN FAIL] user={username}, ip={request.remote_addr}")
-        return redirect(url_for('login') + '?error=1')
+        # 'error=1'과 함께 이전에 입력된 사용자 이름을 'prev_username' 쿼리 파라미터로 넘겨 리다이렉트
+        return redirect(url_for('login', error='1', prev_username=username)) 
+    
+    # GET 요청 처리 (초기 페이지 로드 또는 리다이렉트 후)
+    # URL 쿼리 파라미터에서 'prev_username' 값을 가져옴
+    prev_username = request.args.get('prev_username')
+    if prev_username:
+        form.username.data = prev_username # 폼 데이터에 이전 사용자 이름을 설정하여 필드에 채워지도록 함
+
     return render_template('login.html', form=form)
 
 @app.route('/logout')
@@ -146,11 +149,6 @@ def upload_file():
         try:
             file.save(file_path)
             write_audit_log(f"[UPLOAD SUCCESS] File '{file.filename}' saved successfully, User: {session.get('username')}, IP: {request.remote_addr}")
-            
-            # 💡 /latest_version 엔드포인트가 이제 항상 파일을 스캔하므로, 여기서는 캐시를 업데이트할 필요가 없습니다.
-            # latest_version_cache['version'] = file.filename
-            # latest_version_cache['mtime'] = os.path.getmtime(file_path)
-            # latest_version_cache['sha256'] = calculate_sha256(file_path)
             
             return jsonify(message="Upload Complete!"), 200
         except Exception as e:
@@ -284,4 +282,4 @@ def report_versions():
         return jsonify({"error": str(e)}), 500
 
 #if __name__ == "__main__":
-    #app.run(host='0.0.0.0', port=5000, debug=True)
+#    app.run(host='0.0.0.0', port=5000, debug=True)
