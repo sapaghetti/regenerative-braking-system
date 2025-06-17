@@ -101,6 +101,8 @@ ECU : TMU, CGW, EDT
 | CAR    | addSpeed            | 가속도           |
 | CAR    | Distance            | 앞차와의 거리    |
 | CAR    | vehSpeed            | 차량 속도        |
+| CAR    | acc            | 엑셀 on/off        |
+| CAR    | brake            | 브레이크  on/off        |
 | OTA    | Cur_version[]             | ecu들의 현재 버전        |
 | OTA    | Next_version[]            | ecu들의 업데이트 될 버전        |
 | OTA    | ECU_id            | target ecu id        |
@@ -108,6 +110,7 @@ ECU : TMU, CGW, EDT
 | OTA    | Ota_flag            | ota 승인, 거절 진행등 ota 상태        |
 | OTA    | Version_num[]            | 1~10까지의 버전 정보        |
 | OTA    | OTA_UserSelect            | 승인/거절 입력        |
+| OTA    | Progress            | 파일 다운로드 진행률        |
 
 
 
