@@ -16,7 +16,7 @@ from google.cloud import secretmanager
 
 # === 설정값 ===
 ECU_ID = 0x03
-VERSION = 0x06
+VERSION = 0x09
 MAGIC = 0xDEADBEEF
 TIMESTAMP = int(time.time())
 
