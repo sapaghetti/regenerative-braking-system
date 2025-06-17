@@ -37,9 +37,8 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 USER_FILE = 'users.json'
-VEHICLE_FILE = 'vehicles.json' # ✅ 추가: 차량 인증 정보를 담을 파일
+VEHICLE_FILE = 'vehicles.json'
 
-# Audit log 설정
 AUDIT_LOG_FILE = 'audit.log'
 audit_logger = logging.getLogger('audit')
 audit_logger.setLevel(logging.INFO)
@@ -51,15 +50,7 @@ audit_logger.addHandler(audit_handler)
 def write_audit_log(message):
     audit_logger.info(message)
 
-# 최신 firmware cache (💡 이제 이 캐시는 사용되지 않습니다. /latest_version에서 직접 스캔합니다.)
-# latest_version_cache = {
-#     'version': None,
-#     'mtime': None,
-#     'sha256': None
-# }
-
 def load_users():
-    # 파일이 없으면 초기 사용자 생성 (없을 경우)
     if not os.path.exists(USER_FILE):
         initial_users = {
             "admin": {"password": bcrypt.hashpw("admin_password".encode('utf-8'), bcrypt.gensalt()).decode('utf-8'), "role": "admin"}
@@ -68,11 +59,9 @@ def load_users():
             json.dump(initial_users, f, indent=4)
     with open(USER_FILE, 'r') as f:
         return json.load(f)
-        
-# ✅ 추가: 차량 정보 로드 함수
+
 def load_vehicles():
     if not os.path.exists(VEHICLE_FILE):
-        # 파일이 없으면 샘플 생성
         sample_vehicles = {
             "Sapaghetii": {
                 "token": "SECRET_API_KEY_FOR_Sapaghetii_VEHICLE"
@@ -88,7 +77,7 @@ def load_vehicles():
 def login():
     form = LoginForm()
     users = load_users()
-    if form.validate_on_submit():
+    if form.validate_on_submit(): # POST 요청 처리
         username = form.username.data
         password = form.password.data.encode('utf-8')
         if username in users:
@@ -100,8 +89,18 @@ def login():
                 session['role'] = users[username]['role']
                 write_audit_log(f"[LOGIN SUCCESS] user={username}, ip={request.remote_addr}")
                 return redirect(url_for('upload_form'))
+        
+        # 로그인 실패 시 (사용자 이름 없거나 비밀번호 틀림)
         write_audit_log(f"[LOGIN FAIL] user={username}, ip={request.remote_addr}")
-        return redirect(url_for('login') + '?error=1')
+        # 'error=1'과 함께 이전에 입력된 사용자 이름을 'prev_username' 쿼리 파라미터로 넘겨 리다이렉트
+        return redirect(url_for('login', error='1', prev_username=username)) 
+    
+    # GET 요청 처리 (초기 페이지 로드 또는 리다이렉트 후)
+    # URL 쿼리 파라미터에서 'prev_username' 값을 가져옴
+    prev_username = request.args.get('prev_username')
+    if prev_username:
+        form.username.data = prev_username # 폼 데이터에 이전 사용자 이름을 설정하여 필드에 채워지도록 함
+
     return render_template('login.html', form=form)
 
 @app.route('/logout')
@@ -147,11 +146,6 @@ def upload_file():
             file.save(file_path)
             write_audit_log(f"[UPLOAD SUCCESS] File '{file.filename}' saved successfully, User: {session.get('username')}, IP: {request.remote_addr}")
             
-            # 💡 /latest_version 엔드포인트가 이제 항상 파일을 스캔하므로, 여기서는 캐시를 업데이트할 필요가 없습니다.
-            # latest_version_cache['version'] = file.filename
-            # latest_version_cache['mtime'] = os.path.getmtime(file_path)
-            # latest_version_cache['sha256'] = calculate_sha256(file_path)
-            
             return jsonify(message="Upload Complete!"), 200
         except Exception as e:
             write_audit_log(f"[UPLOAD CRITICAL FAIL] Failed to save file '{file.filename}': {str(e)}, User: {session.get('username')}, IP: {request.remote_addr}")
@@ -160,7 +154,6 @@ def upload_file():
     write_audit_log(f"[UPLOAD FAIL] Unknown reason, User: {session.get('username')}, IP: {request.remote_addr}")
     return jsonify(error="File upload failed"), 500
 
-# 이 함수는 관리자용 다운로드이므로 그대로 둠
 @app.route('/upload/<filename>')
 def download_file(filename):
     if not session.get('logged_in') or session.get('role') != 'admin':
@@ -177,14 +170,13 @@ def get_nonce():
     return jsonify({'nonce': nonce})
 
 
-ALLOWED_IPS = ['127.0.0.1', '192.168.0.100', '192.168.0.101', '112.218.95.58'] # 💡 여기에 당신의 IP를 포함하세요.
+ALLOWED_IPS = ['127.0.0.1', '192.168.0.100', '192.168.0.101', '112.218.95.58']
 
 @app.before_request
 def limit_remote_addr():
     if request.path.startswith('/static'):
         return
     client_ip = request.remote_addr
-    # 로컬 개발 환경을 위해 로컬호스트는 항상 허용
     if client_ip not in ALLOWED_IPS and not client_ip.startswith('127.0.0.1'):
         write_audit_log(f"[IP BLOCKED] Forbidden IP: {client_ip}")
         abort(403, "Access denied for your IP address.")
@@ -198,17 +190,14 @@ def calculate_sha256(filepath):
 
 @app.route('/latest_version')
 def latest_version():
-    # 💡 캐시를 사용하지 않고 항상 UPLOAD_FOLDER를 스캔하여 최신 파일을 찾습니다.
-    firmware_files = glob.glob(os.path.join(app.config['UPLOAD_FOLDER'], '*.bin')) # 모든 .bin 파일 대상
+    firmware_files = glob.glob(os.path.join(app.config['UPLOAD_FOLDER'], '*.bin'))
 
     if not firmware_files:
         write_audit_log(f"[LATEST VERSION] No firmware files found in upload folder, IP: {request.remote_addr}")
         return jsonify(version=None, mtime=None, sha256=None)
 
-    # 파일이 여러 개 있을 경우, 가장 최근에 수정된 파일을 찾습니다.
     latest_file_path = max(firmware_files, key=os.path.getmtime)
     
-    # 파일 이름, 수정 시간, SHA256 해시를 추출합니다.
     latest_version_filename = os.path.basename(latest_file_path)
     latest_mtime = os.path.getmtime(latest_file_path)
     latest_sha256 = calculate_sha256(latest_file_path)
@@ -226,9 +215,8 @@ def ota_download_file(filename):
     if not client_nonce or client_nonce != session.get('ota_nonce'):
         write_audit_log(f"[OTA DOWNLOAD FAIL - Invalid nonce] file={filename}, ip={request.remote_addr}")
         return jsonify(error="Invalid or missing nonce"), 403
-    session.pop('ota_nonce', None) # 논스 사용 후 제거하여 재사용 방지
+    session.pop('ota_nonce', None)
     try:
-        # Flask의 send_from_directory는 FileNotFoundError를 자동으로 처리하지 않으므로, try-except로 명시적으로 처리
         if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
             write_audit_log(f"[OTA DOWNLOAD FAIL - File not found] file={filename}, ip={request.remote_addr}")
             return jsonify(error="File not found on server"), 404
@@ -242,10 +230,7 @@ def ota_download_file(filename):
 @csrf.exempt
 @app.route('/report_versions', methods=['POST'])
 def report_versions():
-    # ✅ 변경: 차량 인증 로직 추가
-    # 논문 요구사항: OEM은 차량의 진위 여부를 확인해야 함 (인증)
     try:
-        # 1. 헤더에서 인증 토큰 가져오기
         token = request.headers.get('X-Vehicle-Token')
         if not token:
             write_audit_log(f"[VERSION REPORT FAIL - No Token] ip={request.remote_addr}")
@@ -259,14 +244,11 @@ def report_versions():
         vin = data['vehicle_id']
         all_vehicles = load_vehicles()
 
-        # 2. 토큰 검증
         if vin not in all_vehicles or all_vehicles[vin].get('token') != token:
             write_audit_log(f"[VERSION REPORT FAIL - Invalid Token] vin={vin}, ip={request.remote_addr}")
             return jsonify({"error": "Authentication failed"}), 403
             
-        # --- 인증 성공 후 로직 ---
         version_file = 'versions.json'
-        # 버전 파일 로드 및 업데이트
         if os.path.exists(version_file):
             with open(version_file, 'r') as f:
                 all_versions = json.load(f)

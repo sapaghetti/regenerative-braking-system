@@ -65,13 +65,13 @@
     <div class="login-box">
         <h1>Login</h1>
 
-        <!-- 에러 메시지 -->
         <div id="error-msg" class="error-message">Invalid username or password</div>
 
         <form method="POST" action="/login">
             {{ form.hidden_tag() }}
 
-            <input type="text" name="{{ form.username.name }}" placeholder="Username" value="{{ form.username.data }}" required>
+            <input type="text" name="{{ form.username.name }}" placeholder="Username" 
+                   value="{% if form.username.data is not none %}{{ form.username.data }}{% else %}{% endif %}" required>
             <input type="password" name="{{ form.password.name }}" placeholder="Password" required>
             <input type="submit" value="Login">
         </form>
