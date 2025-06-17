@@ -12,7 +12,9 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import AES, PKCS1_OAEP
 
 # 서버 설정
-server_base_url = 'http://127.0.0.1:5000'
+# 💡 이 부분을 당신의 배포된 서버 주소로 변경해야 합니다.
+#    Flask 앱은 이제 HTTPS로 서비스되므로 'https://'를 사용합니다.
+server_base_url = 'https://www.sapaghetti.shop'
 latest_version_api = f'{server_base_url}/latest_version'
 get_nonce_api = f'{server_base_url}/get_nonce'
 download_base_url = f'{server_base_url}/ota_download'
@@ -190,7 +192,7 @@ def wait_for_approval(timeout=30):
             return False
         elif flag == 5: # If CANoe already finished the update
             print("[INFO] OTA 업데이트 완료")
-            return True # 업데이트가 이미 완료된 경우 승인된 것으로 간주
+            return True # 업데이트가 이미 완료된 것으로 간주 (정확한 구현은 CANoe 로직에 따라 다름)
         time.sleep(1)
     print("[WARN] 승인 응답 없음 (시간 초과)")
     return False
