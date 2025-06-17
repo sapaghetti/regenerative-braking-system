@@ -1,0 +1,138 @@
+﻿/*@!Encoding:65001*/
+/*===============================
+ * 함수 선언
+ *===============================*/
+
+variables
+{
+  // timer
+  msTimer tCAN95_RegenTorqueCalc;
+  msTimer tCAN97_AutoModeOptimization;  
+  msTImer tCAN98_ClusterDisplay;
+  msTimer tCAN106_EnergyEfficiency;
+}
+
+void SendInitialMessages()
+{
+  // 초기 타이머 설정
+  setTimer(tCAN95_RegenTorqueCalc, 50);
+  setTimer(tCAN97_AutoModeOptimization, 500);  
+  setTimer(tCAN98_ClusterDisplay, 100);
+  setTimer(tCAN106_EnergyEfficiency, 200);
+  
+  write("All cyclic timers initialized");
+}
+
+// CRC 계산 함수
+word CalculateCRC16(byte data[], int length)
+{
+  word crc = 0xFFFF;
+  int i, j;
+  
+  for (i = 0; i < length; i++) {
+    crc ^= data[i];
+    for (j = 0; j < 8; j++) {
+      if (crc & 1) {
+        crc = (crc >> 1) ^ 0xA001;
+      } else {
+        crc >>= 1;
+      }
+    }
+  }
+  return crc;
+}
+
+// 회생 제동 토크 계산 함수
+float CalculateRegenTorque(float vehicleSpeed, enum RegenState mode, struct V2XData v2xData)
+{
+  float baseTorque = 0.0;
+  
+  // 기본 모드별 토크 설정
+  switch (mode) {
+    case REGEN_LEVEL1: baseTorque = 50.0; break;
+    case REGEN_LEVEL2: baseTorque = 100.0; break;  
+    case REGEN_LEVEL3: baseTorque = 150.0; break;
+    case REGEN_AUTO:
+      // V2X 데이터 기반 최적화
+      baseTorque = 100.0; // 기본값
+      if (v2xData.trafficLightStatus == 1) { // Red light ahead
+        baseTorque *= 1.5; // 증가
+      }
+      if (v2xData.roadGrade > 5) { // Downhill
+        baseTorque *= 1.3;
+      }
+      break;
+    default: baseTorque = 0.0; break;
+  }
+  
+  // 속도 기반 보정
+  if (vehicleSpeed < 10.0) {
+    baseTorque *= 0.3; // 저속에서 감소
+  } else if (vehicleSpeed > 80.0) {
+    baseTorque *= 1.2; // 고속에서 증가
+  }
+  
+  // 배터리 보호 상태에서 제한
+  if (gSystemState == SYSTEM_BATTERY_PROTECTION) {
+    baseTorque *= 0.5;
+  }
+  
+  return baseTorque;
+}
+
+// 배터리 보호 로직
+// CAN-100: 배터리 보호 로직 활성화 시 경고등 점등
+void CheckBatteryProtection()
+{
+  message M012_Cluster_Display display;
+  enum bool needProtection;
+  needProtection = false;
+  
+  if (gBatterySOC >= BATTERY_SOC_LIMIT) {
+    needProtection = true;
+    write("Battery SOC protection activated: %d%%", gBatterySOC);
+  }
+  
+  if (gBatteryTemp < BATTERY_TEMP_MIN || gBatteryTemp > BATTERY_TEMP_MAX) {
+    needProtection = true;
+    write("Battery temperature protection activated: %d°C", gBatteryTemp);
+  }
+  
+  if (needProtection && gSystemState == SYSTEM_NORMAL) {
+    gSystemState = SYSTEM_BATTERY_PROTECTION;
+    
+    // 회생 제동 토크 선형 감소
+    gTargetRegenTorque *= 0.5;
+    
+    // 경고등 점등 메시지 전송 (CAN-100)
+    display.Warning_Status = 0x01; // Battery warning
+    output(display);
+  }
+}
+
+// 마찰 제동 보상 계산
+float CalculateFrictionBrakeCompensation(float requiredDecel, float availableRegen)
+{
+  return 0.0;
+}
+
+// 에너지 효율 계산
+void CalculateEnergyEfficiency()
+{
+  // 실제 구현에서는 더 복잡한 계산 로직 필요
+  gTotalRegenEnergy += gInstantRegenPower * 0.2; // 200ms interval
+  
+  // M019 메시지 데이터 업데이트
+  // 실제 메시지 전송은 cyclic task에서 처리
+}
+
+float CalculateOptimalRegenTorque()
+{
+  return 0.0;
+}
+
+// 안전 상태 확인
+void CheckSafetyConditions()
+{
+  
+}
