@@ -98,8 +98,8 @@ def load_users():
 def load_vehicles():
     if not os.path.exists(VEHICLE_FILE):
         sample_vehicles = {
-            "Sapaghetii": {
-                "token": "SECRET_API_KEY_FOR_Sapaghetii_VEHICLE"
+            "Sapaghetti": {
+                "token": "SECRET_API_KEY_FOR_Sapaghetti_VEHICLE"
             }
         }
         with open(VEHICLE_FILE, 'w') as f:
