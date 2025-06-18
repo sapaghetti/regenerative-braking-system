@@ -305,6 +305,8 @@ void UpdateClusterDisplay()
   sysSetVariableInt("ZCU_Sim", "Cluster_Display_Mode", clusterDisplay.currentDisplayMode);
   sysSetVariableInt("ZCU_Sim", "Cluster_Instant_Power", clusterDisplay.instantRegenPower);
   sysSetVariableInt("ZCU_Sim", "Cluster_Cumulative_Energy", clusterDisplay.cumulativeRegenEnergy);
+  sysSetVariableInt("ZCU_Sim", "Cluster_Vehicle_Speed", clusterDisplay.vehicleSpeed);
+  sysSetVariableInt("ZCU_Sim", "Cluster_Motor_Speed", clusterDisplay.motorSpeed);
   sysSetVariableInt("ZCU_Sim", "Cluster_Warning_Status", clusterDisplay.warningStatus);
   sysSetVariableInt("ZCU_Sim", "Cluster_Active_Profile", clusterDisplay.activeProfile);
   sysSetVariableInt("ZCU_Sim", "Cluster_Comfort_Mode", clusterDisplay.comfortModeEnabled);
@@ -312,9 +314,10 @@ void UpdateClusterDisplay()
   clusterDisplay.lastUpdateTime = timeNowNS() / 1000000;
   clusterDisplay.displayDataValid = 1;
 
-  write("ZCU_Center: Cluster updated - Mode=%d, Power=%dW, Energy=%dWh, Warning=0x%02X",
+  write("ZCU_Center: Cluster updated - Mode=%d, Pwr=%dW, Eng=%dWh, V=%.2fkm/h, M=%drpm, Warn=0x%02X",
         clusterDisplay.currentDisplayMode, clusterDisplay.instantRegenPower, 
-        clusterDisplay.cumulativeRegenEnergy, clusterDisplay.warningStatus);
+        clusterDisplay.cumulativeRegenEnergy, clusterDisplay.vehicleSpeed,
+        clusterDisplay.motorSpeed, clusterDisplay.warningStatus);
 }
 
 /**
@@ -636,6 +639,8 @@ void InitializeGlobals()
   clusterDisplay.currentDisplayMode = MODE_LEVEL_0;
   clusterDisplay.instantRegenPower = 0;
   clusterDisplay.cumulativeRegenEnergy = 0;
+  clusterDisplay.vehicleSpeed = 0;
+  clusterDisplay.motorSpeed = 0;
   clusterDisplay.warningStatus = 0;
   clusterDisplay.activeProfile = PROFILE_EFFICIENCY;
   clusterDisplay.clusterConnected = 0;

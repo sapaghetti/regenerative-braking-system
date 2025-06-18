@@ -327,7 +327,7 @@ on message M009_Mode_Change_Resp
 on message M012_Cluster_Display
 {
   dword currentTime;
-  byte dataArray[6];
+  byte dataArray[10];
 
   currentTime = timeNowNS() / 1000000;
 
@@ -345,6 +345,10 @@ on message M012_Cluster_Display
   dataArray[3] = (byte)(this.Cumulative_Regen_Energy & 0xFF);
   dataArray[4] = (byte)((this.Cumulative_Regen_Energy >> 8) & 0xFF);
   dataArray[5] = this.Warning_Status;
+  dataArray[6] = (byte)(this.Vehicle_Speed & 0xFF);
+  dataArray[7] = (byte)((this.Vehicle_Speed >> 8) & 0xFF);
+  dataArray[8] = (byte)(this.Motor_Speed & 0xFF);
+  dataArray[9] = (byte)((this.Motor_Speed >> 8) & 0xFF);
   
   if (!VerifyE2EProtection(dataArray, elcount(dataArray), this.CRC16_Checksum))
   {
@@ -356,6 +360,8 @@ on message M012_Cluster_Display
   clusterDisplay.currentDisplayMode = this.Display_Mode;
   clusterDisplay.instantRegenPower = this.Instant_Regen_Power;
   clusterDisplay.cumulativeRegenEnergy = this.Cumulative_Regen_Energy;
+  clusterDisplay.vehicleSpeed = this.Vehicle_Speed / 100.0;
+  clusterDisplay.motorSpeed = this.Motor_Speed;
   clusterDisplay.warningStatus = this.Warning_Status;
 
   // 클러스터 하드웨어 업데이트

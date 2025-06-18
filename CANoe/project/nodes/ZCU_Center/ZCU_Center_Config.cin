@@ -159,6 +159,10 @@ variables
     dword instantRegenPower;
     /** @brief 누적 회생 에너지 (Wh) */
     dword cumulativeRegenEnergy;
+    /** @brief 차량 속도 (분해능: 0.01 km/h) */
+    word vehicleSpeed;
+    /** @brief 모터 속도 (rpm) */
+    word motorSpeed;
     /** @brief 경고 상태 비트마스크 */
     byte warningStatus;
     /** @brief 활성 프로파일 */
