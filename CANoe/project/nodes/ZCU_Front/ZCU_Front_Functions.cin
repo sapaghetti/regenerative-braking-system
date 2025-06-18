@@ -648,6 +648,7 @@ void HandleClearFaultsKey()
   diagnostics.errorFlags = 0;
   commMon.failureCount_EPAS = 0;
   commMon.failureCount_ADAS = 0;
+  gLastWatchdogTime = timeNowNS() / 1000000;
   TransitionToState(STATE_INIT);
 }
 
