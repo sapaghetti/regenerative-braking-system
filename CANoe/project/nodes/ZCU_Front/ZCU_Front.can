@@ -19,19 +19,7 @@ includes
  */
 on start
 {
-  write("ZCU_Front ECU Starting - Version %d.%02d", (SYSTEM_VERSION >> 8), (SYSTEM_VERSION & 0xFF));
-
-  if (!PerformSecureBoot())
-  {
-    write("ZCU_Front: Secure Boot FAILED - System halted");
-    stop();
-    return;
-  }
-
-  InitializeGlobals();
-  PerformInitialSelfTest();
-  write("ZCU_Front: Initialization complete. Waiting for system to be ready...");
-  setTimerCyclic(timerMainTask, MAIN_CYCLE);
+  HandleStartEvent();
 }
 
 /**
@@ -40,12 +28,11 @@ on start
  */
 on stopMeasurement
 {
-  write("ZCU_Front: Shutting down...");
-  write("ZCU_Front: Shutdown complete");
+  HandleStopEvent();
 }
 
 /**
- * @brief 주기적인 메인 태스크 타이머 이벤트 핸들러
+ * @brief 메인 태스크 타이머 이벤트 핸들러
  * @note 시스템 상태에 따라 다양한 주기로 작업을 예약하고 실행
  *       - 10ms: 브레이크 페달 메시지 전송
  *       - 20ms: 차량 동역학 메시지 전송
@@ -54,32 +41,7 @@ on stopMeasurement
  */
 on timer timerMainTask
 {
-  if(currentState != STATE_FAIL_SAFE)
-  {
-    SendM005_EXT_BrakePedal();
-
-    if ((gTaskCounter % 2) == 0)
-    {
-      SendM005_VehicleDynamics();
-    }
-
-    if ((gTaskCounter % 5) == 0)
-    {
-      PerformWatchdog();
-    }
-  }
-
-  if ((gTaskCounter % 10) == 0)
-  {
-    PerformDiagnostics();
-    if (currentState != STATE_INIT)
-    {
-      MonitorCommunication();
-    }
-    UpdateSystemState();
-  }
-
-  gTaskCounter++;
+  HandleMainTaskTimer();
 }
 
 /**
@@ -88,43 +50,7 @@ on timer timerMainTask
  */
 on message L001_EPAS_Data
 {
-  if(commMon.firstMsgReceived_EPAS == 0)
-  {
-    write("ZCU_Front: First EPAS message received.");
-    commMon.firstMsgReceived_EPAS = 1;
-  }
-  commMon.lastRxTime_EPAS = timeNowNS() / 1000000;
-
-  if (this.Message_Counter == ((gLastEpasCounter + 1) & 0x0F))
-  {
-    commMon.failureCount_EPAS = 0;
-    ClearFault(FAULT_EPAS_COMM);
-
-    sensors.steeringAngle = this.Steering_Angle;
-    sensors.steeringTorque = this.Steering_Torque;
-    sensors.angularVelocity = this.Angular_Velocity;
-    sensors.epasStatus = this.EPAS_Status;
-
-    if(ValidateSensorRange(sensors.steeringAngle, -STEERING_MAX, STEERING_MAX) != 0)
-    {
-      SetFault(FAULT_SENSOR_RANGE);
-      sensors.sensorsValid &= ~0x01;
-    }
-    else
-    {
-      sensors.sensorsValid |= 0x01;
-    }
-    commMon.commStatus |= 0x01;
-  }
-  else
-  {
-    if (gLastEpasCounter != 0)
-    {
-      commMon.failureCount_EPAS++;
-      SetFault(FAULT_EPAS_COMM);
-    }
-  }
-  gLastEpasCounter = this.Message_Counter;
+  HandleEpasMessage(this);
 }
 
 /**
@@ -133,31 +59,7 @@ on message L001_EPAS_Data
  */
 on message L002_ADAS_Sensor
 {
-  if(commMon.firstMsgReceived_ADAS == 0)
-  {
-    write("ZCU_Front: First ADAS message received.");
-    commMon.firstMsgReceived_ADAS = 1;
-  }
-  commMon.lastRxTime_ADAS = timeNowNS() / 1000000;
-
-  sensors.frontVehicleDistance = this.Front_Vehicle_Distance;
-  sensors.frontVehicleSpeed = this.Front_Vehicle_Speed;
-  sensors.laneChangeIndicator = this.Lane_Change_Indicator;
-  sensors.roadCondition = this.Road_Condition;
-
-  if (sensors.frontVehicleDistance >= 0 && sensors.frontVehicleDistance <= 6553.5 &&
-      sensors.frontVehicleSpeed >= 0 && sensors.frontVehicleSpeed <= 6553.5)
-  {
-    sensors.sensorsValid |= 0x02;
-    commMon.failureCount_ADAS = 0;
-    ClearFault(FAULT_ADAS_COMM);
-    commMon.commStatus |= 0x02;
-  }
-  else
-  {
-    sensors.sensorsValid &= ~0x02;
-    SetFault(FAULT_SENSOR_RANGE);
-  }
+  HandleAdasMessage(this);
 }
 
 /**
@@ -166,8 +68,7 @@ on message L002_ADAS_Sensor
  */
 on key 'f'
 {
-  write("ZCU_Front: Manual fault injection - EPAS_COMM");
-  SetFault(FAULT_EPAS_COMM);
+  HandleFaultInjectionKey();
 }
 
 /**
@@ -176,12 +77,7 @@ on key 'f'
  */
 on key 'c'
 {
-  write("ZCU_Front: Clearing all faults");
-  faultRegister = 0;
-  diagnostics.errorFlags = 0;
-  commMon.failureCount_EPAS = 0;
-  commMon.failureCount_ADAS = 0;
-  TransitionToState(STATE_INIT);
+  HandleClearFaultsKey();
 }
 
 /**
@@ -190,12 +86,5 @@ on key 'c'
  */
 on key 's'
 {
-  write("=== ZCU_Front Status ===");
-  write("State: %d, Faults: 0x%08X", currentState, faultRegister);
-  write("APS: %.1f%%, BPPS: %.1f%%, Speed: %.1fkm/h", sensors.apsPosition, sensors.bppsPosition, sensors.vehicleSpeed);
-  write("EPAS: Angle=%.1fdeg, Torque=%.1fNm, Status=%d", sensors.steeringAngle, sensors.steeringTorque, sensors.epasStatus);
-  write("ADAS: Distance=%.1fm, Speed=%.1fkm/h", sensors.frontVehicleDistance, sensors.frontVehicleSpeed);
-  write("Comm: EPAS Fail=%d, ADAS Fail=%d, Status=0x%02X, EPAS Rx=%d, ADAS Rx=%d",
-        commMon.failureCount_EPAS, commMon.failureCount_ADAS, commMon.commStatus, commMon.firstMsgReceived_EPAS, commMon.firstMsgReceived_ADAS);
-  write("========================");
+  HandleStatusDisplayKey();
 }
