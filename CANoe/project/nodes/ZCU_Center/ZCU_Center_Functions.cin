@@ -709,3 +709,473 @@ void PerformInitialSelfTest()
 
   write("ZCU_Center: Self-test complete - Faults: 0x%08X", faultRegister);
 }
+
+/*******************************************************************************
+ * 이벤트 핸들러 추상화 함수
+ ******************************************************************************/
+
+/**
+ * @brief 'on start' 이벤트 핸들러 로직을 처리
+ */
+void HandleStartEvent()
+{
+  write("ZCU_Center ECU Starting - Version %d.%02d", (SYSTEM_VERSION >> 8), (SYSTEM_VERSION & 0xFF));
+
+  if (!PerformSecureBoot())
+  {
+    write("ZCU_Center: Secure Boot FAILED - System halted");
+    stop();
+    return;
+  }
+
+  InitializeGlobals();
+  PerformInitialSelfTest();
+  
+  write("ZCU_Center: Initialization complete. Starting timers...");
+  setTimerCyclic(timerMainTask, MAIN_CYCLE);
+}
+
+/**
+ * @brief 'on stopMeasurement' 이벤트 핸들러 로직을 처리
+ */
+void HandleStopEvent()
+{
+  write("ZCU_Center: Shutting down...");
+  
+  // 클러스터에 시스템 종료 알림
+  sysSetVariableInt("ZCU_Sim", "Center_System_Status", 0);
+  
+  write("ZCU_Center: Shutdown complete");
+}
+
+/**
+ * @brief 'on timer timerMainTask' 이벤트 핸들러 로직을 처리
+ */
+void HandleMainTaskTimer()
+{
+  if(currentState != STATE_FAIL_SAFE)
+  {
+    // 50ms 주기 작업 (5 * 10ms)
+    if ((gTaskCounter % 5) == 0)
+    {
+      PerformWatchdog();
+    }
+
+    // 100ms 주기 작업 (10 * 10ms)
+    if ((gTaskCounter % 10) == 0)
+    {
+      if (currentState != STATE_INIT)
+      {
+        MonitorCommunication();
+      }
+      UpdateSystemState();
+    }
+
+    // 1000ms 주기 작업 (100 * 10ms)
+    if ((gTaskCounter % 100) == 0)
+    {
+      PerformDiagnostics();
+      if (currentState != STATE_FAIL_SAFE)
+      {
+        SendDiagnosticData();
+      }
+    }
+  }
+
+  gTaskCounter++;
+}
+
+/**
+ * @brief 'on message L003_Voice_Command' 이벤트 핸들러 로직을 처리
+ * @param msg 수신된 음성 명령 메시지
+ */
+void HandleVoiceCommandMessage(message L003_Voice_Command msg)
+{
+  dword currentTime;
+  byte requestedMode;
+  byte dataArray[6];
+
+  currentTime = timeNowNS() / 1000000;
+
+  write("ZCU_Center: Voice command received - Type=%d, Value=%d, Confidence=%d%%", 
+        msg.Command_Type, msg.Command_Value, msg.Confidence_Level);
+
+  // E2E 보호 검증
+  dataArray[0] = msg.Command_Type;
+  dataArray[1] = msg.Command_Value;
+  dataArray[2] = msg.Confidence_Level;
+  dataArray[3] = msg.Language_ID;
+  dataArray[4] = (byte)(msg.Voice_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Voice_Timestamp >> 8) & 0xFF);
+  
+  if (!VerifyE2EProtection(dataArray, elcount(dataArray), msg.CRC16_Checksum))
+  {
+    write("ZCU_Center: Voice command E2E verification failed, ignoring");
+    return;
+  }
+
+  // 음성 입력 유효성 검증
+  if (!ValidateVoiceInput(msg.Command_Type, msg.Command_Value, msg.Confidence_Level, currentTime))
+  {
+    return;
+  }
+
+  // 음성 입력 데이터 저장
+  hmiInput.lastVoiceTime = currentTime;
+  hmiInput.lastVoiceCommandType = msg.Command_Type;
+  hmiInput.lastVoiceCommandValue = msg.Command_Value;
+  hmiInput.lastVoiceConfidence = msg.Confidence_Level;
+  hmiInput.voiceValid = 1;
+
+  // 응답 대기 중이면 무시
+  if (commMon.waitingForResponse)
+  {
+    write("ZCU_Center: Already waiting for mode change response, ignoring voice command");
+    return;
+  }
+
+  // 모드 변경 명령 처리
+  requestedMode = DetermineRequestedModeFromVoice(msg.Command_Type, msg.Command_Value);
+  if (requestedMode != 0xFF)
+  {
+    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_VOICE, clusterDisplay.activeProfile);
+  }
+  else if (msg.Command_Type == VOICE_CMD_PROFILE_CHANGE)
+  {
+    // 프로파일 변경 명령
+    byte newProfile;
+    newProfile = (clusterDisplay.activeProfile == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
+    SendModeChangeRequest(clusterDisplay.currentDisplayMode, REQUEST_SOURCE_VOICE, newProfile);
+  }
+  else if (msg.Command_Type == VOICE_CMD_SYSTEM_INFO)
+  {
+    // 시스템 정보 요청 - 클러스터에 상세 정보 표시
+    write("ZCU_Center: System info request via voice - Mode=%d, Profile=%d", 
+          clusterDisplay.currentDisplayMode, clusterDisplay.activeProfile);
+  }
+}
+
+/**
+ * @brief 'on message L004_SW_Button_Input' 이벤트 핸들러 로직을 처리
+ * @param msg 수신된 스티어링 휠 버튼 입력 메시지
+ */
+void HandleSwButtonInputMessage(message L004_SW_Button_Input msg)
+{
+  dword currentTime;
+  byte requestedMode;
+  byte dataArray[6];
+
+  currentTime = timeNowNS() / 1000000;
+
+  write("ZCU_Center: Button input received - ID=%d, Action=%d, Duration=%dms", 
+        msg.Button_ID, msg.Button_Action, msg.Press_Duration);
+
+  // E2E 보호 검증
+  dataArray[0] = msg.Button_ID;
+  dataArray[1] = msg.Button_Action;
+  dataArray[2] = (byte)(msg.Press_Duration & 0xFF);
+  dataArray[3] = (byte)((msg.Press_Duration >> 8) & 0xFF);
+  dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
+  
+  if (!VerifyE2EProtection(dataArray, elcount(dataArray), msg.CRC16_Checksum))
+  {
+    write("ZCU_Center: Button input E2E verification failed, ignoring");
+    return;
+  }
+
+  // 버튼 입력 유효성 검증
+  if (!ValidateButtonInput(msg.Button_ID, msg.Button_Action, msg.Press_Duration, currentTime))
+  {
+    return;
+  }
+
+  // 버튼 입력 데이터 저장
+  hmiInput.lastButtonTime = currentTime;
+  hmiInput.lastButtonID = msg.Button_ID;
+  hmiInput.lastButtonAction = msg.Button_Action;
+  hmiInput.buttonValid = 1;
+
+  // 응답 대기 중이면 무시
+  if (commMon.waitingForResponse)
+  {
+    write("ZCU_Center: Already waiting for mode change response, ignoring button input");
+    return;
+  }
+
+  // 프로파일 변경 버튼 처리
+  if (msg.Button_ID == BUTTON_PROFILE_CHANGE && msg.Button_Action == BUTTON_ACTION_PRESS)
+  {
+    byte newProfile;
+    newProfile = (clusterDisplay.activeProfile == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
+    SendModeChangeRequest(clusterDisplay.currentDisplayMode, REQUEST_SOURCE_BUTTON, newProfile);
+    return;
+  }
+
+  // 모드 변경 버튼 처리
+  requestedMode = DetermineRequestedModeFromButton(msg.Button_ID, msg.Button_Action);
+  if (requestedMode != 0xFF)
+  {
+    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_BUTTON, clusterDisplay.activeProfile);
+  }
+}
+
+/**
+ * @brief 'on message M009_Mode_Change_Resp' 이벤트 핸들러 로직을 처리
+ * @param msg 수신된 모드 변경 응답 메시지
+ */
+void HandleModeChangeRespMessage(message M009_Mode_Change_Resp msg)
+{
+  dword currentTime, responseTime;
+  byte dataArray[6];
+
+  currentTime = timeNowNS() / 1000000;
+
+  if(commMon.firstMsgReceived_M009 == 0)
+  {
+    write("ZCU_Center: First M009 message received.");
+    commMon.firstMsgReceived_M009 = 1;
+  }
+  commMon.lastRxTime_M009 = currentTime;
+
+  write("ZCU_Center: Mode change response received - Status=%d, Mode=%d, Profile=%d, Reason=%d", 
+        msg.Mode_Change_Status, msg.Current_Mode, msg.Active_Profile, msg.Failure_Reason);
+
+  // E2E 보호 검증
+  dataArray[0] = msg.Current_Mode;
+  dataArray[1] = msg.Mode_Change_Status;
+  dataArray[2] = msg.Active_Profile;
+  dataArray[3] = msg.Failure_Reason;
+  dataArray[4] = (byte)(msg.Response_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Response_Timestamp >> 8) & 0xFF);
+  
+  if (!VerifyE2EProtection(dataArray, elcount(dataArray), msg.CRC16_Checksum))
+  {
+    write("ZCU_Center: Mode change response E2E verification failed, ignoring");
+    return;
+  }
+
+  // 응답 시간 측정
+  if (commMon.waitingForResponse)
+  {
+    responseTime = currentTime - commMon.lastTxTime_M008;
+    diagnostics.lastResponseTime = responseTime;
+    if (diagnostics.averageResponseTime == 0)
+      diagnostics.averageResponseTime = responseTime;
+    else
+      diagnostics.averageResponseTime = (diagnostics.averageResponseTime + responseTime) / 2;
+
+    write("ZCU_Center: HMI response time: %dms (average: %dms)", responseTime, diagnostics.averageResponseTime);
+  }
+
+  // 응답 처리
+  commMon.waitingForResponse = 0;
+  hmiInput.pendingModeRequest = 0;
+
+  if (msg.Mode_Change_Status == 0)  // 성공
+  {
+    // 클러스터 표시 데이터 업데이트
+    clusterDisplay.currentDisplayMode = msg.Current_Mode;
+    clusterDisplay.activeProfile = msg.Active_Profile;
+    
+    // OTA 편안한 모드 UI 업데이트
+    UpdateOTAComfortMode(msg.Active_Profile);
+    
+    ClearFault(FAULT_MODE_CHANGE_FAIL);
+    ClearFault(FAULT_HMI_TIMEOUT);
+    
+    write("ZCU_Center: Mode change successful - New mode: %d, Profile: %d", 
+          msg.Current_Mode, msg.Active_Profile);
+  }
+  else  // 실패
+  {
+    SetFault(FAULT_MODE_CHANGE_FAIL);
+    write("ZCU_Center: Mode change failed - Reason: %d", msg.Failure_Reason);
+    
+    // 실패 사유에 따른 처리
+    switch (msg.Failure_Reason)
+    {
+      case 1:  // Safety
+        clusterDisplay.warningStatus |= WARNING_SYSTEM_FAULT;
+        break;
+      case 2:  // Battery
+        clusterDisplay.warningStatus |= WARNING_BATTERY;
+        break;
+      case 3:  // System_Fault
+        clusterDisplay.warningStatus |= WARNING_SYSTEM_FAULT;
+        break;
+      default:
+        break;
+    }
+    UpdateClusterDisplay();
+  }
+
+  commMon.failureCount_M009 = 0;
+  ClearFault(FAULT_HPC_COMM);
+  commMon.commStatus |= 0x02;
+}
+
+/**
+ * @brief 'on message M012_Cluster_Display' 이벤트 핸들러 로직을 처리
+ * @param msg 수신된 클러스터 표시 데이터 메시지
+ */
+void HandleClusterDisplayMessage(message M012_Cluster_Display msg)
+{
+  dword currentTime;
+  byte dataArray[10];
+
+  currentTime = timeNowNS() / 1000000;
+
+  if(commMon.firstMsgReceived_M012 == 0)
+  {
+    write("ZCU_Center: First M012 message received.");
+    commMon.firstMsgReceived_M012 = 1;
+  }
+  commMon.lastRxTime_M012 = currentTime;
+
+  // E2E 보호 검증
+  dataArray[0] = msg.Display_Mode;
+  dataArray[1] = (byte)(msg.Instant_Regen_Power & 0xFF);
+  dataArray[2] = (byte)((msg.Instant_Regen_Power >> 8) & 0xFF);
+  dataArray[3] = (byte)(msg.Cumulative_Regen_Energy & 0xFF);
+  dataArray[4] = (byte)((msg.Cumulative_Regen_Energy >> 8) & 0xFF);
+  dataArray[5] = msg.Warning_Status;
+  dataArray[6] = (byte)(msg.Vehicle_Speed & 0xFF);
+  dataArray[7] = (byte)((msg.Vehicle_Speed >> 8) & 0xFF);
+  dataArray[8] = (byte)(msg.Motor_Speed & 0xFF);
+  dataArray[9] = (byte)((msg.Motor_Speed >> 8) & 0xFF);
+  
+  if (!VerifyE2EProtection(dataArray, elcount(dataArray), msg.CRC16_Checksum))
+  {
+    write("ZCU_Center: Cluster display data E2E verification failed, ignoring");
+    return;
+  }
+
+  // 클러스터 표시 데이터 업데이트
+  clusterDisplay.currentDisplayMode = msg.Display_Mode;
+  clusterDisplay.instantRegenPower = msg.Instant_Regen_Power;
+  clusterDisplay.cumulativeRegenEnergy = msg.Cumulative_Regen_Energy;
+  clusterDisplay.vehicleSpeed = msg.Vehicle_Speed / 100.0;
+  clusterDisplay.motorSpeed = msg.Motor_Speed;
+  clusterDisplay.warningStatus = msg.Warning_Status;
+
+  // 클러스터 하드웨어 업데이트
+  UpdateClusterDisplay();
+
+  commMon.failureCount_M012 = 0;
+  ClearFault(FAULT_HPC_COMM);
+  commMon.commStatus |= 0x01;
+}
+
+/**
+ * @brief 'on key 'f'' 이벤트 핸들러 로직을 처리
+ */
+void HandleFaultInjectionKey()
+{
+  write("ZCU_Center: Manual fault injection - HPC_COMM");
+  SetFault(FAULT_HPC_COMM);
+}
+
+/**
+ * @brief 'on key 'b'' 이벤트 핸들러 로직을 처리 (버튼 입력 시뮬레이션)
+ */
+void HandleSimulateButtonKey()
+{
+  write("ZCU_Center: Simulating button press - Mode Up");
+  
+  if (!commMon.waitingForResponse)
+  {
+    byte requestedMode;
+    requestedMode = (clusterDisplay.currentDisplayMode + 1) % MAX_REGEN_MODES;
+    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_BUTTON, clusterDisplay.activeProfile);
+  }
+  else
+  {
+    write("ZCU_Center: Already waiting for response, ignoring simulation");
+  }
+}
+
+/**
+ * @brief 'on key 'v'' 이벤트 핸들러 로직을 처리 (음성 명령 시뮬레이션)
+ */
+void HandleSimulateVoiceKey()
+{
+  write("ZCU_Center: Simulating voice command - Auto mode");
+  
+  if (!commMon.waitingForResponse)
+  {
+    SendModeChangeRequest(MODE_AUTO, REQUEST_SOURCE_VOICE, clusterDisplay.activeProfile);
+  }
+  else
+  {
+    write("ZCU_Center: Already waiting for response, ignoring simulation");
+  }
+}
+
+/**
+ * @brief 'on key 'p'' 이벤트 핸들러 로직을 처리 (프로파일 변경 시뮬레이션)
+ */
+void HandleSimulateProfileChangeKey()
+{
+  write("ZCU_Center: Simulating profile change");
+  
+  if (!commMon.waitingForResponse)
+  {
+    byte newProfile;
+    newProfile = (clusterDisplay.activeProfile == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
+    SendModeChangeRequest(clusterDisplay.currentDisplayMode, REQUEST_SOURCE_BUTTON, newProfile);
+  }
+  else
+  {
+    write("ZCU_Center: Already waiting for response, ignoring simulation");
+  }
+}
+
+/**
+ * @brief 'on key 'c'' 이벤트 핸들러 로직을 처리
+ */
+void HandleClearFaultsKey()
+{
+  write("ZCU_Center: Clearing all faults");
+  faultRegister = 0;
+  diagnostics.errorFlags = 0;
+  commMon.failureCount_M012 = 0;
+  commMon.failureCount_M009 = 0;
+  commMon.waitingForResponse = 0;
+  hmiInput.pendingModeRequest = 0;
+  clusterDisplay.warningStatus = 0;
+  UpdateClusterDisplay();
+  TransitionToState(STATE_INIT);
+}
+
+/**
+ * @brief 'on key 's'' 이벤트 핸들러 로직을 처리
+ */
+void HandleStatusDisplayKey()
+{
+  write("=== ZCU_Center Status ===");
+  write("State: %d, Faults: 0x%08X", currentState, faultRegister);
+  write("Current Mode: %d, Active Profile: %d", clusterDisplay.currentDisplayMode, clusterDisplay.activeProfile);
+  write("Instant Power: %dW, Cumulative Energy: %dWh", clusterDisplay.instantRegenPower, clusterDisplay.cumulativeRegenEnergy);
+  write("Warning Status: 0x%02X, Comfort Mode: %d", clusterDisplay.warningStatus, clusterDisplay.comfortModeEnabled);
+  write("Comm Status: 0x%02X, M012 Fail: %d, M009 Fail: %d", 
+        commMon.commStatus, commMon.failureCount_M012, commMon.failureCount_M009);
+  write("Waiting for Response: %d, Pending Request: %d", commMon.waitingForResponse, hmiInput.pendingModeRequest);
+  write("Last Response Time: %dms, Average: %dms", diagnostics.lastResponseTime, diagnostics.averageResponseTime);
+  write("CPU: %d%%, Memory: %d%%, Temp: %d°C", diagnostics.cpuUsage, diagnostics.memoryUsage, diagnostics.temperature);
+  write("========================");
+}
+
+/**
+ * @brief 'on key 't'' 이벤트 핸들러 로직을 처리 (클러스터 테스트)
+ */
+void HandleClusterTestKey()
+{
+  write("ZCU_Center: Testing cluster display with sample data");
+  
+  clusterDisplay.instantRegenPower = 5000;  // 5kW
+  clusterDisplay.cumulativeRegenEnergy = 1500;  // 1.5kWh
+  clusterDisplay.warningStatus = WARNING_BATTERY;
+  
+  UpdateClusterDisplay();
+}
