@@ -1,0 +1,668 @@
+/*@!Encoding:65001*/
+/**
+ * @file ZCU_Front_Functions.cin
+ * @brief ZCU_Front의 모든 함수 정의
+ * @author jjongs2
+ * @version 1.00
+ * @date 2025-06-15
+ */
+
+/*******************************************************************************
+ * 보안 기능
+ ******************************************************************************/
+
+/**
+ * @brief 시스템 부팅 시 보안 검증을 수행
+ * @return 검증 성공 시 1, 실패 시 0
+ * @note 펌웨어 서명을 검증하여 변조된 소프트웨어 실행을 방지
+ */
+byte PerformSecureBoot()
+{
+  dword expectedSignature, actualSignature;
+
+  write("ZCU_Front: Starting Secure Boot verification...");
+
+  expectedSignature = 0xDEADBEEF;
+  actualSignature = sysGetVariableInt("ZCU_Sim", "Firmware_Signature");
+
+  if (actualSignature != expectedSignature)
+  {
+    write("ZCU_Front: Secure Boot FAILED - Invalid firmware signature (Expected: 0x%08X, Actual: 0x%08X)",
+          expectedSignature, actualSignature);
+    return 0;
+  }
+
+  write("ZCU_Front: Secure Boot verification PASSED");
+  return 1;
+}
+
+/*******************************************************************************
+ * 상태 관리 함수
+ ******************************************************************************/
+
+/**
+ * @brief FAIL_SAFE 상태 진입 시 호출되는 함수
+ * @note 시스템 안전을 보장하기 위해 모든 CAN 전송을 중지하고 고장 상태를 전파
+ */
+void OnEnterFailSafe()
+{
+  write("ZCU_Front: FAIL-SAFE mode activated. Transmissions stopped.");
+  SendFailSafeStatus(0x01);
+}
+
+/**
+ * @brief DEGRADED 상태 진입 시 호출되는 함수
+ * @note 시스템이 제한된 기능으로 작동함을 알림
+ */
+void OnEnterDegraded()
+{
+  write("ZCU_Front: DEGRADED mode activated");
+}
+
+/**
+ * @brief NORMAL 상태 진입 시 호출되는 함수
+ * @note 시스템이 완전히 작동 중임을 알림
+ */
+void OnEnterNormal()
+{
+  write("ZCU_Front: NORMAL operation resumed");
+}
+
+/**
+ * @brief 시스템 상태 간의 전환을 관리
+ * @param newState 전환할 새로운 상태
+ * @note 상태 변경 시 해당 상태의 진입 함수를 호출
+ */
+void TransitionToState(enum SystemState newState)
+{
+  if (newState != currentState)
+  {
+    previousState = currentState;
+    currentState = newState;
+
+    write("ZCU_Front: State transition %d -> %d", previousState, currentState);
+
+    switch (newState)
+    {
+      case STATE_FAIL_SAFE: OnEnterFailSafe(); break;
+      case STATE_DEGRADED: OnEnterDegraded(); break;
+      case STATE_NORMAL: OnEnterNormal(); break;
+      default: break;
+    }
+  }
+}
+
+/**
+ * @brief 현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트
+ * @note 활성화된 폴트를 평가하고 적절한 시스템 상태를 결정
+ */
+void UpdateSystemState()
+{
+  if (faultRegister & (FAULT_APS_SENSOR | FAULT_BPPS_SENSOR | FAULT_CROSS_CHECK | FAULT_SYSTEM_OVERLOAD))
+  {
+    if (currentState != STATE_FAIL_SAFE) TransitionToState(STATE_FAIL_SAFE);
+    return;
+  }
+
+  if (faultRegister & (FAULT_EPAS_COMM | FAULT_ADAS_COMM | FAULT_SENSOR_RANGE))
+  {
+    if (currentState != STATE_DEGRADED && currentState != STATE_FAIL_SAFE) TransitionToState(STATE_DEGRADED);
+    return;
+  }
+
+  if (faultRegister == 0)
+  {
+    if (currentState == STATE_INIT && commMon.firstMsgReceived_EPAS && commMon.firstMsgReceived_ADAS)
+    {
+      TransitionToState(STATE_NORMAL);
+    }
+    else if (currentState != STATE_NORMAL && currentState != STATE_INIT)
+    {
+      TransitionToState(STATE_NORMAL);
+    }
+  }
+}
+
+/*******************************************************************************
+ * 폴트 관리 함수
+ ******************************************************************************/
+
+/**
+ * @brief 폴트 레지스터에서 특정 폴트 비트를 지움
+ * @param faultBit 지울 폴트 비트
+ */
+void ClearFault(dword faultBit)
+{
+  faultRegister &= ~faultBit;
+  diagnostics.errorFlags = faultRegister;
+}
+
+/**
+ * @brief 폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거
+ * @param faultBit 설정할 폴트 비트
+ */
+void SetFault(dword faultBit)
+{
+  if((faultRegister & faultBit) == 0)
+  {
+    faultRegister |= faultBit;
+    diagnostics.errorFlags = faultRegister;
+    UpdateSystemState();
+  }
+}
+
+/*******************************************************************************
+ * 센서 데이터 처리 함수
+ ******************************************************************************/
+
+/**
+ * @brief 시뮬레이션 환경에서 가속 페달 위치를 읽음
+ * @return 현재 APS 위치 (%)
+ */
+float ReadAPS()
+{
+  return sysGetVariableFloat("ZCU_Sim", "APS_Position");
+}
+
+/**
+ * @brief 시뮬레이션 환경에서 브레이크 페달 위치를 읽음
+ * @return 현재 BPPS 위치 (%)
+ */
+float ReadBPPS()
+{
+  return sysGetVariableFloat("ZCU_Sim", "BPPS_Position");
+}
+
+/**
+ * @brief 시뮬레이션 환경에서 차량 속도를 읽음
+ * @return 현재 차량 속도 (km/h)
+ */
+float ReadVehicleSpeed()
+{
+  return sysGetVariableFloat("ZCU_Sim", "Vehicle_Speed");
+}
+
+/**
+ * @brief 센서 값이 정의된 최소/최대 범위 내에 있는지 확인
+ * @param value 확인할 센서 값
+ * @param min 허용되는 최소값
+ * @param max 허용되는 최대값
+ * @return 유효하면 0, 유효하지 않으면 2
+ */
+byte ValidateSensorRange(float value, float min, float max)
+{
+  if (value >= min && value <= max) return 0;
+  return 2;
+}
+
+/**
+ * @brief APS와 BPPS가 동시에 눌리는 비정상적인 상황을 교차 확인
+ * @return 유효하면 0, 유효하지 않으면 2
+ * @note 가속과 제동이 동시에 입력되는 위험 상황을 감지
+ */
+byte ValidateAPSBPPS()
+{
+  if (sensors.apsPosition > 5.0 && sensors.bppsPosition > 5.0)
+  {
+    SetFault(FAULT_CROSS_CHECK);
+    return 2;
+  }
+  return 0;
+}
+
+/*******************************************************************************
+ * 메시지 전송 함수
+ ******************************************************************************/
+
+/**
+ * @brief Fail-Safe 상태 메시지(M004)를 전송
+ * @param faultLevel 보고할 폴트 레벨
+ * @note 시스템 고장 발생 시 다른 ECU에 상태를 전파
+ */
+void SendFailSafeStatus(byte faultLevel)
+{
+  message M004_FailSafe_Status_2 msg;
+  byte dataArray[6];
+  long retval;
+  dword crc;
+
+  counter_M004 = (counter_M004 + 1) % 16;
+
+  msg.Fault_Code = faultLevel;
+  msg.Source_ECU = ECU_ID;
+  msg.Fault_Type = (byte)(faultRegister & 0xFF);
+  msg.Event_Counter = counter_M004;
+  msg.Event_Timestamp = (word)(timeNowNS() / 1000000);
+
+  dataArray[0] = msg.Fault_Code;
+  dataArray[1] = msg.Source_ECU;
+  dataArray[2] = msg.Fault_Type;
+  dataArray[3] = msg.Event_Counter;
+  dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
+
+  retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  if (retval == 0)
+  {
+    msg.CRC16_Checksum = (word)crc;
+  }
+  else
+  {
+    write("CRC Calculation failed for M004_FailSafe_Status_2 with error: %d", retval);
+    msg.CRC16_Checksum = 0x0000;
+  }
+
+  output(msg);
+}
+
+/**
+ * @brief 주요 차량 동역학 메시지(M005)를 전송
+ * @note 속도, APS, 조향각과 같은 핵심 차량 데이터를 포함
+ */
+void SendM005_VehicleDynamics()
+{
+  message M005_Vehicle_Dynamics msg;
+  byte dataArray[6];
+  long retval;
+  dword crc;
+  byte apsValid, speedValid, steeringValid;
+
+  sensors.apsPosition = ReadAPS();
+  sensors.vehicleSpeed = ReadVehicleSpeed();
+  sensors.apsStatus = ValidateSensorRange(sensors.apsPosition, APS_MIN, APS_MAX);
+  ValidateAPSBPPS();
+
+  msg.APS_Position = (byte)(sensors.apsPosition * 2);
+  msg.Vehicle_Speed = (word)(sensors.vehicleSpeed * 100);
+  msg.Steering_Angle = (word)((sensors.steeringAngle + 3200.0) * 10);
+
+  apsValid = (sensors.apsStatus == 0);
+  speedValid = (ValidateSensorRange(sensors.vehicleSpeed, 0, SPEED_MAX) == 0);
+  steeringValid = (sensors.sensorsValid & 0x01);
+
+  msg.Sensor_Status = (apsValid << 7) | (speedValid << 6) | (steeringValid << 5);
+
+  dataArray[0] = msg.APS_Position;
+  dataArray[1] = (byte)(msg.Vehicle_Speed & 0xFF);
+  dataArray[2] = (byte)((msg.Vehicle_Speed >> 8) & 0xFF);
+  dataArray[3] = (byte)(msg.Steering_Angle & 0xFF);
+  dataArray[4] = (byte)((msg.Steering_Angle >> 8) & 0xFF);
+  dataArray[5] = msg.Sensor_Status;
+
+  retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  if (retval == 0)
+  {
+    msg.CRC16_Checksum = (word)crc;
+  }
+  else
+  {
+    write("CRC Calculation failed for M005_Vehicle_Dynamics with error: %d", retval);
+    msg.CRC16_Checksum = 0x0000;
+  }
+
+  output(msg);
+}
+
+/**
+ * @brief 브레이크 페달 위치 메시지(M005_EXT)를 전송
+ * @note 운전자의 제동 의도를 감지하고 전송
+ */
+void SendM005_EXT_BrakePedal()
+{
+  message M005_EXT_Brake_Pedal msg;
+  byte dataArray[2];
+  long retval;
+  dword crc;
+  byte bppsPressed, bppsValid;
+
+  sensors.bppsPosition = ReadBPPS();
+  sensors.bppsStatus = ValidateSensorRange(sensors.bppsPosition, BPPS_MIN, BPPS_MAX);
+  ValidateAPSBPPS();
+
+  msg.BPPS_Position = (byte)(sensors.bppsPosition * 2);
+
+  bppsPressed = (sensors.bppsPosition > 0.0);
+  bppsValid = (sensors.bppsStatus == 0);
+
+  msg.Sensor_Status = (bppsPressed << 7) | (bppsValid << 6);
+
+  dataArray[0] = msg.BPPS_Position;
+  dataArray[1] = msg.Sensor_Status;
+
+  retval = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  if (retval == 0)
+  {
+    msg.CRC16_Checksum = (word)crc;
+  }
+  else
+  {
+    write("CRC Calculation failed for M005_EXT_Brake_Pedal with error: %d", retval);
+    msg.CRC16_Checksum = 0x0000;
+  }
+
+  output(msg);
+}
+
+/*******************************************************************************
+ * 주기적 태스크 및 모니터링 함수
+ ******************************************************************************/
+
+/**
+ * @brief 주기적인 진단 검사를 수행
+ * @note CPU, 메모리 사용량 및 동작 시간을 업데이트하고 과부하 상태를 감지
+ */
+void PerformDiagnostics()
+{
+  diagnostics.cpuUsage = (byte)(random(31) + 20);
+  diagnostics.memoryUsage = (byte)(random(41) + 30);
+  diagnostics.temperature = (byte)(random(61) + 25);
+
+  gHourCounter++;
+  if (gHourCounter >= 36000)
+  {
+    diagnostics.operatingHours++;
+    gHourCounter = 0;
+  }
+
+  if (diagnostics.cpuUsage > 90 || diagnostics.memoryUsage > 90) SetFault(FAULT_SYSTEM_OVERLOAD);
+}
+
+/**
+ * @brief 다른 ECU와의 통신 타임아웃을 모니터링
+ * @note 설정된 타임아웃 시간을 초과하면 통신 폴트를 설정
+ */
+void MonitorCommunication()
+{
+  dword currentTime;
+  dword elapsedTime;
+
+  currentTime = timeNowNS() / 1000000;
+
+  if (commMon.firstMsgReceived_EPAS)
+  {
+    elapsedTime = currentTime - commMon.lastRxTime_EPAS;
+    if (elapsedTime > TIMEOUT_EPAS)
+    {
+      commMon.failureCount_EPAS++;
+      if (commMon.failureCount_EPAS >= MAX_COMM_FAILURES)
+      {
+        SetFault(FAULT_EPAS_COMM);
+        commMon.commStatus &= ~0x01;
+        sensors.sensorsValid &= ~0x01;
+      }
+    }
+  }
+
+  if (commMon.firstMsgReceived_ADAS)
+  {
+    elapsedTime = currentTime - commMon.lastRxTime_ADAS;
+    if (elapsedTime > TIMEOUT_ADAS)
+    {
+      commMon.failureCount_ADAS++;
+      if (commMon.failureCount_ADAS >= MAX_COMM_FAILURES)
+      {
+        SetFault(FAULT_ADAS_COMM);
+        commMon.commStatus &= ~0x02;
+        sensors.sensorsValid &= ~0x02;
+      }
+    }
+  }
+}
+
+/**
+ * @brief 메인 루프가 실행 중인지 확인하기 위해 워치독 검사를 수행
+ * @note 설정된 시간 내에 응답이 없으면 시스템 과부하 폴트를 설정
+ */
+void PerformWatchdog()
+{
+  dword currentTime;
+  dword elapsedTime;
+
+  currentTime = timeNowNS() / 1000000;
+
+  elapsedTime = currentTime - gLastWatchdogTime;
+  if (elapsedTime > (MAIN_CYCLE * 2 * 5))
+  {
+    SetFault(FAULT_SYSTEM_OVERLOAD);
+  }
+
+  gLastWatchdogTime = currentTime;
+  gWatchdogCounter = (gWatchdogCounter + 1) % 256;
+}
+
+/*******************************************************************************
+ * 초기화 함수
+ ******************************************************************************/
+
+/**
+ * @brief 시작 시 모든 전역 변수를 기본 상태로 초기화
+ * @note 시스템 시작 시 모든 데이터 구조체와 변수를 안전한 초기값으로 설정
+ */
+void InitializeGlobals()
+{
+  dword initTime;
+
+  initTime = timeNowNS() / 1000000;
+
+  sensors.apsPosition = 0; sensors.bppsPosition = 0; sensors.apsStatus = 0;
+  sensors.bppsStatus = 0; sensors.steeringAngle = 0; sensors.steeringTorque = 0;
+  sensors.angularVelocity = 0; sensors.epasStatus = 0; sensors.frontVehicleDistance = 0;
+  sensors.frontVehicleSpeed = 0; sensors.laneChangeIndicator = 0; sensors.roadCondition = 0;
+  sensors.vehicleSpeed = 0; sensors.sensorsValid = 0;
+
+  commMon.lastRxTime_EPAS = initTime;
+  commMon.lastRxTime_ADAS = initTime;
+  commMon.failureCount_EPAS = 0;
+  commMon.failureCount_ADAS = 0;
+  commMon.commStatus = 0;
+  commMon.firstMsgReceived_EPAS = 0;
+  commMon.firstMsgReceived_ADAS = 0;
+
+  diagnostics.cpuUsage = 0; diagnostics.memoryUsage = 0; diagnostics.temperature = 0;
+  diagnostics.operatingHours = 0; diagnostics.errorFlags = 0;
+
+  faultRegister = 0;
+  currentState = STATE_INIT;
+  previousState = STATE_INIT;
+
+  counter_M005 = 0; counter_M005_EXT = 0; counter_M004 = 0; gLastEpasCounter = 0;
+
+  gHourCounter = 0;
+  gWatchdogCounter = 0;
+  gLastWatchdogTime = initTime;
+  gTaskCounter = 0;
+}
+
+/**
+ * @brief 시작 시 중요한 센서에 대한 자체 테스트를 수행
+ * @note APS, BPPS 센서의 초기 상태를 확인하고 교차 검증을 수행
+ */
+void PerformInitialSelfTest()
+{
+  write("ZCU_Front: Performing initial self-test...");
+  sensors.apsPosition = ReadAPS();
+  sensors.bppsPosition = ReadBPPS();
+  if (ValidateSensorRange(sensors.apsPosition, APS_MIN, APS_MAX) != 0) SetFault(FAULT_APS_SENSOR);
+  if (ValidateSensorRange(sensors.bppsPosition, BPPS_MIN, BPPS_MAX) != 0) SetFault(FAULT_BPPS_SENSOR);
+  ValidateAPSBPPS();
+  write("ZCU_Front: Self-test complete - Faults: 0x%08X", faultRegister);
+}
+
+/*******************************************************************************
+ * 이벤트 핸들러 추상화 함수
+ ******************************************************************************/
+
+/**
+ * @brief 'on start' 이벤트 핸들러 로직을 처리
+ */
+void HandleStartEvent()
+{
+  write("ZCU_Front ECU Starting - Version %d.%02d", (SYSTEM_VERSION >> 8), (SYSTEM_VERSION & 0xFF));
+  if (!PerformSecureBoot())
+  {
+    write("ZCU_Front: Secure Boot FAILED - System halted");
+    stop();
+    return;
+  }
+
+  InitializeGlobals();
+  PerformInitialSelfTest();
+  write("ZCU_Front: Initialization complete. Waiting for system to be ready...");
+  setTimerCyclic(timerMainTask, MAIN_CYCLE);
+}
+
+/**
+ * @brief 'on stopMeasurement' 이벤트 핸들러 로직을 처리
+ */
+void HandleStopEvent()
+{
+  write("ZCU_Front: Shutting down...");
+  write("ZCU_Front: Shutdown complete");
+}
+
+/**
+ * @brief 'on timer timerMainTask' 이벤트 핸들러 로직을 처리
+ */
+void HandleMainTaskTimer()
+{
+  if(currentState != STATE_FAIL_SAFE)
+  {
+    SendM005_EXT_BrakePedal();
+    if ((gTaskCounter % 2) == 0)
+    {
+      SendM005_VehicleDynamics();
+    }
+
+    if ((gTaskCounter % 5) == 0)
+    {
+      PerformWatchdog();
+    }
+  }
+
+  if ((gTaskCounter % 10) == 0)
+  {
+    PerformDiagnostics();
+    if (currentState != STATE_INIT)
+    {
+      MonitorCommunication();
+    }
+    UpdateSystemState();
+  }
+
+  gTaskCounter++;
+}
+
+/**
+ * @brief 'on message L001_EPAS_Data' 이벤트 핸들러 로직을 처리
+ * @param msg 수신된 EPAS 메시지
+ */
+void HandleEpasMessage(message L001_EPAS_Data msg)
+{
+  if(commMon.firstMsgReceived_EPAS == 0)
+  {
+    write("ZCU_Front: First EPAS message received.");
+    commMon.firstMsgReceived_EPAS = 1;
+  }
+  commMon.lastRxTime_EPAS = timeNowNS() / 1000000;
+  if (msg.Message_Counter == ((gLastEpasCounter + 1) & 0x0F))
+  {
+    commMon.failureCount_EPAS = 0;
+    ClearFault(FAULT_EPAS_COMM);
+
+    sensors.steeringAngle = msg.Steering_Angle;
+    sensors.steeringTorque = msg.Steering_Torque;
+    sensors.angularVelocity = msg.Angular_Velocity;
+    sensors.epasStatus = msg.EPAS_Status;
+
+    if(ValidateSensorRange(sensors.steeringAngle, -STEERING_MAX, STEERING_MAX) != 0)
+    {
+      SetFault(FAULT_SENSOR_RANGE);
+      sensors.sensorsValid &= ~0x01;
+    }
+    else
+    {
+      sensors.sensorsValid |= 0x01;
+    }
+    commMon.commStatus |= 0x01;
+  }
+  else
+  {
+    if (gLastEpasCounter != 0)
+    {
+      commMon.failureCount_EPAS++;
+      SetFault(FAULT_EPAS_COMM);
+    }
+  }
+  gLastEpasCounter = msg.Message_Counter;
+}
+
+/**
+ * @brief 'on message L002_ADAS_Sensor' 이벤트 핸들러 로직을 처리
+ * @param msg 수신된 ADAS 메시지
+ */
+void HandleAdasMessage(message L002_ADAS_Sensor msg)
+{
+  if(commMon.firstMsgReceived_ADAS == 0)
+  {
+    write("ZCU_Front: First ADAS message received.");
+    commMon.firstMsgReceived_ADAS = 1;
+  }
+  commMon.lastRxTime_ADAS = timeNowNS() / 1000000;
+
+  sensors.frontVehicleDistance = msg.Front_Vehicle_Distance;
+  sensors.frontVehicleSpeed = msg.Front_Vehicle_Speed;
+  sensors.laneChangeIndicator = msg.Lane_Change_Indicator;
+  sensors.roadCondition = msg.Road_Condition;
+
+  if (sensors.frontVehicleDistance >= 0 && sensors.frontVehicleDistance <= 6553.5 &&
+      sensors.frontVehicleSpeed >= 0 && sensors.frontVehicleSpeed <= 6553.5)
+  {
+    sensors.sensorsValid |= 0x02;
+    commMon.failureCount_ADAS = 0;
+    ClearFault(FAULT_ADAS_COMM);
+    commMon.commStatus |= 0x02;
+  }
+  else
+  {
+    sensors.sensorsValid &= ~0x02;
+    SetFault(FAULT_SENSOR_RANGE);
+  }
+}
+
+/**
+ * @brief 'on key 'f'' 이벤트 핸들러 로직을 처리
+ */
+void HandleFaultInjectionKey()
+{
+  write("ZCU_Front: Manual fault injection - EPAS_COMM");
+  SetFault(FAULT_EPAS_COMM);
+}
+
+/**
+ * @brief 'on key 'c'' 이벤트 핸들러 로직을 처리
+ */
+void HandleClearFaultsKey()
+{
+  write("ZCU_Front: Clearing all faults");
+  faultRegister = 0;
+  diagnostics.errorFlags = 0;
+  commMon.failureCount_EPAS = 0;
+  commMon.failureCount_ADAS = 0;
+  gLastWatchdogTime = timeNowNS() / 1000000;
+  TransitionToState(STATE_INIT);
+}
+
+/**
+ * @brief 'on key 's'' 이벤트 핸들러 로직을 처리
+ */
+void HandleStatusDisplayKey()
+{
+  write("=== ZCU_Front Status ===");
+  write("State: %d, Faults: 0x%08X", currentState, faultRegister);
+  write("APS: %.1f%%, BPPS: %.1f%%, Speed: %.1fkm/h", sensors.apsPosition, sensors.bppsPosition, sensors.vehicleSpeed);
+  write("EPAS: Angle=%.1fdeg, Torque=%.1fNm, Status=%d", sensors.steeringAngle, sensors.steeringTorque, sensors.epasStatus);
+  write("ADAS: Distance=%.1fm, Speed=%.1fkm/h", sensors.frontVehicleDistance, sensors.frontVehicleSpeed);
+  write("Comm: EPAS Fail=%d, ADAS Fail=%d, Status=0x%02X, EPAS Rx=%d, ADAS Rx=%d",
+        commMon.failureCount_EPAS, commMon.failureCount_ADAS, commMon.commStatus, commMon.firstMsgReceived_EPAS, commMon.firstMsgReceived_ADAS);
+  write("========================");
+}
