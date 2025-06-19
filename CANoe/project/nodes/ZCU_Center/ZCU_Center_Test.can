@@ -1,0 +1,417 @@
+/*@!Encoding:65001*/
+includes
+{
+  #include "ZCU_Center_Config.cin"
+  #include "ZCU_Center_Functions.cin"
+}
+
+export testcase TC_INIT_001()
+{
+  byte l_returnValue;
+
+  TestStep("준비", "올바른 펌웨어 서명(@ZCU_Sim::Firmware_Signature = 0xDEADBEEF)을 설정합니다.");
+  SysSetVariableInt("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
+
+  TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
+  l_returnValue = PerformSecureBoot();
+
+  TestStep("검증", "반환 값이 1인지 확인합니다.");
+  if (l_returnValue == 1)
+  {
+    TestStepPass("반환 값 검증", "PerformSecureBoot()가 예상대로 1을 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("반환 값 검증", "PerformSecureBoot()가 %d를 반환했습니다. 예상 값: 1", l_returnValue);
+  }
+}
+
+export testcase TC_INIT_002()
+{
+  byte l_returnValue;
+
+  TestStep("준비", "잘못된 펌웨어 서명(@ZCU_Sim::Firmware_Signature = 0xBADF00D)을 설정합니다.");
+  SysSetVariableInt("ZCU_Sim", "Firmware_Signature", 0xBADF00D);
+
+  TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
+  l_returnValue = PerformSecureBoot();
+
+  TestStep("검증", "반환 값이 0인지 확인합니다.");
+  if (l_returnValue == 0)
+  {
+    TestStepPass("반환 값 검증", "PerformSecureBoot()가 예상대로 0을 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("반환 값 검증", "PerformSecureBoot()가 %d를 반환했습니다. 예상 값: 0", l_returnValue);
+  }
+}
+
+export testcase TC_INIT_003()
+{
+  TestStep("준비", "전역 변수를 초기화하고 클러스터 연결 상태를 '미연결'(@ZCU_Sim::Cluster_Connected = 0)로 설정합니다.");
+  InitializeGlobals();
+  SysSetVariableInt("ZCU_Sim", "Cluster_Connected", 0);
+
+  TestStep("실행", "PerformInitialSelfTest() 함수를 호출합니다.");
+  PerformInitialSelfTest();
+
+  TestStep("검증", "faultRegister에 FAULT_CLUSTER_DISPLAY 비트가 설정되었는지 확인합니다.");
+  if ((faultRegister & FAULT_CLUSTER_DISPLAY) == FAULT_CLUSTER_DISPLAY)
+  {
+    TestStepPass("폴트 레지스터 검증", "FAULT_CLUSTER_DISPLAY 비트가 예상대로 설정되었습니다.");
+  }
+  else
+  {
+    TestStepFail("폴트 레지스터 검증", "FAULT_CLUSTER_DISPLAY 비트가 설정되지 않았습니다. (faultRegister: 0x%08X)", faultRegister);
+  }
+}
+
+export testcase TC_HMI_001()
+{
+  byte l_returnValue;
+  InitializeGlobals();
+
+  TestStep("실행", "최소 시간(50ms) 미만인 49ms로 ValidateButtonInput() 함수를 호출합니다.");
+  l_returnValue = ValidateButtonInput(BUTTON_MODE_UP, BUTTON_ACTION_PRESS, 49, timeNowNS()/1000000);
+
+  TestStep("검증", "반환 값이 0이고 FAULT_BUTTON_INPUT 폴트가 설정되었는지 확인합니다.");
+  if (l_returnValue == 0)
+  {
+    TestStepPass("반환 값 검증", "ValidateButtonInput()이 예상대로 0을 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("반환 값 검증", "ValidateButtonInput()이 %d를 반환했습니다. 예상 값: 0", l_returnValue);
+  }
+
+  if ((faultRegister & FAULT_BUTTON_INPUT) == FAULT_BUTTON_INPUT)
+  {
+    TestStepPass("폴트 설정 검증", "FAULT_BUTTON_INPUT 폴트가 예상대로 설정되었습니다.");
+  }
+  else
+  {
+    TestStepFail("폴트 설정 검증", "FAULT_BUTTON_INPUT 폴트가 설정되지 않았습니다.");
+  }
+}
+
+export testcase TC_HMI_002()
+{
+  byte l_returnValue;
+  InitializeGlobals();
+
+  TestStep("실행 1", "유효한 최초 입력을 수행합니다.");
+  ValidateButtonInput(BUTTON_MODE_UP, BUTTON_ACTION_PRESS, 100, 1000);
+  hmiInput.lastButtonTime = 1000;
+
+  TestStep("실행 2", "최소 간격(300ms)보다 짧은 299ms 후에 다시 함수를 호출합니다.");
+  l_returnValue = ValidateButtonInput(BUTTON_MODE_DOWN, BUTTON_ACTION_PRESS, 100, 1299);
+
+  TestStep("검증", "반환 값이 0인지 확인합니다.");
+  if (l_returnValue == 0)
+  {
+    TestStepPass("반환 값 검증", "두 번째 호출이 예상대로 0을 반환하여 중복 입력을 방지했습니다.");
+  }
+  else
+  {
+    TestStepFail("반환 값 검증", "두 번째 호출이 %d를 반환했습니다. 예상 값: 0", l_returnValue);
+  }
+}
+
+export testcase TC_HMI_003()
+{
+  byte l_returnValue;
+  InitializeGlobals();
+
+  TestStep("실행", "최소 신뢰도(70%) 미만인 69%로 ValidateVoiceInput() 함수를 호출합니다.");
+  l_returnValue = ValidateVoiceInput(VOICE_CMD_MODE_CHANGE, MODE_AUTO, 69, timeNowNS()/1000000);
+
+  TestStep("검증", "반환 값이 0이고 FAULT_VOICE_INPUT 폴트가 설정되지 않았는지 확인합니다.");
+  if (l_returnValue == 0)
+  {
+    TestStepPass("반환 값 검증", "ValidateVoiceInput()이 예상대로 0을 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("반환 값 검증", "ValidateVoiceInput()이 %d를 반환했습니다. 예상 값: 0", l_returnValue);
+  }
+
+  if ((faultRegister & FAULT_VOICE_INPUT) == 0)
+  {
+    TestStepPass("폴트 미설정 검증", "신뢰도 미달은 폴트 조건이 아니므로 FAULT_VOICE_INPUT이 설정되지 않았습니다.");
+  }
+  else
+  {
+    TestStepFail("폴트 미설정 검증", "FAULT_VOICE_INPUT 폴트가 설정되었습니다.");
+  }
+}
+
+export testcase TC_HMI_004()
+{
+  byte l_returnValue;
+  InitializeGlobals();
+
+  TestStep("실행", "유효하지 않은 명령 타입(5)으로 ValidateVoiceInput() 함수를 호출합니다.");
+  l_returnValue = ValidateVoiceInput(5, MODE_AUTO, 80, timeNowNS()/1000000);
+
+  TestStep("검증", "반환 값이 0이고 FAULT_VOICE_INPUT 폴트가 설정되었는지 확인합니다.");
+  if (l_returnValue == 0)
+  {
+    TestStepPass("반환 값 검증", "ValidateVoiceInput()이 예상대로 0을 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("반환 값 검증", "ValidateVoiceInput()이 %d를 반환했습니다. 예상 값: 0", l_returnValue);
+  }
+
+  if ((faultRegister & FAULT_VOICE_INPUT) == FAULT_VOICE_INPUT)
+  {
+    TestStepPass("폴트 설정 검증", "FAULT_VOICE_INPUT 폴트가 예상대로 설정되었습니다.");
+  }
+  else
+  {
+    TestStepFail("폴트 설정 검증", "FAULT_VOICE_INPUT 폴트가 설정되지 않았습니다.");
+  }
+}
+
+export testcase TC_STATE_001()
+{
+  TestStep("준비", "시스템을 초기화(currentState=STATE_INIT)하고 M012 첫 메시지 수신 플래그를 설정합니다.");
+  InitializeGlobals();
+  commMon.firstMsgReceived_M012 = 1;
+
+  TestStep("실행", "UpdateSystemState() 함수를 호출하여 상태 전이를 트리거합니다.");
+  UpdateSystemState();
+
+  TestStep("검증", "currentState가 STATE_NORMAL로 전이되었는지 확인합니다.");
+  if (currentState == STATE_NORMAL)
+  {
+    TestStepPass("상태 전이 검증", "시스템 상태가 예상대로 STATE_NORMAL(1)로 전이되었습니다.");
+  }
+  else
+  {
+    TestStepFail("상태 전이 검증", "시스템 상태가 %d 입니다. 예상 값: STATE_NORMAL(1)", currentState);
+  }
+}
+
+export testcase TC_STATE_002()
+{
+  TestStep("준비", "시스템 상태를 STATE_NORMAL로, 폴트는 없는 상태로 설정합니다.");
+  InitializeGlobals();
+  currentState = STATE_NORMAL;
+
+  TestStep("실행", "비치명적 폴트(FAULT_HPC_COMM)를 설정합니다.");
+  SetFault(FAULT_HPC_COMM);
+
+  TestStep("검증", "currentState가 STATE_DEGRADED로 즉시 전이되었는지 확인합니다.");
+  if (currentState == STATE_DEGRADED)
+  {
+    TestStepPass("상태 전이 검증", "시스템 상태가 예상대로 STATE_DEGRADED(2)로 전이되었습니다.");
+  }
+  else
+  {
+    TestStepFail("상태 전이 검증", "시스템 상태가 %d 입니다. 예상 값: STATE_DEGRADED(2)", currentState);
+  }
+}
+
+export testcase TC_STATE_003()
+{
+  TestStep("준비", "시스템 상태를 STATE_NORMAL로, 폴트는 없는 상태로 설정합니다.");
+  InitializeGlobals();
+  currentState = STATE_NORMAL;
+
+  TestStep("실행", "치명적인 폴트(FAULT_HMI_TIMEOUT)를 설정합니다.");
+  SetFault(FAULT_HMI_TIMEOUT);
+
+  TestStep("검증", "currentState가 STATE_FAIL_SAFE로 즉시 전이되었는지 확인합니다.");
+  if (currentState == STATE_FAIL_SAFE)
+  {
+    TestStepPass("상태 전이 검증", "시스템 상태가 예상대로 STATE_FAIL_SAFE(3)로 전이되었습니다.");
+  }
+  else
+  {
+    TestStepFail("상태 전이 검증", "시스템 상태가 %d 입니다. 예상 값: STATE_FAIL_SAFE(3)", currentState);
+  }
+}
+
+export testcase TC_FUNC_001()
+{
+  message L004_SW_Button_Input l_msg;
+  byte l_dataArray[6];
+  dword l_crc;
+  long l_retval;
+
+  TestStep("준비", "전역 변수를 초기화하고 현재 디스플레이 모드를 MODE_LEVEL_1로 설정합니다.");
+  InitializeGlobals();
+  clusterDisplay.currentDisplayMode = MODE_LEVEL_1;
+
+  l_msg.Button_ID = BUTTON_MODE_UP;
+  l_msg.Button_Action = BUTTON_ACTION_PRESS;
+  l_msg.Press_Duration = 100;
+  l_msg.Event_Timestamp = (word)(timeNowNS() / 1000000);
+
+  l_dataArray[0] = l_msg.Button_ID;
+  l_dataArray[1] = l_msg.Button_Action;
+  l_dataArray[2] = (byte)(l_msg.Press_Duration & 0xFF);
+  l_dataArray[3] = (byte)((l_msg.Press_Duration >> 8) & 0xFF);
+  l_dataArray[4] = (byte)(l_msg.Event_Timestamp & 0xFF);
+  l_dataArray[5] = (byte)((l_msg.Event_Timestamp >> 8) & 0xFF);
+  l_retval = Crc_CalculateCRC16(l_dataArray, elcount(l_dataArray), 0, elcount(l_dataArray), 0, 1, l_crc);
+  if (l_retval == 0)
+  {
+    l_msg.CRC16_Checksum = (word)l_crc;
+  }
+
+  TestStep("실행", "버튼 'UP'에 해당하는 L004_SW_Button_Input 메시지 핸들러를 호출합니다.");
+  HandleSwButtonInputMessage(l_msg);
+
+  TestStep("검증", "M008_Mode_Change_Req 메시지가 20ms 내에 수신되고 Requested_Mode가 MODE_LEVEL_2인지, waitingForResponse가 1인지 확인합니다.");
+  if (TestWaitForMessage(M008_Mode_Change_Req, 20) == 1)
+  {
+    TestStepPass("메시지 수신", "M008_Mode_Change_Req 메시지가 성공적으로 수신되었습니다.");
+    if ($M008_Mode_Change_Req::Requested_Mode == MODE_LEVEL_2)
+    {
+      TestStepPass("신호 값 검증", "Requested_Mode 신호가 예상대로 MODE_LEVEL_2(2)로 설정되었습니다.");
+    }
+    else
+    {
+      TestStepFail("신호 값 검증", "Requested_Mode 신호가 %d 입니다. 예상 값: 2", $M008_Mode_Change_Req::Requested_Mode);
+    }
+  }
+  else
+  {
+    TestStepFail("메시지 수신", "M008_Mode_Change_Req 메시지가 20ms 내에 수신되지 않았습니다.");
+  }
+
+  if (commMon.waitingForResponse == 1)
+  {
+    TestStepPass("상태 변수 검증", "commMon.waitingForResponse가 예상대로 1로 설정되었습니다.");
+  }
+  else
+  {
+    TestStepFail("상태 변수 검증", "commMon.waitingForResponse가 0 입니다. 예상 값: 1");
+  }
+}
+
+export testcase TC_FUNC_002()
+{
+  message M009_Mode_Change_Resp l_msg;
+  byte l_dataArray[6];
+  dword l_crc;
+  long l_retval;
+
+  TestStep("준비", "응답 대기 상태로 설정하고 관련 폴트(FAULT_HMI_TIMEOUT)를 미리 설정합니다.");
+  InitializeGlobals();
+  commMon.waitingForResponse = 1;
+  SetFault(FAULT_HMI_TIMEOUT);
+
+  l_msg.Mode_Change_Status = 0;
+  l_msg.Current_Mode = MODE_LEVEL_2;
+  l_msg.Active_Profile = PROFILE_EFFICIENCY;
+  l_msg.Failure_Reason = 0;
+  l_msg.Response_Timestamp = (word)(timeNowNS() / 1000000);
+
+  l_dataArray[0] = l_msg.Current_Mode;
+  l_dataArray[1] = l_msg.Mode_Change_Status;
+  l_dataArray[2] = l_msg.Active_Profile;
+  l_dataArray[3] = l_msg.Failure_Reason;
+  l_dataArray[4] = (byte)(l_msg.Response_Timestamp & 0xFF);
+  l_dataArray[5] = (byte)((l_msg.Response_Timestamp >> 8) & 0xFF);
+  l_retval = Crc_CalculateCRC16(l_dataArray, elcount(l_dataArray), 0, elcount(l_dataArray), 0, 1, l_crc);
+  if (l_retval == 0)
+  {
+    l_msg.CRC16_Checksum = (word)l_crc;
+  }
+
+  TestStep("실행", "성공적인 M009_Mode_Change_Resp 메시지 핸들러를 호출합니다.");
+  HandleModeChangeRespMessage(l_msg);
+
+  TestStep("검증", "클러스터 모드가 업데이트되고, 폴트가 해제되며, 응답 대기 상태가 해제되는지 확인합니다.");
+  if (clusterDisplay.currentDisplayMode == MODE_LEVEL_2)
+  {
+    TestStepPass("데이터 업데이트 검증", "clusterDisplay.currentDisplayMode가 예상대로 MODE_LEVEL_2로 업데이트되었습니다.");
+  }
+  else
+  {
+    TestStepFail("데이터 업데이트 검증", "clusterDisplay.currentDisplayMode가 %d 입니다. 예상 값: 2", clusterDisplay.currentDisplayMode);
+  }
+
+  if ((faultRegister & FAULT_HMI_TIMEOUT) == 0)
+  {
+    TestStepPass("폴트 해제 검증", "FAULT_HMI_TIMEOUT 폴트가 예상대로 해제되었습니다.");
+  }
+  else
+  {
+    TestStepFail("폴트 해제 검증", "FAULT_HMI_TIMEOUT 폴트가 해제되지 않았습니다.");
+  }
+
+  if (commMon.waitingForResponse == 0)
+  {
+    TestStepPass("상태 변수 검증", "commMon.waitingForResponse가 예상대로 0으로 복귀되었습니다.");
+  }
+  else
+  {
+    TestStepFail("상태 변수 검증", "commMon.waitingForResponse가 1 입니다. 예상 값: 0");
+  }
+}
+
+export testcase TC_FUNC_003()
+{
+  TestStep("준비", "첫 메시지 수신 상태로 만들고, 폴트를 초기화하며, 실패 카운트를 최대치 직전으로 설정합니다.");
+  InitializeGlobals();
+  commMon.firstMsgReceived_M012 = 1;
+  commMon.lastRxTime_M012 = timeNowNS() / 1000000;
+  commMon.failureCount_M012 = MAX_COMM_FAILURES - 1;
+  ClearFault(FAULT_HPC_COMM);
+
+  TestStep("실행", "타임아웃 시간(300ms) 이상 대기 후 통신 모니터링 함수를 호출합니다.");
+  TestWaitForTimeout(TIMEOUT_HPC_M012 + 5);
+  MonitorCommunication();
+
+  TestStep("검증", "faultRegister에 FAULT_HPC_COMM 비트가 설정되었는지 확인합니다.");
+  if ((faultRegister & FAULT_HPC_COMM) == FAULT_HPC_COMM)
+  {
+    TestStepPass("폴트 설정 검증", "통신 타임아웃으로 FAULT_HPC_COMM 폴트가 예상대로 설정되었습니다.");
+  }
+  else
+  {
+    TestStepFail("폴트 설정 검증", "FAULT_HPC_COMM 폴트가 설정되지 않았습니다. (failureCount: %d)", commMon.failureCount_M012);
+  }
+}
+
+export testcase TC_FUNC_004()
+{
+  TestStep("준비", "전역 변수를 초기화합니다.");
+  InitializeGlobals();
+
+  TestStep("실행", "OnEnterFailSafe() 함수를 호출합니다.");
+  OnEnterFailSafe();
+
+  TestStep("검증", "M004_FailSafe_Status_3 메시지가 20ms 내에 수신되고 신호 값들이 정확한지 확인합니다.");
+  if (TestWaitForMessage(M004_FailSafe_Status_3, 20) == 1)
+  {
+    TestStepPass("메시지 수신", "M004_FailSafe_Status_3 메시지가 성공적으로 수신되었습니다.");
+
+    if ($M004_FailSafe_Status_3::Source_ECU == ECU_ID)
+    {
+      TestStepPass("신호 값 검증 (Source_ECU)", "Source_ECU 값이 ECU_ID(3)로 정확합니다.");
+    }
+    else
+    {
+      TestStepFail("신호 값 검증 (Source_ECU)", "Source_ECU 값이 %d 입니다. 예상 값: %d", $M004_FailSafe_Status_3::Source_ECU, ECU_ID);
+    }
+
+    if ($M004_FailSafe_Status_3::Fault_Code == 1)
+    {
+      TestStepPass("신호 값 검증 (Fault_Code)", "Fault_Code 값이 1로 정확합니다.");
+    }
+    else
+    {
+      TestStepFail("신호 값 검증 (Fault_Code)", "Fault_Code 값이 %d 입니다. 예상 값: 1", $M004_FailSafe_Status_3::Fault_Code);
+    }
+  }
+  else
+  {
+    TestStepFail("메시지 수신", "M004_FailSafe_Status_3 메시지가 20ms 내에 수신되지 않았습니다.");
+  }
+}
