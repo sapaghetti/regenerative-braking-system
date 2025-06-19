@@ -1,8 +1,8 @@
 /*@!Encoding:65001*/
 includes
 {
-  #include "ZCU_Center_Config.cin"
-  #include "ZCU_Center_Functions.cin"
+  #include "../../CANoe/Nodes/ZCU_Center/ZCU_Center_Config.cin"
+  #include "../../CANoe/Nodes/ZCU_Center/ZCU_Center_Functions.cin"
 }
 
 export testcase TC_INIT_001()
