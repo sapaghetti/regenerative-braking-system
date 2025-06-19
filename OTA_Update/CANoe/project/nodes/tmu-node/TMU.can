@@ -7,9 +7,10 @@ variables
   char ota_result;
   char cur_ver[2];
   char filename[128];
-  int otaReady = 0;    // -1: , 0: 준비 안됨, 1: 사용자 승인 대기, 2: 승인됨, 3: 거부됨 4: 업데이트 완료
+  int otaReady = 0;    // -1: 업데이트 실패, 0: 준비 안됨, 1: 사용자 승인 대기, 2: 승인됨, 3: 거부됨 4: 업데이트 완료
   int tickCount = 0;
   int waitCount = 0;
+  int reqCount = 0;
   int cur_tmu_version = 0;
   int tmu_num = 2;
   int mode = 0;
@@ -45,7 +46,7 @@ void resetOtaState()
 }
 void readBootloader()
 {
-  hFile = openFileRead("TMU_version.txt", 0);
+  hFile = openFileRead("TMU\\TMU_version.txt", 0);
   fileGetString(cur_ver, 2, hFile);
   cur_tmu_version = _atoi64(cur_ver);
   @OTA::Cur_version[tmu_num] = cur_tmu_version;
@@ -53,7 +54,7 @@ void readBootloader()
 }
 on start
 {
-  setTimer(checkTimer, 10);
+  setTimer(checkTimer, 100);
 }
 
 on timer checkTimer
@@ -62,8 +63,8 @@ on timer checkTimer
   switch(tmuState)
   {
     case NOMAR_MODE:
-      if (tickCount % 10 == 0)
-      {
+      //if (tickCount % 5 == 0)
+      //{
         tickCount = 0;
         switch(otaReady)
         {
@@ -86,6 +87,7 @@ on timer checkTimer
             waitCount++; // 현재 100ms 마다 +1씩 되는중 
             if (waitCount % 100 == 0) // 예시로 10초 뒤에 다시 승인요청 전송
             {
+              waitCount = 0;
               write(">>> CGW에 승인 요청 재전송");
               write(">> OTA ECU: %d, NEW VERSION %d", ecu_id, @OTA::Next_version[@OTA::ECU_id]);
               // CGW 에 승인 요청 전송
@@ -103,14 +105,56 @@ on timer checkTimer
             @OTA::Ota_flag = 5;
             otaReady = 0; // 이건 굳이 안해도 될듯?
             break;
+          case 5:
+            write("Don't update ver.%d => rollback ver.%d", @OTA::ECU_ver, @OTA::Cur_version[@OTA::ECU_id]);
+            otaReady = 0;
+            //@OTA::Ota_flag= 8;
+            break;
         } 
+      //}
+      if (@OTA::Ota_flag == 4)
+      {
+        otaReady = -1;
       }
-  
+      if (@OTA::Ota_flag == 7)
+      {
+          write("❌ ECU: Firmware update failed, preparing for fallback.");
+          //otaReady = -1;
+          otaReqMsg.byte(0) = ((@OTA::ECU_id << 4)|0x06);
+          otaReqMsg.dlc = 1;
+          output(otaReqMsg);
+          @OTA::Ota_flag = 0;
+      }
+      if (@OTA::Ota_flag == 9)
+      {
+        write(">>> 파일 삭제 완료");
+        @OTA::Ota_flag = 0;
+        otaReady = 0;
+      }
       if (otaReady == 2)
       {
         int i;
         int frame_count = 0;
         int last_frame_len = 0;
+        reqCount++;
+        //write("%d", reqCount);
+        if (reqCount <= 10)
+        {
+          setTimer(checkTimer, 100);
+          return;
+        }
+        else reqCount = 20;
+        
+        //if (reqCount > 10)
+        //{
+          //reqCount = 20;
+        //if (@OTA::Ota_flag == 4)
+         //{
+           //write("시발 왜 여기 안되냐고");
+           //otaReady = -1;
+           //setTimer(checkTimer, 100);
+           //return;
+         //}
     
         if (!started)
         {
@@ -210,6 +254,7 @@ on timer checkTimer
           write("✅ 전송 완료: %d 바이트", totalSent);
         }
       }
+      //}
       break;
     case BOOTLOADER_MODE:
       if (mode == 0)
@@ -231,7 +276,7 @@ on timer checkTimer
   }
   
 
-  setTimer(checkTimer, 10);
+  setTimer(checkTimer, 100);
 }
 
 on message CGW_TMU_E_OTA_REQ
@@ -253,6 +298,15 @@ on message CGW_TMU_E_OTA_RESULT
   {
     otaReady = 4;
     ota_result = this.byte(1);
+  }
+  else if(this.byte(0) == 0xAA) // 복구 완료
+  {
+    otaReady = 5;
+    @OTA::Ota_flag = 8;
+  }
+  else if(this.byte(0) == 0xFF)
+  {
+    
   }
 }
 on message CGW_TMU_E_VER_INFO

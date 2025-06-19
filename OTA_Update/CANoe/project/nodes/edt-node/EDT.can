@@ -37,16 +37,17 @@ variables
   int frameCount = 0;
   int lastFrameLength = 0;
   long payloadLen = 0;
+  double mod = 0.0;
                                     
 }
 on start
 {
-  setTimer(otaTimer, 50);
+  setTimer(otaTimer, 100);
 }
 
 int writeBootloader()
 {
-  hFile = openFileWrite("EDT_version.txt", 0);
+  hFile = openFileWrite("EDT\\EDT_version.txt", 0);
   if (hFile != 0)
   {
     snprintf(update_ver, 8, "%d", cur_edt_version);
@@ -63,12 +64,25 @@ void updateVersion()
 {
   cur_edt_version = version;
 }
-void readBootloader() // 현재 버전 읽어오기
+void readBootloader(int flag) // 현재 버전 읽어오기
 {
-  hFile = openFileRead("EDT_version.txt", 0);
-  fileGetString(cur_ver, 2, hFile);
-  cur_edt_version = _atoi64(cur_ver);
-  fileClose(hFile);
+  dword bFile;
+  if (flag == 1)
+  {
+    bFile = openFileRead("EDT\\EDT_version.txt", 0);
+    fileGetString(cur_ver, 2, bFile);
+    cur_edt_version = _atoi64(cur_ver);
+    fileClose(bFile);
+  }
+  else if (flag == 2)
+  {
+    bFile = openFileRead("EDT\\EDT_backup\\EDT_backup_version.txt", 0);
+    fileGetString(cur_ver, 2, bFile);
+    cur_edt_version = _atoi64(cur_ver);
+    fileClose(bFile);
+    write(">>> EDT_backup_version 읽기 완료");
+  }
+
 }
 void sendEdtVersion()
 {
@@ -100,18 +114,38 @@ on timer otaTimer
       if (cur_edt_version >= @OTA::Version_num[2])
       {
         // version : 2
-        if (@sysvar::CAR::Distance > 20)
+        if (@CAR::Distance > 20)
         {
-          if (@sysvar::CAR::vehSpeed <= 200)
+          if (@CAR::vehSpeed <= 200)
           {
-            @sysvar::CAR::vehSpeed += @sysvar::CAR::addSpeed*0.0002;
+            if (@CAR::acc == 1)
+            {
+              @CAR::addSpeed += 0.1;
+            }
+            else
+            {
+              if (@CAR::addSpeed > 0)
+              {
+                 @CAR::addSpeed -=0.3;
+              }
+              else
+              {
+                @CAR::addSpeed = 0;
+              }
+            }
+            if (@CAR::brake == 1)
+            {
+              @CAR::vehSpeed-=1;
+            }
+            @CAR::vehSpeed -= 0.1;
+            @CAR::vehSpeed += (double)@CAR::addSpeed;
           }
         }
         else
         {
           if (@sysvar::CAR::vehSpeed > 0)
           {
-            @sysvar::CAR::vehSpeed--;   
+            @sysvar::CAR::vehSpeed-=2;   
           }
         } 
       }
@@ -120,8 +154,8 @@ on timer otaTimer
     case BOOTLOADER_MODE:
       if (mode == 0)
       {
-        write(">>> EDT 첫 부팅 bootMode 진입");
-        readBootloader(); // 현재 저장된 버전 가져오기
+        write(">>> EDT bootMode 진입");
+        readBootloader(1); // 현재 저장된 버전 가져오기
         sendEdtVersion();
         edtState = NOMAR_MODE;
       }
@@ -132,7 +166,16 @@ on timer otaTimer
         ota_result = writeBootloader();
         edtState = OTA_COMPLETE;
       }
-      
+      else if (mode == 3)
+      {
+        write(">>> 롤백 모드");
+        readBootloader(2); // 백업 버전 읽기
+        sendEdtVersion();
+        otaResMsg.byte(0) = 0xAA;
+        output(otaResMsg);
+        edtState = NOMAR_MODE;
+      }
+      mode = 2;
       break;
     case OTA_COMPLETE:
       write(">>> 버전 %d로 업데이트", cur_edt_version);
@@ -152,7 +195,7 @@ on timer otaTimer
       edtState = NOMAR_MODE;
       break;
   }
-  setTimer(otaTimer, 50);
+  setTimer(otaTimer, 100);
 }
 
 on message CGW_EDT_E_OTA_START
@@ -166,6 +209,7 @@ on message CGW_EDT_E_OTA_START
               + (this.byte(3) << 16) + (this.byte(4) << 24);
     frameCount = this.byte(5) + (this.byte(6) << 8);
     lastFrameLength = this.byte(7);
+    mod = (double)(frameCount/100);
     otaStartFlag = 1;
   }
 }
@@ -181,7 +225,7 @@ on message CGW_EDT_PE_OTA_DATA
   {
      if (!is_receiving)
      {
-       snprintf(filename, elCount(filename), "firmware_ecu_%d_ver%d.bin", ecu_id, version);
+       snprintf(filename, elCount(filename), "EDT\\EDT_update\\firmware_ecu_%d_ver%d.bin", ecu_id, version);
        hFile = openFileWrite(filename, 1);
        is_receiving = 1;
      }
@@ -195,10 +239,12 @@ on message CGW_EDT_PE_OTA_DATA
        chunk[i] = this.byte(i + 3);
      }
      write("%d 번째 FrameIndex 저장", frameIndex);
+     @OTA::Progress = (frameIndex*100) / (frameCount-1);
      fileWriteBinaryBlock(chunk, payloadLen, hFile); 
      
      if (frameIndex + 1 == frameCount)
      {
+       dword updateFile;
        mode = 1;
        edtState = BOOTLOADER_MODE;
        otaStartFlag = 0;
@@ -206,8 +252,35 @@ on message CGW_EDT_PE_OTA_DATA
        lastFrameIndex = -1;
        fileClose(hFile);
        write("✅ OTA 수신 완료: 파일 닫음 → %s", filename);
+       
+       hFile = openFileRead(filename, 1);
+       snprintf(filename, elCount(filename), "EDT\\firmware_ecu_%d_ver%d.bin", ecu_id, version);
+       updateFile = openFileWrite(filename, 1);
+       while (fileGetBinaryBlock(chunk, elCount(chunk), hFile) > 0)
+       {
+         fileWriteBinaryBlock(chunk, elCount(chunk), updateFile);
+       }
+       fileClose(hFile);
+       fileClose(updateFile);
      }
   }
 }
+on message CGW_EDT_E_OTA_ROLLBACK
+{
+  if (this.byte(0) == ((ecu_id<<4)|0x06))
+  {
+    write(">>> 롤백 신호 수신");
+    if (hFile != 0)
+    {
+      fileClose(hFile);
+    }
+    otaStartFlag = 0;
+    is_receiving = 0;
+    lastFrameIndex = -1;
+    mode = 3; // 백업 버전 읽기 모드
+    edtState = BOOTLOADER_MODE;
+  }
+}
+
 
 

@@ -36,6 +36,9 @@ BS_:
 BU_: EDT TMU CGW
 
 
+BO_ 262 CGW_EDT_E_OTA_ROLLBACK: 1 CGW
+ SG_ sg_ota_rollback : 0|8@1- (1,0) [-128|127] "" Vector__XXX
+
 BO_ 258 CGW_EDT_E_OTA_START: 8 Vector__XXX
  SG_ sg_version : 0|4@1+ (1,0) [0|15] "" Vector__XXX
  SG_ sg_last_frame_length : 56|8@1+ (1,0) [0|255] "" Vector__XXX
@@ -103,6 +106,7 @@ BA_DEF_DEF_  "CANoeStartDelay" 0;
 BA_DEF_DEF_  "VFrameFormat" "StandardCAN";
 BA_ "BusType" "CAN FD";
 BA_ "DBName" "test1";
+BA_ "VFrameFormat" BO_ 262 14;
 BA_ "VFrameFormat" BO_ 258 14;
 BA_ "VFrameFormat" BO_ 515 14;
 BA_ "VFrameFormat" BO_ 260 14;

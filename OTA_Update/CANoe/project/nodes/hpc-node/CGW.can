@@ -12,6 +12,7 @@ variables
   message CGW_TMU_E_OTA_RESULT otaResMsg;
   message CGW_TMU_E_VER_INFO cgwVerMsg;
   message CGW_EDT_E_OTA_START otaStartMsg;
+  message CGW_EDT_E_OTA_ROLLBACK otaRollback;
   enum STATE
   {
     NOMAR_MODE,
@@ -26,7 +27,7 @@ variables
 }
 void readBootloader()
 {
-  versionFile = openFileRead("CGW_version.txt", 0);
+  versionFile = openFileRead("CGW\\CGW_version.txt", 0);
   fileGetString(cur_ver, 2, versionFile);
   cur_cgw_version = _atoi64(cur_ver);
   fileClose(versionFile);
@@ -42,7 +43,7 @@ on start
   //write("%d", @sysvar::Cur_Version);
   //readBootloader();
   //write("%d", @sysvar::Cur_Version);
-  setTimer(speedTimer, 50);
+  setTimer(speedTimer, 100);
 }
 
 on timer speedTimer
@@ -68,7 +69,7 @@ on timer speedTimer
      
       break;
   }
-    setTimer(speedTimer, 50);
+    setTimer(speedTimer, 100);
 }
 
 on message TMU_CGW_E_OTA_START
@@ -92,6 +93,13 @@ on message TMU_CGW_E_OTA_REQ
     otaRequestReceived = 1;
     write(">>> OTA 설치 진행할까요?");
   }
+  else if ((this.byte(0) & 0x06) == 0x06)
+  {
+    write(">>> TMU->CGW 롤백신호 전송");
+    otaRollback.byte(0) = this.byte(0);
+    otaRollback.dlc = 1;
+    output(otaRollback);
+  }
 }
 on message TMU_CGW_PE_OTA_DATA
 {
@@ -114,6 +122,11 @@ on message EDT_CGW_E_OTA_RESULT
     write(">>> Transmit OTA Result to TMU");
     otaResMsg.byte(0) = 0x05; 
     otaResMsg.byte(1) = this.byte(1);
+    output(otaResMsg);
+  }
+  else if (this.byte(0) == 0xAA)
+  {
+    otaResMsg.byte(0) = this.byte(0);
     output(otaResMsg);
   }
   else if (this.byte(0) == 0xFF)
