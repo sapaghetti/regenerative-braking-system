@@ -8,6 +8,7 @@ import json
 import bcrypt
 import secrets
 import hashlib
+import ssl
 from flask_wtf import CSRFProtect
 from datetime import timedelta, datetime
 from login_form import LoginForm # login_form.py 파일이 있다고 가정
@@ -74,8 +75,8 @@ NONCE_EXPIRATION_SECONDS = 5 * 60 # 5분
 
 # === MQTT 브로커 설정 ===
 # TODO: 실제 MQTT 브로커 주소와 포트로 변경하세요!
-MQTT_BROKER_HOST = "127.0.0.1" 
-MQTT_BROKER_PORT = 1883 # 일반적으로 비보안 MQTT 포트 (TLS/SSL 사용 시 8883 등)
+MQTT_BROKER_HOST = "www.sapaghetti.shop" 
+MQTT_BROKER_PORT = 8883
 
 # MQTT 토픽 설정
 MQTT_TOPIC_UPDATE_AVAILABLE = "ota/update/available" # 새 펌웨어 알림 토픽
@@ -358,25 +359,27 @@ def upload_file():
             try:
                 mqtt_payload = {
                     "filename": secure_filename_output,
-                    "sha256": calculate_sha256(secure_filepath), # 새로 생성된 파일의 SHA256
-                    "ecu_id": extracted_ecu_id, # <-- 파일명에서 추출한 ECU ID 사용
-                    "version": extracted_version, # <-- 파일명에서 추출한 버전 사용
+                    "sha256": calculate_sha256(secure_filepath),
+                    "ecu_id": extracted_ecu_id,
+                    "version": extracted_version,
                     "timestamp": int(time.time()),
                     "download_url": f"{request.url_root.replace('http://', 'https://')}ota_download/{secure_filename_output}"
                 }
                 
-                # publish.single 함수 사용 (인증 없는 단순 발행)
-                # 실제 환경에서는 MQTT 클라이언트 인스턴스를 유지하고
-                # publish.single 대신 client.publish()를 사용하는 것이 더 좋습니다.
+                # MQTT TLS 설정 추가:
                 publish.single(
                     MQTT_TOPIC_UPDATE_AVAILABLE,
                     json.dumps(mqtt_payload),
                     hostname=MQTT_BROKER_HOST,
                     port=MQTT_BROKER_PORT,
-                    qos=1,       # 메시지 전달 신뢰성 (At least once)
-                    retain=True  # 이 메시지를 브로커가 유지하도록 설정
-                )
-                
+                    qos=1,
+                    retain=True,
+                    tls={
+                        'ca_certs': '/var/www/my_ota_app/can/OTA_Update/OTA/OTA_Server/isrgrootx1.pem', # <--- VM 내 Let's Encrypt CA 인증서 경로
+                        'tls_version': ssl.PROTOCOL_TLSv1_2, # Python 3.6+ 권장
+			'cert_reqs': ssl.CERT_REQUIRED
+                    }
+                )                
                 # 로그 메시지를 'log_details'로 전달하여 충돌 회피
                 write_audit_log(event="UPLOAD", status="SUCCESS", filename=secure_filename_output, user=session.get('username'), log_details="Secure firmware created and MQTT notification sent.", ecu_id=extracted_ecu_id, version=extracted_version)
                 
