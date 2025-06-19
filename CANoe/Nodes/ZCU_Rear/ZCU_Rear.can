@@ -1,0 +1,51 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  
+}
+
+variables
+{
+  msTimer mcu_ctrl_msg_Timer;
+  const dword MCU_CTRL_MSG_TIMEOUT = 10;
+  
+  /*test var*/
+  int cnt;
+}
+
+on start
+{
+  settimer(mcu_ctrl_msg_Timer, MCU_CTRL_MSG_TIMEOUT);
+  /* test */
+  cnt = 0;
+}
+
+on timer mcu_ctrl_msg_Timer
+{
+  message L008_MCU_Control mcu_ctrl_msg;
+  //mcu_ctrl_msg.Target_Torque = @ZCU_Rear::Target_Torque;
+  /* test */
+  if(cnt < 10) {
+    mcu_ctrl_msg.Target_Torque = 1000;
+    cnt++;
+  }
+  else {
+    mcu_ctrl_msg.Target_Torque = 3000;  
+  }
+  //////////
+  output(mcu_ctrl_msg);
+  cancelTimer(mcu_ctrl_msg_Timer);
+  settimer(mcu_ctrl_msg_Timer, MCU_CTRL_MSG_TIMEOUT);
+}
+
+on message L005_MCU_Detail_Status
+{
+  @ZCU_Rear::Motor_Torque = this.Motor_Torque;
+}
+
+on message L007_BMS_Detail_Status
+{
+  @ZCU_Rear::SoC = this.Battery_SoC;
+  @ZCU_Rear::Current = this.Battery_Current;
+  @ZCU_Rear::Voltage = this.Battery_Voltage;
+}

@@ -33,10 +33,18 @@ NS_ :
 
 BS_:
 
-BU_: IBC MCU ZCU_Rear
+BU_: BMS IBC MCU ZCU_Rear
 VAL_TABLE_ vtbSensorReqCause 15 "SNA" 2 "by Request 2" 1 "by Request 1" 0 "normal cycle" ;
 VAL_TABLE_ vtbErrorDescription 255 "ERROR" ;
 
+
+BO_ 772 L008_MCU_Control: 2 ZCU_Rear
+ SG_ Target_Torque : 0|16@1- (0.1,0) [-3200|3200] "Nm"  MCU
+
+BO_ 771 L007_BMS_Detail_Status: 12 Vector__XXX
+ SG_ Battery_Voltage : 40|32@1- (1,0) [-3.4E+38|3.4E+38] ""  ZCU_Rear
+ SG_ Battery_SoC : 32|8@1+ (1,0) [0|255] ""  ZCU_Rear
+ SG_ Battery_Current : 0|32@1- (1,0) [-3.4E+38|3.4E+38] ""  ZCU_Rear
 
 BO_ 769 L005_MCU_Detail_Status: 8 MCU
  SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear
@@ -92,10 +100,14 @@ BA_DEF_DEF_  "GenMsgCycleTimeFast" 20;
 BA_DEF_DEF_  "GenMsgILSupport" "Yes";
 BA_DEF_DEF_  "GenMsgFastOnStart" 0;
 BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
-BA_ "BusType" "CAN FD";
 BA_ "DatabaseVersion" "";
+BA_ "BusType" "CAN FD";
+BA_ "VFrameFormat" BO_ 772 0;
+BA_ "VFrameFormat" BO_ 771 14;
 BA_ "GenMsgCycleTime" BO_ 769 10;
 BA_ "VFrameFormat" BO_ 769 14;
 BA_ "GenMsgCycleTime" BO_ 770 10;
 BA_ "VFrameFormat" BO_ 770 14;
+SIG_VALTYPE_ 771 Battery_Voltage : 1;
+SIG_VALTYPE_ 771 Battery_Current : 1;
 

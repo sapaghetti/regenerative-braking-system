@@ -1,0 +1,30 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  
+}
+
+variables
+{
+  msTimer mcu_msg_Timer;
+  const dword MCU_MSG_TIMEOUT = 10;
+}
+
+on start
+{
+  settimer(mcu_msg_Timer, MCU_MSG_TIMEOUT);
+}
+
+on timer mcu_msg_Timer
+{
+  message L005_MCU_Detail_Status mcu_msg;
+  mcu_msg.Motor_Torque = @MCU::Motor_Torque;
+  output(mcu_msg);
+  cancelTimer(mcu_msg_Timer);
+  settimer(mcu_msg_Timer, MCU_MSG_TIMEOUT);
+}
+
+on message L008_MCU_Control
+{
+  @MCU::Target_Torque = this.Target_Torque;
+}
