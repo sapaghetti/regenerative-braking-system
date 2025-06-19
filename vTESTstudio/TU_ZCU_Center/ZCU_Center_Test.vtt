@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Vector Test Table Editor-->
+<ttroot version="33" xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">
+  <tt>
+    <capltestcase>
+      <title />
+      <name>TC_INIT_001</name>
+      <tcid>fffd04af-c775-496d-bc48-e3714a507ce9</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INIT_002</name>
+      <tcid>ed5f4ac5-1332-45a5-a35b-135af2d54681</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INIT_003</name>
+      <tcid>a378be85-a0ca-40cc-a0f1-5c7527d5ff97</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_HMI_001</name>
+      <tcid>72b3a29e-c6fe-492b-a816-20d7548f2231</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_HMI_002</name>
+      <tcid>a0d9fb42-ef9d-45cb-9cea-7eeb0bc5ff47</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_HMI_003</name>
+      <tcid>7985f870-f87e-4ab1-b0b0-b35c0afd592b</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_HMI_004</name>
+      <tcid>ee371b23-bf16-42a4-95df-b43525c64311</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_STATE_001</name>
+      <tcid>f14a36b1-04ab-468b-89d8-fecbb99511d0</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_STATE_002</name>
+      <tcid>72170675-c28c-4544-afef-ea8f43f6d9d1</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_STATE_003</name>
+      <tcid>1c64496a-fa0b-409c-8120-922e887f7f00</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_FUNC_001</name>
+      <tcid>c558ea1a-8f85-496b-808f-3ffdbc29ec06</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_FUNC_002</name>
+      <tcid>d700370e-608c-4e0b-adaa-cc9e2730fa86</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_FUNC_003</name>
+      <tcid>66f36d8d-9c21-40cd-b184-41791b36b186</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_FUNC_004</name>
+      <tcid>20c2fa83-327f-40e0-ba33-7bc12fff169e</tcid>
+    </capltestcase>
+  </tt>
+  <ttlib>
+    <ts_definitions />
+    <tc_definitions />
+    <function_definitions />
+  </ttlib>
+</ttroot>

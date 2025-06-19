@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Vector Test Table Editor-->
+<ttroot version="33" xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">
+  <tt>
+    <capltestcase>
+      <title />
+      <name>TC_INIT_001</name>
+      <tcid>36e50397-b7e1-433a-b726-5f959625d56d</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INIT_002</name>
+      <tcid>f6552c2f-5134-4b64-bc5b-e4cca1f0a88a</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INIT_003</name>
+      <tcid>e65561ad-1d57-4e27-b610-badc64f5201e</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INIT_004</name>
+      <tcid>e518e5b2-d7c1-496f-97c4-b133beff380c</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_COMM_001</name>
+      <tcid>234034e6-d42d-4a8a-8486-f4616305225a</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_COMM_002</name>
+      <tcid>c4d03d90-4538-48ea-bf58-f8cde1264877</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_COMM_003</name>
+      <tcid>3f2d896c-2fb2-4c14-8c93-9e4304ee0628</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_COMM_004</name>
+      <tcid>749cf6e0-08bb-4d3d-b89b-f72b687c2cb7</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_FUNC_001</name>
+      <tcid>a58e303a-3725-47e0-be2c-859522e46c1f</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_FUNC_002</name>
+      <tcid>3e071bb9-acea-4d99-8eb4-d30cef57db26</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_STATE_001</name>
+      <tcid>c46aa87a-6b51-4ed7-8337-6de06c2aa77c</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_STATE_002</name>
+      <tcid>d1d37e84-f1e0-4d9d-a0e0-dd6e42a27df0</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_STATE_003</name>
+      <tcid>f643ff5b-67a4-42f7-aa39-f4daea3a3acf</tcid>
+    </capltestcase>
+  </tt>
+  <ttlib>
+    <ts_definitions />
+    <tc_definitions />
+    <function_definitions />
+  </ttlib>
+</ttroot>
