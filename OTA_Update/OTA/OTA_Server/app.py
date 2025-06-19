@@ -10,13 +10,27 @@ import secrets
 import hashlib
 from flask_wtf import CSRFProtect
 from datetime import timedelta, datetime
-from login_form import LoginForm
-from flask_session import Session
+from login_form import LoginForm # login_form.py 파일이 있다고 가정
+from flask_session import Session # Flask-Session이 설치되어 있다고 가정
 import logging
 from logging.handlers import RotatingFileHandler
 from werkzeug.utils import secure_filename
 import sys
 from pythonjsonlogger import jsonlogger
+import time # 타임스탬프 사용을 위해 추가
+import re # 파일명 파싱을 위한 정규표현식 모듈 추가
+
+# MQTT 및 암호화 관련 라이브러리 추가
+import paho.mqtt.publish as publish
+import struct
+from Crypto.Signature import pkcs1_15
+from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import AES, PKCS1_OAEP
+from Crypto.Random import get_random_bytes
+
+# Google Cloud Secret Manager 관련 임포트
+from google.cloud import secretmanager
 
 # --- 중요 보안 권장 사항 ---
 # 실제 운영 환경에서는 반드시 HTTPS를 적용하여 서버와 차량 간의 통신을 암호화해야 합니다.
@@ -55,10 +69,36 @@ formatter = jsonlogger.JsonFormatter('%(asctime)s %(levelname)s %(name)s %(messa
 logHandler.setFormatter(formatter)
 audit_logger.addHandler(logHandler)
 
-# TODO: 고급 로깅 및 모니터링 - 구조화된 로깅(JSON 형식)을 도입하고 Cloud Logging과 같은 중앙 집중식 시스템과 연동을 고려하세요.
-
 # Nonce 만료 시간 설정 (예: 5분)
 NONCE_EXPIRATION_SECONDS = 5 * 60 # 5분
+
+# === MQTT 브로커 설정 ===
+# TODO: 실제 MQTT 브로커 주소와 포트로 변경하세요!
+MQTT_BROKER_HOST = "127.0.0.1" 
+MQTT_BROKER_PORT = 1883 # 일반적으로 비보안 MQTT 포트 (TLS/SSL 사용 시 8883 등)
+
+# MQTT 토픽 설정
+MQTT_TOPIC_UPDATE_AVAILABLE = "ota/update/available" # 새 펌웨어 알림 토픽
+
+# === 펌웨어 보안 처리 관련 설정값 ===
+# make_bin_file_hybrid.py에서 가져옴
+MAGIC = 0xDEADBEEF
+# TODO: ECU_ID 및 VERSION은 파일명에서 동적으로 가져오도록 변경되었습니다.
+# 따라서 DEFAULT_ECU_ID 및 DEFAULT_VERSION 변수는 더 이상 사용하지 않습니다.
+
+# 파일명에서 ECU_ID와 VERSION을 추출하기 위한 정규 표현식
+# 예: firmware_ECU03_V06.bin
+FILENAME_PATTERN = re.compile(r'.*ECU(\d+)_V(\d+)\.bin$')
+
+# === Google Cloud Secret Manager 설정 ===
+# TODO: 여기에 당신의 GCP 프로젝트 ID를 입력하세요!
+GCP_PROJECT_ID = "thematic-grin-463106-m2"
+SERVER_PRIVATE_KEY_SECRET_ID = "ota-server-private-key" # Secret Manager에 저장한 서버 개인키 비밀 이름
+VEHICLE_PUBLIC_KEY_FILE = "public.pem" # 차량의 공개키 파일 경로
+
+# 전역 변수로 키 인스턴스 저장 (최초 1회 로드 후 재사용)
+_server_private_key = None
+_vehicle_public_key = None
 
 def write_audit_log(event, status="SUCCESS", **kwargs):
     # 공통 필드
@@ -74,16 +114,18 @@ def write_audit_log(event, status="SUCCESS", **kwargs):
         log_data["user"] = session.get('username')
         log_data["role"] = session.get('role')
 
-    # 충돌 방지를 위해 'filename' 대신 'file_name' 사용
-    # kwargs에서 'filename'이 전달되면 'file_name'으로 변경
+    # 'filename' 대신 'file_name' 사용
     if 'filename' in kwargs:
-        kwargs['file_name'] = kwargs.pop('filename') # 'filename'을 'file_name'으로 변경
+        kwargs['file_name'] = kwargs.pop('filename')
     
-    # 추가적인 kwargs 필드 포함
+    # 'message' 키 충돌 방지: 'message'를 'log_details'로 변경
+    if 'message' in kwargs:
+        log_data['log_details'] = kwargs.pop('message') # 'message' 키를 'log_details'로 변경하여 충돌 회피
+    
+    # 나머지 kwargs 필드 포함
     log_data.update(kwargs)
 
     audit_logger.info("Audit log entry", extra=log_data)
-
 
 def load_users():
     if not os.path.exists(USER_FILE):
@@ -121,11 +163,52 @@ def load_nonces():
         print(f"[ERROR] nonces.json 파일을 읽는 중 오류 발생: {e}. 파일을 초기화합니다.", file=sys.stderr)
         return {}
 
-
 def save_nonces(nonces_data):
     with open(NONCE_FILE, 'w') as f:
         json.dump(nonces_data, f, indent=4)
 
+def load_server_private_key():
+    """
+    Google Secret Manager 또는 로컬 파일에서 서버의 개인 키를 로드합니다.
+    """
+    global _server_private_key
+    if _server_private_key:
+        return _server_private_key # 이미 로드된 키 재사용
+
+    try:
+        print("🌍 Secret Manager에서 서버 개인키를 로드 시도 중...")
+        client = secretmanager.SecretManagerServiceClient()
+        name = f"projects/{GCP_PROJECT_ID}/secrets/{SERVER_PRIVATE_KEY_SECRET_ID}/versions/latest"
+        response = client.access_secret_version(request={"name": name})
+        server_private_key_pem = response.payload.data.decode("utf-8")
+        _server_private_key = RSA.import_key(server_private_key_pem)
+        print("✅ 서버 개인키를 Secret Manager에서 성공적으로 로드했습니다.")
+    except Exception as e:
+        print(f"❌ Secret Manager에서 서버 개인키를 로드하는 데 실패했습니다: {e}")
+        print("❗ 대체: 로컬 파일 'private.pem'에서 개인키를 로드합니다. 이 방식은 운영 환경에서 권장되지 않습니다.")
+        if not os.path.exists("private.pem"):
+            print("❌ 로컬 'private.pem' 파일도 찾을 수 없습니다. 개인키 없이는 펌웨어를 생성할 수 없습니다.")
+            return None
+        with open("private.pem", "rb") as f:
+            _server_private_key = RSA.import_key(f.read())
+        print("✅ 로컬 'private.pem'에서 개인키를 로드했습니다. (보안 경고!)")
+    return _server_private_key
+
+def load_vehicle_public_key():
+    """
+    로컬 파일에서 차량의 공개 키를 로드합니다.
+    """
+    global _vehicle_public_key
+    if _vehicle_public_key:
+        return _vehicle_public_key # 이미 로드된 키 재사용
+
+    if not os.path.exists(VEHICLE_PUBLIC_KEY_FILE):
+        print(f"❌ '{VEHICLE_PUBLIC_KEY_FILE}' 파일을 찾을 수 없습니다. 차량의 공개키 파일이 있어야 합니다.")
+        return None
+    with open(VEHICLE_PUBLIC_KEY_FILE, "rb") as f:
+        _vehicle_public_key = RSA.import_key(f.read())
+    print(f"✅ '{VEHICLE_PUBLIC_KEY_FILE}'에서 차량의 공개키를 로드했습니다.")
+    return _vehicle_public_key
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -145,12 +228,11 @@ def login():
                 return redirect(url_for('upload_form'))
         
         write_audit_log(event="LOGIN", status="FAILURE", user=username)
-        return redirect(url_for('login', error='1', prev_username=username)) 
+        return redirect(url_for('login', error='1', prev_username=username))    
     
     prev_username = request.args.get('prev_username')
     if prev_username:
         form.username.data = prev_username
-
     return render_template('login.html', form=form)
 
 @app.route('/logout')
@@ -165,7 +247,11 @@ def logout():
 def upload_form():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
-    return render_template('upload.html')
+    # 파일 목록을 전달하여 upload.html에 표시
+    firmware_files = glob.glob(os.path.join(app.config['UPLOAD_FOLDER'], '*_secure_hybrid.bin'))
+    # 파일명만 추출하여 전달
+    files = [os.path.basename(f) for f in firmware_files]
+    return render_template('upload.html', files=files) # files 변수를 추가하여 전달
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -188,30 +274,177 @@ def upload_file():
         return jsonify(error="No selected file"), 400
     
     if file:
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        original_filename = secure_filename(file.filename)
+        original_filepath = os.path.join(app.config['UPLOAD_FOLDER'], original_filename)
+        
         try:
-            file.save(file_path)
-            write_audit_log(event="UPLOAD", status="SUCCESS", filename=filename, user=session.get('username'))
+            # 1. 원본 펌웨어 파일 저장 (임시로)
+            file.save(original_filepath)
+            print(f"[INFO] 원본 펌웨어 파일 저장 완료: {original_filepath}")
+
+            # 2. 파일명에서 ECU_ID와 VERSION 추출
+            match = FILENAME_PATTERN.match(original_filename)
+            if not match:
+                os.remove(original_filepath) # 유효하지 않은 파일명 삭제
+                write_audit_log(event="UPLOAD", status="FAILURE", reason="Invalid filename format (ECU ID, Version not found)", filename=original_filename, user=session.get('username'))
+                return jsonify(error="파일명 형식이 올바르지 않습니다. 'firmware_ECU<ID>_V<VERSION>.bin' 형식이어야 합니다."), 400
             
-            return jsonify(message="Upload Complete!"), 200
+            extracted_ecu_id = int(match.group(1)) # 첫 번째 캡처 그룹 (ECU ID)
+            extracted_version = int(match.group(2)) # 두 번째 캡처 그룹 (Version)
+            
+            print(f"[INFO] 파일명에서 추출된 ECU ID: {extracted_ecu_id}, 버전: {extracted_version}")
+
+            # 3. 보안 펌웨어 생성 로직 시작 (make_bin_file_hybrid.py 로직 통합)
+            server_private_key = load_server_private_key()
+            vehicle_public_key = load_vehicle_public_key()
+
+            if not server_private_key or not vehicle_public_key:
+                # 키 로딩 실패 시 에러 처리
+                os.remove(original_filepath) # 원본 파일 삭제
+                write_audit_log(event="UPLOAD", status="FAILURE", reason="Key loading failed for secure firmware creation", user=session.get('username'))
+                return jsonify(error="보안 펌웨어 생성 실패: 키 문제"), 500
+
+            # 원본 펌웨어 코드 읽기
+            with open(original_filepath, "rb") as f_orig:
+                CODE = f_orig.read()
+            CODE_LEN = len(CODE)
+            
+            # === 펌웨어 해시 (무결성 검증용) ===
+            hash_obj = SHA256.new(CODE)
+            firmware_hash = hash_obj.digest() # 32 bytes
+
+            # === 전자 서명 (인증) ===
+            signer = pkcs1_15.new(server_private_key)
+            signature = signer.sign(hash_obj) # 256 bytes (RSA2048)
+
+            # === AES 암호화 (기밀성) ===
+            aes_key = get_random_bytes(16)  # 128bit 임시 세션 키
+            aes_nonce = get_random_bytes(8)  # CTR용 nonce
+            cipher_aes = AES.new(aes_key, AES.MODE_CTR, nonce=aes_nonce)
+            encrypted_code = cipher_aes.encrypt(CODE)
+
+            # === AES 키를 차량의 공개키로 암호화 ===
+            cipher_rsa = PKCS1_OAEP.new(vehicle_public_key)
+            encrypted_aes_key = cipher_rsa.encrypt(aes_key) # 256 bytes (RSA-2048)
+
+            # === 헤더 구성 ===
+            # ECU_ID와 VERSION을 파일명에서 추출한 값으로 사용
+            header = struct.pack("<IIBBH32s8s256s256s",
+                                 MAGIC,
+                                 int(time.time()), # 현재 타임스탬프
+                                 extracted_ecu_id, # <-- 파일명에서 추출한 ECU ID 사용
+                                 extracted_version, # <-- 파일명에서 추출한 버전 사용
+                                 CODE_LEN,
+                                 firmware_hash,
+                                 aes_nonce,
+                                 encrypted_aes_key,
+                                 signature)
+            
+            secure_filename_output = original_filename.replace('.bin', '_secure_hybrid.bin') # 새 파일명
+            # 만약 .bin 확장자가 없으면 그냥 _secure_hybrid.bin 추가
+            if not secure_filename_output.endswith('_secure_hybrid.bin'):
+                secure_filename_output += '_secure_hybrid.bin'
+
+            secure_filepath = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename_output)
+
+            # === 최종 보안 바이너리 파일 생성 ===
+            with open(secure_filepath, "wb") as f_secure:
+                f_secure.write(header)
+                f_secure.write(encrypted_code)
+            print(f"[INFO] 보안 펌웨어 파일 생성 완료: {secure_filepath}")
+            os.remove(original_filepath) # 원본 파일 삭제 (보안상 권장)
+
+            # 4. MQTT 알림 발행
+            try:
+                mqtt_payload = {
+                    "filename": secure_filename_output,
+                    "sha256": calculate_sha256(secure_filepath), # 새로 생성된 파일의 SHA256
+                    "ecu_id": extracted_ecu_id, # <-- 파일명에서 추출한 ECU ID 사용
+                    "version": extracted_version, # <-- 파일명에서 추출한 버전 사용
+                    "timestamp": int(time.time()),
+                    "download_url": f"{request.url_root.replace('http://', 'https://')}ota_download/{secure_filename_output}"
+                }
+                
+                # publish.single 함수 사용 (인증 없는 단순 발행)
+                # 실제 환경에서는 MQTT 클라이언트 인스턴스를 유지하고
+                # publish.single 대신 client.publish()를 사용하는 것이 더 좋습니다.
+                publish.single(
+                    MQTT_TOPIC_UPDATE_AVAILABLE,
+                    json.dumps(mqtt_payload),
+                    hostname=MQTT_BROKER_HOST,
+                    port=MQTT_BROKER_PORT,
+                    qos=1,       # 메시지 전달 신뢰성 (At least once)
+                    retain=True  # 이 메시지를 브로커가 유지하도록 설정
+                )
+                
+                # 로그 메시지를 'log_details'로 전달하여 충돌 회피
+                write_audit_log(event="UPLOAD", status="SUCCESS", filename=secure_filename_output, user=session.get('username'), log_details="Secure firmware created and MQTT notification sent.", ecu_id=extracted_ecu_id, version=extracted_version)
+                
+                # 웹 응답은 성공 메시지로 반환
+                return jsonify(message=f"보안 펌웨어 '{secure_filename_output}' 생성 및 MQTT 알림 전송 완료! (ECU ID: {extracted_ecu_id}, 버전: {extracted_version})"), 200
+
+            except Exception as mqtt_e:
+                write_audit_log(event="UPLOAD", status="FAILURE", filename=secure_filename_output, reason=f"MQTT notification failed: {str(mqtt_e)}", user=session.get('username'))
+                return jsonify(error=f"파일은 업로드 및 보안 처리되었으나, MQTT 알림 전송에 실패했습니다: {str(mqtt_e)}"), 500
+
         except Exception as e:
-            write_audit_log(event="UPLOAD", status="CRITICAL_FAILURE", filename=filename, error=str(e), user=session.get('username'))
-            return jsonify(error=f"File save failed: {str(e)}"), 500
+            # 파일 저장 또는 보안 처리 중 오류 발생
+            if os.path.exists(original_filepath):
+                os.remove(original_filepath) # 원본 파일이 남아있다면 삭제
+            write_audit_log(event="UPLOAD", status="CRITICAL_FAILURE", filename=original_filename, error=str(e), user=session.get('username'))
+            return jsonify(error=f"파일 업로드 및 보안 처리 실패: {str(e)}"), 500
     
     write_audit_log(event="UPLOAD", status="FAILURE", reason="Unknown", user=session.get('username'))
-    return jsonify(error="File upload failed"), 500
+    return jsonify(error="파일 업로드 실패"), 500
 
-@app.route('/upload/<filename>')
-def download_file(filename):
-    if not session.get('logged_in') or session.get('role') != 'admin':
-        abort(403)
-    try:
-        write_audit_log(event="WEB_DOWNLOAD", status="SUCCESS", filename=filename, user=session.get('username'))
-        return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
-    except FileNotFoundError:
-        write_audit_log(event="WEB_DOWNLOAD", status="FAILURE", filename=filename, reason="File not found", user=session.get('username'))
-        abort(404)
+ALLOWED_IPS = ['127.0.0.1', '192.168.0.100', '192.168.0.101', '112.218.95.58']
+@app.before_request
+def limit_remote_addr():
+    if request.path.startswith('/static'):
+        return
+    client_ip = request.remote_addr
+    if client_ip not in ALLOWED_IPS and not client_ip.startswith('127.0.0.1'):
+        write_audit_log(event="IP_BLOCKED", status="FAILURE", ip=client_ip, reason="Forbidden IP")
+        abort(403, "Access denied for your IP address.")
+
+def calculate_sha256(filepath):
+    sha256_hash = hashlib.sha256()
+    with open(filepath, "rb") as f:
+        for byte_block in iter(lambda: f.read(4096), b""):
+            sha256_hash.update(byte_block)
+    return sha256_hash.hexdigest()
+
+@app.route('/latest_version')
+def latest_version():
+    # 이제 make_bin_file_hybrid.py에 의해 생성된 _secure_hybrid.bin 파일을 찾도록 수정
+    firmware_files = glob.glob(os.path.join(app.config['UPLOAD_FOLDER'], '*_secure_hybrid.bin'))
+
+    if not firmware_files:
+        write_audit_log(event="LATEST_VERSION_CHECK", status="SUCCESS", reason="No secure firmware files found")
+        return jsonify(version=None, mtime=None, sha256=None)
+
+    latest_file_path = max(firmware_files, key=os.path.getmtime)
+    
+    latest_version_filename = os.path.basename(latest_file_path)
+    latest_mtime = os.path.getmtime(latest_file_path)
+    latest_sha256 = calculate_sha256(latest_file_path)
+
+    # 파일명에서 ECU_ID와 VERSION을 추출하여 응답에 포함 (선택 사항, 클라이언트가 필요하다면)
+    match = FILENAME_PATTERN.match(latest_version_filename)
+    ecu_id_found = None
+    version_found = None
+    if match:
+        ecu_id_found = int(match.group(1))
+        version_found = int(match.group(2))
+
+    write_audit_log(event="LATEST_VERSION_CHECK", status="SUCCESS", file_name=latest_version_filename, sha256=latest_sha256[:10], ecu_id=ecu_id_found, version=version_found)
+    return jsonify(
+        version=latest_version_filename,
+        mtime=latest_mtime,
+        sha256=latest_sha256,
+        ecu_id=ecu_id_found, # 응답에 ECU ID 추가
+        fw_version=version_found # 응답에 펌웨어 버전 추가 (key 이름은 fw_version으로 변경)
+    )
 
 @app.route('/get_nonce', methods=['POST'])
 @csrf.exempt
@@ -246,70 +479,31 @@ def get_nonce():
     write_audit_log(event="GET_NONCE", status="SUCCESS", nonce=nonce[:8] + "...", vehicle_id=vehicle_id)
     return jsonify({'nonce': nonce})
 
-ALLOWED_IPS = ['127.0.0.1', '192.168.0.100', '192.168.0.101', '112.218.95.58']
-@app.before_request
-def limit_remote_addr():
-    if request.path.startswith('/static'):
-        return
-    client_ip = request.remote_addr
-    if client_ip not in ALLOWED_IPS and not client_ip.startswith('127.0.0.1'):
-        write_audit_log(event="IP_BLOCKED", status="FAILURE", ip=client_ip, reason="Forbidden IP")
-        abort(403, "Access denied for your IP address.")
-
-def calculate_sha256(filepath):
-    sha256_hash = hashlib.sha256()
-    with open(filepath, "rb") as f:
-        for byte_block in iter(lambda: f.read(4096), b""):
-            sha256_hash.update(byte_block)
-    return sha256_hash.hexdigest()
-
-@app.route('/latest_version')
-def latest_version():
-    firmware_files = glob.glob(os.path.join(app.config['UPLOAD_FOLDER'], '*.bin'))
-
-    if not firmware_files:
-        write_audit_log(event="LATEST_VERSION_CHECK", status="SUCCESS", reason="No firmware files found")
-        return jsonify(version=None, mtime=None, sha256=None)
-
-    latest_file_path = max(firmware_files, key=os.path.getmtime)
-    
-    latest_version_filename = os.path.basename(latest_file_path)
-    latest_mtime = os.path.getmtime(latest_file_path)
-    latest_sha256 = calculate_sha256(latest_file_path)
-
-    # 'filename' 대신 'file_name' 사용
-    write_audit_log(event="LATEST_VERSION_CHECK", status="SUCCESS", file_name=latest_version_filename, sha256=latest_sha256[:10])
-    return jsonify(
-        version=latest_version_filename,
-        mtime=latest_mtime,
-        sha256=latest_sha256
-    )
-
 @app.route('/ota_download/<filename>')
 def ota_download_file(filename):
     client_nonce = request.args.get('nonce')
     
     token = request.headers.get('X-Vehicle-Token')
     if not token:
-        write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="No Token", file_name=filename) # <-- 변경
+        write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="No Token", file_name=filename)
         return jsonify({"error": "Authentication token is missing"}), 401
     
     nonces_data = load_nonces()
     stored_nonce_info = nonces_data.get(client_nonce)
 
     if not stored_nonce_info:
-        write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="Invalid or missing nonce", nonce=client_nonce, file_name=filename) # <-- 변경
+        write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="Invalid or missing nonce", nonce=client_nonce, file_name=filename)
         return jsonify(error="Invalid or missing nonce"), 403
 
     nonce_timestamp = stored_nonce_info.get('timestamp')
     if not nonce_timestamp or (datetime.now().timestamp() - nonce_timestamp) > NONCE_EXPIRATION_SECONDS:
         del nonces_data[client_nonce]
         save_nonces(nonces_data)
-        write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="Expired nonce", nonce=client_nonce, file_name=filename) # <-- 변경
+        write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="Expired nonce", nonce=client_nonce, file_name=filename)
         return jsonify(error="Expired nonce"), 403
 
     if stored_nonce_info.get('used'):
-        write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="Nonce already used", nonce=client_nonce, file_name=filename) # <-- 변경
+        write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="Nonce already used", nonce=client_nonce, file_name=filename)
         return jsonify(error="Nonce already used"), 403
     
     requesting_vehicle_id = stored_nonce_info.get('vehicle_id')
@@ -321,7 +515,7 @@ def ota_download_file(filename):
             break
 
     if not authenticated_vehicle_id or requesting_vehicle_id != authenticated_vehicle_id:
-        write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="Nonce vehicle ID mismatch or authentication failed", nonce=client_nonce, req_vid=authenticated_vehicle_id, stored_vid=requesting_vehicle_id, file_name=filename) # <-- 변경
+        write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="Nonce vehicle ID mismatch or authentication failed", nonce=client_nonce, req_vid=authenticated_vehicle_id, stored_vid=requesting_vehicle_id, file_name=filename)
         return jsonify(error="Nonce vehicle ID mismatch or authentication failed"), 403
 
 
@@ -331,13 +525,13 @@ def ota_download_file(filename):
     
     try:
         if not os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
-            write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="File not found on server", file_name=filename) # <-- 변경
+            write_audit_log(event="OTA_DOWNLOAD", status="FAILURE", reason="File not found on server", file_name=filename)
             return jsonify(error="File not found on server"), 404
 
-        write_audit_log(event="OTA_DOWNLOAD", status="SUCCESS", file_name=filename, vehicle_id=requesting_vehicle_id) # <-- 변경
+        write_audit_log(event="OTA_DOWNLOAD", status="SUCCESS", file_name=filename, vehicle_id=requesting_vehicle_id)
         return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
     except Exception as e:
-        write_audit_log(event="OTA_DOWNLOAD", status="CRITICAL_FAILURE", file_name=filename, error=str(e), vehicle_id=requesting_vehicle_id) # <-- 변경
+        write_audit_log(event="OTA_DOWNLOAD", status="CRITICAL_FAILURE", file_name=filename, error=str(e), vehicle_id=requesting_vehicle_id)
         return jsonify(error=f"Server error during download: {str(e)}"), 500
 
 @csrf.exempt
@@ -371,15 +565,13 @@ def report_versions():
         with open(version_file, 'w') as f:
             json.dump(all_versions, f, indent=4)
 
-        # 새로운 'update_status' 필드를 payload에서 가져옵니다.
-        # 클라이언트가 이 필드를 보낼 것이므로, 기본값은 "SUCCESS" 또는 "UNKNOWN"으로 설정합니다.
-        update_status = data.get('update_status', 'SUCCESS') # <-- update_status 가져오기
-
-        write_audit_log(event="VERSION_REPORT", status=update_status, vehicle_id=vin, reported_versions=data['ecus']) # <-- 로깅 변경
+        update_status = data.get('update_status', 'SUCCESS')
+        write_audit_log(event="VERSION_REPORT", status=update_status, vehicle_id=vin, reported_versions=data['ecus'])
         return jsonify({"status": "saved"}), 200
 
     except Exception as e:
         write_audit_log(event="VERSION_REPORT", status="CRITICAL_FAILURE", error=str(e), request_data=str(request.get_json(silent=True)))
         return jsonify({"error": str(e)}), 500
-#if __name__ == "__main__":
-#    app.run(host='0.0.0.0', port=5000, debug=True)
+
+# if __name__ == "__main__":
+#     app.run(host='0.0.0.0', port=5000, debug=True)
