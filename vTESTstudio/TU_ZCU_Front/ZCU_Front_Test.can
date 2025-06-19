@@ -9,7 +9,7 @@ export testcase TC_INIT_001()
 {
   byte l_returnValue;
   TestStep("준비", "올바른 펌웨어 서명(@ZCU_Sim::Firmware_Signature = 0xDEADBEEF)을 설정합니다.");
-  SysSetVariableInt("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
+  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
 
   TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
   l_returnValue = PerformSecureBoot();
@@ -28,7 +28,7 @@ export testcase TC_INIT_002()
 {
   byte l_returnValue;
   TestStep("준비", "잘못된 펌웨어 서명(@ZCU_Sim::Firmware_Signature = 0xBADF00D)을 설정합니다.");
-  SysSetVariableInt("ZCU_Sim", "Firmware_Signature", 0xBADF00D);
+  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xBADF00D);
 
   TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
   l_returnValue = PerformSecureBoot();
@@ -189,7 +189,7 @@ export testcase TC_FUNC_001()
 {
   TestStep("준비", "메시지 전송에 필요한 센서 값들을 설정합니다.");
   
-  SysSetVariableInt("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
+  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
   HandleStartEvent();
   sysSetVariableFloat("ZCU_Sim", "APS_Position", 50.0);
   SysSetVariableFloat("ZCU_Sim", "Vehicle_Speed", 100.0);

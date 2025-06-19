@@ -23,7 +23,7 @@ byte PerformSecureBoot()
   write("ZCU_Front: Starting Secure Boot verification...");
 
   expectedSignature = 0xDEADBEEF;
-  actualSignature = sysGetVariableInt("ZCU_Sim", "Firmware_Signature");
+  actualSignature = sysGetVariableDWord("ZCU_Sim", "Firmware_Signature");
 
   if (actualSignature != expectedSignature)
   {
