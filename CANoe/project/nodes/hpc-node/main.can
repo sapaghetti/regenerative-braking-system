@@ -1,0 +1,418 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  //#include "Math.cin"
+  //#include "CRC.cin"
+  #include "function.cin"
+}
+
+/* =============================
+ * 전역 변수 및 상수 정의
+ * =============================*/
+variables
+{
+  // 시스템 상태
+  enum RegenState{
+    REGEN_OFF = 0,
+    REGEN_LEVEL1 = 1,
+    REGEN_LEVEL2 = 2,
+    REGEN_LEVEL3 = 3,
+    REGEN_AUTO = 4
+  };
+  
+  enum SystemState {
+    SYSTEM_NORMAL = 0,
+    SYSTEM_BATTERY_PROTECTION = 1,
+    SYSTEM_FAILSAFE = 2,
+    SYSTEM_OTA_UPDATE = 3
+  };
+  
+  // util enum
+  enum bool
+  {
+    false = 0,
+    true = 1
+  };
+  // 전역 변수
+  enum RegenState gCurrentRegenMode;
+  enum SystemState gSystemState;
+  
+  float gCurrentVehicleSpeed = 0.0;
+  float gCurrentRegenTorque = 0.0;
+  float gTargetRegenTorque = 0.0;
+  float gMaxRegenPower = 0.0;
+  
+  byte gBatterySOC = 0;
+  byte gBatteryTemp = 0;
+  float gSteeringAngle = 0.0;
+  byte gAPSPosition = 0;
+
+  // 배터리 보호 임계값
+  const float BATTERY_SOC_LIMIT = 95.0;
+  const byte BATTERY_TEMP_MIN = 10;  // 10°C
+  const byte BATTERY_TEMP_MAX = 45;  // 45°C
+  
+  // 안전 관련 상수
+  const float MAX_DECEL_FOR_BRAKE_LIGHT = 1.3; // m/s^2
+  const dword FAILSAFE_RESPONSE_TIME = 50;     // ms
+  const dword FRICTION_BRAKE_RESPONSE_TIME = 10; // ms
+  
+  // 워치독 관련
+  msTimer tWatchdog;
+  const dword WATCHDOG_TIMEOUT = 20; // ms
+  byte gWatchdogCounter = 0;
+  
+  // V2X 데이터 구조체
+  struct V2XData {
+    byte trafficLightDistance;
+    byte trafficLightStatus;
+    byte roadGrade;
+    byte congestionLevel;
+    dword timestamp;
+  };
+  struct V2XData gV2XData;
+  
+  // 에너지 효율 계산용 변수
+  float gTotalRegenEnergy = 0.0;
+  float gCumulativeRegenEnergy = 0.0;
+  float gInstantRegenPower = 0.0;
+  float gAverageRegenVoltage = 0.0;
+  float gIntegratedRegenCurrent = 0.0;
+  
+  // 제동 성능 분석용 변수
+  float gAverageDeceleration = 0.0;
+  float gMaxJerkRecorded = 0.0;
+  byte gRegenBrakeRatio = 0;
+  byte gFrictionBrakeRatio = 0;
+  
+  /*===============================================
+   * 메시지 구조체 정의
+   *===============================================*/
+  
+  // M001_Regen_Torque_Cmd 구조체
+  struct M001_RegenTorqueCmd {
+    word targetRegenTorque;    // 0.1 Nm, offset -3200
+    byte regenMode;
+    byte torqueRateLimit;      // 10 Nm/s
+    byte e2eCounter;
+    byte maxRegenPower;        // 0.5 kW
+    word e2eCRC16;
+  };
+  
+  // M003_Friction_Brake_Req 구조체  
+  struct M003_FrictionBrakeReq {
+    word requiredFrictionTorque; // 0.1 Nm
+    byte brakeRequestType;
+    byte brakeForceDistribution; // %
+    byte controlFlags;
+    byte e2eCounter;
+    word e2eCRC16;
+  };
+
+  // M009_Mode_Change_Resp 구조체
+  struct M009_ModeChangeResp {
+    byte currentMode;
+    byte modeChangeStatus;
+    byte activeProfile;
+    byte failureReason;
+    word responseTimestamp;
+    word crc16Checksum;
+  };
+  
+  // M012_Cluster_Display 구조체
+  struct M012_ClusterDisplay {
+    byte displayMode;
+    word instantRegenPower;    // 100W
+    word cumulativeRegenEnergy; // 10Wh
+    byte warningStatus;
+    word crc16Checksum;
+  };
+}
+
+/*=============================================
+ * 초기화
+ *=============================================*/
+on start
+{
+  write("=== Regenerative Braking System Started ===");
+  
+  // 초기 상태 설정
+  gCurrentRegenMode = REGEN_OFF;
+  gSystemState = SYSTEM_NORMAL; // systemVariable 처리
+  
+  // 타이머 초기화
+  setTimer(tWatchdog, WATCHDOG_TIMEOUT);
+  
+  // 초기 메시지 전송
+  SendInitialMessages();
+}
+
+/*============================================
+ * CYCLIC TASKS
+ *============================================*/
+on timer tCAN95_RegenTorqueCalc
+{
+  message M001_Regen_Torque_Cmd cmd;
+  byte tempData[7];
+  
+  gTargetRegenTorque = CalculateRegenTorque(gCurrentVehicleSpeed, gCurrentRegenMode, gV2XData);
+  
+  cmd.Target_Regen_Torque = (word)((gTargetRegenTorque + 3200) / 0.1);
+  cmd.Regen_Mode = (byte)gCurrentRegenMode;
+  cmd.Torque_Rate_Limit = 25;
+  cmd.E2E_Counter = ++gWatchdogCounter;
+  cmd.Max_Regen_Power = (byte)(gMaxRegenPower / 0.5);
+    
+  // 수동 복사: 구조체 cmd의 앞 6바이트를 tempData 배열에 저장
+  tempData[0] = (byte)(cmd.Target_Regen_Torque & 0xFF);        // LSB
+  tempData[1] = (byte)((cmd.Target_Regen_Torque >> 8) & 0xFF); // MSB
+  tempData[2] = cmd.Regen_Mode;
+  tempData[3] = cmd.Torque_Rate_Limit;
+  tempData[4] = cmd.E2E_Counter;
+  tempData[5] = (byte)(cmd.Max_Regen_Power);
+  
+  cmd.E2E_CRC16 = CalculateCRC16(tempData, 6);
+  
+  output(cmd);
+  
+  // watchdog feed (can-108)
+  cancelTimer(tWatchdog);
+  setTimer(tWatchdog, WATCHDOG_TIMEOUT);
+  
+  // 50ms 주기 재설정
+  setTimer(tCAN95_RegenTorqueCalc, 50);
+  
+}
+
+// CAN-97: 500ms - AUTO 모드에서 V2X 기반 최적 토크 연산
+on timer tCAN97_AutoModeOptimization
+{
+  if (gCurrentRegenMode == REGEN_AUTO && gSystemState == SYSTEM_NORMAL) {
+    // V2X 데이터와 센서 데이터 종합 분석
+    float optimizedTorque;
+    optimizedTorque = CalculateOptimalRegenTorque();
+    
+    // 최적화된 토크 적용
+    if (optimizedTorque != gTargetRegenTorque) {
+      gTargetRegenTorque = optimizedTorque;
+      write("Auto mode optimized torque: %.2f Nm", optimizedTorque);
+    }
+  }
+  
+  setTimer(tCAN97_AutoModeOptimization, 500);
+}
+
+// CAN-98: 100ms - 클러스터 디스플레이 정보 전송
+on timer tCAN98_ClusterDisplay
+{
+  message M012_Cluster_Display display;
+  byte tempData[7];
+  
+  display.Display_Mode= (byte)gCurrentRegenMode;
+  display.Instant_Regen_Power= (word)(gInstantRegenPower / 100);
+  display.Cumulative_Regen_Energy = (word)(gCumulativeRegenEnergy / 10);
+  display.Warning_Status = (gSystemState == SYSTEM_BATTERY_PROTECTION) ? 0x01 : 0x00;
+  
+  // CRC 계산
+  tempData[0] = display.Display_Mode;
+  
+  tempData[1] = (byte)(display.Instant_Regen_Power & 0xFF);        // LSB
+  tempData[2] = (byte)((display.Instant_Regen_Power >> 8) & 0xFF); // MSB
+  
+  tempData[3] = (byte)(display.Cumulative_Regen_Energy & 0xFF);        // LSB
+  tempData[4] = (byte)((display.Cumulative_Regen_Energy >> 8) & 0xFF); // MSB
+  
+  tempData[5] = display.Warning_Status;
+  display.CRC16_Checksum = CalculateCRC16(tempData, 7);
+  
+  output(display);
+  
+  setTimer(tCAN98_ClusterDisplay, 100);
+}
+
+// CAN-106: 200ms - 에너지 효율 데이터 전송
+on timer tCAN106_EnergyEfficiency
+{
+  message M019_Energy_Efficiency eff;
+  CalculateEnergyEfficiency();
+  output(eff);
+  
+  setTimer(tCAN106_EnergyEfficiency, 200);
+}
+
+/*===========================================
+ * EVENT TASKS
+ *===========================================*/
+// CAN-94: 회생제동 모드 변경 요청 처리
+on message M008_Mode_Change_Req
+{
+  message M009_Mode_Change_Resp response;
+  enum RegenState requestedMode;
+  byte tempData[6]; // for CRC
+  requestedMode = (enum RegenState)this.Requested_Mode;
+  
+  write("Mode change requested: %d -> %d", gCurrentRegenMode, requestedMode);
+  
+  // 모드 변경 가능 여부 확인
+  if (gSystemState == SYSTEM_NORMAL || gSystemState == SYSTEM_BATTERY_PROTECTION)
+  {
+    gCurrentRegenMode = requestedMode;
+    response.Current_Mode = (byte)gCurrentRegenMode;
+    response.Mode_Change_Status = 0; // Success
+    response.Failure_Reason = 0;    // None
+  } else {
+    response.Current_Mode = (byte)gCurrentRegenMode;
+    response.Mode_Change_Status = 1; // Failed
+    response.Failure_Reason = 3;    // System_Fault
+  }
+  
+  response.Active_Profile = this.Profile_Type;
+  response.Response_Timestamp = (word)timeNow();
+  
+  // CRC 계산
+  tempData[0] = response.Current_Mode;
+  tempData[1] = response.Mode_Change_Status;
+  tempData[2] = response.Failure_Reason;
+  tempData[3] = response.Active_Profile;
+  tempData[4] = (byte)(response.Response_Timestamp & 0xFF);       // LSB
+  tempData[5] = (byte)((response.Response_Timestamp >> 8) & 0xFF); // MSB
+  response.CRC16_Checksum = CalculateCRC16(tempData, 5);
+  
+  output(response);
+}
+
+// CAN-96: V2X 데이터 수신 및 파싱
+on message *
+{
+  if (this.ID >= 0x300 && this.ID <= 0x3FF) { // V2X ID 범위 가정
+    // V2X 데이터 파싱
+    gV2XData.trafficLightDistance = this.byte(0);
+    gV2XData.trafficLightStatus = this.byte(1);
+    gV2XData.roadGrade = this.byte(2);
+    gV2XData.congestionLevel = this.byte(3);
+    gV2XData.timestamp = timeNow();
+    
+    write("V2X data updated: TL_dist=%d, TL_status=%d", 
+          gV2XData.trafficLightDistance, gV2XData.trafficLightStatus);
+  }
+}
+
+// CAN-99: 배터리 보호 로직
+on message M006_Battery_Basic
+{
+  gBatterySOC = this.Battery_SOC * 2;  // 0.5% resolution
+  gBatteryTemp = this.Battery_Temp;
+  
+  CheckBatteryProtection();
+}
+
+// CAN-101: 회생제동 부족 시 마찰 제동 보상 (< 10ms)
+on message M002_Regen_Torque_Feedback
+{
+  float actualRegen;
+  float torqueDifference;
+  
+  actualRegen = (this.Actual_Regen_Torque * 0.1) - 3200;
+  torqueDifference = gTargetRegenTorque - actualRegen;
+  
+  if (torqueDifference > 50.0) { // 50Nm 이상 차이
+    message M003_Friction_Brake_Req frictionReq;
+    byte tempData[6];
+    
+    frictionReq.Required_Friction_Torque = (word)(torqueDifference / 0.1);
+    frictionReq.Brake_Request_Type = 0; // Normal
+    frictionReq.Brake_Force_Distribution = 50; // 50% front/rear
+    frictionReq.Control_Flags = 0x01; // Regen compensation
+    frictionReq.E2E_Counter = ++gWatchdogCounter;
+    
+    // CRC 계산 (CAN-110)
+    tempData[0] = (byte)(frictionReq.Required_Friction_Torque & 0xFF);        // LSB
+    tempData[1] = (byte)((frictionReq.Required_Friction_Torque >> 8) & 0xFF); // MSB
+    tempData[2] = frictionReq.Brake_Request_Type;
+    tempData[3] = frictionReq.Brake_Force_Distribution;
+    tempData[4] = frictionReq.Control_Flags;
+    tempData[5] = frictionReq.E2E_Counter;
+    
+    frictionReq.E2E_CRC16 = CalculateCRC16(tempData, 5);
+    output(frictionReq);
+    
+    write("Friction brake compensation: %.2f Nm", torqueDifference);
+  }
+}
+
+// CAN-102: 치명적 고장 감지 시 안전 모드 전환 (< 50ms)
+on message M004_FailSafe_Status_1
+{
+  if (this.Fault_Code == 1) { // Critical fault
+    message M001_Regen_Torque_Cmd emergencyCmd;
+    message M004_FailSafe_Status_1 failSafeMsg;
+    write("CRITICAL FAULT DETECTED - Entering FailSafe Mode");
+    
+    gSystemState = SYSTEM_FAILSAFE;
+    gCurrentRegenMode = REGEN_OFF;
+    gTargetRegenTorque = 0.0;
+    
+    // 즉시 토크 0 명령 전송
+    emergencyCmd.Target_Regen_Torque = 32000; // 0 Nm (offset -3200)
+    emergencyCmd.Regen_Mode = 0;
+    emergencyCmd.Torque_Rate_Limit = 255; // Max rate for emergency stop
+    output(emergencyCmd);
+    
+    // FailSafe 상태 브로드캐스트
+    output(failSafeMsg);
+  }
+}
+
+// CAN-103: 감속도 기반 브레이크등 제어
+on message M005_Vehicle_Dynamics
+{
+  float prevSpeed = 0.0;
+  dword prevTime = 0;
+  dword currentTime;
+  
+  gCurrentVehicleSpeed = this.Vehicle_Speed * 0.1; // km/h
+  gSteeringAngle = (this.Steering_Angle * 0.1) - 3200; // degrees
+  gAPSPosition = this.APS_Position;
+  currentTime = timeNow();
+  
+  if (prevTime > 0) {
+    float deltaTime;
+    float deltaSpeed; // m/s
+    float deceleration; // m/s^2
+    
+    deltaTime = (currentTime - prevTime) / 1000.0; // seconds
+    deltaSpeed = (gCurrentVehicleSpeed - prevSpeed) / 3.6;
+    deceleration = -deltaSpeed / deltaTime;
+    
+    if (deceleration > MAX_DECEL_FOR_BRAKE_LIGHT) {
+      message M013_Brake_Light_Ctrl brakeLight;
+      brakeLight.Brake_Light_Command = 1; // On
+      brakeLight.Deceleration_Level = (byte)(deceleration / 0.1);
+      brakeLight.Light_Intensity = 100; // 100%
+      brakeLight.Event_Timestamp = (word)currentTime;
+      
+      output(brakeLight);
+      
+      write("Brake light activated - Deceleration: %.2f m/s^2", deceleration);
+    }
+  }
+  
+  prevSpeed = gCurrentVehicleSpeed;
+  prevTime = currentTime;
+}
+
+// CAN-108: 워치독 타임아웃 처리
+on timer tWatchdog
+{
+  message M001_Regen_Torque_Cmd emergencyCmd;
+  write("WATCHDOG TIMEOUT - System entering FailSafe mode");
+  
+  gSystemState = SYSTEM_FAILSAFE;
+  gCurrentRegenMode = REGEN_OFF;
+  gTargetRegenTorque = 0.0;
+  
+  // 비상 정지 메시지 전송
+  emergencyCmd.Target_Regen_Torque = 32000; // 0 Nm
+  emergencyCmd.Regen_Mode = 0;
+  output(emergencyCmd);
+}

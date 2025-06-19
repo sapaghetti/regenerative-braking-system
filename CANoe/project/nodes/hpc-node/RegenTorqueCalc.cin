@@ -1,0 +1,60 @@
+﻿/*@!Encoding:65001*/
+// RegenTorqueCalc.cin
+
+variables
+{
+  message M001_Regen_Torque_Cmd tmp_M001;
+}
+
+void RegenTorqueCalc_getTorque()
+{
+  int mode;
+  int vehicle_Speed;
+  int SOC_percent;
+  int regen_enable;
+  int battery_temp_C;
+  
+  float torqueCoefficient;
+  float target_Regen_Torque;
+
+  mode = @HPC::sv_Regen_Mode;
+  vehicle_Speed = @HPC::sv_Vehicle_Speed_kph;
+  
+  SOC_percent = @HPC::sv_SOC_percent;
+  battery_temp_C = @HPC::sv_Battery_Temp_C;
+  // car speed & mode -> calc. torque
+  
+  switch(mode)
+  {
+    case 0: torqueCoefficient = 0.0; break; // lv 0
+    case 1: torqueCoefficient = 0.3; break; // lv 1
+    case 2: torqueCoefficient = 0.6; break; // lv 2
+    case 3: torqueCoefficient = 0.8; break; // lv 3
+    case 4: torqueCoefficient = 0.0; break; // lv auto*
+    default: torqueCoefficient = 0.0; break; // default
+  }
+  
+  if(SOC_percent >= 95 || battery_temp_C < 0 || battery_temp_C > 45)
+  {
+    // linear decrease
+    @HPC::sv_Regen_Enable = 0; // false
+  }
+  else
+  {
+    @HPC::sv_Regen_Enable = 1; // true
+  }
+  
+  if(@HPC::sv_Regen_Enable == 0)
+  {
+    // linear decrease and send M012
+  }
+  if(@HPC::sv_Regen_Enable == 1)
+  {
+    target_Regen_Torque = torqueCoefficient * vehicle_Speed;
+    @HPC::sv_Target_Regen_Torque = target_Regen_Torque; 
+  }
+  tmp_M001.Regen_Mode = @HPC::sv_Regen_Mode;
+  tmp_M001.Target_Regen_Torque = @HPC::sv_Target_Regen_Torque;
+  
+  output(tmp_M001);
+}

@@ -1,0 +1,35 @@
+﻿/*@!Encoding:65001*/
+// BatteryProtection.cin
+
+// if sv_Regen_Enable == false
+variables
+{
+  int prevStatus = 1;
+  byte warningStatus = 0x00;
+  message M012_Cluster_Display tmp_M012;
+}
+
+on sysvar sysvar::HPC::sv_Regen_Enable
+{
+  int nowStatus;
+  nowStatus = @HPC::sv_Regen_Enable;
+  
+  if(prevStatus == 1 && nowStatus == 0)
+  {
+    warningStatus |= (1 << 7);
+    tmp_M012.Warning_Status = warningStatus;
+    
+    output(tmp_M012);
+    write("Battery Protection ON");
+  }
+  
+  if(prevStatus == 0 && nowStatus == 1)
+  {
+    warningStatus &= ~(1 << 7);
+    tmp_M012.Warning_Status = warningStatus;
+    
+    output(tmp_M012);
+  }
+  prevStatus = nowStatus;
+}
+
