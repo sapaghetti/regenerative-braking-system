@@ -615,7 +615,7 @@ if __name__ == "__main__":
     try:
         print(f"[MQTT] MQTT 브로커({MQTT_BROKER_HOST}:{MQTT_BROKER_PORT}) 연결 시도 중...")
         mqtt_client_instance.tls_set(
-            ca_certs="C:\\vscodestudy\\OTA\\isrgrootx1.pem", # <--- 사용자 로컬 PC의 Let's Encrypt CA 인증서 경로!
+            ca_certs="C:\\vscodestudy\\OTA\\OTA_Client\\certs\\isrgrootx1.pem", # <--- 사용자 로컬 PC의 Let's Encrypt CA 인증서 경로!
             #ca_certs="C:\\vscodestudy\\OTA\\client_ca_chain.pem",
             certfile=None, # 상호 TLS를 사용하지 않는다면 None
             keyfile=None,  # 상호 TLS를 사용하지 않는다면 None
