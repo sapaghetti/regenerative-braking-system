@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="ZCU_Rear" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Current" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Motor_Torque" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SoC" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" minValue="0" maxValue="100" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Target_Torque" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Voltage" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+    </namespace>
+  </namespace>
+</systemvariables>

@@ -1,0 +1,27 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  
+}
+
+variables
+{
+  Timer bms_msg_Timer;
+  const dword BMS_MSG_TIMEOUT = 1;
+}
+
+on start
+{
+  settimer(bms_msg_Timer, BMS_MSG_TIMEOUT);
+}
+
+on timer bms_msg_Timer
+{
+  message L007_BMS_Detail_Status bms_msg;
+  bms_msg.Battery_SoC = @BMS::SoC;
+  bms_msg.Battery_Current = @BMS::Current;
+  bms_msg.Battery_Voltage = @BMS::Voltage;
+  output(bms_msg);
+  cancelTimer(bms_msg_Timer);
+  settimer(bms_msg_Timer, BMS_MSG_TIMEOUT);
+}
