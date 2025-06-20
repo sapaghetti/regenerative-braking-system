@@ -370,8 +370,8 @@ MATLAB_INCLUDES += -I$(CANOE_SRC)
 
 # Additional file include paths
 
-MATLAB_INCLUDES +=-I"C:\Users\USER\OneDrive\Desktop\Proj_3\can\CANoe\Simulink"
-MATLAB_INCLUDES +=-I"C:\Users\USER\OneDrive\Desktop\Proj_3\can\CANoe\Simulink\MCU_cn_mingw_rtw"
+MATLAB_INCLUDES +=-I"C:\Users\USER\OneDrive\Desktop\Proj3\can\CANoe\Simulink"
+MATLAB_INCLUDES +=-I"C:\Users\USER\OneDrive\Desktop\Proj3\can\CANoe\Simulink\MCU_cn_mingw_rtw"
 MATLAB_INCLUDES +=-I"$(MATLAB_ROOT)\extern\include"
 MATLAB_INCLUDES +=-I"$(MATLAB_ROOT)\simulink\include"
 MATLAB_INCLUDES +=-I"$(MATLAB_ROOT)\rtw\c\src"

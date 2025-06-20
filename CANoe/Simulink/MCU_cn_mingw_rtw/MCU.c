@@ -6,9 +6,9 @@
  *
  * Code generation for model "MCU".
  *
- * Model version              : 14.50
+ * Model version              : 14.52
  * Simulink Coder version : 24.2 (R2024b) 21-Jun-2024
- * C source code generated on : Thu Jun 19 17:49:37 2025
+ * C source code generated on : Fri Jun 20 13:50:42 2025
  *
  * Target selection: cn_mingw.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -71,72 +71,72 @@ void MCU_Subsystem2(real_T rtu_In1, B_Subsystem2_MCU_T *localB)
 
 /*
  * System initialize for atomic system:
- *    '<S15>/Custom Relay'
- *    '<S15>/Custom Relay1'
- *    '<S15>/Custom Relay2'
+ *    '<S16>/Custom Relay'
+ *    '<S16>/Custom Relay1'
+ *    '<S16>/Custom Relay2'
  */
 void MCU_CustomRelay_Init(DW_CustomRelay_MCU_T *localDW, P_CustomRelay_MCU_T
   *localP)
 {
-  /* InitializeConditions for Delay: '<S44>/Delay' */
+  /* InitializeConditions for Delay: '<S45>/Delay' */
   localDW->Delay_DSTATE = localP->Delay_InitialCondition;
 }
 
 /*
  * Outputs for atomic system:
- *    '<S15>/Custom Relay'
- *    '<S15>/Custom Relay1'
- *    '<S15>/Custom Relay2'
+ *    '<S16>/Custom Relay'
+ *    '<S16>/Custom Relay1'
+ *    '<S16>/Custom Relay2'
  */
 void MCU_CustomRelay(real32_T rtu_Signal, real_T rtu_TH, B_CustomRelay_MCU_T
                      *localB, DW_CustomRelay_MCU_T *localDW, P_CustomRelay_MCU_T
                      *localP)
 {
-  /* MultiPortSwitch: '<S44>/Index Vector' incorporates:
-   *  Constant: '<S44>/offset'
-   *  Constant: '<S44>/rev'
-   *  Product: '<S44>/Product'
-   *  RelationalOperator: '<S44>/Relational Operator'
-   *  RelationalOperator: '<S44>/Relational Operator1'
-   *  Sum: '<S44>/Add'
+  /* MultiPortSwitch: '<S45>/Index Vector' incorporates:
+   *  Constant: '<S45>/offset'
+   *  Constant: '<S45>/rev'
+   *  Product: '<S45>/Product'
+   *  RelationalOperator: '<S45>/Relational Operator'
+   *  RelationalOperator: '<S45>/Relational Operator1'
+   *  Sum: '<S45>/Add'
    */
   switch ((int32_T)((localP->offset_Value - (real_T)(rtu_TH >= rtu_Signal)) +
                     (real_T)(rtu_Signal >= rtu_TH * localP->rev_Value))) {
    case 0:
-    /* MultiPortSwitch: '<S44>/Index Vector' incorporates:
-     *  Constant: '<S44>/OFF'
+    /* MultiPortSwitch: '<S45>/Index Vector' incorporates:
+     *  Constant: '<S45>/OFF'
      */
     localB->IndexVector = localP->OFF_Value;
     break;
 
    case 1:
-    /* MultiPortSwitch: '<S44>/Index Vector' incorporates:
-     *  Delay: '<S44>/Delay'
+    /* MultiPortSwitch: '<S45>/Index Vector' incorporates:
+     *  Delay: '<S45>/Delay'
      */
     localB->IndexVector = localDW->Delay_DSTATE;
     break;
 
    default:
-    /* MultiPortSwitch: '<S44>/Index Vector' incorporates:
-     *  Constant: '<S44>/ON'
+    /* MultiPortSwitch: '<S45>/Index Vector' incorporates:
+     *  Constant: '<S45>/ON'
      */
     localB->IndexVector = localP->ON_Value;
     break;
   }
 
-  /* End of MultiPortSwitch: '<S44>/Index Vector' */
+  /* End of MultiPortSwitch: '<S45>/Index Vector' */
 }
 
 /*
  * Update for atomic system:
- *    '<S15>/Custom Relay'
- *    '<S15>/Custom Relay1'
- *    '<S15>/Custom Relay2'
+ *    '<S16>/Custom Relay'
+ *    '<S16>/Custom Relay1'
+ *    '<S16>/Custom Relay2'
  */
 void MCU_CustomRelay_Update(B_CustomRelay_MCU_T *localB, DW_CustomRelay_MCU_T
   *localDW)
 {
-  /* Update for Delay: '<S44>/Delay' */
+  /* Update for Delay: '<S45>/Delay' */
   localDW->Delay_DSTATE = localB->IndexVector;
 }
 
@@ -249,87 +249,87 @@ static void MCU_output(void)
   }
 
   for (i = 0; i < 6; i++) {
-    /* Constant: '<S43>/Constant' */
+    /* Constant: '<S44>/Constant' */
     MCU_B.Constant[i] = MCU_P.Constant_Value_o[i];
   }
 
-  /* Saturate: '<S22>/Saturation' incorporates:
-   *  UnitDelay: '<S22>/Unit Delay'
+  /* Saturate: '<S23>/Saturation' incorporates:
+   *  UnitDelay: '<S23>/Unit Delay'
    */
   if (MCU_DW.UnitDelay_DSTATE > MCU_P.Saturation_UpperSat) {
-    /* Saturate: '<S22>/Saturation' */
+    /* Saturate: '<S23>/Saturation' */
     MCU_B.VoltageV = MCU_P.Saturation_UpperSat;
   } else if (MCU_DW.UnitDelay_DSTATE < MCU_P.Saturation_LowerSat) {
-    /* Saturate: '<S22>/Saturation' */
+    /* Saturate: '<S23>/Saturation' */
     MCU_B.VoltageV = MCU_P.Saturation_LowerSat;
   } else {
-    /* Saturate: '<S22>/Saturation' */
+    /* Saturate: '<S23>/Saturation' */
     MCU_B.VoltageV = MCU_DW.UnitDelay_DSTATE;
   }
 
-  /* End of Saturate: '<S22>/Saturation' */
+  /* End of Saturate: '<S23>/Saturation' */
 
-  /* Gain: '<S35>/Tustin: Ts//2 BE : Ts' incorporates:
-   *  Constant: '<S31>/I'
-   *  Gain: '<S31>/-R//L'
-   *  Product: '<S35>/Product4'
+  /* Gain: '<S36>/Tustin: Ts//2 BE : Ts' incorporates:
+   *  Constant: '<S32>/I'
+   *  Gain: '<S32>/-R//L'
+   *  Product: '<S36>/Product4'
    */
   rtb_Product4_0 = MCU_P.RL_Gain * MCU_P.I_Value[0] * MCU_P.TustinTs2BETs_Gain;
   rtb_Product4_idx_0 = rtb_Product4_0;
 
-  /* Sum: '<S35>/Sum1' incorporates:
-   *  Constant: '<S35>/u5'
-   *  Product: '<S35>/Product4'
+  /* Sum: '<S36>/Sum1' incorporates:
+   *  Constant: '<S36>/u5'
+   *  Product: '<S36>/Product4'
    */
   tmp_0[0] = MCU_P.u5_Value[0] - rtb_Product4_0;
 
-  /* Gain: '<S35>/Tustin: Ts//2 BE : Ts' incorporates:
-   *  Constant: '<S31>/I'
-   *  Gain: '<S31>/-R//L'
-   *  Product: '<S35>/Product4'
+  /* Gain: '<S36>/Tustin: Ts//2 BE : Ts' incorporates:
+   *  Constant: '<S32>/I'
+   *  Gain: '<S32>/-R//L'
+   *  Product: '<S36>/Product4'
    */
   rtb_Product4_0 = MCU_P.RL_Gain * MCU_P.I_Value[1] * MCU_P.TustinTs2BETs_Gain;
   rtb_Product4_idx_1 = rtb_Product4_0;
 
-  /* Sum: '<S35>/Sum1' incorporates:
-   *  Constant: '<S35>/u5'
-   *  Product: '<S35>/Product4'
+  /* Sum: '<S36>/Sum1' incorporates:
+   *  Constant: '<S36>/u5'
+   *  Product: '<S36>/Product4'
    */
   tmp_0[1] = MCU_P.u5_Value[1] - rtb_Product4_0;
 
-  /* Gain: '<S35>/Tustin: Ts//2 BE : Ts' incorporates:
-   *  Constant: '<S31>/I'
-   *  Gain: '<S31>/-R//L'
-   *  Product: '<S35>/Product4'
+  /* Gain: '<S36>/Tustin: Ts//2 BE : Ts' incorporates:
+   *  Constant: '<S32>/I'
+   *  Gain: '<S32>/-R//L'
+   *  Product: '<S36>/Product4'
    */
   rtb_Product4_0 = MCU_P.RL_Gain * MCU_P.I_Value[2] * MCU_P.TustinTs2BETs_Gain;
   rtb_Product4_idx_2 = rtb_Product4_0;
 
-  /* Sum: '<S35>/Sum1' incorporates:
-   *  Constant: '<S35>/u5'
-   *  Product: '<S35>/Product4'
+  /* Sum: '<S36>/Sum1' incorporates:
+   *  Constant: '<S36>/u5'
+   *  Product: '<S36>/Product4'
    */
   tmp_0[2] = MCU_P.u5_Value[2] - rtb_Product4_0;
 
-  /* Gain: '<S35>/Tustin: Ts//2 BE : Ts' incorporates:
-   *  Constant: '<S31>/I'
-   *  Gain: '<S31>/-R//L'
-   *  Product: '<S35>/Product4'
+  /* Gain: '<S36>/Tustin: Ts//2 BE : Ts' incorporates:
+   *  Constant: '<S32>/I'
+   *  Gain: '<S32>/-R//L'
+   *  Product: '<S36>/Product4'
    */
   rtb_Product4_0 = MCU_P.RL_Gain * MCU_P.I_Value[3] * MCU_P.TustinTs2BETs_Gain;
 
-  /* Sum: '<S35>/Sum1' incorporates:
-   *  Constant: '<S35>/u5'
-   *  Product: '<S35>/Product4'
+  /* Sum: '<S36>/Sum1' incorporates:
+   *  Constant: '<S36>/u5'
+   *  Product: '<S36>/Product4'
    */
   tmp_0[3] = MCU_P.u5_Value[3] - rtb_Product4_0;
 
-  /* Product: '<S35>/inversion' */
+  /* Product: '<S36>/inversion' */
   rt_invd2x2_snf(tmp_0, rtb_inversion);
 
-  /* Product: '<S35>/Product2' incorporates:
-   *  Constant: '<S31>/I'
-   *  Product: '<S35>/inversion'
+  /* Product: '<S36>/Product2' incorporates:
+   *  Constant: '<S32>/I'
+   *  Product: '<S36>/inversion'
    */
   rtb_Gain_m = MCU_P.I_Value[2];
   rtb_Gain4 = MCU_P.I_Value[0];
@@ -351,32 +351,32 @@ static void MCU_output(void)
     tmp_0[first2columnsofD_tmp + 1] = tmp_2[1];
   }
 
-  /* End of Product: '<S35>/Product2' */
+  /* End of Product: '<S36>/Product2' */
 
-  /* Gain: '<S35>/wbase3' */
+  /* Gain: '<S36>/wbase3' */
   tmp_5 = _mm_set1_pd(MCU_P.wbase3_Gain);
 
-  /* Gain: '<S35>/wbase3' incorporates:
-   *  Sum: '<S35>/Sum5'
+  /* Gain: '<S36>/wbase3' incorporates:
+   *  Sum: '<S36>/Sum5'
    */
   tmp_4 = _mm_mul_pd(tmp_5, _mm_loadu_pd(&tmp_0[0]));
   _mm_storeu_pd(&rtb_Sum5[0], tmp_4);
   tmp_4 = _mm_mul_pd(tmp_5, _mm_loadu_pd(&tmp_0[2]));
   _mm_storeu_pd(&rtb_Sum5[2], tmp_4);
 
-  /* Gain: '<S31>/1//(3*L)' incorporates:
-   *  Constant: '<S31>/M(2,5)'
+  /* Gain: '<S32>/1//(3*L)' incorporates:
+   *  Constant: '<S32>/M(2,5)'
    */
   for (i = 0; i <= 8; i += 2) {
     _mm_storeu_pd(&rtb_u3L[i], _mm_mul_pd(_mm_set1_pd(MCU_P.u3L_Gain),
       _mm_loadu_pd(&MCU_P.M25_Value[i])));
   }
 
-  /* End of Gain: '<S31>/1//(3*L)' */
+  /* End of Gain: '<S32>/1//(3*L)' */
 
-  /* Product: '<S35>/Product3' incorporates:
-   *  Gain: '<S31>/1//(3*L)'
-   *  Sum: '<S35>/Sum5'
+  /* Product: '<S36>/Product3' incorporates:
+   *  Gain: '<S32>/1//(3*L)'
+   *  Sum: '<S36>/Sum5'
    */
   rtb_Gain_m = rtb_Sum5[2];
   rtb_Gain4 = rtb_Sum5[0];
@@ -405,10 +405,10 @@ static void MCU_output(void)
       _mm_set_pd(rtb_Gain4_k, rtb_Gain4))));
   }
 
-  /* End of Product: '<S35>/Product3' */
+  /* End of Product: '<S36>/Product3' */
 
-  /* Gain: '<S35>/Tustin: 1//2 BE : 1.0' incorporates:
-   *  Product: '<S35>/Product1'
+  /* Gain: '<S36>/Tustin: 1//2 BE : 1.0' incorporates:
+   *  Product: '<S36>/Product1'
    */
   for (i = 0; i <= 8; i += 2) {
     tmp_4 = _mm_loadu_pd(&rtb_Sum5_0[i]);
@@ -416,16 +416,16 @@ static void MCU_output(void)
       (MCU_P.Tustin12BE10_Gain), tmp_4));
   }
 
-  /* End of Gain: '<S35>/Tustin: 1//2 BE : 1.0' */
+  /* End of Gain: '<S36>/Tustin: 1//2 BE : 1.0' */
 
-  /* Fcn: '<S38>/Fcn' incorporates:
-   *  DiscreteIntegrator: '<S33>/Discrete-Time Integrator1'
-   *  Trigonometry: '<S41>/Trigonometric Function1'
+  /* Fcn: '<S39>/Fcn' incorporates:
+   *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator1'
+   *  Trigonometry: '<S42>/Trigonometric Function1'
    */
   rtb_Gain_m = cos(MCU_DW.DiscreteTimeIntegrator1_DSTATE);
 
-  /* Saturate: '<S38>/Saturation' incorporates:
-   *  Fcn: '<S38>/Fcn'
+  /* Saturate: '<S39>/Saturation' incorporates:
+   *  Fcn: '<S39>/Fcn'
    */
   if (rtb_Gain_m > MCU_P.Saturation_UpperSat_n) {
     rtb_inversion_0 = MCU_P.Saturation_UpperSat_n;
@@ -435,84 +435,84 @@ static void MCU_output(void)
     rtb_inversion_0 = rtb_Gain_m;
   }
 
-  /* Gain: '<S38>/Gain4' incorporates:
-   *  Saturate: '<S38>/Saturation'
+  /* Gain: '<S39>/Gain4' incorporates:
+   *  Saturate: '<S39>/Saturation'
    */
   rtb_Gain4 = MCU_P.Gain4_Gain * rtb_inversion_0;
 
-  /* Gain: '<S33>/Gain' incorporates:
-   *  DiscreteIntegrator: '<S33>/Discrete-Time Integrator'
+  /* Gain: '<S34>/Gain' incorporates:
+   *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator'
    */
   MCU_B.Gain = MCU_P.Gain_Gain * MCU_DW.DiscreteTimeIntegrator_DSTATE;
 
-  /* Product: '<S38>/Product1' */
+  /* Product: '<S39>/Product1' */
   rtb_Product1_k = rtb_Gain4 * MCU_B.Gain;
 
-  /* Fcn: '<S39>/Fcn' incorporates:
-   *  DiscreteIntegrator: '<S33>/Discrete-Time Integrator1'
+  /* Fcn: '<S40>/Fcn' incorporates:
+   *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator1'
    */
   rtb_Gain4_g = cos(MCU_DW.DiscreteTimeIntegrator1_DSTATE - 2.0943951023931953);
 
-  /* Saturate: '<S39>/Saturation' */
+  /* Saturate: '<S40>/Saturation' */
   if (rtb_Gain4_g > MCU_P.Saturation_UpperSat_i) {
     rtb_Gain4_g = MCU_P.Saturation_UpperSat_i;
   } else if (rtb_Gain4_g < MCU_P.Saturation_LowerSat_d) {
     rtb_Gain4_g = MCU_P.Saturation_LowerSat_d;
   }
 
-  /* Gain: '<S39>/Gain4' incorporates:
-   *  Saturate: '<S39>/Saturation'
+  /* Gain: '<S40>/Gain4' incorporates:
+   *  Saturate: '<S40>/Saturation'
    */
   rtb_Gain4_k = MCU_P.Gain4_Gain_l * rtb_Gain4_g;
 
-  /* Product: '<S39>/Product1' */
+  /* Product: '<S40>/Product1' */
   rtb_Integrator = rtb_Gain4_k * MCU_B.Gain;
 
-  /* Fcn: '<S40>/Fcn' incorporates:
-   *  DiscreteIntegrator: '<S33>/Discrete-Time Integrator1'
+  /* Fcn: '<S41>/Fcn' incorporates:
+   *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator1'
    */
   rtb_Gain4_g = cos(MCU_DW.DiscreteTimeIntegrator1_DSTATE + 2.0943951023931953);
 
-  /* Saturate: '<S40>/Saturation' */
+  /* Saturate: '<S41>/Saturation' */
   if (rtb_Gain4_g > MCU_P.Saturation_UpperSat_f) {
     rtb_Gain4_g = MCU_P.Saturation_UpperSat_f;
   } else if (rtb_Gain4_g < MCU_P.Saturation_LowerSat_f) {
     rtb_Gain4_g = MCU_P.Saturation_LowerSat_f;
   }
 
-  /* Gain: '<S40>/Gain4' incorporates:
-   *  Saturate: '<S40>/Saturation'
+  /* Gain: '<S41>/Gain4' incorporates:
+   *  Saturate: '<S41>/Saturation'
    */
   rtb_Gain4_g *= MCU_P.Gain4_Gain_j;
 
-  /* Product: '<S40>/Product1' */
+  /* Product: '<S41>/Product1' */
   rtb_CastToDouble = rtb_Gain4_g * MCU_B.Gain;
 
-  /* UnitDelay: '<S37>/Unit Delay' incorporates:
-   *  Product: '<S37>/Product2'
+  /* UnitDelay: '<S38>/Unit Delay' incorporates:
+   *  Product: '<S38>/Product2'
    */
   rtb_AdX_idx_1 = MCU_DW.UnitDelay_DSTATE_n[1];
   rtb_CoulombCounter = MCU_DW.UnitDelay_DSTATE_n[0];
   for (i = 0; i < 2; i++) {
-    /* Sum: '<S37>/Add2' incorporates:
-     *  Product: '<S35>/Product1'
-     *  Product: '<S37>/Product2'
-     *  Product: '<S37>/Product3'
-     *  Selector: '<S31>/last 3 columns of D'
-     *  SignalConversion generated from: '<S37>/Product3'
-     *  Sum: '<S35>/Sum5'
-     *  UnitDelay: '<S37>/Unit Delay'
+    /* Sum: '<S38>/Add2' incorporates:
+     *  Product: '<S36>/Product1'
+     *  Product: '<S38>/Product2'
+     *  Product: '<S38>/Product3'
+     *  Selector: '<S32>/last 3 columns of D'
+     *  SignalConversion generated from: '<S38>/Product3'
+     *  Sum: '<S36>/Sum5'
+     *  UnitDelay: '<S38>/Unit Delay'
      */
     MCU_B.Add2[i] = ((rtb_Product1_g[i + 4] * rtb_Product1_k + rtb_Product1_g[i
                       + 6] * rtb_Integrator) + rtb_Product1_g[i + 8] *
                      rtb_CastToDouble) + (rtb_Sum5[i + 2] * rtb_AdX_idx_1 +
       rtb_Sum5[i] * rtb_CoulombCounter);
 
-    /* Selector: '<S31>/first 2 columns of D' */
+    /* Selector: '<S32>/first 2 columns of D' */
     first2columnsofD_tmp = i << 1;
 
-    /* Selector: '<S31>/first 2 columns of D' incorporates:
-     *  Product: '<S35>/Product1'
+    /* Selector: '<S32>/first 2 columns of D' incorporates:
+     *  Product: '<S36>/Product1'
      */
     MCU_B.first2columnsofD[first2columnsofD_tmp] =
       rtb_Product1_g[first2columnsofD_tmp];
@@ -520,36 +520,36 @@ static void MCU_output(void)
       rtb_Product1_g[first2columnsofD_tmp + 1];
   }
 
-  /* Sum: '<S47>/Sum' incorporates:
-   *  Selector: '<S31>/first 2 columns of D'
-   *  UnitDelay: '<S47>/Unit Delay'
+  /* Sum: '<S48>/Sum' incorporates:
+   *  Selector: '<S32>/first 2 columns of D'
+   *  UnitDelay: '<S48>/Unit Delay'
    */
   tmp_4 = _mm_sub_pd(_mm_loadu_pd(&MCU_B.first2columnsofD[0]), _mm_loadu_pd
                      (&MCU_DW.UnitDelay_DSTATE_g[0]));
 
-  /* Sum: '<S47>/Sum' */
+  /* Sum: '<S48>/Sum' */
   _mm_storeu_pd(&MCU_B.Sum[0], tmp_4);
 
-  /* Sum: '<S47>/Sum' incorporates:
-   *  Selector: '<S31>/first 2 columns of D'
-   *  UnitDelay: '<S47>/Unit Delay'
+  /* Sum: '<S48>/Sum' incorporates:
+   *  Selector: '<S32>/first 2 columns of D'
+   *  UnitDelay: '<S48>/Unit Delay'
    */
   tmp_4 = _mm_sub_pd(_mm_loadu_pd(&MCU_B.first2columnsofD[2]), _mm_loadu_pd
                      (&MCU_DW.UnitDelay_DSTATE_g[2]));
 
-  /* Sum: '<S47>/Sum' */
+  /* Sum: '<S48>/Sum' */
   _mm_storeu_pd(&MCU_B.Sum[2], tmp_4);
 
-  /* S-Function (sfun_spssw_discc_DSS): '<S47>/State-Space' */
+  /* S-Function (sfun_spssw_discc_DSS): '<S48>/State-Space' */
 
-  /* Level2 S-Function Block: '<S47>/State-Space' (sfun_spssw_discc_DSS) */
+  /* Level2 S-Function Block: '<S48>/State-Space' (sfun_spssw_discc_DSS) */
   {
     SimStruct *rts = MCU_M->childSfunctions[1];
     sfcnOutputs(rts,0);
   }
 
   /* Gain: '<Root>/Gain2' incorporates:
-   *  DiscreteIntegrator: '<S33>/Discrete-Time Integrator'
+   *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator'
    */
   rtb_Gain2 = MCU_P.Gain2_Gain * MCU_DW.DiscreteTimeIntegrator_DSTATE;
 
@@ -578,43 +578,43 @@ static void MCU_output(void)
 
     /* End of Outputs for SubSystem: '<Root>/Subsystem' */
 
-    /* S-Function (sysvarout): '<S11>/S-Function' */
+    /* S-Function (sysvarout): '<S12>/S-Function' */
     if (cnSetSystemVariableValues(MCU_DW.SFunction_SysVar, 1, &MCU_B.In1, 4) !=
         0) {
       rtmSetErrorStatus(MCU_M, cnGetErrorMessage());
     }
   }
 
-  /* Gain: '<S41>/rad2deg' incorporates:
-   *  DiscreteIntegrator: '<S33>/Discrete-Time Integrator1'
-   *  Trigonometry: '<S41>/Trigonometric Function'
-   *  Trigonometry: '<S41>/Trigonometric Function2'
+  /* Gain: '<S42>/rad2deg' incorporates:
+   *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator1'
+   *  Trigonometry: '<S42>/Trigonometric Function'
+   *  Trigonometry: '<S42>/Trigonometric Function2'
    */
   rtb_Gain_m = MCU_P.rad2deg_Gain * rt_atan2d_snf(sin
     (MCU_DW.DiscreteTimeIntegrator1_DSTATE), rtb_Gain_m);
 
   /* DataTypeConversion: '<Root>/Data Type Conversion10' incorporates:
-   *  Constant: '<S36>/Constant4'
-   *  Constant: '<S36>/Constant5'
-   *  Logic: '<S36>/Logical Operator2'
-   *  RelationalOperator: '<S36>/Relational Operator5'
-   *  RelationalOperator: '<S36>/Relational Operator6'
+   *  Constant: '<S37>/Constant4'
+   *  Constant: '<S37>/Constant5'
+   *  Logic: '<S37>/Logical Operator2'
+   *  RelationalOperator: '<S37>/Relational Operator5'
+   *  RelationalOperator: '<S37>/Relational Operator6'
    */
   rtb_Halleffectsignalh_c = ((rtb_Gain_m >= MCU_P.Constant4_Value) &&
     (rtb_Gain_m <= MCU_P.Constant5_Value));
 
-  /* SignalConversion generated from: '<S37>/Product1' */
+  /* SignalConversion generated from: '<S38>/Product1' */
   rtb_TmpSignalConversionAtProduc[0] = MCU_B.StateSpace_o1[7];
   rtb_TmpSignalConversionAtProduc[1] = MCU_B.StateSpace_o1[8];
   rtb_TmpSignalConversionAtProduc[2] = rtb_Product1_k;
   rtb_TmpSignalConversionAtProduc[3] = rtb_Integrator;
   rtb_TmpSignalConversionAtProduc[4] = rtb_CastToDouble;
 
-  /* Sum: '<S37>/Add1' incorporates:
-   *  Gain: '<S31>/1//(3*L)'
-   *  Gain: '<S37>/BE=1 Tustin=1//2'
-   *  Product: '<S37>/Product8'
-   *  UnitDelay: '<S37>/Unit Delay'
+  /* Sum: '<S38>/Add1' incorporates:
+   *  Gain: '<S32>/1//(3*L)'
+   *  Gain: '<S38>/BE=1 Tustin=1//2'
+   *  Product: '<S38>/Product8'
+   *  UnitDelay: '<S38>/Unit Delay'
    */
   for (i = 0; i < 2; i++) {
     rtb_inversion_0 = 0.0;
@@ -628,22 +628,22 @@ static void MCU_output(void)
     tmp_1[i] = MCU_DW.UnitDelay_DSTATE_n[i] + rtb_inversion_0;
   }
 
-  /* End of Sum: '<S37>/Add1' */
+  /* End of Sum: '<S38>/Add1' */
 
-  /* Product: '<S37>/Product6' incorporates:
-   *  Gain: '<S37>/Ts'
-   *  Product: '<S35>/inversion'
+  /* Product: '<S38>/Product6' incorporates:
+   *  Gain: '<S38>/Ts'
+   *  Product: '<S36>/inversion'
    */
   tmp_4 = _mm_mul_pd(_mm_add_pd(_mm_mul_pd(_mm_set_pd(tmp_1[0], rtb_inversion[0]),
     _mm_set_pd(rtb_inversion[1], tmp_1[0])), _mm_mul_pd(_mm_set1_pd(tmp_1[1]),
     _mm_loadu_pd(&rtb_inversion[2]))), _mm_set1_pd(MCU_P.Ts_Gain));
   _mm_storeu_pd(&tmp_2[0], tmp_4);
 
-  /* Gain: '<S37>/Ts' */
+  /* Gain: '<S38>/Ts' */
   rtb_Integrator = tmp_2[0];
   rtb_AdX_idx_1 = tmp_2[1];
 
-  /* Sum: '<S31>/Add4' */
+  /* Sum: '<S32>/Add4' */
   rtb_CoulombCounter = (0.0 - tmp_2[0]) - tmp_2[1];
 
   /* S-Function (sysvarin): '<S9>/S-Function' */
@@ -653,15 +653,15 @@ static void MCU_output(void)
   }
 
   /* Outputs for Atomic SubSystem: '<Root>/speed controller' */
-  /* Sum: '<S17>/Add3' */
+  /* Sum: '<S18>/Add3' */
   rtb_CastToDouble = MCU_B.SFunction_j - rtb_Gain2;
 
-  /* Gain: '<S86>/Integral Gain' */
+  /* Gain: '<S87>/Integral Gain' */
   MCU_B.IntegralGain = MCU_P.DiscretePIDController_I * rtb_CastToDouble;
 
-  /* Sum: '<S98>/Sum' incorporates:
-   *  DiscreteIntegrator: '<S89>/Integrator'
-   *  Gain: '<S94>/Proportional Gain'
+  /* Sum: '<S99>/Sum' incorporates:
+   *  DiscreteIntegrator: '<S90>/Integrator'
+   *  Gain: '<S95>/Proportional Gain'
    */
   rtb_Product1_k = MCU_P.DiscretePIDController_P * rtb_CastToDouble +
     MCU_DW.Integrator_DSTATE;
@@ -669,32 +669,32 @@ static void MCU_output(void)
   /* End of Outputs for SubSystem: '<Root>/speed controller' */
 
   /* DataTypeConversion: '<Root>/Data Type Conversion8' incorporates:
-   *  Constant: '<S36>/Constant'
-   *  Constant: '<S36>/Constant1'
-   *  Logic: '<S36>/Logical Operator'
-   *  RelationalOperator: '<S36>/Relational Operator1'
-   *  RelationalOperator: '<S36>/Relational Operator2'
+   *  Constant: '<S37>/Constant'
+   *  Constant: '<S37>/Constant1'
+   *  Logic: '<S37>/Logical Operator'
+   *  RelationalOperator: '<S37>/Relational Operator1'
+   *  RelationalOperator: '<S37>/Relational Operator2'
    */
   rtb_Halleffectsignalh_a = ((rtb_Gain_m >= MCU_P.Constant_Value_l) &&
     (rtb_Gain_m <= MCU_P.Constant1_Value));
 
   /* DataTypeConversion: '<Root>/Data Type Conversion9' incorporates:
-   *  Constant: '<S36>/Constant2'
-   *  Constant: '<S36>/Constant3'
-   *  Logic: '<S36>/Logical Operator1'
-   *  RelationalOperator: '<S36>/Relational Operator3'
-   *  RelationalOperator: '<S36>/Relational Operator4'
+   *  Constant: '<S37>/Constant2'
+   *  Constant: '<S37>/Constant3'
+   *  Logic: '<S37>/Logical Operator1'
+   *  RelationalOperator: '<S37>/Relational Operator3'
+   *  RelationalOperator: '<S37>/Relational Operator4'
    */
   rtb_Halleffectsignalh_b = ((rtb_Gain_m >= MCU_P.Constant2_Value) ||
     (rtb_Gain_m <= MCU_P.Constant3_Value));
 
   /* Outputs for Atomic SubSystem: '<Root>/Decoder' */
   /* Logic: '<S2>/NOT1' incorporates:
-   *  Constant: '<S36>/Constant2'
-   *  Constant: '<S36>/Constant3'
-   *  Logic: '<S36>/Logical Operator1'
-   *  RelationalOperator: '<S36>/Relational Operator3'
-   *  RelationalOperator: '<S36>/Relational Operator4'
+   *  Constant: '<S37>/Constant2'
+   *  Constant: '<S37>/Constant3'
+   *  Logic: '<S37>/Logical Operator1'
+   *  RelationalOperator: '<S37>/Relational Operator3'
+   *  RelationalOperator: '<S37>/Relational Operator4'
    */
   rtb_LogicalOperator2_d = ((!(rtb_Gain_m >= MCU_P.Constant2_Value)) &&
     (!(rtb_Gain_m <= MCU_P.Constant3_Value)));
@@ -703,25 +703,30 @@ static void MCU_output(void)
   rtb_LogicalOperator6 = !rtb_Halleffectsignalh_c;
 
   /* Logic: '<S2>/NOT' incorporates:
-   *  Constant: '<S36>/Constant'
-   *  Constant: '<S36>/Constant1'
-   *  Logic: '<S36>/Logical Operator'
-   *  RelationalOperator: '<S36>/Relational Operator1'
-   *  RelationalOperator: '<S36>/Relational Operator2'
+   *  Constant: '<S37>/Constant'
+   *  Constant: '<S37>/Constant1'
+   *  Logic: '<S37>/Logical Operator'
+   *  RelationalOperator: '<S37>/Relational Operator1'
+   *  RelationalOperator: '<S37>/Relational Operator2'
    */
   rtb_LogicalOperator1 = ((!(rtb_Gain_m >= MCU_P.Constant_Value_l)) ||
     (!(rtb_Gain_m <= MCU_P.Constant1_Value)));
 
   /* End of Outputs for SubSystem: '<Root>/Decoder' */
 
+  /* S-Function (sysvarin): '<S10>/S-Function' */
+  if (cnGetSystemVariableValues(MCU_DW.SFunction_SysVar_a, 1, &MCU_B.SFunction_m,
+       0) != 0) {
+    rtmSetErrorStatus(MCU_M, cnGetErrorMessage());
+  }
+
   /* MultiPortSwitch: '<Root>/Index Vector' incorporates:
    *  Constant: '<Root>/AUTO'
-   *  Constant: '<Root>/Regen_Mode'
    *  Constant: '<Root>/Regen_Mode1'
    *  Constant: '<Root>/Regen_Mode2'
    *  Constant: '<Root>/Regen_Mode3'
    */
-  switch ((int32_T)MCU_P.Regen_Mode_Value) {
+  switch ((int32_T)MCU_B.SFunction_m) {
    case 0:
     rtb_Gain_m = MCU_P.AUTO_Value;
     break;
@@ -741,9 +746,9 @@ static void MCU_output(void)
 
   /* End of MultiPortSwitch: '<Root>/Index Vector' */
 
-  /* Product: '<S35>/Product1' incorporates:
-   *  Gain: '<S31>/1//(3*L)'
-   *  Product: '<S35>/inversion'
+  /* Product: '<S36>/Product1' incorporates:
+   *  Gain: '<S32>/1//(3*L)'
+   *  Product: '<S36>/inversion'
    */
   rtb_CastToDouble = rtb_inversion[2];
   rtb_inversion_0 = rtb_inversion[0];
@@ -772,42 +777,42 @@ static void MCU_output(void)
       _mm_set_pd(rtb_inversion_1, rtb_inversion_0))));
   }
 
-  /* End of Product: '<S35>/Product1' */
+  /* End of Product: '<S36>/Product1' */
 
-  /* Product: '<S35>/Product5' incorporates:
-   *  Constant: '<S35>/u1'
-   *  Constant: '<S35>/u5'
-   *  Product: '<S35>/Product4'
-   *  Sum: '<S35>/Sum5'
+  /* Product: '<S36>/Product5' incorporates:
+   *  Constant: '<S36>/u1'
+   *  Constant: '<S36>/u5'
+   *  Product: '<S36>/Product4'
+   *  Sum: '<S36>/Sum5'
    */
   tmp_4 = _mm_set1_pd(MCU_P.u1_Value);
   _mm_storeu_pd(&tmp_2[0], _mm_add_pd(_mm_mul_pd(_mm_set_pd(rtb_Product4_idx_1,
     rtb_Product4_idx_0), tmp_4), _mm_loadu_pd(&MCU_P.u5_Value[0])));
 
-  /* Sum: '<S35>/Sum5' */
+  /* Sum: '<S36>/Sum5' */
   rtb_Product4_idx_0 = tmp_2[0];
   rtb_Product4_idx_1 = tmp_2[1];
 
-  /* Gain: '<S35>/Tustin: Ts//2 BE : Ts' incorporates:
-   *  Constant: '<S35>/u5'
-   *  Product: '<S35>/Product4'
-   *  Product: '<S35>/Product5'
-   *  Sum: '<S35>/Sum5'
+  /* Gain: '<S36>/Tustin: Ts//2 BE : Ts' incorporates:
+   *  Constant: '<S36>/u5'
+   *  Product: '<S36>/Product4'
+   *  Product: '<S36>/Product5'
+   *  Sum: '<S36>/Sum5'
    */
   _mm_storeu_pd(&tmp_2[0], _mm_add_pd(_mm_mul_pd(_mm_set_pd(rtb_Product4_0,
     rtb_Product4_idx_2), tmp_4), _mm_loadu_pd(&MCU_P.u5_Value[2])));
 
-  /* Sum: '<S35>/Sum5' */
+  /* Sum: '<S36>/Sum5' */
   rtb_Product4_0 = tmp_2[0];
   rtb_Product4_idx_2 = tmp_2[1];
   for (i = 0; i < 2; i++) {
-    /* Product: '<S35>/Product4' incorporates:
-     *  Product: '<S35>/inversion'
+    /* Product: '<S36>/Product4' incorporates:
+     *  Product: '<S36>/inversion'
      */
     rtb_CastToDouble = rtb_inversion[i + 2];
     rtb_inversion_0 = rtb_inversion[i];
 
-    /* Product: '<S37>/Product1' */
+    /* Product: '<S38>/Product1' */
     rtb_Gain2 = 0.0;
     for (first2columnsofD_tmp = 0; first2columnsofD_tmp < 5;
          first2columnsofD_tmp++) {
@@ -815,11 +820,11 @@ static void MCU_output(void)
         rtb_TmpSignalConversionAtProduc[first2columnsofD_tmp];
     }
 
-    /* Sum: '<S37>/Add' incorporates:
-     *  Product: '<S35>/Product4'
-     *  Product: '<S37>/Product1'
-     *  Product: '<S37>/Product5'
-     *  UnitDelay: '<S37>/Unit Delay'
+    /* Sum: '<S38>/Add' incorporates:
+     *  Product: '<S36>/Product4'
+     *  Product: '<S38>/Product1'
+     *  Product: '<S38>/Product5'
+     *  UnitDelay: '<S38>/Unit Delay'
      */
     MCU_B.Add[i] = ((rtb_CastToDouble * rtb_Product4_idx_2 + rtb_inversion_0 *
                      rtb_Product4_0) * MCU_DW.UnitDelay_DSTATE_n[1] +
@@ -828,8 +833,8 @@ static void MCU_output(void)
       rtb_Gain2;
   }
 
-  /* Signum: '<S42>/Sign' incorporates:
-   *  DiscreteIntegrator: '<S33>/Discrete-Time Integrator'
+  /* Signum: '<S43>/Sign' incorporates:
+   *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator'
    */
   if (rtIsNaN(MCU_DW.DiscreteTimeIntegrator_DSTATE)) {
     rtb_inversion_0 = (rtNaN);
@@ -839,17 +844,17 @@ static void MCU_output(void)
     rtb_inversion_0 = (MCU_DW.DiscreteTimeIntegrator_DSTATE > 0.0);
   }
 
-  /* Gain: '<S33>/Gain2' incorporates:
+  /* Gain: '<S34>/Gain2' incorporates:
    *  Constant: '<Root>/Constant'
-   *  DiscreteIntegrator: '<S33>/Discrete-Time Integrator'
-   *  Gain: '<S31>/Gain3'
-   *  Gain: '<S42>/Gain'
-   *  Gain: '<S42>/Gain1'
-   *  Product: '<S31>/Product'
-   *  Signum: '<S42>/Sign'
-   *  Sum: '<S31>/Sum2'
-   *  Sum: '<S33>/Sum'
-   *  Sum: '<S42>/Sum'
+   *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator'
+   *  Gain: '<S32>/Gain3'
+   *  Gain: '<S43>/Gain'
+   *  Gain: '<S43>/Gain1'
+   *  Product: '<S32>/Product'
+   *  Signum: '<S43>/Sign'
+   *  Sum: '<S32>/Sum2'
+   *  Sum: '<S34>/Sum'
+   *  Sum: '<S43>/Sum'
    */
   MCU_B.Gain2 = ((((rtb_Integrator * rtb_Gain4 + rtb_AdX_idx_1 * rtb_Gain4_k) +
                    rtb_CoulombCounter * rtb_Gain4_g) * MCU_P.Gain3_Gain -
@@ -858,9 +863,9 @@ static void MCU_output(void)
     MCU_DW.DiscreteTimeIntegrator_DSTATE)) * MCU_P.Gain2_Gain_l;
 
   /* Outputs for Atomic SubSystem: '<Root>/current controller' */
-  /* Outputs for Atomic SubSystem: '<S15>/Custom Relay' */
+  /* Outputs for Atomic SubSystem: '<S16>/Custom Relay' */
   /* Outputs for Atomic SubSystem: '<Root>/Decoder' */
-  /* Sum: '<S15>/Add1' incorporates:
+  /* Sum: '<S16>/Add1' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion3'
    *  DataTypeConversion: '<Root>/Data Type Conversion7'
    *  DataTypeConversion: '<S2>/Data Type Conversion'
@@ -875,10 +880,10 @@ static void MCU_output(void)
     rtb_Halleffectsignalh_b)) - (real32_T)rtb_Integrator, rtb_Gain_m,
                   &MCU_B.CustomRelay, &MCU_DW.CustomRelay, &MCU_P.CustomRelay);
 
-  /* End of Outputs for SubSystem: '<S15>/Custom Relay' */
+  /* End of Outputs for SubSystem: '<S16>/Custom Relay' */
 
-  /* Outputs for Atomic SubSystem: '<S15>/Custom Relay1' */
-  /* Sum: '<S15>/Add2' incorporates:
+  /* Outputs for Atomic SubSystem: '<S16>/Custom Relay1' */
+  /* Sum: '<S16>/Add2' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion3'
    *  DataTypeConversion: '<Root>/Data Type Conversion6'
    *  DataTypeConversion: '<S2>/Data Type Conversion1'
@@ -893,10 +898,10 @@ static void MCU_output(void)
     rtb_Halleffectsignalh_c)) - (real32_T)rtb_AdX_idx_1, rtb_Gain_m,
                   &MCU_B.CustomRelay1, &MCU_DW.CustomRelay1, &MCU_P.CustomRelay1);
 
-  /* End of Outputs for SubSystem: '<S15>/Custom Relay1' */
+  /* End of Outputs for SubSystem: '<S16>/Custom Relay1' */
 
-  /* Outputs for Atomic SubSystem: '<S15>/Custom Relay2' */
-  /* Sum: '<S15>/Add4' incorporates:
+  /* Outputs for Atomic SubSystem: '<S16>/Custom Relay2' */
+  /* Sum: '<S16>/Add4' incorporates:
    *  DataTypeConversion: '<Root>/Data Type Conversion11'
    *  DataTypeConversion: '<Root>/Data Type Conversion3'
    *  DataTypeConversion: '<S2>/Data Type Conversion2'
@@ -911,42 +916,42 @@ static void MCU_output(void)
     rtb_Halleffectsignalh_a)) - (real32_T)rtb_CoulombCounter, rtb_Gain_m,
                   &MCU_B.CustomRelay2, &MCU_DW.CustomRelay2, &MCU_P.CustomRelay2);
 
-  /* End of Outputs for SubSystem: '<S15>/Custom Relay2' */
+  /* End of Outputs for SubSystem: '<S16>/Custom Relay2' */
   /* End of Outputs for SubSystem: '<Root>/Decoder' */
 
-  /* DataTypeConversion: '<S15>/Data Type Conversion1' incorporates:
-   *  DataTypeConversion: '<S15>/Data Type Conversion'
-   *  Logic: '<S15>/Logical Operator'
+  /* DataTypeConversion: '<S16>/Data Type Conversion1' incorporates:
+   *  DataTypeConversion: '<S16>/Data Type Conversion'
+   *  Logic: '<S16>/Logical Operator'
    */
   MCU_B.DataTypeConversion1 = !(MCU_B.CustomRelay.IndexVector != 0.0);
 
-  /* DataTypeConversion: '<S15>/Data Type Conversion3' incorporates:
-   *  DataTypeConversion: '<S15>/Data Type Conversion2'
-   *  Logic: '<S15>/Logical Operator1'
+  /* DataTypeConversion: '<S16>/Data Type Conversion3' incorporates:
+   *  DataTypeConversion: '<S16>/Data Type Conversion2'
+   *  Logic: '<S16>/Logical Operator1'
    */
   MCU_B.DataTypeConversion3 = !(MCU_B.CustomRelay1.IndexVector != 0.0);
 
-  /* DataTypeConversion: '<S15>/Data Type Conversion5' incorporates:
-   *  DataTypeConversion: '<S15>/Data Type Conversion4'
-   *  Logic: '<S15>/Logical Operator2'
+  /* DataTypeConversion: '<S16>/Data Type Conversion5' incorporates:
+   *  DataTypeConversion: '<S16>/Data Type Conversion4'
+   *  Logic: '<S16>/Logical Operator2'
    */
   MCU_B.DataTypeConversion5 = !(MCU_B.CustomRelay2.IndexVector != 0.0);
 
   /* End of Outputs for SubSystem: '<Root>/current controller' */
 
-  /* Gain: '<S19>/do not delete this gain' */
+  /* Gain: '<S20>/do not delete this gain' */
   MCU_B.donotdeletethisgain = MCU_P.donotdeletethisgain_Gain *
     MCU_B.StateSpace_o1[6];
 
-  /* DataTypeConversion: '<S22>/Data Type Conversion2' incorporates:
-   *  Constant: '<S24>/Constant'
-   *  RelationalOperator: '<S24>/Compare'
+  /* DataTypeConversion: '<S23>/Data Type Conversion2' incorporates:
+   *  Constant: '<S25>/Constant'
+   *  RelationalOperator: '<S25>/Compare'
    */
   MCU_B.DataTypeConversion2 = (MCU_B.donotdeletethisgain >
     MCU_P.Constant_Value_g);
 
-  /* DiscreteIntegrator: '<S22>/Coulomb Counter' incorporates:
-   *  Memory: '<S22>/Initial it'
+  /* DiscreteIntegrator: '<S23>/Coulomb Counter' incorporates:
+   *  Memory: '<S23>/Initial it'
    */
   if (MCU_DW.CoulombCounter_IC_LOADING != 0) {
     MCU_DW.CoulombCounter_DSTATE = MCU_DW.Initialit_PreviousInput;
@@ -967,22 +972,22 @@ static void MCU_output(void)
     }
   }
 
-  /* Gain: '<S22>/Gain1' incorporates:
-   *  DiscreteIntegrator: '<S22>/Coulomb Counter'
+  /* Gain: '<S23>/Gain1' incorporates:
+   *  DiscreteIntegrator: '<S23>/Coulomb Counter'
    */
   rtb_Gain4_k = MCU_P.Gain1_Gain * MCU_DW.CoulombCounter_DSTATE;
 
-  /* RelationalOperator: '<S23>/Compare' incorporates:
-   *  Constant: '<S23>/Constant'
+  /* RelationalOperator: '<S24>/Compare' incorporates:
+   *  Constant: '<S24>/Constant'
    */
   rtb_Halleffectsignalh_c = (MCU_B.donotdeletethisgain < MCU_P.Constant_Value);
 
-  /* MATLAB Function: '<S22>/MATLAB Function' incorporates:
-   *  Constant: '<S22>/Constant1'
-   *  Constant: '<S22>/capacity'
+  /* MATLAB Function: '<S23>/MATLAB Function' incorporates:
+   *  Constant: '<S23>/Constant1'
+   *  Constant: '<S23>/capacity'
    */
-  /* MATLAB Function 'Battery/Model/Discrete/MATLAB Function': '<S26>:1' */
-  /* '<S26>:1:3' */
+  /* MATLAB Function 'Battery/Model/Discrete/MATLAB Function': '<S27>:1' */
+  /* '<S27>:1:3' */
   rtb_Gain4_g = 0.9999 * MCU_P.capacity_Value * 0.99999999999999978;
   rtb_Gain4 = fmin(fmax(rtb_Gain4_k, 0.0), rtb_Gain4_g);
   if (rtb_Gain4_g <= rtb_Gain4) {
@@ -996,16 +1001,16 @@ static void MCU_output(void)
     rtb_Gain4_k = rtb_Gain4;
   }
 
-  /* Gain: '<S27>/Gain1' incorporates:
-   *  Constant: '<S22>/capacity'
-   *  Fcn: '<S27>/Fcn'
-   *  MATLAB Function: '<S22>/MATLAB Function'
+  /* Gain: '<S28>/Gain1' incorporates:
+   *  Constant: '<S23>/capacity'
+   *  Fcn: '<S28>/Fcn'
+   *  MATLAB Function: '<S23>/MATLAB Function'
    */
-  /* '<S26>:1:3' */
+  /* '<S27>:1:3' */
   rtb_Gain4_g = (MCU_P.capacity_Value - rtb_Gain4) / MCU_P.capacity_Value *
     MCU_P.Gain1_Gain_c;
 
-  /* Saturate: '<S27>/Saturation' */
+  /* Saturate: '<S28>/Saturation' */
   if (rtb_Gain4_g > MCU_P.Saturation_UpperSat_d) {
     rtb_Gain4_g = MCU_P.Saturation_UpperSat_d;
   } else if (rtb_Gain4_g < MCU_P.Saturation_LowerSat_e) {
@@ -1013,7 +1018,7 @@ static void MCU_output(void)
   }
 
   /* DataTypeConversion: '<Root>/Data Type Conversion' incorporates:
-   *  Saturate: '<S27>/Saturation'
+   *  Saturate: '<S28>/Saturation'
    */
   rtb_inversion_0 = floor(rtb_Gain4_g);
   if (rtIsNaN(rtb_inversion_0) || rtIsInf(rtb_inversion_0)) {
@@ -1038,7 +1043,7 @@ static void MCU_output(void)
 
     /* End of Outputs for SubSystem: '<Root>/Subsystem1' */
 
-    /* S-Function (sysvarout): '<S10>/S-Function' */
+    /* S-Function (sysvarout): '<S11>/S-Function' */
     if (cnSetSystemVariableValues(MCU_DW.SFunction_SysVar_f, 1, &MCU_B.In1_g, 3)
         != 0) {
       rtmSetErrorStatus(MCU_M, cnGetErrorMessage());
@@ -1049,7 +1054,7 @@ static void MCU_output(void)
 
     /* End of Outputs for SubSystem: '<Root>/Subsystem2' */
 
-    /* S-Function (sysvarout): '<S12>/S-Function' */
+    /* S-Function (sysvarout): '<S13>/S-Function' */
     if (cnSetSystemVariableValues(MCU_DW.SFunction_SysVar_m, 1,
          &MCU_B.Subsystem2.In1, 0) != 0) {
       rtmSetErrorStatus(MCU_M, cnGetErrorMessage());
@@ -1060,25 +1065,25 @@ static void MCU_output(void)
 
     /* End of Outputs for SubSystem: '<Root>/Subsystem3' */
 
-    /* S-Function (sysvarout): '<S13>/S-Function' */
+    /* S-Function (sysvarout): '<S14>/S-Function' */
     if (cnSetSystemVariableValues(MCU_DW.SFunction_SysVar_kc, 1,
          &MCU_B.Subsystem3.In1, 0) != 0) {
       rtmSetErrorStatus(MCU_M, cnGetErrorMessage());
     }
   }
 
-  /* DiscreteTransferFcn: '<S22>/Current Filter' */
+  /* DiscreteTransferFcn: '<S23>/Current Filter' */
   MCU_B.CurrentFilter = MCU_P.CurrentFilter_NumCoef *
     MCU_DW.CurrentFilter_states;
 
-  /* MATLAB Function: '<S29>/MATLAB Function' incorporates:
-   *  Constant: '<S22>/capacity'
-   *  Constant: '<S22>/constantA'
-   *  Constant: '<S22>/constantB'
-   *  Constant: '<S22>/constantK'
+  /* MATLAB Function: '<S30>/MATLAB Function' incorporates:
+   *  Constant: '<S23>/capacity'
+   *  Constant: '<S23>/constantA'
+   *  Constant: '<S23>/constantB'
+   *  Constant: '<S23>/constantK'
    */
-  /* MATLAB Function 'Battery/Model/Discrete/Voltage Loss Model/Lithium Ion/MATLAB Function': '<S30>:1' */
-  /* '<S30>:1:3' */
+  /* MATLAB Function 'Battery/Model/Discrete/Voltage Loss Model/Lithium Ion/MATLAB Function': '<S31>:1' */
+  /* '<S31>:1:3' */
   if (rtb_Halleffectsignalh_c) {
     if (rtb_Gain4_k < 0.0) {
       rtb_inversion_0 = 0.0;
@@ -1097,32 +1102,32 @@ static void MCU_output(void)
       (-MCU_P.constantB_Value * rtb_Gain4_k) * MCU_P.constantA_Value;
   }
 
-  /* End of MATLAB Function: '<S29>/MATLAB Function' */
+  /* End of MATLAB Function: '<S30>/MATLAB Function' */
 
-  /* Sum: '<S22>/Add' incorporates:
-   *  Constant: '<S22>/Constant'
-   *  Gain: '<S22>/Gain'
+  /* Sum: '<S23>/Add' incorporates:
+   *  Constant: '<S23>/Constant'
+   *  Gain: '<S23>/Gain'
    */
   MCU_B.Add_c = (rtb_Gain4_k - MCU_P.Gain_Gain_e * MCU_B.donotdeletethisgain) +
     MCU_P.Constant_Value_f;
 
-  /* Gain: '<S25>/Gain' incorporates:
-   *  Abs: '<S25>/Abs'
+  /* Gain: '<S26>/Gain' incorporates:
+   *  Abs: '<S26>/Abs'
    */
   rtb_Gain_m = MCU_P.Gain_Gain_k * fabs(MCU_B.donotdeletethisgain);
 
-  /* Sum: '<S25>/Add1' incorporates:
-   *  DataTypeConversion: '<S25>/Cast To Double'
-   *  DiscreteIntegrator: '<S25>/Discrete-Time Integrator'
-   *  Gain: '<S25>/Gain1'
-   *  Product: '<S25>/Product'
-   *  Product: '<S25>/Product1'
+  /* Sum: '<S26>/Add1' incorporates:
+   *  DataTypeConversion: '<S26>/Cast To Double'
+   *  DiscreteIntegrator: '<S26>/Discrete-Time Integrator'
+   *  Gain: '<S26>/Gain1'
+   *  Product: '<S26>/Product'
+   *  Product: '<S26>/Product1'
    */
   MCU_B.Add1 = MCU_P.Gain1_Gain_g * (real_T)rtb_Halleffectsignalh_c * rtb_Gain_m
     - MCU_DW.DiscreteTimeIntegrator_DSTATE_h * rtb_Gain_m;
 
-  /* Gain: '<S22>/Gain2' incorporates:
-   *  MATLAB Function: '<S22>/MATLAB Function'
+  /* Gain: '<S23>/Gain2' incorporates:
+   *  MATLAB Function: '<S23>/MATLAB Function'
    */
   MCU_B.Gain2_a = MCU_P.Gain2_Gain_i * rtb_Gain4;
 }
@@ -1139,31 +1144,31 @@ static void MCU_update(void)
       return;
   }
 
-  /* Update for UnitDelay: '<S22>/Unit Delay' */
+  /* Update for UnitDelay: '<S23>/Unit Delay' */
   MCU_DW.UnitDelay_DSTATE = MCU_B.Add_c;
 
-  /* Update for UnitDelay: '<S37>/Unit Delay' */
+  /* Update for UnitDelay: '<S38>/Unit Delay' */
   MCU_DW.UnitDelay_DSTATE_n[0] = MCU_B.Add[0];
   MCU_DW.UnitDelay_DSTATE_n[1] = MCU_B.Add[1];
 
-  /* Update for DiscreteIntegrator: '<S33>/Discrete-Time Integrator1' */
+  /* Update for DiscreteIntegrator: '<S34>/Discrete-Time Integrator1' */
   MCU_DW.DiscreteTimeIntegrator1_DSTATE += MCU_P.DiscreteTimeIntegrator1_gainval
     * MCU_B.Gain;
 
-  /* Update for DiscreteIntegrator: '<S33>/Discrete-Time Integrator' */
+  /* Update for DiscreteIntegrator: '<S34>/Discrete-Time Integrator' */
   MCU_DW.DiscreteTimeIntegrator_DSTATE += MCU_P.DiscreteTimeIntegrator_gainval *
     MCU_B.Gain2;
 
-  /* Update for UnitDelay: '<S47>/Unit Delay' incorporates:
-   *  Selector: '<S31>/first 2 columns of D'
+  /* Update for UnitDelay: '<S48>/Unit Delay' incorporates:
+   *  Selector: '<S32>/first 2 columns of D'
    */
   MCU_DW.UnitDelay_DSTATE_g[0] = MCU_B.first2columnsofD[0];
   MCU_DW.UnitDelay_DSTATE_g[1] = MCU_B.first2columnsofD[1];
   MCU_DW.UnitDelay_DSTATE_g[2] = MCU_B.first2columnsofD[2];
   MCU_DW.UnitDelay_DSTATE_g[3] = MCU_B.first2columnsofD[3];
 
-  /* Update for S-Function (sfun_spssw_discc_DSS): '<S47>/State-Space' */
-  /* Level2 S-Function Block: '<S47>/State-Space' (sfun_spssw_discc_DSS) */
+  /* Update for S-Function (sfun_spssw_discc_DSS): '<S48>/State-Space' */
+  /* Level2 S-Function Block: '<S48>/State-Space' (sfun_spssw_discc_DSS) */
   {
     SimStruct *rts = MCU_M->childSfunctions[1];
     sfcnUpdate(rts,0);
@@ -1172,32 +1177,32 @@ static void MCU_update(void)
   }
 
   /* Update for Atomic SubSystem: '<Root>/speed controller' */
-  /* Update for DiscreteIntegrator: '<S89>/Integrator' */
+  /* Update for DiscreteIntegrator: '<S90>/Integrator' */
   MCU_DW.Integrator_DSTATE += MCU_P.Integrator_gainval * MCU_B.IntegralGain;
 
   /* End of Update for SubSystem: '<Root>/speed controller' */
 
   /* Update for Atomic SubSystem: '<Root>/current controller' */
-  /* Update for Atomic SubSystem: '<S15>/Custom Relay' */
+  /* Update for Atomic SubSystem: '<S16>/Custom Relay' */
   MCU_CustomRelay_Update(&MCU_B.CustomRelay, &MCU_DW.CustomRelay);
 
-  /* End of Update for SubSystem: '<S15>/Custom Relay' */
+  /* End of Update for SubSystem: '<S16>/Custom Relay' */
 
-  /* Update for Atomic SubSystem: '<S15>/Custom Relay1' */
+  /* Update for Atomic SubSystem: '<S16>/Custom Relay1' */
   MCU_CustomRelay_Update(&MCU_B.CustomRelay1, &MCU_DW.CustomRelay1);
 
-  /* End of Update for SubSystem: '<S15>/Custom Relay1' */
+  /* End of Update for SubSystem: '<S16>/Custom Relay1' */
 
-  /* Update for Atomic SubSystem: '<S15>/Custom Relay2' */
+  /* Update for Atomic SubSystem: '<S16>/Custom Relay2' */
   MCU_CustomRelay_Update(&MCU_B.CustomRelay2, &MCU_DW.CustomRelay2);
 
-  /* End of Update for SubSystem: '<S15>/Custom Relay2' */
+  /* End of Update for SubSystem: '<S16>/Custom Relay2' */
   /* End of Update for SubSystem: '<Root>/current controller' */
 
-  /* Update for Memory: '<S22>/Initial it' */
+  /* Update for Memory: '<S23>/Initial it' */
   MCU_DW.Initialit_PreviousInput = MCU_B.Gain2_a;
 
-  /* Update for DiscreteIntegrator: '<S22>/Coulomb Counter' */
+  /* Update for DiscreteIntegrator: '<S23>/Coulomb Counter' */
   MCU_DW.CoulombCounter_IC_LOADING = 0U;
   MCU_DW.CoulombCounter_DSTATE += MCU_P.CoulombCounter_gainval *
     MCU_B.CurrentFilter;
@@ -1217,13 +1222,13 @@ static void MCU_update(void)
     MCU_DW.CoulombCounter_PrevResetState = 2;
   }
 
-  /* End of Update for DiscreteIntegrator: '<S22>/Coulomb Counter' */
+  /* End of Update for DiscreteIntegrator: '<S23>/Coulomb Counter' */
 
-  /* Update for DiscreteIntegrator: '<S25>/Discrete-Time Integrator' */
+  /* Update for DiscreteIntegrator: '<S26>/Discrete-Time Integrator' */
   MCU_DW.DiscreteTimeIntegrator_DSTATE_h +=
     MCU_P.DiscreteTimeIntegrator_gainva_b * MCU_B.Add1;
 
-  /* Update for DiscreteTransferFcn: '<S22>/Current Filter' */
+  /* Update for DiscreteTransferFcn: '<S23>/Current Filter' */
   MCU_DW.CurrentFilter_states = (MCU_B.donotdeletethisgain -
     MCU_P.CurrentFilter_DenCoef[1] * MCU_DW.CurrentFilter_states) /
     MCU_P.CurrentFilter_DenCoef[0];
@@ -1276,8 +1281,8 @@ static void MCU_initialize(void)
       return;
   }
 
-  /* Start for S-Function (sfun_spssw_discc_DSS): '<S47>/State-Space' */
-  /* Level2 S-Function Block: '<S47>/State-Space' (sfun_spssw_discc_DSS) */
+  /* Start for S-Function (sfun_spssw_discc_DSS): '<S48>/State-Space' */
+  /* Level2 S-Function Block: '<S48>/State-Space' (sfun_spssw_discc_DSS) */
   {
     SimStruct *rts = MCU_M->childSfunctions[1];
     sfcnStart(rts);
@@ -1288,27 +1293,27 @@ static void MCU_initialize(void)
   {
     real_T Initialit_PreviousInput_tmp;
 
-    /* InitializeConditions for UnitDelay: '<S22>/Unit Delay' */
+    /* InitializeConditions for UnitDelay: '<S23>/Unit Delay' */
     MCU_DW.UnitDelay_DSTATE = MCU_P.UnitDelay_InitialCondition;
 
-    /* InitializeConditions for UnitDelay: '<S37>/Unit Delay' */
+    /* InitializeConditions for UnitDelay: '<S38>/Unit Delay' */
     MCU_DW.UnitDelay_DSTATE_n[0] = MCU_P.UnitDelay_InitialCondition_k[0];
     MCU_DW.UnitDelay_DSTATE_n[1] = MCU_P.UnitDelay_InitialCondition_k[1];
 
-    /* InitializeConditions for DiscreteIntegrator: '<S33>/Discrete-Time Integrator1' */
+    /* InitializeConditions for DiscreteIntegrator: '<S34>/Discrete-Time Integrator1' */
     MCU_DW.DiscreteTimeIntegrator1_DSTATE = MCU_P.DiscreteTimeIntegrator1_IC;
 
-    /* InitializeConditions for DiscreteIntegrator: '<S33>/Discrete-Time Integrator' */
+    /* InitializeConditions for DiscreteIntegrator: '<S34>/Discrete-Time Integrator' */
     MCU_DW.DiscreteTimeIntegrator_DSTATE = MCU_P.DiscreteTimeIntegrator_IC;
 
-    /* InitializeConditions for UnitDelay: '<S47>/Unit Delay' */
+    /* InitializeConditions for UnitDelay: '<S48>/Unit Delay' */
     MCU_DW.UnitDelay_DSTATE_g[0] = MCU_P.UnitDelay_InitialCondition_o;
     MCU_DW.UnitDelay_DSTATE_g[1] = MCU_P.UnitDelay_InitialCondition_o;
     MCU_DW.UnitDelay_DSTATE_g[2] = MCU_P.UnitDelay_InitialCondition_o;
     MCU_DW.UnitDelay_DSTATE_g[3] = MCU_P.UnitDelay_InitialCondition_o;
 
-    /* InitializeConditions for S-Function (sfun_spssw_discc_DSS): '<S47>/State-Space' */
-    /* Level2 S-Function Block: '<S47>/State-Space' (sfun_spssw_discc_DSS) */
+    /* InitializeConditions for S-Function (sfun_spssw_discc_DSS): '<S48>/State-Space' */
+    /* Level2 S-Function Block: '<S48>/State-Space' (sfun_spssw_discc_DSS) */
     {
       SimStruct *rts = MCU_M->childSfunctions[1];
       sfcnInitializeConditions(rts);
@@ -1316,45 +1321,45 @@ static void MCU_initialize(void)
         return;
     }
 
-    /* InitializeConditions for Memory: '<S22>/Initial it' incorporates:
-     *  DiscreteIntegrator: '<S25>/Discrete-Time Integrator'
+    /* InitializeConditions for Memory: '<S23>/Initial it' incorporates:
+     *  DiscreteIntegrator: '<S26>/Discrete-Time Integrator'
      */
     Initialit_PreviousInput_tmp = 1.0 - MCU_P.Battery_SOC / 100.0;
     MCU_DW.Initialit_PreviousInput = Initialit_PreviousInput_tmp *
       93.239999999999071 * 0.9009009009009098 * 3600.0;
 
-    /* InitializeConditions for DiscreteIntegrator: '<S22>/Coulomb Counter' */
+    /* InitializeConditions for DiscreteIntegrator: '<S23>/Coulomb Counter' */
     MCU_DW.CoulombCounter_PrevResetState = 2;
     MCU_DW.CoulombCounter_IC_LOADING = 1U;
 
-    /* InitializeConditions for DiscreteIntegrator: '<S25>/Discrete-Time Integrator' */
+    /* InitializeConditions for DiscreteIntegrator: '<S26>/Discrete-Time Integrator' */
     MCU_DW.DiscreteTimeIntegrator_DSTATE_h = exp(Initialit_PreviousInput_tmp *
       -0.95409408130916984 * 93.239999999999071) * 0.83744872582453345;
 
-    /* InitializeConditions for DiscreteTransferFcn: '<S22>/Current Filter' */
+    /* InitializeConditions for DiscreteTransferFcn: '<S23>/Current Filter' */
     MCU_DW.CurrentFilter_states = MCU_P.CurrentFilter_InitialStates;
 
     /* SystemInitialize for Atomic SubSystem: '<Root>/speed controller' */
-    /* InitializeConditions for DiscreteIntegrator: '<S89>/Integrator' */
+    /* InitializeConditions for DiscreteIntegrator: '<S90>/Integrator' */
     MCU_DW.Integrator_DSTATE = MCU_P.DiscretePIDController_InitialCo;
 
     /* End of SystemInitialize for SubSystem: '<Root>/speed controller' */
 
     /* SystemInitialize for Atomic SubSystem: '<Root>/current controller' */
-    /* SystemInitialize for Atomic SubSystem: '<S15>/Custom Relay' */
+    /* SystemInitialize for Atomic SubSystem: '<S16>/Custom Relay' */
     MCU_CustomRelay_Init(&MCU_DW.CustomRelay, &MCU_P.CustomRelay);
 
-    /* End of SystemInitialize for SubSystem: '<S15>/Custom Relay' */
+    /* End of SystemInitialize for SubSystem: '<S16>/Custom Relay' */
 
-    /* SystemInitialize for Atomic SubSystem: '<S15>/Custom Relay1' */
+    /* SystemInitialize for Atomic SubSystem: '<S16>/Custom Relay1' */
     MCU_CustomRelay_Init(&MCU_DW.CustomRelay1, &MCU_P.CustomRelay1);
 
-    /* End of SystemInitialize for SubSystem: '<S15>/Custom Relay1' */
+    /* End of SystemInitialize for SubSystem: '<S16>/Custom Relay1' */
 
-    /* SystemInitialize for Atomic SubSystem: '<S15>/Custom Relay2' */
+    /* SystemInitialize for Atomic SubSystem: '<S16>/Custom Relay2' */
     MCU_CustomRelay_Init(&MCU_DW.CustomRelay2, &MCU_P.CustomRelay2);
 
-    /* End of SystemInitialize for SubSystem: '<S15>/Custom Relay2' */
+    /* End of SystemInitialize for SubSystem: '<S16>/Custom Relay2' */
     /* End of SystemInitialize for SubSystem: '<Root>/current controller' */
   }
 }
@@ -1369,14 +1374,14 @@ static void MCU_terminate(void)
     sfcnTerminate(rts);
   }
 
-  /* Terminate for S-Function (sfun_spssw_discc_DSS): '<S47>/State-Space' */
-  /* Level2 S-Function Block: '<S47>/State-Space' (sfun_spssw_discc_DSS) */
+  /* Terminate for S-Function (sfun_spssw_discc_DSS): '<S48>/State-Space' */
+  /* Level2 S-Function Block: '<S48>/State-Space' (sfun_spssw_discc_DSS) */
   {
     SimStruct *rts = MCU_M->childSfunctions[1];
     sfcnTerminate(rts);
   }
 
-  /* Terminate for S-Function (sysvarout): '<S11>/S-Function' */
+  /* Terminate for S-Function (sysvarout): '<S12>/S-Function' */
   if (NULL != MCU_DW.SFunction_SysVar) {
     cnReleaseSystemVariable(MCU_DW.SFunction_SysVar);
     MCU_DW.SFunction_SysVar = NULL;
@@ -1388,19 +1393,25 @@ static void MCU_terminate(void)
     MCU_DW.SFunction_SysVar_k = NULL;
   }
 
-  /* Terminate for S-Function (sysvarout): '<S10>/S-Function' */
+  /* Terminate for S-Function (sysvarin): '<S10>/S-Function' */
+  if (NULL != MCU_DW.SFunction_SysVar_a) {
+    cnReleaseSystemVariable(MCU_DW.SFunction_SysVar_a);
+    MCU_DW.SFunction_SysVar_a = NULL;
+  }
+
+  /* Terminate for S-Function (sysvarout): '<S11>/S-Function' */
   if (NULL != MCU_DW.SFunction_SysVar_f) {
     cnReleaseSystemVariable(MCU_DW.SFunction_SysVar_f);
     MCU_DW.SFunction_SysVar_f = NULL;
   }
 
-  /* Terminate for S-Function (sysvarout): '<S12>/S-Function' */
+  /* Terminate for S-Function (sysvarout): '<S13>/S-Function' */
   if (NULL != MCU_DW.SFunction_SysVar_m) {
     cnReleaseSystemVariable(MCU_DW.SFunction_SysVar_m);
     MCU_DW.SFunction_SysVar_m = NULL;
   }
 
-  /* Terminate for S-Function (sysvarout): '<S13>/S-Function' */
+  /* Terminate for S-Function (sysvarout): '<S14>/S-Function' */
   if (NULL != MCU_DW.SFunction_SysVar_kc) {
     cnReleaseSystemVariable(MCU_DW.SFunction_SysVar_kc);
     MCU_DW.SFunction_SysVar_kc = NULL;
@@ -1675,7 +1686,7 @@ RT_MODEL_MCU_T *MCU(void)
       sfcnInitializeSampleTimes(rts);
     }
 
-    /* Level2 S-Function Block: MCU/<S47>/State-Space (sfun_spssw_discc_DSS) */
+    /* Level2 S-Function Block: MCU/<S48>/State-Space (sfun_spssw_discc_DSS) */
     {
       SimStruct *rts = MCU_M->childSfunctions[1];
 
@@ -1977,6 +1988,21 @@ RT_MODEL_MCU_T *MCU(void)
   }
 
   {
+    if (NULL != MCU_DW.SFunction_SysVar_a) {
+      cnReleaseSystemVariable(MCU_DW.SFunction_SysVar_a);
+    }
+
+    MCU_DW.SFunction_SysVar_a = (void*)cnCreateInputSystemVariable(
+      "MCU",
+      "Regen_Mode",
+      1,
+      (int_T)-1.0,
+      false,
+      false,
+      1.0);
+  }
+
+  {
     if (NULL != MCU_DW.SFunction_SysVar_f) {
       cnReleaseSystemVariable(MCU_DW.SFunction_SysVar_f);
     }
@@ -2028,8 +2054,8 @@ RT_MODEL_MCU_T *MCU(void)
   MCU_M->Sizes.sysDirFeedThru = (0);   /* The model is not direct feedthrough */
   MCU_M->Sizes.numSampTimes = (2);     /* Number of sample times */
   MCU_M->Sizes.numBlocks = (229);      /* Number of blocks */
-  MCU_M->Sizes.numBlockIO = (34);      /* Number of block outputs */
-  MCU_M->Sizes.numBlockPrms = (311);   /* Sum of parameter "widths" */
+  MCU_M->Sizes.numBlockIO = (35);      /* Number of block outputs */
+  MCU_M->Sizes.numBlockPrms = (310);   /* Sum of parameter "widths" */
   return MCU_M;
 }
 

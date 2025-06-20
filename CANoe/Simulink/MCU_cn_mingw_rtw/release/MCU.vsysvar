@@ -248,9 +248,6 @@
       <namespace name="Regen_Mode3" comment="" interface="">
         <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Value" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
       </namespace>
-      <namespace name="Regen_Mode" comment="" interface="">
-        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Value" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
-      </namespace>
       <namespace name="Simulation_Step" comment="" interface="">
         <namespace name="S_Function1" comment="" interface="">
           <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="P1" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
@@ -388,9 +385,6 @@
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="minSampleTime" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
     </namespace>
     <namespace name="Signals" comment="" interface="">
-      <namespace name="System_Variable_Input" comment="" interface="">
-        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="S_Function_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
-      </namespace>
       <namespace name="Battery" comment="" interface="">
         <namespace name="Current_Measurement" comment="" interface="">
           <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="do_not_delete_this_gain_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
@@ -436,11 +430,17 @@
       <namespace name="Subsystem2" comment="" interface="">
         <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="In1_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
       </namespace>
+      <namespace name="System_Variable_Input1" comment="" interface="">
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="S_Function_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
+      </namespace>
       <namespace name="Subsystem3" comment="" interface="">
         <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="In1_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
       </namespace>
       <namespace name="Subsystem" comment="" interface="">
         <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="In1_" comment="" bitcount="32" isSigned="true" encoding="65001" type="int"/>
+      </namespace>
+      <namespace name="System_Variable_Input" comment="" interface="">
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="S_Function_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
       </namespace>
       <namespace name="Universal_Bridge1" comment="" interface="">
         <namespace name="Model" comment="" interface="">

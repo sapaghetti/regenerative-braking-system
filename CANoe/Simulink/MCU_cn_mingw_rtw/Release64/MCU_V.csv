@@ -2,7 +2,6 @@ MCU_M.csv
 MCU/Battery/SOC; 60
 MCU/AUTO/Value; 4
 MCU/Constant/Value; 5
-MCU/Regen_Mode/Value; 3
 MCU/Regen_Mode1/Value; 7
 MCU/Regen_Mode2/Value; 6
 MCU/Regen_Mode3/Value; 5
