@@ -23,6 +23,7 @@ on start
 on timer mcu_ctrl_msg_Timer
 {
   message L008_MCU_Control mcu_ctrl_msg;
+  mcu_ctrl_msg.Regen_Mode = @ZCU_Rear::Regen_Mode;
   //mcu_ctrl_msg.Target_Torque = @ZCU_Rear::Target_Torque;
   /* test */
   if(cnt < 10) {

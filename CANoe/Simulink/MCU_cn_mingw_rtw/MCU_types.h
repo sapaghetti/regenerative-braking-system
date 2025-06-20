@@ -6,9 +6,9 @@
  *
  * Code generation for model "MCU".
  *
- * Model version              : 14.50
+ * Model version              : 14.52
  * Simulink Coder version : 24.2 (R2024b) 21-Jun-2024
- * C source code generated on : Thu Jun 19 17:49:37 2025
+ * C source code generated on : Fri Jun 20 13:50:42 2025
  *
  * Target selection: cn_mingw.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -20,7 +20,7 @@
 #ifndef MCU_types_h_
 #define MCU_types_h_
 
-/* Parameters for system: '<S15>/Custom Relay' */
+/* Parameters for system: '<S16>/Custom Relay' */
 typedef struct P_CustomRelay_MCU_T_ P_CustomRelay_MCU_T;
 
 /* Parameters (default storage) */

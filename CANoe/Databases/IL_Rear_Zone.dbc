@@ -38,7 +38,8 @@ VAL_TABLE_ vtbSensorReqCause 15 "SNA" 2 "by Request 2" 1 "by Request 1" 0 "norma
 VAL_TABLE_ vtbErrorDescription 255 "ERROR" ;
 
 
-BO_ 772 L008_MCU_Control: 2 ZCU_Rear
+BO_ 772 L008_MCU_Control: 3 ZCU_Rear
+ SG_ Regen_Mode : 16|3@1+ (1,0) [0|7] ""  MCU
  SG_ Target_Torque : 0|16@1- (0.1,0) [-3200|3200] "Nm"  MCU
 
 BO_ 771 L007_BMS_Detail_Status: 12 Vector__XXX
@@ -100,8 +101,8 @@ BA_DEF_DEF_  "GenMsgCycleTimeFast" 20;
 BA_DEF_DEF_  "GenMsgILSupport" "Yes";
 BA_DEF_DEF_  "GenMsgFastOnStart" 0;
 BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
-BA_ "DatabaseVersion" "";
 BA_ "BusType" "CAN FD";
+BA_ "DatabaseVersion" "";
 BA_ "VFrameFormat" BO_ 772 0;
 BA_ "VFrameFormat" BO_ 771 14;
 BA_ "GenMsgCycleTime" BO_ 769 10;

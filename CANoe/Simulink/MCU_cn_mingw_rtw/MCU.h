@@ -6,9 +6,9 @@
  *
  * Code generation for model "MCU".
  *
- * Model version              : 14.50
+ * Model version              : 14.52
  * Simulink Coder version : 24.2 (R2024b) 21-Jun-2024
- * C source code generated on : Thu Jun 19 17:49:37 2025
+ * C source code generated on : Fri Jun 20 13:50:42 2025
  *
  * Target selection: cn_mingw.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -877,80 +877,82 @@ typedef struct {
   real_T In1;                          /* '<S7>/In1' */
 } B_Subsystem2_MCU_T;
 
-/* Block signals for system '<S15>/Custom Relay' */
+/* Block signals for system '<S16>/Custom Relay' */
 typedef struct {
-  real_T IndexVector;                  /* '<S44>/Index Vector' */
+  real_T IndexVector;                  /* '<S45>/Index Vector' */
 } B_CustomRelay_MCU_T;
 
-/* Block states (default storage) for system '<S15>/Custom Relay' */
+/* Block states (default storage) for system '<S16>/Custom Relay' */
 typedef struct {
-  real_T Delay_DSTATE;                 /* '<S44>/Delay' */
+  real_T Delay_DSTATE;                 /* '<S45>/Delay' */
 } DW_CustomRelay_MCU_T;
 
 /* Block signals (default storage) */
 typedef struct {
   real_T SFunction;                    /* '<S4>/S-Function' */
   real_T SFunction1_o1;                /* '<S4>/S-Function1' */
-  real_T Constant[6];                  /* '<S43>/Constant' */
-  real_T VoltageV;                     /* '<S22>/Saturation' */
-  real_T Gain;                         /* '<S33>/Gain' */
-  real_T Add2[2];                      /* '<S37>/Add2' */
-  real_T first2columnsofD[4];          /* '<S31>/first 2 columns of D' */
-  real_T Sum[4];                       /* '<S47>/Sum' */
-  real_T StateSpace_o1[9];             /* '<S47>/State-Space' */
-  real_T StateSpace_o2[6];             /* '<S47>/State-Space' */
-  real_T StateSpace_o3;                /* '<S47>/State-Space' */
+  real_T Constant[6];                  /* '<S44>/Constant' */
+  real_T VoltageV;                     /* '<S23>/Saturation' */
+  real_T Gain;                         /* '<S34>/Gain' */
+  real_T Add2[2];                      /* '<S38>/Add2' */
+  real_T first2columnsofD[4];          /* '<S32>/first 2 columns of D' */
+  real_T Sum[4];                       /* '<S48>/Sum' */
+  real_T StateSpace_o1[9];             /* '<S48>/State-Space' */
+  real_T StateSpace_o2[6];             /* '<S48>/State-Space' */
+  real_T StateSpace_o3;                /* '<S48>/State-Space' */
   real_T SFunction_j;                  /* '<S9>/S-Function' */
-  real_T Add[2];                       /* '<S37>/Add' */
-  real_T Gain2;                        /* '<S33>/Gain2' */
-  real_T donotdeletethisgain;          /* '<S19>/do not delete this gain' */
-  real_T DataTypeConversion2;          /* '<S22>/Data Type Conversion2' */
-  real_T CurrentFilter;                /* '<S22>/Current Filter' */
-  real_T Add_c;                        /* '<S22>/Add' */
-  real_T Add1;                         /* '<S25>/Add1' */
-  real_T Gain2_a;                      /* '<S22>/Gain2' */
-  real_T IntegralGain;                 /* '<S86>/Integral Gain' */
-  real_T DataTypeConversion1;          /* '<S15>/Data Type Conversion1' */
-  real_T DataTypeConversion3;          /* '<S15>/Data Type Conversion3' */
-  real_T DataTypeConversion5;          /* '<S15>/Data Type Conversion5' */
+  real_T SFunction_m;                  /* '<S10>/S-Function' */
+  real_T Add[2];                       /* '<S38>/Add' */
+  real_T Gain2;                        /* '<S34>/Gain2' */
+  real_T donotdeletethisgain;          /* '<S20>/do not delete this gain' */
+  real_T DataTypeConversion2;          /* '<S23>/Data Type Conversion2' */
+  real_T CurrentFilter;                /* '<S23>/Current Filter' */
+  real_T Add_c;                        /* '<S23>/Add' */
+  real_T Add1;                         /* '<S26>/Add1' */
+  real_T Gain2_a;                      /* '<S23>/Gain2' */
+  real_T IntegralGain;                 /* '<S87>/Integral Gain' */
+  real_T DataTypeConversion1;          /* '<S16>/Data Type Conversion1' */
+  real_T DataTypeConversion3;          /* '<S16>/Data Type Conversion3' */
+  real_T DataTypeConversion5;          /* '<S16>/Data Type Conversion5' */
   int16_T DataTypeConversion14;        /* '<Root>/Data Type Conversion14' */
   int16_T In1;                         /* '<S5>/In1' */
   uint8_T DataTypeConversion;          /* '<Root>/Data Type Conversion' */
   uint8_T In1_g;                       /* '<S6>/In1' */
-  B_CustomRelay_MCU_T CustomRelay2;    /* '<S15>/Custom Relay2' */
-  B_CustomRelay_MCU_T CustomRelay1;    /* '<S15>/Custom Relay1' */
-  B_CustomRelay_MCU_T CustomRelay;     /* '<S15>/Custom Relay' */
+  B_CustomRelay_MCU_T CustomRelay2;    /* '<S16>/Custom Relay2' */
+  B_CustomRelay_MCU_T CustomRelay1;    /* '<S16>/Custom Relay1' */
+  B_CustomRelay_MCU_T CustomRelay;     /* '<S16>/Custom Relay' */
   B_Subsystem2_MCU_T Subsystem3;       /* '<Root>/Subsystem3' */
   B_Subsystem2_MCU_T Subsystem2;       /* '<Root>/Subsystem2' */
 } B_MCU_T;
 
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
-  real_T UnitDelay_DSTATE;             /* '<S22>/Unit Delay' */
-  real_T UnitDelay_DSTATE_n[2];        /* '<S37>/Unit Delay' */
-  real_T DiscreteTimeIntegrator1_DSTATE;/* '<S33>/Discrete-Time Integrator1' */
-  real_T DiscreteTimeIntegrator_DSTATE;/* '<S33>/Discrete-Time Integrator' */
-  real_T UnitDelay_DSTATE_g[4];        /* '<S47>/Unit Delay' */
-  real_T StateSpace_DSTATE;            /* '<S47>/State-Space' */
-  real_T CoulombCounter_DSTATE;        /* '<S22>/Coulomb Counter' */
-  real_T DiscreteTimeIntegrator_DSTATE_h;/* '<S25>/Discrete-Time Integrator' */
-  real_T CurrentFilter_states;         /* '<S22>/Current Filter' */
-  real_T Integrator_DSTATE;            /* '<S89>/Integrator' */
-  real_T inversion_DWORK4[4];          /* '<S35>/inversion' */
-  real_T Initialit_PreviousInput;      /* '<S22>/Initial it' */
-  real_T StateSpace_RWORK;             /* '<S47>/State-Space' */
-  void *StateSpace_PWORK[65];          /* '<S47>/State-Space' */
-  void* SFunction_SysVar;              /* '<S11>/S-Function' */
+  real_T UnitDelay_DSTATE;             /* '<S23>/Unit Delay' */
+  real_T UnitDelay_DSTATE_n[2];        /* '<S38>/Unit Delay' */
+  real_T DiscreteTimeIntegrator1_DSTATE;/* '<S34>/Discrete-Time Integrator1' */
+  real_T DiscreteTimeIntegrator_DSTATE;/* '<S34>/Discrete-Time Integrator' */
+  real_T UnitDelay_DSTATE_g[4];        /* '<S48>/Unit Delay' */
+  real_T StateSpace_DSTATE;            /* '<S48>/State-Space' */
+  real_T CoulombCounter_DSTATE;        /* '<S23>/Coulomb Counter' */
+  real_T DiscreteTimeIntegrator_DSTATE_h;/* '<S26>/Discrete-Time Integrator' */
+  real_T CurrentFilter_states;         /* '<S23>/Current Filter' */
+  real_T Integrator_DSTATE;            /* '<S90>/Integrator' */
+  real_T inversion_DWORK4[4];          /* '<S36>/inversion' */
+  real_T Initialit_PreviousInput;      /* '<S23>/Initial it' */
+  real_T StateSpace_RWORK;             /* '<S48>/State-Space' */
+  void *StateSpace_PWORK[65];          /* '<S48>/State-Space' */
+  void* SFunction_SysVar;              /* '<S12>/S-Function' */
   void* SFunction_SysVar_k;            /* '<S9>/S-Function' */
-  void* SFunction_SysVar_f;            /* '<S10>/S-Function' */
-  void* SFunction_SysVar_m;            /* '<S12>/S-Function' */
-  void* SFunction_SysVar_kc;           /* '<S13>/S-Function' */
-  int_T StateSpace_IWORK[12];          /* '<S47>/State-Space' */
-  int8_T CoulombCounter_PrevResetState;/* '<S22>/Coulomb Counter' */
-  uint8_T CoulombCounter_IC_LOADING;   /* '<S22>/Coulomb Counter' */
-  DW_CustomRelay_MCU_T CustomRelay2;   /* '<S15>/Custom Relay2' */
-  DW_CustomRelay_MCU_T CustomRelay1;   /* '<S15>/Custom Relay1' */
-  DW_CustomRelay_MCU_T CustomRelay;    /* '<S15>/Custom Relay' */
+  void* SFunction_SysVar_a;            /* '<S10>/S-Function' */
+  void* SFunction_SysVar_f;            /* '<S11>/S-Function' */
+  void* SFunction_SysVar_m;            /* '<S13>/S-Function' */
+  void* SFunction_SysVar_kc;           /* '<S14>/S-Function' */
+  int_T StateSpace_IWORK[12];          /* '<S48>/State-Space' */
+  int8_T CoulombCounter_PrevResetState;/* '<S23>/Coulomb Counter' */
+  uint8_T CoulombCounter_IC_LOADING;   /* '<S23>/Coulomb Counter' */
+  DW_CustomRelay_MCU_T CustomRelay2;   /* '<S16>/Custom Relay2' */
+  DW_CustomRelay_MCU_T CustomRelay1;   /* '<S16>/Custom Relay1' */
+  DW_CustomRelay_MCU_T CustomRelay;    /* '<S16>/Custom Relay' */
 } DW_MCU_T;
 
 /* Invariant block signals (default storage) */
@@ -968,49 +970,49 @@ typedef struct {
 #define tConstBlockIOType              ConstB_MCU_T
 #define rtC                            MCU_ConstB
 
-/* Parameters for system: '<S15>/Custom Relay' */
+/* Parameters for system: '<S16>/Custom Relay' */
 struct P_CustomRelay_MCU_T_ {
   real_T OFF_Value;                    /* Expression: 0
-                                        * Referenced by: '<S44>/OFF'
+                                        * Referenced by: '<S45>/OFF'
                                         */
   real_T ON_Value;                     /* Expression: 1
-                                        * Referenced by: '<S44>/ON'
+                                        * Referenced by: '<S45>/ON'
                                         */
   real_T offset_Value;                 /* Expression: 1
-                                        * Referenced by: '<S44>/offset'
+                                        * Referenced by: '<S45>/offset'
                                         */
   real_T rev_Value;                    /* Expression: -1
-                                        * Referenced by: '<S44>/rev'
+                                        * Referenced by: '<S45>/rev'
                                         */
   real_T Delay_InitialCondition;       /* Expression: 0
-                                        * Referenced by: '<S44>/Delay'
+                                        * Referenced by: '<S45>/Delay'
                                         */
 };
 
 /* Parameters (default storage) */
 struct P_MCU_T_ {
   real_T DiscretePIDController_I;     /* Mask Parameter: DiscretePIDController_I
-                                       * Referenced by: '<S86>/Integral Gain'
+                                       * Referenced by: '<S87>/Integral Gain'
                                        */
   real_T DiscretePIDController_InitialCo;
                               /* Mask Parameter: DiscretePIDController_InitialCo
-                               * Referenced by: '<S89>/Integrator'
+                               * Referenced by: '<S90>/Integrator'
                                */
   real_T DiscretePIDController_P;     /* Mask Parameter: DiscretePIDController_P
-                                       * Referenced by: '<S94>/Proportional Gain'
+                                       * Referenced by: '<S95>/Proportional Gain'
                                        */
   real_T Battery_SOC;                  /* Mask Parameter: Battery_SOC
                                         * Referenced by:
-                                        *   '<S22>/Initial it'
-                                        *   '<S25>/Discrete-Time Integrator'
+                                        *   '<S23>/Initial it'
+                                        *   '<S26>/Discrete-Time Integrator'
                                         */
   real_T CoulombViscousFriction_gain;
                                   /* Mask Parameter: CoulombViscousFriction_gain
-                                   * Referenced by: '<S42>/Gain'
+                                   * Referenced by: '<S43>/Gain'
                                    */
   real_T CoulombViscousFriction_offset;
                                 /* Mask Parameter: CoulombViscousFriction_offset
-                                 * Referenced by: '<S42>/Gain1'
+                                 * Referenced by: '<S43>/Gain1'
                                  */
   real_T AUTO_Value;                   /* Expression: 4
                                         * Referenced by: '<Root>/AUTO'
@@ -1025,13 +1027,13 @@ struct P_MCU_T_ {
                                         * Referenced by: '<Root>/Regen_Mode3'
                                         */
   real_T Integrator_gainval;           /* Computed Parameter: Integrator_gainval
-                                        * Referenced by: '<S89>/Integrator'
+                                        * Referenced by: '<S90>/Integrator'
                                         */
   real_T Constant_Value;               /* Expression: 0
-                                        * Referenced by: '<S23>/Constant'
+                                        * Referenced by: '<S24>/Constant'
                                         */
   real_T Constant_Value_g;             /* Expression: 0
-                                        * Referenced by: '<S24>/Constant'
+                                        * Referenced by: '<S25>/Constant'
                                         */
   real_T SFunction_P1_Size[2];         /* Computed Parameter: SFunction_P1_Size
                                         * Referenced by: '<S4>/S-Function'
@@ -1043,228 +1045,228 @@ struct P_MCU_T_ {
                                         * Referenced by: '<S4>/S-Function1'
                                         */
   real_T Constant_Value_o[6];          /* Expression: zeros(1,Switches)
-                                        * Referenced by: '<S43>/Constant'
+                                        * Referenced by: '<S44>/Constant'
                                         */
   real_T UnitDelay_InitialCondition;   /* Expression: 0
-                                        * Referenced by: '<S22>/Unit Delay'
+                                        * Referenced by: '<S23>/Unit Delay'
                                         */
   real_T Saturation_UpperSat;          /* Expression: 2*Batt.E0
-                                        * Referenced by: '<S22>/Saturation'
+                                        * Referenced by: '<S23>/Saturation'
                                         */
   real_T Saturation_LowerSat;          /* Expression: 0
-                                        * Referenced by: '<S22>/Saturation'
+                                        * Referenced by: '<S23>/Saturation'
                                         */
   real_T I_Value[4];                   /* Expression: eye(2,2)
-                                        * Referenced by: '<S31>/I'
+                                        * Referenced by: '<S32>/I'
                                         */
   real_T u5_Value[4];                  /* Expression: eye(2,2)
-                                        * Referenced by: '<S35>/u5'
+                                        * Referenced by: '<S36>/u5'
                                         */
   real_T RL_Gain;                      /* Expression: -PM.R/PM.L
-                                        * Referenced by: '<S31>/-R//L'
+                                        * Referenced by: '<S32>/-R//L'
                                         */
   real_T TustinTs2BETs_Gain;           /* Expression: Ts/PM.DSSmethod
-                                        * Referenced by: '<S35>/Tustin: Ts//2 BE : Ts'
+                                        * Referenced by: '<S36>/Tustin: Ts//2 BE : Ts'
                                         */
   real_T wbase3_Gain;                  /* Expression: Ts
-                                        * Referenced by: '<S35>/wbase3'
+                                        * Referenced by: '<S36>/wbase3'
                                         */
   real_T UnitDelay_InitialCondition_k[2];/* Expression: PM.x0_d
-                                          * Referenced by: '<S37>/Unit Delay'
+                                          * Referenced by: '<S38>/Unit Delay'
                                           */
   real_T M25_Value[10];    /* Expression: [ 2  1   -2  1  1;   -1  1  1  -2  1 ]
-                            * Referenced by: '<S31>/M(2,5)'
+                            * Referenced by: '<S32>/M(2,5)'
                             */
   real_T u3L_Gain;                     /* Expression: 1/(3*PM.L)
-                                        * Referenced by: '<S31>/1//(3*L)'
+                                        * Referenced by: '<S32>/1//(3*L)'
                                         */
   real_T Tustin12BE10_Gain;            /* Expression: 1/PM.DSSmethod
-                                        * Referenced by: '<S35>/Tustin: 1//2 BE : 1.0'
+                                        * Referenced by: '<S36>/Tustin: 1//2 BE : 1.0'
                                         */
   real_T DiscreteTimeIntegrator1_gainval;
                           /* Computed Parameter: DiscreteTimeIntegrator1_gainval
-                           * Referenced by: '<S33>/Discrete-Time Integrator1'
+                           * Referenced by: '<S34>/Discrete-Time Integrator1'
                            */
   real_T DiscreteTimeIntegrator1_IC;   /* Expression: PM.tho+PM.thOffest
-                                        * Referenced by: '<S33>/Discrete-Time Integrator1'
+                                        * Referenced by: '<S34>/Discrete-Time Integrator1'
                                         */
   real_T Saturation_UpperSat_n;        /* Expression: PM.trap
-                                        * Referenced by: '<S38>/Saturation'
+                                        * Referenced by: '<S39>/Saturation'
                                         */
   real_T Saturation_LowerSat_g;        /* Expression: -PM.trap
-                                        * Referenced by: '<S38>/Saturation'
+                                        * Referenced by: '<S39>/Saturation'
                                         */
   real_T Gain4_Gain;                   /* Expression: PM.Flux/PM.trap
-                                        * Referenced by: '<S38>/Gain4'
+                                        * Referenced by: '<S39>/Gain4'
                                         */
   real_T DiscreteTimeIntegrator_gainval;
                            /* Computed Parameter: DiscreteTimeIntegrator_gainval
-                            * Referenced by: '<S33>/Discrete-Time Integrator'
+                            * Referenced by: '<S34>/Discrete-Time Integrator'
                             */
   real_T DiscreteTimeIntegrator_IC;    /* Expression: PM.wmo
-                                        * Referenced by: '<S33>/Discrete-Time Integrator'
+                                        * Referenced by: '<S34>/Discrete-Time Integrator'
                                         */
   real_T Gain_Gain;                    /* Expression: PM.p
-                                        * Referenced by: '<S33>/Gain'
+                                        * Referenced by: '<S34>/Gain'
                                         */
   real_T Saturation_UpperSat_i;        /* Expression: PM.trap
-                                        * Referenced by: '<S39>/Saturation'
+                                        * Referenced by: '<S40>/Saturation'
                                         */
   real_T Saturation_LowerSat_d;        /* Expression: -PM.trap
-                                        * Referenced by: '<S39>/Saturation'
+                                        * Referenced by: '<S40>/Saturation'
                                         */
   real_T Gain4_Gain_l;                 /* Expression: PM.Flux/PM.trap
-                                        * Referenced by: '<S39>/Gain4'
-                                        */
-  real_T Saturation_UpperSat_f;        /* Expression: PM.trap
-                                        * Referenced by: '<S40>/Saturation'
-                                        */
-  real_T Saturation_LowerSat_f;        /* Expression: -PM.trap
-                                        * Referenced by: '<S40>/Saturation'
-                                        */
-  real_T Gain4_Gain_j;                 /* Expression: PM.Flux/PM.trap
                                         * Referenced by: '<S40>/Gain4'
                                         */
+  real_T Saturation_UpperSat_f;        /* Expression: PM.trap
+                                        * Referenced by: '<S41>/Saturation'
+                                        */
+  real_T Saturation_LowerSat_f;        /* Expression: -PM.trap
+                                        * Referenced by: '<S41>/Saturation'
+                                        */
+  real_T Gain4_Gain_j;                 /* Expression: PM.Flux/PM.trap
+                                        * Referenced by: '<S41>/Gain4'
+                                        */
   real_T UnitDelay_InitialCondition_o; /* Expression: 0
-                                        * Referenced by: '<S47>/Unit Delay'
+                                        * Referenced by: '<S48>/Unit Delay'
                                         */
   real_T StateSpace_P1_Size[2];        /* Computed Parameter: StateSpace_P1_Size
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P1;                /* Expression: S.Ts
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P2_Size[2];        /* Computed Parameter: StateSpace_P2_Size
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P2;                /* Expression: S.A
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P3_Size[2];        /* Computed Parameter: StateSpace_P3_Size
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P3[9];             /* Expression: S.B
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P4_Size[2];        /* Computed Parameter: StateSpace_P4_Size
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P4[9];             /* Expression: S.C
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P5_Size[2];        /* Computed Parameter: StateSpace_P5_Size
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P5[81];            /* Expression: S.D
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P6_Size[2];        /* Computed Parameter: StateSpace_P6_Size
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P6;                /* Expression: S.x0
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P7_Size[2];        /* Computed Parameter: StateSpace_P7_Size
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P7;                /* Expression: S.EnableUseOfTLC
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P8_Size[2];        /* Computed Parameter: StateSpace_P8_Size
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P8[3];             /* Expression: S.NonLinearDim
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P9_Size[2];        /* Computed Parameter: StateSpace_P9_Size
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P10_Size[2];      /* Computed Parameter: StateSpace_P10_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P10[2];            /* Expression: S.NonLinear_Inputs
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P11_Size[2];      /* Computed Parameter: StateSpace_P11_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P11[2];            /* Expression: S.NonLinear_Outputs
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P12_Size[2];      /* Computed Parameter: StateSpace_P12_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P12[3];            /* Expression: S.NonLinear_InitialOutputs
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P13_Size[2];      /* Computed Parameter: StateSpace_P13_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P13;               /* Expression: S.NonLinearIterative
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P14_Size[2];      /* Computed Parameter: StateSpace_P14_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P14;               /* Expression: S.NonLinear_SizeVI
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P15_Size[2];      /* Computed Parameter: StateSpace_P15_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P16_Size[2];      /* Computed Parameter: StateSpace_P16_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P16;               /* Expression: S.NonLinear_Method
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P17_Size[2];      /* Computed Parameter: StateSpace_P17_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P17;               /* Expression: S.Nonlinear_Tolerance
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P18_Size[2];      /* Computed Parameter: StateSpace_P18_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P18;               /* Expression: double(nMaxIteration)
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P19_Size[2];      /* Computed Parameter: StateSpace_P19_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P19;           /* Expression: double(ContinueOnMaxIteration)
-                                    * Referenced by: '<S47>/State-Space'
+                                    * Referenced by: '<S48>/State-Space'
                                     */
   real_T StateSpace_P20_Size[2];      /* Computed Parameter: StateSpace_P20_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P20[6];            /* Expression: S.SwitchResistance
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P21_Size[2];      /* Computed Parameter: StateSpace_P21_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P21[6];            /* Expression: S.SwitchType
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P22_Size[2];      /* Computed Parameter: StateSpace_P22_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P22[6];            /* Expression: S.SwitchGateInitialValue
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P23_Size[2];      /* Computed Parameter: StateSpace_P23_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P23[6];            /* Expression: S.OutputsToResetToZero
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T StateSpace_P24_Size[2];      /* Computed Parameter: StateSpace_P24_Size
-                                       * Referenced by: '<S47>/State-Space'
+                                       * Referenced by: '<S48>/State-Space'
                                        */
   real_T StateSpace_P24;               /* Expression: double(S.TBEON)
-                                        * Referenced by: '<S47>/State-Space'
+                                        * Referenced by: '<S48>/State-Space'
                                         */
   real_T Gain2_Gain;                   /* Expression: 30/pi
                                         * Referenced by: '<Root>/Gain2'
@@ -1273,114 +1275,111 @@ struct P_MCU_T_ {
                                         * Referenced by: '<Root>/Constant'
                                         */
   real_T rad2deg_Gain;                 /* Expression: 180/pi
-                                        * Referenced by: '<S41>/rad2deg'
+                                        * Referenced by: '<S42>/rad2deg'
                                         */
   real_T Constant4_Value;              /* Expression: -180
-                                        * Referenced by: '<S36>/Constant4'
+                                        * Referenced by: '<S37>/Constant4'
                                         */
   real_T Constant5_Value;              /* Expression: 0
-                                        * Referenced by: '<S36>/Constant5'
+                                        * Referenced by: '<S37>/Constant5'
                                         */
   real_T BE1Tustin12_Gain;             /* Expression: 1/PM.DSSmethod
-                                        * Referenced by: '<S37>/BE=1 Tustin=1//2'
+                                        * Referenced by: '<S38>/BE=1 Tustin=1//2'
                                         */
   real_T Ts_Gain;                      /* Expression: Ts
-                                        * Referenced by: '<S37>/Ts'
+                                        * Referenced by: '<S38>/Ts'
                                         */
   real_T Constant_Value_l;             /* Expression: -60
-                                        * Referenced by: '<S36>/Constant'
+                                        * Referenced by: '<S37>/Constant'
                                         */
   real_T Constant1_Value;              /* Expression: 120
-                                        * Referenced by: '<S36>/Constant1'
+                                        * Referenced by: '<S37>/Constant1'
                                         */
   real_T Constant2_Value;              /* Expression: 60
-                                        * Referenced by: '<S36>/Constant2'
+                                        * Referenced by: '<S37>/Constant2'
                                         */
   real_T Constant3_Value;              /* Expression: -120
-                                        * Referenced by: '<S36>/Constant3'
-                                        */
-  real_T Regen_Mode_Value;             /* Expression: 3
-                                        * Referenced by: '<Root>/Regen_Mode'
+                                        * Referenced by: '<S37>/Constant3'
                                         */
   real_T Gain3_Gain;                   /* Expression: PM.p
-                                        * Referenced by: '<S31>/Gain3'
+                                        * Referenced by: '<S32>/Gain3'
                                         */
   real_T Gain2_Gain_l;                 /* Expression: 1/PM.J
-                                        * Referenced by: '<S33>/Gain2'
+                                        * Referenced by: '<S34>/Gain2'
                                         */
   real_T capacity_Value;               /* Expression: Batt.Q
-                                        * Referenced by: '<S22>/capacity'
+                                        * Referenced by: '<S23>/capacity'
                                         */
   real_T donotdeletethisgain_Gain;     /* Expression: 1
-                                        * Referenced by: '<S19>/do not delete this gain'
+                                        * Referenced by: '<S20>/do not delete this gain'
                                         */
   real_T CoulombCounter_gainval;   /* Computed Parameter: CoulombCounter_gainval
-                                    * Referenced by: '<S22>/Coulomb Counter'
+                                    * Referenced by: '<S23>/Coulomb Counter'
                                     */
   real_T CoulombCounter_UpperSat;      /* Expression: Batt.Q*3600
-                                        * Referenced by: '<S22>/Coulomb Counter'
+                                        * Referenced by: '<S23>/Coulomb Counter'
                                         */
   real_T CoulombCounter_LowerSat;      /* Expression: -inf
-                                        * Referenced by: '<S22>/Coulomb Counter'
+                                        * Referenced by: '<S23>/Coulomb Counter'
                                         */
   real_T Gain1_Gain;                   /* Expression: 1/3600
-                                        * Referenced by: '<S22>/Gain1'
+                                        * Referenced by: '<S23>/Gain1'
                                         */
   real_T Constant1_Value_f;            /* Expression: Batt.kcsat
-                                        * Referenced by: '<S22>/Constant1'
+                                        * Referenced by: '<S23>/Constant1'
                                         */
   real_T Gain1_Gain_c;                 /* Expression: 100
-                                        * Referenced by: '<S27>/Gain1'
+                                        * Referenced by: '<S28>/Gain1'
                                         */
   real_T Saturation_UpperSat_d;        /* Expression: 100
-                                        * Referenced by: '<S27>/Saturation'
+                                        * Referenced by: '<S28>/Saturation'
                                         */
   real_T Saturation_LowerSat_e;        /* Expression: 0
-                                        * Referenced by: '<S27>/Saturation'
+                                        * Referenced by: '<S28>/Saturation'
                                         */
   real_T DiscreteTimeIntegrator_gainva_b;
                           /* Computed Parameter: DiscreteTimeIntegrator_gainva_b
-                           * Referenced by: '<S25>/Discrete-Time Integrator'
+                           * Referenced by: '<S26>/Discrete-Time Integrator'
                            */
   real_T CurrentFilter_NumCoef;        /* Expression: [1-exp(-Ts/(Batt_Tr/3))]
-                                        * Referenced by: '<S22>/Current Filter'
+                                        * Referenced by: '<S23>/Current Filter'
                                         */
   real_T CurrentFilter_DenCoef[2];     /* Expression: [1 -exp(-Ts/(Batt_Tr/3))]
-                                        * Referenced by: '<S22>/Current Filter'
+                                        * Referenced by: '<S23>/Current Filter'
                                         */
   real_T CurrentFilter_InitialStates;  /* Expression: 0
-                                        * Referenced by: '<S22>/Current Filter'
+                                        * Referenced by: '<S23>/Current Filter'
                                         */
   real_T constantK_Value;              /* Expression: Batt.K
-                                        * Referenced by: '<S22>/constantK'
+                                        * Referenced by: '<S23>/constantK'
                                         */
   real_T constantA_Value;              /* Expression: Batt.A
-                                        * Referenced by: '<S22>/constantA'
+                                        * Referenced by: '<S23>/constantA'
                                         */
   real_T constantB_Value;              /* Expression: Batt.B
-                                        * Referenced by: '<S22>/constantB'
+                                        * Referenced by: '<S23>/constantB'
                                         */
   real_T Gain_Gain_e;                  /* Expression: Batt.R
-                                        * Referenced by: '<S22>/Gain'
+                                        * Referenced by: '<S23>/Gain'
                                         */
   real_T Constant_Value_f;             /* Expression: Batt.E0
-                                        * Referenced by: '<S22>/Constant'
+                                        * Referenced by: '<S23>/Constant'
                                         */
   real_T Gain_Gain_k;                  /* Expression: Batt.B/3600
-                                        * Referenced by: '<S25>/Gain'
+                                        * Referenced by: '<S26>/Gain'
                                         */
   real_T Gain1_Gain_g;                 /* Expression: Batt.A
-                                        * Referenced by: '<S25>/Gain1'
+                                        * Referenced by: '<S26>/Gain1'
                                         */
   real_T Gain2_Gain_i;                 /* Expression: 3600
-                                        * Referenced by: '<S22>/Gain2'
+                                        * Referenced by: '<S23>/Gain2'
                                         */
   boolean_T u1_Value;                  /* Expression: PM.DSSmethod==2
-                                        * Referenced by: '<S35>/u1'
+                                        * Referenced by: '<S36>/u1'
                                         */
-  P_CustomRelay_MCU_T CustomRelay2;    /* '<S15>/Custom Relay2' */
-  P_CustomRelay_MCU_T CustomRelay1;    /* '<S15>/Custom Relay1' */
-  P_CustomRelay_MCU_T CustomRelay;     /* '<S15>/Custom Relay' */
+  P_CustomRelay_MCU_T CustomRelay2;    /* '<S16>/Custom Relay2' */
+  P_CustomRelay_MCU_T CustomRelay1;    /* '<S16>/Custom Relay1' */
+  P_CustomRelay_MCU_T CustomRelay;     /* '<S16>/Custom Relay' */
 };
 
 /* Real-time Model Data Structure */
@@ -1599,102 +1598,103 @@ extern RT_MODEL_MCU_T *const MCU_M;
  * '<S7>'   : 'MCU/Subsystem2'
  * '<S8>'   : 'MCU/Subsystem3'
  * '<S9>'   : 'MCU/System Variable Input'
- * '<S10>'  : 'MCU/System Variable Output'
- * '<S11>'  : 'MCU/System Variable Output1'
- * '<S12>'  : 'MCU/System Variable Output2'
- * '<S13>'  : 'MCU/System Variable Output3'
- * '<S14>'  : 'MCU/Universal Bridge1'
- * '<S15>'  : 'MCU/current controller'
- * '<S16>'  : 'MCU/powergui'
- * '<S17>'  : 'MCU/speed controller'
- * '<S18>'  : 'MCU/Battery/Controlled Voltage Source'
- * '<S19>'  : 'MCU/Battery/Current Measurement'
- * '<S20>'  : 'MCU/Battery/Model'
- * '<S21>'  : 'MCU/Battery/Current Measurement/Model'
- * '<S22>'  : 'MCU/Battery/Model/Discrete'
- * '<S23>'  : 'MCU/Battery/Model/Discrete/Compare To Zero'
- * '<S24>'  : 'MCU/Battery/Model/Discrete/Compare To Zero1'
- * '<S25>'  : 'MCU/Battery/Model/Discrete/Exponential Zone Voltage'
- * '<S26>'  : 'MCU/Battery/Model/Discrete/MATLAB Function'
- * '<S27>'  : 'MCU/Battery/Model/Discrete/SoC'
- * '<S28>'  : 'MCU/Battery/Model/Discrete/Voltage Loss Model'
- * '<S29>'  : 'MCU/Battery/Model/Discrete/Voltage Loss Model/Lithium Ion'
- * '<S30>'  : 'MCU/Battery/Model/Discrete/Voltage Loss Model/Lithium Ion/MATLAB Function'
- * '<S31>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model'
- * '<S32>'  : 'MCU/Permanent Magnet Synchronous Machine/Measurements'
- * '<S33>'  : 'MCU/Permanent Magnet Synchronous Machine/Mechanical model'
- * '<S34>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux'
- * '<S35>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/Discretize  TBE or Tustin'
- * '<S36>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor'
- * '<S37>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/Ihistory_States'
- * '<S38>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase a'
- * '<S39>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase b'
- * '<S40>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase c'
- * '<S41>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor/Angle converter'
- * '<S42>'  : 'MCU/Permanent Magnet Synchronous Machine/Mechanical model/Coulomb & Viscous Friction'
- * '<S43>'  : 'MCU/Universal Bridge1/Model'
- * '<S44>'  : 'MCU/current controller/Custom Relay'
- * '<S45>'  : 'MCU/current controller/Custom Relay1'
- * '<S46>'  : 'MCU/current controller/Custom Relay2'
- * '<S47>'  : 'MCU/powergui/EquivalentModel1'
- * '<S48>'  : 'MCU/powergui/EquivalentModel1/DSS in'
- * '<S49>'  : 'MCU/powergui/EquivalentModel1/DSS out'
- * '<S50>'  : 'MCU/powergui/EquivalentModel1/Gates'
- * '<S51>'  : 'MCU/powergui/EquivalentModel1/Sources'
- * '<S52>'  : 'MCU/powergui/EquivalentModel1/Status'
- * '<S53>'  : 'MCU/powergui/EquivalentModel1/Yout'
- * '<S54>'  : 'MCU/speed controller/Discrete PID Controller'
- * '<S55>'  : 'MCU/speed controller/Discrete PID Controller/Anti-windup'
- * '<S56>'  : 'MCU/speed controller/Discrete PID Controller/D Gain'
- * '<S57>'  : 'MCU/speed controller/Discrete PID Controller/External Derivative'
- * '<S58>'  : 'MCU/speed controller/Discrete PID Controller/Filter'
- * '<S59>'  : 'MCU/speed controller/Discrete PID Controller/Filter ICs'
- * '<S60>'  : 'MCU/speed controller/Discrete PID Controller/I Gain'
- * '<S61>'  : 'MCU/speed controller/Discrete PID Controller/Ideal P Gain'
- * '<S62>'  : 'MCU/speed controller/Discrete PID Controller/Ideal P Gain Fdbk'
- * '<S63>'  : 'MCU/speed controller/Discrete PID Controller/Integrator'
- * '<S64>'  : 'MCU/speed controller/Discrete PID Controller/Integrator ICs'
- * '<S65>'  : 'MCU/speed controller/Discrete PID Controller/N Copy'
- * '<S66>'  : 'MCU/speed controller/Discrete PID Controller/N Gain'
- * '<S67>'  : 'MCU/speed controller/Discrete PID Controller/P Copy'
- * '<S68>'  : 'MCU/speed controller/Discrete PID Controller/Parallel P Gain'
- * '<S69>'  : 'MCU/speed controller/Discrete PID Controller/Reset Signal'
- * '<S70>'  : 'MCU/speed controller/Discrete PID Controller/Saturation'
- * '<S71>'  : 'MCU/speed controller/Discrete PID Controller/Saturation Fdbk'
- * '<S72>'  : 'MCU/speed controller/Discrete PID Controller/Sum'
- * '<S73>'  : 'MCU/speed controller/Discrete PID Controller/Sum Fdbk'
- * '<S74>'  : 'MCU/speed controller/Discrete PID Controller/Tracking Mode'
- * '<S75>'  : 'MCU/speed controller/Discrete PID Controller/Tracking Mode Sum'
- * '<S76>'  : 'MCU/speed controller/Discrete PID Controller/Tsamp - Integral'
- * '<S77>'  : 'MCU/speed controller/Discrete PID Controller/Tsamp - Ngain'
- * '<S78>'  : 'MCU/speed controller/Discrete PID Controller/postSat Signal'
- * '<S79>'  : 'MCU/speed controller/Discrete PID Controller/preInt Signal'
- * '<S80>'  : 'MCU/speed controller/Discrete PID Controller/preSat Signal'
- * '<S81>'  : 'MCU/speed controller/Discrete PID Controller/Anti-windup/Passthrough'
- * '<S82>'  : 'MCU/speed controller/Discrete PID Controller/D Gain/Disabled'
- * '<S83>'  : 'MCU/speed controller/Discrete PID Controller/External Derivative/Disabled'
- * '<S84>'  : 'MCU/speed controller/Discrete PID Controller/Filter/Disabled'
- * '<S85>'  : 'MCU/speed controller/Discrete PID Controller/Filter ICs/Disabled'
- * '<S86>'  : 'MCU/speed controller/Discrete PID Controller/I Gain/Internal Parameters'
- * '<S87>'  : 'MCU/speed controller/Discrete PID Controller/Ideal P Gain/Passthrough'
- * '<S88>'  : 'MCU/speed controller/Discrete PID Controller/Ideal P Gain Fdbk/Disabled'
- * '<S89>'  : 'MCU/speed controller/Discrete PID Controller/Integrator/Discrete'
- * '<S90>'  : 'MCU/speed controller/Discrete PID Controller/Integrator ICs/Internal IC'
- * '<S91>'  : 'MCU/speed controller/Discrete PID Controller/N Copy/Disabled wSignal Specification'
- * '<S92>'  : 'MCU/speed controller/Discrete PID Controller/N Gain/Disabled'
- * '<S93>'  : 'MCU/speed controller/Discrete PID Controller/P Copy/Disabled'
- * '<S94>'  : 'MCU/speed controller/Discrete PID Controller/Parallel P Gain/Internal Parameters'
- * '<S95>'  : 'MCU/speed controller/Discrete PID Controller/Reset Signal/Disabled'
- * '<S96>'  : 'MCU/speed controller/Discrete PID Controller/Saturation/Passthrough'
- * '<S97>'  : 'MCU/speed controller/Discrete PID Controller/Saturation Fdbk/Disabled'
- * '<S98>'  : 'MCU/speed controller/Discrete PID Controller/Sum/Sum_PI'
- * '<S99>'  : 'MCU/speed controller/Discrete PID Controller/Sum Fdbk/Disabled'
- * '<S100>' : 'MCU/speed controller/Discrete PID Controller/Tracking Mode/Disabled'
- * '<S101>' : 'MCU/speed controller/Discrete PID Controller/Tracking Mode Sum/Passthrough'
- * '<S102>' : 'MCU/speed controller/Discrete PID Controller/Tsamp - Integral/TsSignalSpecification'
- * '<S103>' : 'MCU/speed controller/Discrete PID Controller/Tsamp - Ngain/Passthrough'
- * '<S104>' : 'MCU/speed controller/Discrete PID Controller/postSat Signal/Forward_Path'
- * '<S105>' : 'MCU/speed controller/Discrete PID Controller/preInt Signal/Internal PreInt'
- * '<S106>' : 'MCU/speed controller/Discrete PID Controller/preSat Signal/Forward_Path'
+ * '<S10>'  : 'MCU/System Variable Input1'
+ * '<S11>'  : 'MCU/System Variable Output'
+ * '<S12>'  : 'MCU/System Variable Output1'
+ * '<S13>'  : 'MCU/System Variable Output2'
+ * '<S14>'  : 'MCU/System Variable Output3'
+ * '<S15>'  : 'MCU/Universal Bridge1'
+ * '<S16>'  : 'MCU/current controller'
+ * '<S17>'  : 'MCU/powergui'
+ * '<S18>'  : 'MCU/speed controller'
+ * '<S19>'  : 'MCU/Battery/Controlled Voltage Source'
+ * '<S20>'  : 'MCU/Battery/Current Measurement'
+ * '<S21>'  : 'MCU/Battery/Model'
+ * '<S22>'  : 'MCU/Battery/Current Measurement/Model'
+ * '<S23>'  : 'MCU/Battery/Model/Discrete'
+ * '<S24>'  : 'MCU/Battery/Model/Discrete/Compare To Zero'
+ * '<S25>'  : 'MCU/Battery/Model/Discrete/Compare To Zero1'
+ * '<S26>'  : 'MCU/Battery/Model/Discrete/Exponential Zone Voltage'
+ * '<S27>'  : 'MCU/Battery/Model/Discrete/MATLAB Function'
+ * '<S28>'  : 'MCU/Battery/Model/Discrete/SoC'
+ * '<S29>'  : 'MCU/Battery/Model/Discrete/Voltage Loss Model'
+ * '<S30>'  : 'MCU/Battery/Model/Discrete/Voltage Loss Model/Lithium Ion'
+ * '<S31>'  : 'MCU/Battery/Model/Discrete/Voltage Loss Model/Lithium Ion/MATLAB Function'
+ * '<S32>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model'
+ * '<S33>'  : 'MCU/Permanent Magnet Synchronous Machine/Measurements'
+ * '<S34>'  : 'MCU/Permanent Magnet Synchronous Machine/Mechanical model'
+ * '<S35>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux'
+ * '<S36>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/Discretize  TBE or Tustin'
+ * '<S37>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor'
+ * '<S38>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/Ihistory_States'
+ * '<S39>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase a'
+ * '<S40>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase b'
+ * '<S41>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase c'
+ * '<S42>'  : 'MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor/Angle converter'
+ * '<S43>'  : 'MCU/Permanent Magnet Synchronous Machine/Mechanical model/Coulomb & Viscous Friction'
+ * '<S44>'  : 'MCU/Universal Bridge1/Model'
+ * '<S45>'  : 'MCU/current controller/Custom Relay'
+ * '<S46>'  : 'MCU/current controller/Custom Relay1'
+ * '<S47>'  : 'MCU/current controller/Custom Relay2'
+ * '<S48>'  : 'MCU/powergui/EquivalentModel1'
+ * '<S49>'  : 'MCU/powergui/EquivalentModel1/DSS in'
+ * '<S50>'  : 'MCU/powergui/EquivalentModel1/DSS out'
+ * '<S51>'  : 'MCU/powergui/EquivalentModel1/Gates'
+ * '<S52>'  : 'MCU/powergui/EquivalentModel1/Sources'
+ * '<S53>'  : 'MCU/powergui/EquivalentModel1/Status'
+ * '<S54>'  : 'MCU/powergui/EquivalentModel1/Yout'
+ * '<S55>'  : 'MCU/speed controller/Discrete PID Controller'
+ * '<S56>'  : 'MCU/speed controller/Discrete PID Controller/Anti-windup'
+ * '<S57>'  : 'MCU/speed controller/Discrete PID Controller/D Gain'
+ * '<S58>'  : 'MCU/speed controller/Discrete PID Controller/External Derivative'
+ * '<S59>'  : 'MCU/speed controller/Discrete PID Controller/Filter'
+ * '<S60>'  : 'MCU/speed controller/Discrete PID Controller/Filter ICs'
+ * '<S61>'  : 'MCU/speed controller/Discrete PID Controller/I Gain'
+ * '<S62>'  : 'MCU/speed controller/Discrete PID Controller/Ideal P Gain'
+ * '<S63>'  : 'MCU/speed controller/Discrete PID Controller/Ideal P Gain Fdbk'
+ * '<S64>'  : 'MCU/speed controller/Discrete PID Controller/Integrator'
+ * '<S65>'  : 'MCU/speed controller/Discrete PID Controller/Integrator ICs'
+ * '<S66>'  : 'MCU/speed controller/Discrete PID Controller/N Copy'
+ * '<S67>'  : 'MCU/speed controller/Discrete PID Controller/N Gain'
+ * '<S68>'  : 'MCU/speed controller/Discrete PID Controller/P Copy'
+ * '<S69>'  : 'MCU/speed controller/Discrete PID Controller/Parallel P Gain'
+ * '<S70>'  : 'MCU/speed controller/Discrete PID Controller/Reset Signal'
+ * '<S71>'  : 'MCU/speed controller/Discrete PID Controller/Saturation'
+ * '<S72>'  : 'MCU/speed controller/Discrete PID Controller/Saturation Fdbk'
+ * '<S73>'  : 'MCU/speed controller/Discrete PID Controller/Sum'
+ * '<S74>'  : 'MCU/speed controller/Discrete PID Controller/Sum Fdbk'
+ * '<S75>'  : 'MCU/speed controller/Discrete PID Controller/Tracking Mode'
+ * '<S76>'  : 'MCU/speed controller/Discrete PID Controller/Tracking Mode Sum'
+ * '<S77>'  : 'MCU/speed controller/Discrete PID Controller/Tsamp - Integral'
+ * '<S78>'  : 'MCU/speed controller/Discrete PID Controller/Tsamp - Ngain'
+ * '<S79>'  : 'MCU/speed controller/Discrete PID Controller/postSat Signal'
+ * '<S80>'  : 'MCU/speed controller/Discrete PID Controller/preInt Signal'
+ * '<S81>'  : 'MCU/speed controller/Discrete PID Controller/preSat Signal'
+ * '<S82>'  : 'MCU/speed controller/Discrete PID Controller/Anti-windup/Passthrough'
+ * '<S83>'  : 'MCU/speed controller/Discrete PID Controller/D Gain/Disabled'
+ * '<S84>'  : 'MCU/speed controller/Discrete PID Controller/External Derivative/Disabled'
+ * '<S85>'  : 'MCU/speed controller/Discrete PID Controller/Filter/Disabled'
+ * '<S86>'  : 'MCU/speed controller/Discrete PID Controller/Filter ICs/Disabled'
+ * '<S87>'  : 'MCU/speed controller/Discrete PID Controller/I Gain/Internal Parameters'
+ * '<S88>'  : 'MCU/speed controller/Discrete PID Controller/Ideal P Gain/Passthrough'
+ * '<S89>'  : 'MCU/speed controller/Discrete PID Controller/Ideal P Gain Fdbk/Disabled'
+ * '<S90>'  : 'MCU/speed controller/Discrete PID Controller/Integrator/Discrete'
+ * '<S91>'  : 'MCU/speed controller/Discrete PID Controller/Integrator ICs/Internal IC'
+ * '<S92>'  : 'MCU/speed controller/Discrete PID Controller/N Copy/Disabled wSignal Specification'
+ * '<S93>'  : 'MCU/speed controller/Discrete PID Controller/N Gain/Disabled'
+ * '<S94>'  : 'MCU/speed controller/Discrete PID Controller/P Copy/Disabled'
+ * '<S95>'  : 'MCU/speed controller/Discrete PID Controller/Parallel P Gain/Internal Parameters'
+ * '<S96>'  : 'MCU/speed controller/Discrete PID Controller/Reset Signal/Disabled'
+ * '<S97>'  : 'MCU/speed controller/Discrete PID Controller/Saturation/Passthrough'
+ * '<S98>'  : 'MCU/speed controller/Discrete PID Controller/Saturation Fdbk/Disabled'
+ * '<S99>'  : 'MCU/speed controller/Discrete PID Controller/Sum/Sum_PI'
+ * '<S100>' : 'MCU/speed controller/Discrete PID Controller/Sum Fdbk/Disabled'
+ * '<S101>' : 'MCU/speed controller/Discrete PID Controller/Tracking Mode/Disabled'
+ * '<S102>' : 'MCU/speed controller/Discrete PID Controller/Tracking Mode Sum/Passthrough'
+ * '<S103>' : 'MCU/speed controller/Discrete PID Controller/Tsamp - Integral/TsSignalSpecification'
+ * '<S104>' : 'MCU/speed controller/Discrete PID Controller/Tsamp - Ngain/Passthrough'
+ * '<S105>' : 'MCU/speed controller/Discrete PID Controller/postSat Signal/Forward_Path'
+ * '<S106>' : 'MCU/speed controller/Discrete PID Controller/preInt Signal/Internal PreInt'
+ * '<S107>' : 'MCU/speed controller/Discrete PID Controller/preSat Signal/Forward_Path'
  */
 #endif                                 /* MCU_h_ */

@@ -27,4 +27,5 @@ on timer mcu_msg_Timer
 on message L008_MCU_Control
 {
   @MCU::Target_Torque = this.Target_Torque;
+  @MCU::Regen_Mode = this.Regen_Mode;
 }
