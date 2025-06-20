@@ -1,0 +1,88 @@
+/*@!Encoding:65001*/
+variables
+{
+  const int ECU_ID = 0x01;
+  const int SYSTEM_VERSION = 0x0100;
+  
+  const int MAIN_CYCLE = 10;
+  const int WATCHDOG_TIMEOUT = 20;
+
+  const float BATTERY_SOC_LIMIT = 95.0;
+  const byte BATTERY_TEMP_MIN = 10;
+  const byte BATTERY_TEMP_MAX = 45;
+  const float MAX_DECEL_FOR_BRAKE_LIGHT = 1.3;
+  const dword FAILSAFE_RESPONSE_TIME = 50;
+  const dword FRICTION_BRAKE_RESPONSE_TIME = 10;
+
+  const dword FAULT_WATCHDOG_TIMEOUT = 0x00000001;
+  const dword FAULT_CRITICAL_EXTERNAL = 0x00000002;
+  const dword FAULT_BATTERY_PROTECTION = 0x00000004;
+
+  enum SystemState
+  {
+    STATE_INIT = 0,
+    STATE_NORMAL = 1,
+    STATE_BATTERY_PROTECTION = 2,
+    STATE_FAIL_SAFE = 3
+  };
+
+  enum RegenState
+  {
+    REGEN_OFF = 0,
+    REGEN_LEVEL1 = 1,
+    REGEN_LEVEL2 = 2,
+    REGEN_LEVEL3 = 3,
+    REGEN_AUTO = 4
+  };
+
+  struct V2XData
+  {
+    byte trafficLightDistance;
+    byte trafficLightStatus;
+    byte roadGrade;
+    byte congestionLevel;
+    dword timestamp;
+  };
+
+  struct DiagnosticData
+  {
+    byte cpuUsage;
+    byte memoryUsage;
+    word operatingHours;
+    dword errorFlags;
+  };
+
+  msTimer timerMainTask;
+  msTimer timerWatchdog;
+
+  enum SystemState currentState;
+  enum SystemState previousState;
+  enum RegenState currentRegenMode;
+
+  float currentVehicleSpeed;
+  float currentMotorSpeed;
+  float currentRegenTorque;
+  float targetRegenTorque;
+  float maxRegenPower;
+  float cumulativeRegenEnergy;
+  float instantRegenPower;
+
+  byte batterySOC;
+  byte batteryTemp;
+  float steeringAngle;
+  byte apsPosition;
+
+  dword faultRegister;
+  byte watchdogCounter;
+  dword gTaskCounter;
+
+  struct V2XData v2xData;
+  struct DiagnosticData diagnostics;
+  
+  byte gCrcData[10];
+  long gCrcRetval;
+  dword gCrcValue;
+
+  float gPrevVehicleSpeed_VD;
+  dword gPrevTime_VD;
+}
