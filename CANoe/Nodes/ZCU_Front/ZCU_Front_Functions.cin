@@ -272,9 +272,9 @@ void SendM005_VehicleDynamics()
   sensors.apsStatus = ValidateSensorRange(sensors.apsPosition, APS_MIN, APS_MAX);
   ValidateAPSBPPS();
 
-  msg.APS_Position = (byte)(sensors.apsPosition * 2);
-  msg.Vehicle_Speed = (word)(sensors.vehicleSpeed * 100);
-  msg.Steering_Angle = (word)((sensors.steeringAngle + 3200.0) * 10);
+  msg.APS_Position.phys = sensors.apsPosition;
+  msg.Vehicle_Speed.phys = sensors.vehicleSpeed;
+  msg.Steering_Angle.phys = sensors.steeringAngle;
 
   apsValid = (sensors.apsStatus == 0);
   speedValid = (ValidateSensorRange(sensors.vehicleSpeed, 0, SPEED_MAX) == 0);
@@ -319,7 +319,7 @@ void SendM005_EXT_BrakePedal()
   sensors.bppsStatus = ValidateSensorRange(sensors.bppsPosition, BPPS_MIN, BPPS_MAX);
   ValidateAPSBPPS();
 
-  msg.BPPS_Position = (byte)(sensors.bppsPosition * 2);
+  msg.BPPS_Position.phys = sensors.bppsPosition;
 
   bppsPressed = (sensors.bppsPosition > 0.0);
   bppsValid = (sensors.bppsStatus == 0);
@@ -569,9 +569,9 @@ void HandleEpasMessage(message L001_EPAS_Data msg)
     commMon.failureCount_EPAS = 0;
     ClearFault(FAULT_EPAS_COMM);
 
-    sensors.steeringAngle = msg.Steering_Angle;
-    sensors.steeringTorque = msg.Steering_Torque;
-    sensors.angularVelocity = msg.Angular_Velocity;
+    sensors.steeringAngle = msg.Steering_Angle.phys;
+    sensors.steeringTorque = msg.Steering_Torque.phys;
+    sensors.angularVelocity = msg.Angular_Velocity.phys;
     sensors.epasStatus = msg.EPAS_Status;
 
     if(ValidateSensorRange(sensors.steeringAngle, -STEERING_MAX, STEERING_MAX) != 0)
@@ -609,8 +609,8 @@ void HandleAdasMessage(message L002_ADAS_Sensor msg)
   }
   commMon.lastRxTime_ADAS = timeNowNS() / 1000000;
 
-  sensors.frontVehicleDistance = msg.Front_Vehicle_Distance;
-  sensors.frontVehicleSpeed = msg.Front_Vehicle_Speed;
+  sensors.frontVehicleDistance = msg.Front_Vehicle_Distance.phys;
+  sensors.frontVehicleSpeed = msg.Front_Vehicle_Speed.phys;
   sensors.laneChangeIndicator = msg.Lane_Change_Indicator;
   sensors.roadCondition = msg.Road_Condition;
 
