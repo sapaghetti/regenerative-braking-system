@@ -49,8 +49,8 @@ BO_ 771 L007_BMS_Detail_Status: 12 Vector__XXX
 
 BO_ 769 L005_MCU_Detail_Status: 8 MCU
  SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear
- SG_ Motor_Temp : 40|8@1+ (1,-40) [-40|215] "°C"  ZCU_Rear
- SG_ Inverter_Temp : 32|8@1+ (1,-40) [-40|215] "°C"  ZCU_Rear
+ SG_ Motor_Temp : 40|8@1+ (1,-40) [-40|215] "degC"  ZCU_Rear
+ SG_ Inverter_Temp : 32|8@1+ (1,-40) [-40|215] "degC"  ZCU_Rear
  SG_ Motor_Speed : 16|16@1+ (1,0) [0|65535] "rpm"  ZCU_Rear
  SG_ Motor_Torque : 0|16@1- (0.1,0) [-3200|3200] "Nm"  ZCU_Rear
 
