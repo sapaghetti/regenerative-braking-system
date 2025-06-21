@@ -195,21 +195,6 @@ byte ValidateSensorRange(float value, float min, float max)
   return 2;
 }
 
-/**
- * @brief APS와 BPPS가 동시에 눌리는 비정상적인 상황을 교차 확인
- * @return 유효하면 0, 유효하지 않으면 2
- * @note 가속과 제동이 동시에 입력되는 위험 상황을 감지
- */
-byte ValidateAPSBPPS()
-{
-  if (sensors.apsPosition > 5.0 && sensors.bppsPosition > 5.0)
-  {
-    SetFault(FAULT_CROSS_CHECK);
-    return 2;
-  }
-  return 0;
-}
-
 /*******************************************************************************
  * 메시지 전송 함수
  ******************************************************************************/
@@ -270,7 +255,6 @@ void SendM005_VehicleDynamics()
   sensors.apsPosition = ReadAPS();
   sensors.vehicleSpeed = ReadVehicleSpeed();
   sensors.apsStatus = ValidateSensorRange(sensors.apsPosition, APS_MIN, APS_MAX);
-  ValidateAPSBPPS();
 
   msg.APS_Position.phys = sensors.apsPosition;
   msg.Vehicle_Speed.phys = sensors.vehicleSpeed;
@@ -317,7 +301,6 @@ void SendM005_EXT_BrakePedal()
 
   sensors.bppsPosition = ReadBPPS();
   sensors.bppsStatus = ValidateSensorRange(sensors.bppsPosition, BPPS_MIN, BPPS_MAX);
-  ValidateAPSBPPS();
 
   msg.BPPS_Position.phys = sensors.bppsPosition;
 
@@ -484,7 +467,6 @@ void PerformInitialSelfTest()
   sensors.bppsPosition = ReadBPPS();
   if (ValidateSensorRange(sensors.apsPosition, APS_MIN, APS_MAX) != 0) SetFault(FAULT_APS_SENSOR);
   if (ValidateSensorRange(sensors.bppsPosition, BPPS_MIN, BPPS_MAX) != 0) SetFault(FAULT_BPPS_SENSOR);
-  ValidateAPSBPPS();
   write("ZCU_Front: Self-test complete - Faults: 0x%08X", faultRegister);
 }
 
