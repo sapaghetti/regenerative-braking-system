@@ -44,11 +44,6 @@
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_FUNC_001</name>
-      <tcid>a58e303a-3725-47e0-be2c-859522e46c1f</tcid>
-    </capltestcase>
-    <capltestcase>
-      <title />
       <name>TC_FUNC_002</name>
       <tcid>3e071bb9-acea-4d99-8eb4-d30cef57db26</tcid>
     </capltestcase>

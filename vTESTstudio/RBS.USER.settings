@@ -1,0 +1,1600 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <ProductVersion>10.1.5.0</ProductVersion>
+  <Project>
+    <SerializableDictionaryOfStringObject />
+  </Project>
+  <WindowManagement>
+    <SerializableDictionaryOfStringObject>
+      <item>
+        <key type="System.String">
+          <string>ActiveDocumentIndex</string>
+        </key>
+        <value type="System.Int32">
+          <int>3</int>
+        </value>
+      </item>
+      <item>
+        <key type="System.String">
+          <string>DocumentLayout</string>
+        </key>
+        <value type="Vector.ITE.ViewManagement.DocInfoList">
+          <ArrayOfDocumentInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DocumentInfo>
+              <PositionInContainer>0</PositionInContainer>
+              <ContainerIndex>0</ContainerIndex>
+              <DocType>ProjectConfiguration</DocType>
+              <SerializedBasedFileName>&lt;VFileName v="V9" f="BQL" init="1" base="cfg" name="" /&gt;</SerializedBasedFileName>
+              <ContextGUID />
+              <ContextGUIDForGUI />
+            </DocumentInfo>
+            <DocumentInfo>
+              <PositionInContainer>1</PositionInContainer>
+              <ContainerIndex>0</ContainerIndex>
+              <DocType>CAPLFile</DocType>
+              <SerializedBasedFileName>&lt;VFileName v="V9" f="BQL" init="1" base="cfg" name="TU_ZCU_Center\ZCU_Center_Test.can" /&gt;</SerializedBasedFileName>
+              <ContextGUID>r078tqqhtd2q</ContextGUID>
+              <ContextGUIDForGUI>r078tqqhtd2q</ContextGUIDForGUI>
+            </DocumentInfo>
+            <DocumentInfo>
+              <PositionInContainer>2</PositionInContainer>
+              <ContainerIndex>0</ContainerIndex>
+              <DocType>CAPLFile</DocType>
+              <SerializedBasedFileName>&lt;VFileName v="V9" f="BQL" init="1" base="cfg" name="TU_ZCU_Front\ZCU_Front_Test.can" /&gt;</SerializedBasedFileName>
+              <ContextGUID>s4oqhmabfrtl</ContextGUID>
+              <ContextGUIDForGUI>s4oqhmabfrtl</ContextGUIDForGUI>
+            </DocumentInfo>
+            <DocumentInfo>
+              <PositionInContainer>3</PositionInContainer>
+              <ContainerIndex>0</ContainerIndex>
+              <DocType>TTTestModule</DocType>
+              <SerializedBasedFileName>&lt;VFileName v="V9" f="BQL" init="1" base="cfg" name="TU_ZCU_Front\ZCU_Front_Test.vtt" /&gt;</SerializedBasedFileName>
+              <ContextGUID>s4oqhmabfrtl</ContextGUID>
+              <ContextGUIDForGUI>s4oqhmabfrtl</ContextGUIDForGUI>
+            </DocumentInfo>
+          </ArrayOfDocumentInfo>
+        </value>
+      </item>
+      <item>
+        <key type="System.String">
+          <string>WindowLayout</string>
+        </key>
+        <value type="System.String">
+          <string>&lt;DockSiteLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SerializationFormat="ToolWindowsOnly" Version="2"&gt;
+	&lt;AutoHideHost /&gt;
+	&lt;Content xsi:type="SplitContainer" Orientation="Horizontal" DockedSize="1524.4,629.2"&gt;
+		&lt;UIElement xsi:type="SplitContainer" Orientation="Vertical" DockedSize="200,600"&gt;
+			&lt;UIElement xsi:type="ToolWindowContainer" DockedSize="211,407" SelectedWindowUniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b"&gt;
+				&lt;UIElement xsi:type="ToolWindowRef" UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" /&gt;
+			&lt;/UIElement&gt;
+			&lt;UIElement xsi:type="ToolWindowContainer" DockedSize="211,266" SelectedWindowUniqueId="284e2df0-0932-4854-9bf2-dbb96b34796a"&gt;
+				&lt;UIElement xsi:type="ToolWindowRef" UniqueId="284e2df0-0932-4854-9bf2-dbb96b34796a" /&gt;
+				&lt;UIElement xsi:type="ToolWindowRef" UniqueId="0ce8c2bf-4325-402d-8ebc-52ba6d40ccf2" /&gt;
+			&lt;/UIElement&gt;
+		&lt;/UIElement&gt;
+		&lt;UIElement xsi:type="SplitContainer" Orientation="Vertical" DockedSize="716,400"&gt;
+			&lt;UIElement xsi:type="Workspace"&gt;
+				&lt;Content xsi:type="TabbedMdiHost"&gt;
+					&lt;Content xsi:type="TabbedMdiContainer" SelectedWindowUniqueId="860d42f3-8e58-4da1-bb9a-89f044bff106"&gt;
+						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="a818e05d-0f82-42d4-966f-8a24fed6abf5" /&gt;
+						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="d536175a-4f56-48b0-80b2-b771616da405" /&gt;
+						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="a8b2f51a-21e7-4fce-a2d0-762bd7ee53ed" /&gt;
+						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="860d42f3-8e58-4da1-bb9a-89f044bff106" /&gt;
+					&lt;/Content&gt;
+				&lt;/Content&gt;
+			&lt;/UIElement&gt;
+			&lt;UIElement xsi:type="ToolWindowContainer" DockedSize="716,200" SelectedWindowUniqueId="b0825994-7121-418f-bf5b-233d0dedd923"&gt;
+				&lt;UIElement xsi:type="ToolWindowRef" UniqueId="b0825994-7121-418f-bf5b-233d0dedd923" /&gt;
+				&lt;UIElement xsi:type="ToolWindowRef" UniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1" /&gt;
+			&lt;/UIElement&gt;
+		&lt;/UIElement&gt;
+		&lt;UIElement xsi:type="ToolWindowContainer" DockedSize="250,200" SelectedWindowUniqueId="792c075c-8ac2-4c17-94e9-8809753bdf66"&gt;
+			&lt;UIElement xsi:type="ToolWindowRef" UniqueId="6ac6e7cf-52c3-491e-8377-5b5c951e99f5" /&gt;
+			&lt;UIElement xsi:type="ToolWindowRef" UniqueId="c6ddf369-eb82-4a69-9937-df3f2de48fcc" /&gt;
+			&lt;UIElement xsi:type="ToolWindowRef" UniqueId="792c075c-8ac2-4c17-94e9-8809753bdf66" /&gt;
+		&lt;/UIElement&gt;
+	&lt;/Content&gt;
+	&lt;RaftingHosts&gt;
+		&lt;RaftingHost UniqueId="d0bc595c-8920-4f48-a45a-bd3802886642" Location="219,530" Size="211,678" WindowState="Normal"&gt;
+			&lt;AutoHideHost /&gt;
+			&lt;Content xsi:type="ToolWindowContainer" DockedSize="0,0"&gt;
+				&lt;UIElement xsi:type="Track" ContainerDockedSize="211,676" CreationDateTime="0001-01-01T00:00:00" UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" /&gt;
+			&lt;/Content&gt;
+		&lt;/RaftingHost&gt;
+		&lt;RaftingHost UniqueId="4830289f-d188-465e-88d0-b26ca869e692" Location="238,475" Size="211,407" WindowState="Normal"&gt;
+			&lt;AutoHideHost /&gt;
+			&lt;Content xsi:type="ToolWindowContainer" DockedSize="0,0"&gt;
+				&lt;UIElement xsi:type="Track" ContainerDockedSize="211,439" CreationDateTime="0001-01-01T00:00:00" UniqueId="0ce8c2bf-4325-402d-8ebc-52ba6d40ccf2" /&gt;
+			&lt;/Content&gt;
+		&lt;/RaftingHost&gt;
+	&lt;/RaftingHosts&gt;
+	&lt;ToolWindows&gt;
+		&lt;ToolWindow UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" SerializationId="ProjectView" ContainerDockedSize="211,407" IsOpen="true" LastActiveDateTime="2025-06-21T17:21:45.4493376+09:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="284e2df0-0932-4854-9bf2-dbb96b34796a" SerializationId="LibraryView" ContainerDockedSize="211,266" IsOpen="true" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="0ce8c2bf-4325-402d-8ebc-52ba6d40ccf2" SerializationId="HomeDirectoryView" ContainerDockedSize="211,266" IsOpen="true" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="b0825994-7121-418f-bf5b-233d0dedd923" SerializationId="OutputService" ContainerDockedSize="716,200" IsOpen="true" LastActiveDateTime="2025-06-21T17:29:27.4803386+09:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1" SerializationId="FindResults1" ContainerDockedSize="716,200" IsOpen="true" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="273e697c-d09c-47e6-9cf8-19391a67d987" SerializationId="CaplFunctionExplorer" ContainerDockedSize="211,676" IsOpen="false" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="6ac6e7cf-52c3-491e-8377-5b5c951e99f5" SerializationId="SymbolExplorer" ContainerDockedSize="250,200" IsOpen="true" LastActiveDateTime="2025-06-18T09:52:17.7459863+09:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="c6ddf369-eb82-4a69-9937-df3f2de48fcc" SerializationId="InterfaceFunctionExplorer" ContainerDockedSize="250,200" IsOpen="true" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="792c075c-8ac2-4c17-94e9-8809753bdf66" SerializationId="TteLanguageExplorer" ContainerDockedSize="250,200" IsOpen="true" LastActiveDateTime="2025-06-18T10:07:35.9863507+09:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="72257bb0-24fb-4c42-b42a-d7666b985d2e" SerializationId="TraceItemExplorer" ContainerDockedSize="250,676" IsOpen="false" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="ec848507-ef50-46f3-a8d4-be1c443ceaaa" SerializationId="SearchAndReplaceDialog" ContainerDockedSize="307.2,288.4" IsOpen="false" LastActiveDateTime="2025-06-21T15:17:02.2028994+09:00" State="Docked" /&gt;
+	&lt;/ToolWindows&gt;
+&lt;/DockSiteLayout&gt;</string>
+        </value>
+      </item>
+      <item>
+        <key type="System.String">
+          <string>ViewSettings</string>
+        </key>
+        <value type="System.Collections.Generic.List`1[Vector.ITE.ViewInterfaces.ViewSettings]">
+          <ArrayOfViewSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ViewSettings>
+              <Key>Path_.\TU_ZCU_Front\ZCU_Front_Test.vtt</Key>
+              <LastTouched>2025-06-21T08:47:13.5852675Z</LastTouched>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>EditorSettings</string>
+                  </key>
+                  <value type="Vector.ITE.TestTable.Editor.TtEditorSettings">
+                    <TtEditorSettings>
+                      <SplitterSettingsTet>
+                        <SplitPosition>150</SplitPosition>
+                        <Expanded>true</Expanded>
+                      </SplitterSettingsTet>
+                      <SplitterSettingsPv>
+                        <SplitPosition>250</SplitPosition>
+                        <Expanded>true</Expanded>
+                      </SplitterSettingsPv>
+                      <SplitterSettingsLv>
+                        <SplitPosition>249</SplitPosition>
+                        <Expanded>true</Expanded>
+                      </SplitterSettingsLv>
+                      <ActiveView>2</ActiveView>
+                    </TtEditorSettings>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>ParameterViewSettings</string>
+                  </key>
+                  <value type="Vector.ITE.TestTable.Editor.ParameterView.TtParameterViewSettings">
+                    <TtParameterViewSettings>
+                      <CellSizes />
+                    </TtParameterViewSettings>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>TestExecutionTreeSettings</string>
+                  </key>
+                  <value type="Vector.ITE.TestTable.Editor.TestExecutionTree.TtTetSettings">
+                    <TtTetSettings>
+                      <TreeListSettings>
+                        <TreeListColumnSettings>
+                          <TtTreeListColumnSettings>
+                            <Width>112</Width>
+                            <VisibleIndex>0</VisibleIndex>
+                          </TtTreeListColumnSettings>
+                        </TreeListColumnSettings>
+                      </TreeListSettings>
+                    </TtTetSettings>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>LibraryViewSettings</string>
+                  </key>
+                  <value type="Vector.ITE.TestTable.Editor.LibraryView.TtLvSettings">
+                    <TtLvSettings>
+                      <TreeListSettings>
+                        <TreeListColumnSettings>
+                          <TtTreeListColumnSettings>
+                            <Width>112</Width>
+                            <VisibleIndex>0</VisibleIndex>
+                          </TtTreeListColumnSettings>
+                        </TreeListColumnSettings>
+                      </TreeListSettings>
+                    </TtLvSettings>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CommandViewSettings</string>
+                  </key>
+                  <value type="Vector.ITE.TestTable.Editor.CommandView.TtCvSettings">
+                    <TtCvSettings>
+                      <TreeListSettings>
+                        <TreeListColumnSettings>
+                          <TtTreeListColumnSettings>
+                            <Width>300</Width>
+                            <VisibleIndex>0</VisibleIndex>
+                          </TtTreeListColumnSettings>
+                          <TtTreeListColumnSettings>
+                            <Width>300</Width>
+                            <VisibleIndex>1</VisibleIndex>
+                          </TtTreeListColumnSettings>
+                        </TreeListColumnSettings>
+                      </TreeListSettings>
+                      <RootNodeId>:0</RootNodeId>
+                      <MruList />
+                    </TtCvSettings>
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+            <ViewSettings>
+              <Key>ProjectConfiguration</Key>
+              <LastTouched>2025-06-21T08:47:13.438662Z</LastTouched>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>SelectedTabPage</string>
+                  </key>
+                  <value type="Vector.ITE.Document.EProjectConfigurationTabPage">
+                    <EProjectConfigurationTabPage>BuildOptions</EProjectConfigurationTabPage>
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+            <ViewSettings>
+              <Key>Path_.\TU_ZCU_Center\ZCU_Center_Test.can</Key>
+              <LastTouched>2025-06-21T08:47:13.5365081Z</LastTouched>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>AcitiproHonizontalSplitterPosNavigator</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.Common.PersistentItems.PersistentActiproSplitterPosition">
+                    <PersistentActiproSplitterPosition>
+                      <SplitPercentage>0</SplitPercentage>
+                      <HasSplitEnabled>false</HasSplitEnabled>
+                    </PersistentActiproSplitterPosition>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>Outlining</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.Common.PersistentItems.PersistentOutliningNodes">
+                    <PersistentOutliningNodes>
+                      <OutliningNodes>
+                        <PersistentOutliningNode>
+                          <Offset>21</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>528</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>612</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>195</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1072</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1156</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>741</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1696</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1786</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1285</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>2258</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>2344</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>2509</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>2594</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1938</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3115</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3199</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>2702</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3631</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3716</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3862</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3962</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3315</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>4358</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>4443</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>4605</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>4689</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>4067</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>5132</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>5219</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>4798</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>5653</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>5742</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>5346</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>6186</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>6276</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>5871</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>7257</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>7735</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>7840</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>7596</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>7971</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>8096</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>8189</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>6405</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>9187</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>9467</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>9583</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>9762</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>9846</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>9961</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>10055</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>8306</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>10704</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>10795</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>10172</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11354</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11454</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11640</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11732</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11220</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11869</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>10946</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                      </OutliningNodes>
+                    </PersistentOutliningNodes>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>Offset</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>29</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>FirstVisibleDisplayLineIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>SplitterPosNavigator</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.Common.PersistentItems.PersistentSplitterPosition">
+                    <PersistentSplitterPosition>
+                      <Width>200</Width>
+                      <MinWidth>125</MinWidth>
+                    </PersistentSplitterPosition>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CNCRootNodes</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.CAPL.Navigator.Model.SerializedNodeList">
+                    <ArrayOfSerializedNode>
+                      <SerializedNode>
+                        <Name>Includes</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Variables</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>System</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Value Objects</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>CAN</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>LIN</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>FlexRay</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>BAP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Diagnostics</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>J1939</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>GMLAN</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>J1587</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>A429</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Service Signal</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>SOME/IP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Ethernet</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>TCP/IP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>A664</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Autosar PDU</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>XCP/CCP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Map Window</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Station Items</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>CANopen</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Application Layer Objects</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Communication Objects</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Support</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Functions</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Functions</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Cases</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Sequences</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Control</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                    </ArrayOfSerializedNode>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CNCGroups</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.CAPL.Navigator.Model.SerializedNodeList">
+                    <ArrayOfSerializedNode />
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CNCVirtualGroups</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.CAPL.Navigator.Model.SerializedNodeList">
+                    <ArrayOfSerializedNode />
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+            <ViewSettings>
+              <Key>TestUnitConfiguration_r078tqqhtd2q</Key>
+              <LastTouched>2025-06-21T08:27:45.8020874Z</LastTouched>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>SelectedTabPage</string>
+                  </key>
+                  <value type="Vector.ITE.Document.TestUnitConfigurationTabPage">
+                    <TestUnitConfigurationTabPage>Properties</TestUnitConfigurationTabPage>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>StartValue_GUI</string>
+                  </key>
+                  <value type="System.String">
+                    <string>&lt;settings&gt;
+  &lt;Editable&gt;103&lt;/Editable&gt;
+  &lt;Name&gt;89&lt;/Name&gt;
+  &lt;Value&gt;89&lt;/Value&gt;
+  &lt;Type&gt;89&lt;/Type&gt;
+  &lt;TestUnits&gt;75&lt;/TestUnits&gt;
+  &lt;Dependencies&gt;90&lt;/Dependencies&gt;
+&lt;/settings&gt;</string>
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+            <ViewSettings>
+              <Key>Path_.\TU_ZCU_Front\ZCU_Front_Test.can</Key>
+              <LastTouched>2025-06-21T08:47:13.5665395Z</LastTouched>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>AcitiproHonizontalSplitterPosNavigator</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.Common.PersistentItems.PersistentActiproSplitterPosition">
+                    <PersistentActiproSplitterPosition>
+                      <SplitPercentage>0</SplitPercentage>
+                      <HasSplitEnabled>false</HasSplitEnabled>
+                    </PersistentActiproSplitterPosition>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>Outlining</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.Common.PersistentItems.PersistentOutliningNodes">
+                    <PersistentOutliningNodes>
+                      <OutliningNodes>
+                        <PersistentOutliningNode>
+                          <Offset>21</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>522</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>606</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>191</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1064</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1148</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>735</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1643</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1719</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1277</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>2272</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>2358</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>1843</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>2921</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3014</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3168</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3250</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>2505</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3722</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3815</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3356</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>4290</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>4375</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>3921</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>5033</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>5125</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>4484</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>5747</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>6526</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>5231</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>6909</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>7684</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>6645</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>8161</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>8245</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>7805</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>8693</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>8779</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>8388</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>9239</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>9326</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>8926</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                      </OutliningNodes>
+                    </PersistentOutliningNodes>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>Offset</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>187</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>FirstVisibleDisplayLineIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>SplitterPosNavigator</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.Common.PersistentItems.PersistentSplitterPosition">
+                    <PersistentSplitterPosition>
+                      <Width>200</Width>
+                      <MinWidth>125</MinWidth>
+                    </PersistentSplitterPosition>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CNCRootNodes</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.CAPL.Navigator.Model.SerializedNodeList">
+                    <ArrayOfSerializedNode>
+                      <SerializedNode>
+                        <Name>Includes</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Variables</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>System</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Value Objects</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>CAN</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>LIN</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>FlexRay</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>BAP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Diagnostics</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>J1939</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>GMLAN</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>J1587</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>A429</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Service Signal</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>SOME/IP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Ethernet</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>TCP/IP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>A664</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Autosar PDU</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>XCP/CCP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Map Window</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Station Items</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>CANopen</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Application Layer Objects</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Communication Objects</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Support</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Functions</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Functions</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Cases</Name>
+                        <ParentID />
+                        <IsExpanded>true</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Sequences</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Control</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                    </ArrayOfSerializedNode>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CNCGroups</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.CAPL.Navigator.Model.SerializedNodeList">
+                    <ArrayOfSerializedNode />
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CNCVirtualGroups</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.CAPL.Navigator.Model.SerializedNodeList">
+                    <ArrayOfSerializedNode />
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+            <ViewSettings>
+              <Key>SymbolExplorer</Key>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>State</string>
+                  </key>
+                  <value type="System.String">
+                    <string>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;SymbolSelectionProperties xmlns:i="http://www.w3.org/2001/XMLSchema-instance"&gt;
+&lt;AreDiagQualifiersShown&gt;true&lt;/AreDiagQualifiersShown&gt;
+&lt;CurrentViewId&gt;None&lt;/CurrentViewId&gt;
+&lt;SearchProperties&gt;
+&lt;SearchTermHistory /&gt;
+&lt;/SearchProperties&gt;
+&lt;ViewProperties&gt;
+&lt;ViewProperties&gt;
+&lt;ColumnsProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;IsVisible&gt;true&lt;/IsVisible&gt;
+&lt;Position&gt;0&lt;/Position&gt;
+&lt;Sorting&gt;Ascending&lt;/Sorting&gt;
+&lt;Width&gt;200&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;IsVisible&gt;true&lt;/IsVisible&gt;
+&lt;Position&gt;1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;IsVisible&gt;true&lt;/IsVisible&gt;
+&lt;Position&gt;2&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;IsVisible&gt;true&lt;/IsVisible&gt;
+&lt;Position&gt;3&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;IsVisible&gt;true&lt;/IsVisible&gt;
+&lt;Position&gt;4&lt;/Position&gt;
+&lt;Width&gt;200&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;/ColumnsProperties&gt;
+&lt;Key&gt;Embedded/NetworkSymbols&lt;/Key&gt;
+&lt;NodeTreeProperties /&gt;
+&lt;/ViewProperties&gt;
+&lt;ViewProperties&gt;
+&lt;ColumnsProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;IsVisible&gt;true&lt;/IsVisible&gt;
+&lt;Position&gt;0&lt;/Position&gt;
+&lt;Sorting&gt;Ascending&lt;/Sorting&gt;
+&lt;Width&gt;200&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;IsVisible&gt;true&lt;/IsVisible&gt;
+&lt;Position&gt;1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;IsVisible&gt;true&lt;/IsVisible&gt;
+&lt;Position&gt;2&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;IsVisible&gt;true&lt;/IsVisible&gt;
+&lt;Position&gt;3&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;IsVisible&gt;true&lt;/IsVisible&gt;
+&lt;Position&gt;4&lt;/Position&gt;
+&lt;Width&gt;200&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;ColumnProperties&gt;
+&lt;Position&gt;-1&lt;/Position&gt;
+&lt;Width&gt;100&lt;/Width&gt;
+&lt;/ColumnProperties&gt;
+&lt;/ColumnsProperties&gt;
+&lt;Key&gt;Embedded/&lt;/Key&gt;
+&lt;NodeTreeProperties /&gt;
+&lt;/ViewProperties&gt;
+&lt;/ViewProperties&gt;
+&lt;/SymbolSelectionProperties&gt;</string>
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+            <ViewSettings>
+              <Key>TraceItemExplorer</Key>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>TraceItems_TopIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>TraceItems_Focused</string>
+                  </key>
+                  <value type="null" />
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>TraceItems_Selected</string>
+                  </key>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType />
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>TraceItems_Expanded</string>
+                  </key>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType />
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+            <ViewSettings>
+              <Key>HomeDirectoryView</Key>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>HomeDirectoryView_TopIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>HomeDirectoryView_Focused</string>
+                  </key>
+                  <value type="System.String">
+                    <string>vTESTstudio/vTESTstudio</string>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>HomeDirectoryView_Selected</string>
+                  </key>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/vTESTstudio</anyType>
+                    </ArrayOfAnyType>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>HomeDirectoryView_Expanded</string>
+                  </key>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/vTESTstudio</anyType>
+                    </ArrayOfAnyType>
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+            <ViewSettings>
+              <Key>LibraryView</Key>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>LibraryView_TopIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>LibraryView_Focused</string>
+                  </key>
+                  <value type="null" />
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>LibraryView_Selected</string>
+                  </key>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType />
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>LibraryView_Expanded</string>
+                  </key>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType />
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+            <ViewSettings>
+              <Key>ProjectView</Key>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>ProjectView_TopIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>ProjectView_Focused</string>
+                  </key>
+                  <value type="System.String">
+                    <string>vTESTstudio/ProjectRoot/Test Units/TU_ZCU_Front/ZCU_Front_Test.vtt</string>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>ProjectView_Selected</string>
+                  </key>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot/Test Units/TU_ZCU_Front/ZCU_Front_Test.vtt</anyType>
+                    </ArrayOfAnyType>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>ProjectView_Expanded</string>
+                  </key>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot</anyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot/Test Units/TU_ZCU_Front</anyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot/Test Units/TU_ZCU_Center</anyType>
+                    </ArrayOfAnyType>
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+          </ArrayOfViewSettings>
+        </value>
+      </item>
+    </SerializableDictionaryOfStringObject>
+  </WindowManagement>
+  <DocumentManagement>
+    <SerializableDictionaryOfStringObject />
+  </DocumentManagement>
+  <BookmarkService>
+    <SerializableDictionaryOfStringObject />
+  </BookmarkService>
+  <SearchAndReplace>
+    <SerializableDictionaryOfStringObject />
+  </SearchAndReplace>
+  <FunctionExplorer>
+    <SerializableDictionaryOfStringObject />
+  </FunctionExplorer>
+  <TempFileRepository>
+    <SerializableDictionaryOfStringObject />
+  </TempFileRepository>
+  <TestTableEditor>
+    <SerializableDictionaryOfStringObject>
+      <item>
+        <key type="System.String">
+          <string>TtRUList</string>
+        </key>
+        <value type="System.Collections.Generic.List`1[System.String]">
+          <ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" />
+        </value>
+      </item>
+    </SerializableDictionaryOfStringObject>
+  </TestTableEditor>
+  <TestSequenceDiagram>
+    <SerializableDictionaryOfStringObject />
+  </TestSequenceDiagram>
+  <LanguagesCommon>
+    <SerializableDictionaryOfStringObject />
+  </LanguagesCommon>
+  <InterfaceFunctionExplorer>
+    <SerializableDictionaryOfStringObject />
+  </InterfaceFunctionExplorer>
+  <ITETester>
+    <SerializableDictionaryOfStringObject />
+  </ITETester>
+  <MeasurePerformance>
+    <SerializableDictionaryOfStringObject />
+  </MeasurePerformance>
+  <TraceItems>
+    <SerializableDictionaryOfStringObject />
+  </TraceItems>
+  <IntelliSymbolManagement>
+    <SerializableDictionaryOfStringObject />
+  </IntelliSymbolManagement>
+  <PrintDialog>
+    <SerializableDictionaryOfStringObject />
+  </PrintDialog>
+  <TestCaseIDGeneration>
+    <SerializableDictionaryOfStringObject />
+  </TestCaseIDGeneration>
+  <StateChartDiagram>
+    <SerializableDictionaryOfStringObject />
+  </StateChartDiagram>
+  <TcAttributesPropagation>
+    <SerializableDictionaryOfStringObject />
+  </TcAttributesPropagation>
+  <WaveformEditor>
+    <SerializableDictionaryOfStringObject />
+  </WaveformEditor>
+  <Application>
+    <SerializableDictionaryOfStringObject />
+  </Application>
+</Settings>

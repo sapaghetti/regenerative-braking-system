@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TempFileMetainfo xmlns:i="http://www.w3.org/2001/XMLSchema-instance" z:Id="1" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/" xmlns="http://schemas.datacontract.org/2004/07/Vector.ITE.TempFileRepository.MetainfoModel">
+  <FileFormatVersion xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework">1</FileFormatVersion>
+  <TempFileMetainfo xmlns:d2p1="http://schemas.datacontract.org/2004/07/Vector.ITE.TempFileRepository.MetainfoModel.Entities" z:Id="2">
+    <_p z:Ref="1" i:nil="true" xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework" />
+    <d2p1:FileSources z:Id="3">
+      <Content z:Id="4" z:Size="19" xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework">
+        <d2p1:FileSource z:Id="5" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Id="6">10.1.5.0</d2p1:AppVersion>
+          <d2p1:Extension z:Id="7">.</d2p1:Extension>
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:04.4389311+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>71</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="8">6gnahjl5ac7q-TSV</d2p1:PersistencyKey>
+          <d2p1:Crc>2380691147</d2p1:Crc>
+          <d2p1:SourceFile z:Id="9">D:\can\vTESTstudio\RBS.vtsoproj</d2p1:SourceFile>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="10" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:04.4639277+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>74</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="11">6gnahjl5ac7q-MTSV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="12">
+            <Content z:Id="13" z:Size="1">
+              <d2p1:FileSourceDescription z:Id="14">
+                <_p z:Ref="12" i:nil="true" />
+                <d2p1:FullFilePath z:Id="15">D:\can\vTESTstudio\obj_RBS\6gnahjl5ac7q-TSV.</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2025-06-21T15:16:04.4389311+09:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="10" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="16" i:type="d2p1:SimpleFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Id="17"></d2p1:AppVersion>
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="18">6gnahjl5ac7q#SV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescription i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="19" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:04.4909326+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>26083</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="20">rk8hcd335kmb-CSV</d2p1:PersistencyKey>
+          <d2p1:Crc>1260115247</d2p1:Crc>
+          <d2p1:SourceFile z:Ref="9" i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="21" i:type="d2p1:SimpleFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="17" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="22">rk8hcd335kmb#SV</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescription i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="23" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:04.5009771+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>34</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="24">8cmsiv3j8ne1-EPF</d2p1:PersistencyKey>
+          <d2p1:Crc>817826664</d2p1:Crc>
+          <d2p1:SourceFile z:Ref="9" i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="25" i:type="d2p1:DatabaseTlbFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="17" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="26">dqnjmk1aufif#DB</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescription i:nil="true" />
+          <d2p1:IgnoredNodes z:Ref="17" i:nil="true" />
+          <d2p1:NamespaceMode>0</d2p1:NamespaceMode>
+          <d2p1:Networks xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" z:Id="27" z:Size="0" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="28" i:type="d2p1:DatabaseTlbFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="17" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="29">b6dgf4373pgh#DB</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescription i:nil="true" />
+          <d2p1:IgnoredNodes z:Ref="17" i:nil="true" />
+          <d2p1:NamespaceMode>0</d2p1:NamespaceMode>
+          <d2p1:Networks xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" z:Id="30" z:Size="0" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="31" i:type="d2p1:DatabaseTlbFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="17" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="32">h7ssj36uetc7#DB</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescription i:nil="true" />
+          <d2p1:IgnoredNodes z:Ref="17" i:nil="true" />
+          <d2p1:NamespaceMode>0</d2p1:NamespaceMode>
+          <d2p1:Networks xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" z:Id="33" z:Size="0" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="34" i:type="d2p1:DatabaseTlbFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="17" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="35">pqc8luu11sdd#DB</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescription i:nil="true" />
+          <d2p1:IgnoredNodes z:Ref="17" i:nil="true" />
+          <d2p1:NamespaceMode>0</d2p1:NamespaceMode>
+          <d2p1:Networks xmlns:d6p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" z:Id="36" z:Size="0" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="37" i:type="d2p1:SimpleFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="17" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>0001-01-01T00:00:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>-1</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="38">kpinrcj38dfh#CO</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescription i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="39" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Id="40">.vvarprop</d2p1:Extension>
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:05.5334967+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>266</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="41">TU_Indep=VP</d2p1:PersistencyKey>
+          <d2p1:Crc>3110147276</d2p1:Crc>
+          <d2p1:SourceFile z:Ref="17" i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="42" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="40" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:05.5744951+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>266</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="43">s4oqhmabfrtl=VP</d2p1:PersistencyKey>
+          <d2p1:Crc>3110147276</d2p1:Crc>
+          <d2p1:SourceFile z:Ref="17" i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="44" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="40" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:05.5754954+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>266</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="45">r078tqqhtd2q=VP</d2p1:PersistencyKey>
+          <d2p1:Crc>3110147276</d2p1:Crc>
+          <d2p1:SourceFile z:Ref="17" i:nil="true" />
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="46" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:05.8470362+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>62</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="47">s4oqhmabfrtl~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="48">
+            <Content z:Id="49" z:Size="1">
+              <d2p1:FileSourceDescription z:Id="50">
+                <_p z:Ref="48" i:nil="true" />
+                <d2p1:FullFilePath z:Id="51">D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.vtt</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2025-06-21T17:27:24.7971979+09:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="46" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="52" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:05.8570362+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>62</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="53">r078tqqhtd2q~3-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="54">
+            <Content z:Id="55" z:Size="1">
+              <d2p1:FileSourceDescription z:Id="56">
+                <_p z:Ref="54" i:nil="true" />
+                <d2p1:FullFilePath z:Id="57">D:\can\vTESTstudio\TU_ZCU_Center\ZCU_Center_Test.vtt</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2025-06-21T15:00:56.0767907+09:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="52" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="58" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:06.1475913+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>6702</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="59">s4oqhmabfrtl~0-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="60">
+            <Content z:Id="61" z:Size="1">
+              <d2p1:FileSourceDescription z:Id="62">
+                <_p z:Ref="60" i:nil="true" />
+                <d2p1:FullFilePath z:Id="63">D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2025-06-21T15:00:56.0767907+09:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="58" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="64" i:type="d2p1:MultiFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:06.1655928+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>7235</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="65">r078tqqhtd2q~0-0</d2p1:PersistencyKey>
+          <d2p1:FileSourceDescriptions z:Id="66">
+            <Content z:Id="67" z:Size="1">
+              <d2p1:FileSourceDescription z:Id="68">
+                <_p z:Ref="66" i:nil="true" />
+                <d2p1:FullFilePath z:Id="69">D:\can\vTESTstudio\TU_ZCU_Center\ZCU_Center_Test.can</d2p1:FullFilePath>
+                <d2p1:SourceModificationTime>2025-06-21T15:00:56.0767907+09:00</d2p1:SourceModificationTime>
+              </d2p1:FileSourceDescription>
+            </Content>
+            <_p z:Ref="64" i:nil="true" />
+          </d2p1:FileSourceDescriptions>
+        </d2p1:FileSource>
+        <d2p1:FileSource z:Id="70" i:type="d2p1:CrcBasedFileSource">
+          <_p z:Ref="3" i:nil="true" />
+          <d2p1:AppVersion z:Ref="6" i:nil="true" />
+          <d2p1:Extension z:Ref="7" i:nil="true" />
+          <d2p1:GeneratedFileModificationTime>2025-06-21T15:16:08.8286912+09:00</d2p1:GeneratedFileModificationTime>
+          <d2p1:GeneratedFileSize>2048</d2p1:GeneratedFileSize>
+          <d2p1:PersistencyKey z:Id="71">kpinrcj38dfh#NW</d2p1:PersistencyKey>
+          <d2p1:Crc>181393861</d2p1:Crc>
+          <d2p1:SourceFile z:Ref="17" i:nil="true" />
+        </d2p1:FileSource>
+      </Content>
+      <_p z:Ref="2" i:nil="true" xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework" />
+    </d2p1:FileSources>
+    <d2p1:TempFileMappings z:Id="72">
+      <Content z:Id="73" z:Size="7" xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework">
+        <d2p1:TempFileMapping z:Id="74">
+          <_p z:Ref="72" i:nil="true" />
+          <d2p1:FileSource z:Ref="16" i:nil="true" />
+          <d2p1:MappingValue z:Id="75">kpinrcj38dfh_TestSysVars</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="76">
+          <_p z:Ref="72" i:nil="true" />
+          <d2p1:FileSource z:Ref="21" i:nil="true" />
+          <d2p1:MappingValue z:Id="77">SystemVariablesTypeLib</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="78">
+          <_p z:Ref="72" i:nil="true" />
+          <d2p1:FileSource z:Ref="25" i:nil="true" />
+          <d2p1:MappingValue z:Id="79">IL_Backbone</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="80">
+          <_p z:Ref="72" i:nil="true" />
+          <d2p1:FileSource z:Ref="28" i:nil="true" />
+          <d2p1:MappingValue z:Id="81">IL_Front_Zone</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="82">
+          <_p z:Ref="72" i:nil="true" />
+          <d2p1:FileSource z:Ref="31" i:nil="true" />
+          <d2p1:MappingValue z:Id="83">IL_Center_Zone</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="84">
+          <_p z:Ref="72" i:nil="true" />
+          <d2p1:FileSource z:Ref="34" i:nil="true" />
+          <d2p1:MappingValue z:Id="85">IL_Rear_Zone</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+        <d2p1:TempFileMapping z:Id="86">
+          <_p z:Ref="72" i:nil="true" />
+          <d2p1:FileSource z:Ref="37" i:nil="true" />
+          <d2p1:MappingValue z:Id="87">ApplicationLayerTypeLib</d2p1:MappingValue>
+        </d2p1:TempFileMapping>
+      </Content>
+      <_p z:Ref="2" i:nil="true" xmlns="http://schemas.datacontract.org/2004/07/Vector.Reusable.ModelFramework" />
+    </d2p1:TempFileMappings>
+  </TempFileMetainfo>
+</TempFileMetainfo>
