@@ -181,8 +181,15 @@ byte ValidateButtonInput(byte buttonID, byte buttonAction, word pressDuration, d
     return 0;
   }
 
+  // 버튼 액션 범위 확인
+  if (buttonAction > BUTTON_ACTION_LONG_PRESS)
+  {
+    SetFault(FAULT_BUTTON_INPUT);
+    return 0;
+  }
+
   // 눌림 시간 확인
-  if (buttonAction == BUTTON_ACTION_PRESS && 
+  if ((buttonAction == BUTTON_ACTION_RELEASE || buttonAction == BUTTON_ACTION_LONG_PRESS) &&
       (pressDuration < MIN_BUTTON_PRESS_TIME || pressDuration > MAX_BUTTON_PRESS_TIME))
   {
     SetFault(FAULT_BUTTON_INPUT);
@@ -190,7 +197,7 @@ byte ValidateButtonInput(byte buttonID, byte buttonAction, word pressDuration, d
   }
 
   // 연속 입력 간격 확인
-  if ((currentTime - hmiInput.lastButtonTime) < MIN_INPUT_INTERVAL)
+  if (buttonAction == BUTTON_ACTION_PRESS && (currentTime - hmiInput.lastButtonTime) < MIN_INPUT_INTERVAL)
   {
     write("ZCU_Center: Button input too frequent, ignoring");
     return 0;
@@ -251,16 +258,32 @@ byte DetermineRequestedModeFromButton(byte buttonID, byte buttonAction)
   switch (buttonID)
   {
     case BUTTON_MODE_UP:
-      requestedMode = (clusterDisplay.currentDisplayMode + 1) % MAX_REGEN_MODES;
+      if (clusterDisplay.currentDisplayMode == MODE_AUTO)
+      {
+        requestedMode = _min(MODE_LEVEL_3, clusterDisplay.previousDisplayMode + 1);
+      }
+      else
+      {
+        requestedMode = _min(MODE_LEVEL_3, clusterDisplay.currentDisplayMode + 1);
+      }
       break;
       
     case BUTTON_MODE_DOWN:
-      requestedMode = (clusterDisplay.currentDisplayMode == 0) ? 
-                      (MAX_REGEN_MODES - 1) : (clusterDisplay.currentDisplayMode - 1);
+      if (clusterDisplay.currentDisplayMode == MODE_AUTO)
+      {
+        requestedMode = (clusterDisplay.previousDisplayMode == 0) ?
+                        0 : (clusterDisplay.previousDisplayMode - 1);
+      }
+      else
+      {
+        requestedMode = (clusterDisplay.currentDisplayMode == 0) ?
+                        0 : (clusterDisplay.currentDisplayMode - 1);
+      }
       break;
       
     case BUTTON_AUTO_TOGGLE:
-      requestedMode = (clusterDisplay.currentDisplayMode == MODE_AUTO) ? MODE_LEVEL_0 : MODE_AUTO;
+      requestedMode = (clusterDisplay.currentDisplayMode == MODE_AUTO) ?
+                      clusterDisplay.previousDisplayMode : MODE_AUTO;
       break;
       
     case BUTTON_PROFILE_CHANGE:
@@ -637,6 +660,7 @@ void InitializeGlobals()
 
   // 클러스터 표시 데이터 초기화
   clusterDisplay.currentDisplayMode = MODE_LEVEL_0;
+  clusterDisplay.previousDisplayMode = MODE_LEVEL_0;
   clusterDisplay.instantRegenPower = 0;
   clusterDisplay.cumulativeRegenEnergy = 0;
   clusterDisplay.vehicleSpeed = 0;
@@ -871,10 +895,10 @@ void HandleSwButtonInputMessage(message L004_SW_Button_Input msg)
         msg.Button_ID, msg.Button_Action, msg.Press_Duration);
 
   // E2E 보호 검증
-  dataArray[0] = msg.Button_ID;
-  dataArray[1] = msg.Button_Action;
-  dataArray[2] = (byte)(msg.Press_Duration & 0xFF);
-  dataArray[3] = (byte)((msg.Press_Duration >> 8) & 0xFF);
+  dataArray[0] = (msg.Button_ID & 0x0F) | ((msg.Button_Action & 0x0F) << 4);
+  dataArray[1] = (byte)(msg.Press_Duration & 0xFF);
+  dataArray[2] = (byte)((msg.Press_Duration >> 8) & 0xFF);
+  dataArray[3] = msg.Event_Counter;
   dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
   dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
   
@@ -914,7 +938,7 @@ void HandleSwButtonInputMessage(message L004_SW_Button_Input msg)
 
   // 모드 변경 버튼 처리
   requestedMode = DetermineRequestedModeFromButton(msg.Button_ID, msg.Button_Action);
-  if (requestedMode != 0xFF)
+  if (requestedMode != 0xFF && requestedMode != clusterDisplay.currentDisplayMode)
   {
     SendModeChangeRequest(requestedMode, REQUEST_SOURCE_BUTTON, clusterDisplay.activeProfile);
   }
@@ -975,6 +999,7 @@ void HandleModeChangeRespMessage(message M009_Mode_Change_Resp msg)
   if (msg.Mode_Change_Status == 0)  // 성공
   {
     // 클러스터 표시 데이터 업데이트
+    clusterDisplay.previousDisplayMode = clusterDisplay.currentDisplayMode;
     clusterDisplay.currentDisplayMode = msg.Current_Mode;
     clusterDisplay.activeProfile = msg.Active_Profile;
     
@@ -1077,25 +1102,6 @@ void HandleFaultInjectionKey()
 }
 
 /**
- * @brief 'on key 'b'' 이벤트 핸들러 로직을 처리 (버튼 입력 시뮬레이션)
- */
-void HandleSimulateButtonKey()
-{
-  write("ZCU_Center: Simulating button press - Mode Up");
-  
-  if (!commMon.waitingForResponse)
-  {
-    byte requestedMode;
-    requestedMode = (clusterDisplay.currentDisplayMode + 1) % MAX_REGEN_MODES;
-    SendModeChangeRequest(requestedMode, REQUEST_SOURCE_BUTTON, clusterDisplay.activeProfile);
-  }
-  else
-  {
-    write("ZCU_Center: Already waiting for response, ignoring simulation");
-  }
-}
-
-/**
  * @brief 'on key 'v'' 이벤트 핸들러 로직을 처리 (음성 명령 시뮬레이션)
  */
 void HandleSimulateVoiceKey()
@@ -1105,25 +1111,6 @@ void HandleSimulateVoiceKey()
   if (!commMon.waitingForResponse)
   {
     SendModeChangeRequest(MODE_AUTO, REQUEST_SOURCE_VOICE, clusterDisplay.activeProfile);
-  }
-  else
-  {
-    write("ZCU_Center: Already waiting for response, ignoring simulation");
-  }
-}
-
-/**
- * @brief 'on key 'p'' 이벤트 핸들러 로직을 처리 (프로파일 변경 시뮬레이션)
- */
-void HandleSimulateProfileChangeKey()
-{
-  write("ZCU_Center: Simulating profile change");
-  
-  if (!commMon.waitingForResponse)
-  {
-    byte newProfile;
-    newProfile = (clusterDisplay.activeProfile == PROFILE_EFFICIENCY) ? PROFILE_COMFORT : PROFILE_EFFICIENCY;
-    SendModeChangeRequest(clusterDisplay.currentDisplayMode, REQUEST_SOURCE_BUTTON, newProfile);
   }
   else
   {
