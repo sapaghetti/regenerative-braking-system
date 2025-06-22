@@ -30,7 +30,7 @@ variables
   const int TIMEOUT_HPC_M009 = 1000;
   /** @brief 최대 통신 실패 횟수 */
   const int MAX_COMM_FAILURES = 3;
-  /** @brief HMI 응답 최대 대기 시간 (ms) - SYS_002 요구사항 */
+  /** @brief HMI 응답 최대 대기 시간 (ms) */
   const int HMI_RESPONSE_TIMEOUT = 200;
 
   /*******************************************************************************

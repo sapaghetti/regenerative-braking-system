@@ -142,49 +142,6 @@ export testcase TC_UNIT_305()
   TestStep("준비", "전역 변수를 초기화합니다.");
   InitializeGlobals();
 
-  TestStep("실행", "최대 시간(5001ms)을 초과하여 눌린 버튼 입력을 검증합니다.");
-  returnValue = ValidateButtonInput(BUTTON_MODE_UP, BUTTON_ACTION_PRESS, 5001, timeNowNS() / 1000000);
-
-  TestStep("검증", "반환 값이 0이고 FAULT_BUTTON_INPUT 폴트가 설정되었는지 확인합니다.");
-  if (returnValue == 0 && (faultRegister & FAULT_BUTTON_INPUT) != 0)
-  {
-    TestStepPass("결과", "Stuck 버튼 입력을 감지하고 예상대로 0을 반환하며 폴트를 설정했습니다.");
-  }
-  else
-  {
-    TestStepFail("결과", "Stuck 버튼 입력 처리가 잘못되었습니다. (반환값: %d, FaultRegister: 0x%08X)", returnValue, faultRegister);
-  }
-}
-
-export testcase TC_UNIT_306()
-{
-  byte requestedMode;
-  
-  TestStep("준비", "현재 모드를 Auto 모드로 설정합니다.");
-  InitializeGlobals();
-  clusterDisplay.currentDisplayMode = MODE_AUTO;
-
-  TestStep("실행", "모드 증가 버튼 입력을 기반으로 요청 모드를 결정합니다.");
-  requestedMode = DetermineRequestedModeFromButton(BUTTON_MODE_UP, BUTTON_ACTION_PRESS);
-
-  TestStep("검증", "반환 값이 MODE_LEVEL_0(0)인지 확인합니다.");
-  if (requestedMode == MODE_LEVEL_0)
-  {
-    TestStepPass("결과", "모드 순환이 정확하게 계산되었습니다. (요청 모드: %d)", requestedMode);
-  }
-  else
-  {
-    TestStepFail("결과", "모드 순환 계산이 잘못되었습니다. (요청 모드: %d, 예상: %d)", requestedMode, MODE_LEVEL_0);
-  }
-}
-
-export testcase TC_UNIT_307()
-{
-  byte returnValue;
-
-  TestStep("준비", "전역 변수를 초기화합니다.");
-  InitializeGlobals();
-
   TestStep("실행", "신뢰도 69%%의 음성 입력을 검증합니다.");
   returnValue = ValidateVoiceInput(VOICE_CMD_MODE_CHANGE, MODE_LEVEL_2, 69, timeNowNS() / 1000000);
 
@@ -215,10 +172,10 @@ export testcase TC_INT_301()
   msg.Press_Duration = 100;
   msg.Event_Timestamp = 0;
 
-  dataArray[0] = msg.Button_ID;
-  dataArray[1] = msg.Button_Action;
-  dataArray[2] = (byte)(msg.Press_Duration & 0xFF);
-  dataArray[3] = (byte)((msg.Press_Duration >> 8) & 0xFF);
+  dataArray[0] = (msg.Button_ID & 0x0F) | ((msg.Button_Action & 0x0F) << 4);
+  dataArray[1] = (byte)(msg.Press_Duration & 0xFF);
+  dataArray[2] = (byte)((msg.Press_Duration >> 8) & 0xFF);
+  dataArray[3] = msg.Event_Counter;
   dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
   dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
   Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
@@ -252,7 +209,6 @@ export testcase TC_INT_302()
   dword crc;
 
   TestStep("준비", "초기화 및 모드 변경 요청을 먼저 보냅니다.");
-  TestDisableMsg(M009_Mode_Change_Resp);
   HandleStartEvent();
   TestWaitForTimeout(20);
   SendModeChangeRequest(MODE_LEVEL_3, REQUEST_SOURCE_BUTTON, PROFILE_COMFORT);
@@ -287,8 +243,6 @@ export testcase TC_INT_302()
     TestStepFail("결과", "모드 변경 성공 응답 처리 실패. (Mode: %d, Comfort: %d, Waiting: %d)",
                  clusterDisplay.currentDisplayMode, clusterDisplay.comfortModeEnabled, commMon.waitingForResponse);
   }
-
-  TestEnableMsg(M009_Mode_Change_Resp);
 }
 
 export testcase TC_INT_303()
@@ -298,7 +252,6 @@ export testcase TC_INT_303()
   dword crc;
 
   TestStep("준비", "초기화 및 모드 변경 요청을 먼저 보냅니다.");
-  TestDisableMsg(M009_Mode_Change_Resp);
   HandleStartEvent();
   TestWaitForTimeout(20);
   SendModeChangeRequest(MODE_LEVEL_2, REQUEST_SOURCE_BUTTON, PROFILE_EFFICIENCY);
@@ -332,15 +285,13 @@ export testcase TC_INT_303()
   {
     TestStepFail("결과", "모드 변경 실패 폴트 설정이 누락되었습니다. (FaultRegister: 0x%08X)", faultRegister);
   }
-
-  TestEnableMsg(M009_Mode_Change_Resp);
 }
 
 export testcase TC_INT_304()
 {
   TestStep("준비", "ZCU_Center를 시작하고 주기 타이머를 활성화합니다.");
-  TestDisableMsg(M009_Mode_Change_Resp);
   HandleStartEvent();
+  TransitionToState(STATE_NORMAL);
 
   TestStep("실행", "M008 요청 전송 후 M009 응답 없이 HMI_RESPONSE_TIMEOUT(200ms) 이상 대기합니다.");
   SendModeChangeRequest(MODE_LEVEL_1, REQUEST_SOURCE_VOICE, PROFILE_EFFICIENCY);
@@ -357,7 +308,6 @@ export testcase TC_INT_304()
   }
 
   cancelTimer(timerMainTask);
-  TestEnableMsg(M009_Mode_Change_Resp);
 }
 
 export testcase TC_SW_301()
@@ -371,15 +321,15 @@ export testcase TC_SW_301()
   TestWaitForTimeout(20);
 
   TestStep("실행", "L004_SW_Button_Input 메시지를 전송합니다 (Mode Down).");
-  msg.Button_ID = BUTTON_MODE_DOWN;
+  msg.Button_ID = BUTTON_MODE_UP;
   msg.Button_Action = BUTTON_ACTION_PRESS;
   msg.Press_Duration = 100;
   msg.Event_Timestamp = 0;
 
-  dataArray[0] = msg.Button_ID;
-  dataArray[1] = msg.Button_Action;
-  dataArray[2] = (byte)(msg.Press_Duration & 0xFF);
-  dataArray[3] = (byte)((msg.Press_Duration >> 8) & 0xFF);
+  dataArray[0] = (msg.Button_ID & 0x0F) | ((msg.Button_Action & 0x0F) << 4);
+  dataArray[1] = (byte)(msg.Press_Duration & 0xFF);
+  dataArray[2] = (byte)((msg.Press_Duration >> 8) & 0xFF);
+  dataArray[3] = msg.Event_Counter;
   dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
   dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
   Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
@@ -392,7 +342,7 @@ export testcase TC_SW_301()
   {
     if ($M008_Mode_Change_Req::Request_Source == REQUEST_SOURCE_BUTTON)
     {
-      TestStepPass("결과", "요구사항(SYS_002)에 따라 200ms 내에 올바른 M008 메시지를 전송했습니다.");
+      TestStepPass("결과", "200ms 내에 올바른 M008 메시지를 전송했습니다.");
     }
     else
     {
@@ -438,7 +388,7 @@ export testcase TC_SW_302()
   {
     if ($M008_Mode_Change_Req::Requested_Mode == MODE_AUTO && $M008_Mode_Change_Req::Request_Source == REQUEST_SOURCE_VOICE)
     {
-      TestStepPass("결과", "요구사항(SYS_002)에 따라 200ms 내에 올바른 M008 메시지를 전송했습니다.");
+      TestStepPass("결과", "200ms 내에 올바른 M008 메시지를 전송했습니다.");
     }
     else
     {

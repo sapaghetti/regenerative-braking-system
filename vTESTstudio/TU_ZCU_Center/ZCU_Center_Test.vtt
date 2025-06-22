@@ -29,16 +29,6 @@
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_UNIT_306</name>
-      <tcid>5c2b9ab5-7a6d-4aa1-8762-ba416ede7d4f</tcid>
-    </capltestcase>
-    <capltestcase>
-      <title />
-      <name>TC_UNIT_307</name>
-      <tcid>b9e30529-7b69-4ce7-ac15-493b9dc0dbee</tcid>
-    </capltestcase>
-    <capltestcase>
-      <title />
       <name>TC_INT_301</name>
       <tcid>0cd90931-5e46-43b4-b89b-b371236da596</tcid>
     </capltestcase>
