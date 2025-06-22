@@ -1,9 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <systemvariables version="4">
   <namespace name="" interface="">
-    <namespace name="ZCU_Sim" interface="">
-      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="%" name="APS_Position" bitcount="64" isSigned="true" encoding="65001" type="float" />
-      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="%" name="BPPS_Position" bitcount="64" isSigned="true" encoding="65001" type="float" />
+    <namespace name="ZCU_Center" interface="">
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Center_System_Status" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="1" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Cluster_Active_Profile" bitcount="32" isSigned="false" encoding="65001" type="int" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Cluster_Comfort_Mode" bitcount="32" isSigned="false" encoding="65001" type="int" />
@@ -16,7 +14,6 @@
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Cluster_Warning_Status" bitcount="32" isSigned="false" encoding="65001" type="int" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Firmware_Signature" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="3735928559" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="OTA_Comfort_Activated" bitcount="32" isSigned="false" encoding="65001" type="int" />
-      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Vehicle_Speed" bitcount="64" isSigned="true" encoding="65001" type="float" />
     </namespace>
   </namespace>
 </systemvariables>

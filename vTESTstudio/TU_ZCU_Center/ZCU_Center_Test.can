@@ -34,8 +34,8 @@ export testcase TC_UNIT_301()
 {
   byte returnValue;
 
-  TestStep("준비", "시스템 변수 @ZCU_Sim::Firmware_Signature를 정상 값(0xDEADBEEF)으로 설정합니다.");
-  sysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
+  TestStep("준비", "시스템 변수 @ZCU_Center::Firmware_Signature를 정상 값(0xDEADBEEF)으로 설정합니다.");
+  sysSetVariableDWord("ZCU_Center", "Firmware_Signature", 0xDEADBEEF);
 
   TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
   returnValue = PerformSecureBoot();
@@ -55,8 +55,8 @@ export testcase TC_UNIT_302()
 {
   byte returnValue;
 
-  TestStep("준비", "시스템 변수 @ZCU_Sim::Firmware_Signature를 비정상 값(0xBADF00D)으로 설정합니다.");
-  sysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xBADF00D);
+  TestStep("준비", "시스템 변수 @ZCU_Center::Firmware_Signature를 비정상 값(0xBADF00D)으로 설정합니다.");
+  sysSetVariableDWord("ZCU_Center", "Firmware_Signature", 0xBADF00D);
 
   TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
   returnValue = PerformSecureBoot();
@@ -71,7 +71,7 @@ export testcase TC_UNIT_302()
     TestStepFail("결과", "반환 값이 %d 입니다. 예상 값: 0", returnValue);
   }
 
-  sysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
+  sysSetVariableDWord("ZCU_Center", "Firmware_Signature", 0xDEADBEEF);
 }
 
 export testcase TC_UNIT_303()
@@ -485,19 +485,19 @@ export testcase TC_SW_303()
   output(msg);
   TestWaitForTimeout(5);
 
-  TestStep("검증", "ZCU_Sim 네임스페이스의 시스템 변수 값들을 확인합니다.");
-  if (sysGetVariableDWord("ZCU_Sim", "Cluster_Display_Mode") == 3 &&
-      sysGetVariableDWord("ZCU_Sim", "Cluster_Instant_Power") == 5000 &&
-      (sysGetVariableDWord("ZCU_Sim", "Cluster_Warning_Status") & WARNING_BATTERY) != 0)
+  TestStep("검증", "ZCU_Center 네임스페이스의 시스템 변수 값들을 확인합니다.");
+  if (sysGetVariableDWord("ZCU_Center", "Cluster_Display_Mode") == 3 &&
+      sysGetVariableDWord("ZCU_Center", "Cluster_Instant_Power") == 5000 &&
+      (sysGetVariableDWord("ZCU_Center", "Cluster_Warning_Status") & WARNING_BATTERY) != 0)
   {
     TestStepPass("결과", "M012 수신 후 클러스터 관련 시스템 변수들이 정상적으로 업데이트되었습니다.");
   }
   else
   {
     TestStepFail("결과", "클러스터 관련 시스템 변수 업데이트 실패. (Mode:%d, Power:%d, Warn:%d)",
-                  sysGetVariableDWord("ZCU_Sim", "Cluster_Display_Mode"),
-                  sysGetVariableDWord("ZCU_Sim", "Cluster_Instant_Power"),
-                  sysGetVariableDWord("ZCU_Sim", "Cluster_Warning_Status"));
+                  sysGetVariableDWord("ZCU_Center", "Cluster_Display_Mode"),
+                  sysGetVariableDWord("ZCU_Center", "Cluster_Instant_Power"),
+                  sysGetVariableDWord("ZCU_Center", "Cluster_Warning_Status"));
   }
 }
 
@@ -530,13 +530,13 @@ export testcase TC_SW_304()
   output(msg);
   TestWaitForTimeout(5);
 
-  TestStep("검증", "@ZCU_Sim::OTA_Comfort_Activated 시스템 변수가 1로 설정되었는지 확인합니다.");
-  if (sysGetVariableDWord("ZCU_Sim", "OTA_Comfort_Activated") == 1)
+  TestStep("검증", "@ZCU_Center::OTA_Comfort_Activated 시스템 변수가 1로 설정되었는지 확인합니다.");
+  if (sysGetVariableDWord("ZCU_Center", "OTA_Comfort_Activated") == 1)
   {
     TestStepPass("결과", "편안한 모드 활성화 시 OTA 기능 UI가 정상적으로 활성화되었습니다.");
   }
   else
   {
-    TestStepFail("결과", "OTA 기능 UI 활성화 실패. (OTA_Comfort_Activated: %d)", sysGetVariableDWord("ZCU_Sim", "OTA_Comfort_Activated"));
+    TestStepFail("결과", "OTA 기능 UI 활성화 실패. (OTA_Comfort_Activated: %d)", sysGetVariableDWord("ZCU_Center", "OTA_Comfort_Activated"));
   }
 }

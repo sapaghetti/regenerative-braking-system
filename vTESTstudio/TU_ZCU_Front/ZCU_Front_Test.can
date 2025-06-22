@@ -92,8 +92,8 @@ export testcase TC_UNIT_204()
 {
   byte returnValue;
 
-  TestStep("준비", "시스템 변수 @ZCU_Sim::Firmware_Signature를 정상 값(0xDEADBEEF)으로 설정합니다.");
-  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
+  TestStep("준비", "시스템 변수 @ZCU_Front::Firmware_Signature를 정상 값(0xDEADBEEF)으로 설정합니다.");
+  SysSetVariableDWord("ZCU_Front", "Firmware_Signature", 0xDEADBEEF);
 
   TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
   returnValue = PerformSecureBoot();
@@ -113,8 +113,8 @@ export testcase TC_UNIT_205()
 {
   byte returnValue;
 
-  TestStep("준비", "시스템 변수 @ZCU_Sim::Firmware_Signature를 비정상 값(0xBADF00D)으로 설정합니다.");
-  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xBADF00D);
+  TestStep("준비", "시스템 변수 @ZCU_Front::Firmware_Signature를 비정상 값(0xBADF00D)으로 설정합니다.");
+  SysSetVariableDWord("ZCU_Front", "Firmware_Signature", 0xBADF00D);
 
   TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
   returnValue = PerformSecureBoot();
@@ -129,7 +129,7 @@ export testcase TC_UNIT_205()
     TestStepFail("결과", "반환 값이 %d 입니다. 예상 값: 0", returnValue);
   }
 
-  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
+  SysSetVariableDWord("ZCU_Front", "Firmware_Signature", 0xDEADBEEF);
 }
 
 export testcase TC_INT_201()
@@ -237,10 +237,10 @@ export testcase TC_INT_204()
 
 export testcase TC_SW_201()
 {
-  TestStep("준비", "시뮬레이션된 APS/BPPS 값을 설정합니다. (@ZCU_Sim::APS_Position=50.0, @ZCU_Sim::BPPS_Position=25.0)");
+  TestStep("준비", "시뮬레이션된 APS/BPPS 값을 설정합니다. (@ZCU_Front::APS_Position=50.0, @ZCU_Front::BPPS_Position=25.0)");
   HandleStartEvent();
-  SysSetVariableFloat("ZCU_Sim", "APS_Position", 50.0);
-  SysSetVariableFloat("ZCU_Sim", "BPPS_Position", 25.0);
+  SysSetVariableFloat("ZCU_Front", "APS_Position", 50.0);
+  SysSetVariableFloat("ZCU_Front", "BPPS_Position", 25.0);
 
   TestStep("실행 및 검증 1", "20ms 내에 M005_Vehicle_Dynamics 메시지를 수신하고 APS_Position 신호 값을 확인합니다.");
   if (TestWaitForMessage(M005_Vehicle_Dynamics, 20) == 1)

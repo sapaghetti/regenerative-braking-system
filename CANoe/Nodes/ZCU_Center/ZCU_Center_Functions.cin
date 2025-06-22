@@ -23,7 +23,7 @@ byte PerformSecureBoot()
   write("ZCU_Center: Starting Secure Boot verification...");
 
   expectedSignature = 0xDEADBEEF;
-  actualSignature = sysGetVariableDWord("ZCU_Sim", "Firmware_Signature");
+  actualSignature = sysGetVariableDWord("ZCU_Center", "Firmware_Signature");
 
   if (actualSignature != expectedSignature)
   {
@@ -302,14 +302,14 @@ byte DetermineRequestedModeFromVoice(byte commandType, byte commandValue)
 void UpdateClusterDisplay()
 {
   // 시뮬레이션 환경에서 클러스터 변수 업데이트
-  sysSetVariableDWord("ZCU_Sim", "Cluster_Display_Mode", clusterDisplay.currentDisplayMode);
-  sysSetVariableDWord("ZCU_Sim", "Cluster_Instant_Power", clusterDisplay.instantRegenPower);
-  sysSetVariableDWord("ZCU_Sim", "Cluster_Cumulative_Energy", clusterDisplay.cumulativeRegenEnergy);
-  sysSetVariableDWord("ZCU_Sim", "Cluster_Vehicle_Speed", clusterDisplay.vehicleSpeed);
-  sysSetVariableDWord("ZCU_Sim", "Cluster_Motor_Speed", clusterDisplay.motorSpeed);
-  sysSetVariableDWord("ZCU_Sim", "Cluster_Warning_Status", clusterDisplay.warningStatus);
-  sysSetVariableDWord("ZCU_Sim", "Cluster_Active_Profile", clusterDisplay.activeProfile);
-  sysSetVariableDWord("ZCU_Sim", "Cluster_Comfort_Mode", clusterDisplay.comfortModeEnabled);
+  sysSetVariableDWord("ZCU_Center", "Cluster_Display_Mode", clusterDisplay.currentDisplayMode);
+  sysSetVariableDWord("ZCU_Center", "Cluster_Instant_Power", clusterDisplay.instantRegenPower);
+  sysSetVariableDWord("ZCU_Center", "Cluster_Cumulative_Energy", clusterDisplay.cumulativeRegenEnergy);
+  sysSetVariableDWord("ZCU_Center", "Cluster_Vehicle_Speed", clusterDisplay.vehicleSpeed);
+  sysSetVariableDWord("ZCU_Center", "Cluster_Motor_Speed", clusterDisplay.motorSpeed);
+  sysSetVariableDWord("ZCU_Center", "Cluster_Warning_Status", clusterDisplay.warningStatus);
+  sysSetVariableDWord("ZCU_Center", "Cluster_Active_Profile", clusterDisplay.activeProfile);
+  sysSetVariableDWord("ZCU_Center", "Cluster_Comfort_Mode", clusterDisplay.comfortModeEnabled);
 
   clusterDisplay.lastUpdateTime = timeNowNS() / 1000000;
   clusterDisplay.displayDataValid = 1;
@@ -332,7 +332,7 @@ void UpdateOTAComfortMode(byte profileType)
     write("ZCU_Center: OTA Comfort Mode activated");
     
     // 편안한 모드 활성화 알림
-    sysSetVariableDWord("ZCU_Sim", "OTA_Comfort_Activated", 1);
+    sysSetVariableDWord("ZCU_Center", "OTA_Comfort_Activated", 1);
   }
   else if (profileType == PROFILE_EFFICIENCY && clusterDisplay.comfortModeEnabled)
   {
@@ -695,7 +695,7 @@ void PerformInitialSelfTest()
   write("ZCU_Center: Performing initial self-test...");
   
   // 클러스터 연결 상태 확인
-  clusterDisplay.clusterConnected = sysGetVariableDWord("ZCU_Sim", "Cluster_Connected");
+  clusterDisplay.clusterConnected = sysGetVariableDWord("ZCU_Center", "Cluster_Connected");
   if (!clusterDisplay.clusterConnected)
   {
     SetFault(FAULT_CLUSTER_DISPLAY);
@@ -743,7 +743,7 @@ void HandleStopEvent()
   write("ZCU_Center: Shutting down...");
   
   // 클러스터에 시스템 종료 알림
-  sysSetVariableDWord("ZCU_Sim", "Center_System_Status", 0);
+  sysSetVariableDWord("ZCU_Center", "Center_System_Status", 0);
   
   write("ZCU_Center: Shutdown complete");
 }

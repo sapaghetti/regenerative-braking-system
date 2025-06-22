@@ -23,7 +23,7 @@ byte PerformSecureBoot()
   write("ZCU_Front: Starting Secure Boot verification...");
 
   expectedSignature = 0xDEADBEEF;
-  actualSignature = sysGetVariableDWord("ZCU_Sim", "Firmware_Signature");
+  actualSignature = sysGetVariableDWord("ZCU_Front", "Firmware_Signature");
 
   if (actualSignature != expectedSignature)
   {
@@ -161,7 +161,7 @@ void SetFault(dword faultBit)
  */
 float ReadAPS()
 {
-  return sysGetVariableFloat("ZCU_Sim", "APS_Position");
+  return sysGetVariableFloat("ZCU_Front", "APS_Position");
 }
 
 /**
@@ -170,7 +170,7 @@ float ReadAPS()
  */
 float ReadBPPS()
 {
-  return sysGetVariableFloat("ZCU_Sim", "BPPS_Position");
+  return sysGetVariableFloat("ZCU_Front", "BPPS_Position");
 }
 
 /**
@@ -179,7 +179,7 @@ float ReadBPPS()
  */
 float ReadVehicleSpeed()
 {
-  return sysGetVariableFloat("ZCU_Sim", "Vehicle_Speed");
+  return sysGetVariableFloat("ZCU_Front", "Vehicle_Speed");
 }
 
 /**
