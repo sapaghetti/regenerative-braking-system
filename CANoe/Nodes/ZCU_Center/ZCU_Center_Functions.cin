@@ -999,7 +999,10 @@ void HandleModeChangeRespMessage(message M009_Mode_Change_Resp msg)
   if (msg.Mode_Change_Status == 0)  // 성공
   {
     // 클러스터 표시 데이터 업데이트
-    clusterDisplay.previousDisplayMode = clusterDisplay.currentDisplayMode;
+    if (clusterDisplay.currentDisplayMode != MODE_AUTO)
+    {
+      clusterDisplay.previousDisplayMode = clusterDisplay.currentDisplayMode;
+    }
     clusterDisplay.currentDisplayMode = msg.Current_Mode;
     clusterDisplay.activeProfile = msg.Active_Profile;
     
