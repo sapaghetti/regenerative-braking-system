@@ -373,14 +373,14 @@ void HandleVehicleDynamicsMessage(message M005_Vehicle_Dynamics msg)
   
   currentTime = timeNow();
   
-  currentVehicleSpeed = msg.Vehicle_Speed * 0.01;
+  currentVehicleSpeed = msg.Vehicle_Speed.phys;
   currentMotorSpeed = currentVehicleSpeed * 90; // 모터 속도 계산 (예: 100 km/h -> 9000 RPM)
-  steeringAngle = (msg.Steering_Angle * 0.1) - 3200;
-  apsPosition = msg.APS_Position;
+  steeringAngle = msg.Steering_Angle.phys;
+  apsPosition = msg.APS_Position.phys;
   
   if (gPrevTime_VD > 0)
   {
-    deltaTime = (currentTime - gPrevTime_VD) / 1000.0;
+    deltaTime = (currentTime - gPrevTime_VD) / 100000.0;
     if(deltaTime > 0)
     {
       deceleration = -((currentVehicleSpeed - gPrevVehicleSpeed_VD) / 3.6) / deltaTime;

@@ -70,7 +70,7 @@ variables
   byte batterySOC;
   byte batteryTemp;
   float steeringAngle;
-  byte apsPosition;
+  float apsPosition;
 
   dword faultRegister;
   byte watchdogCounter;
