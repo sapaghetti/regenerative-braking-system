@@ -1,36 +1,26 @@
 // Jenkinsfile
 
 pipeline {
-    // Pipeline이 실행될 에이전트(노드)를 정의합니다.
-    // 'any'는 Jenkins가 사용 가능한 어떤 에이전트에서든 실행한다는 의미입니다.
-    // 특정 노드에서만 실행하려면 'node { label 'your-node-label' }'과 같이 지정할 수 있습니다.
     agent any
 
-    // 환경 변수를 정의합니다.
-    // 기존 배치 스크립트의 SET 명령어를 대체합니다.
     environment {
         PYTHON_EXE = "D:\\Jenkins_Python\\.venv\\Scripts\\python.exe" // 백슬래시 2개 사용 (Groovy 문자열 이스케이프)
-        SCRIPT_NAME = "run_canoe_com.py"
-        # 젠킨스 워크스페이스 경로는 ${WORKSPACE} 변수를 통해 자동으로 접근됩니다.
-        # SCRIPT_PATH는 ${WORKSPACE}\\${SCRIPT_NAME}으로 구성됩니다.
+        // 젠킨스 워크스페이스 경로는 ${WORKSPACE} 변수를 통해 자동으로 접근됩니다. // <<< 이 부분 수정!
+        // SCRIPT_PATH는 ${WORKSPACE}\\${SCRIPT_NAME}으로 구성됩니다.      // <<< 이 부분 수정!
+        SCRIPT_NAME = "run_canoe_com.py" // 스크립트 파일명, 이전 대화에서 "run_canoe_with_integrated_vteststudio.py"였으나 현재 스크립트 이름에 맞춤
     }
 
     stages {
         stage('Checkout Source') {
             steps {
-                // SCM에서 소스 코드를 체크아웃합니다.
-                // 'scm'은 Pipeline 설정에서 지정한 Git 저장소를 의미합니다.
                 git branch: 'feature/Jenkins', url: 'https://github.com/jjongs2/can.git'
             }
         }
 
         stage('Run CANoe Automation') {
             steps {
-                // Windows 배치 명령어를 실행합니다.
-                // 'bat' 스텝을 사용하여 Windows 명령을 실행합니다.
-                // 에러 발생 시 빌드를 실패 상태로 만듭니다.
                 bat """
-                    echo Running integrated CANoe and vTESTstudio automation script...
+                    echo Running integrated CANoe automation script...
                     "${PYTHON_EXE}" "${WORKSPACE}\\%SCRIPT_NAME%"
                     if %errorlevel% neq 0 (
                         exit /b %errorlevel%
@@ -40,21 +30,15 @@ pipeline {
         }
     }
 
-    // 빌드 후 조치 (Post-build Actions)
-    // 빌드 성공/실패 여부에 따라 실행되는 단계입니다.
     post {
         always {
-            // 빌드 완료 시 항상 실행되는 부분 (예: 로그 아카이브, 정리)
             echo 'Pipeline finished.'
         }
         success {
             echo 'Pipeline succeeded!'
-            // 성공 시 리포트 아카이빙 등을 추가할 수 있습니다.
-            // archiveArtifacts artifacts: 'canoe_vteststudio_integrated_automation.log'
         }
         failure {
             echo 'Pipeline failed!'
-            // 실패 시 알림 등을 추가할 수 있습니다.
         }
     }
 }
