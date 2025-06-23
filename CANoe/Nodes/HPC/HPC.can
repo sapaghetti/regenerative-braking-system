@@ -54,3 +54,8 @@ on message M005_Vehicle_Dynamics
 {
   HandleVehicleDynamicsMessage(this);
 }
+
+on message M005_EXT_Brake_Pedal
+{
+  HandleBrakePedalMessage(this);
+}
