@@ -6,9 +6,9 @@
  *
  * Code generation for model "MCU".
  *
- * Model version              : 14.52
+ * Model version              : 14.53
  * Simulink Coder version : 24.2 (R2024b) 21-Jun-2024
- * C source code generated on : Fri Jun 20 13:50:42 2025
+ * C source code generated on : Mon Jun 23 10:58:58 2025
  *
  * Target selection: cn_mingw.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -872,10 +872,10 @@
 /* Definition for use in the target main file */
 #define MCU_rtModel                    RT_MODEL_MCU_T
 
-/* Block signals for system '<Root>/Subsystem2' */
+/* Block signals for system '<Root>/Subsystem' */
 typedef struct {
-  real_T In1;                          /* '<S7>/In1' */
-} B_Subsystem2_MCU_T;
+  real_T In1;                          /* '<S5>/In1' */
+} B_Subsystem_MCU_T;
 
 /* Block signals for system '<S16>/Custom Relay' */
 typedef struct {
@@ -900,10 +900,11 @@ typedef struct {
   real_T StateSpace_o1[9];             /* '<S48>/State-Space' */
   real_T StateSpace_o2[6];             /* '<S48>/State-Space' */
   real_T StateSpace_o3;                /* '<S48>/State-Space' */
+  real_T Gain2;                        /* '<Root>/Gain2' */
   real_T SFunction_j;                  /* '<S9>/S-Function' */
   real_T SFunction_m;                  /* '<S10>/S-Function' */
   real_T Add[2];                       /* '<S38>/Add' */
-  real_T Gain2;                        /* '<S34>/Gain2' */
+  real_T Gain2_i;                      /* '<S34>/Gain2' */
   real_T donotdeletethisgain;          /* '<S20>/do not delete this gain' */
   real_T DataTypeConversion2;          /* '<S23>/Data Type Conversion2' */
   real_T CurrentFilter;                /* '<S23>/Current Filter' */
@@ -914,15 +915,14 @@ typedef struct {
   real_T DataTypeConversion1;          /* '<S16>/Data Type Conversion1' */
   real_T DataTypeConversion3;          /* '<S16>/Data Type Conversion3' */
   real_T DataTypeConversion5;          /* '<S16>/Data Type Conversion5' */
-  int16_T DataTypeConversion14;        /* '<Root>/Data Type Conversion14' */
-  int16_T In1;                         /* '<S5>/In1' */
   uint8_T DataTypeConversion;          /* '<Root>/Data Type Conversion' */
-  uint8_T In1_g;                       /* '<S6>/In1' */
+  uint8_T In1;                         /* '<S6>/In1' */
   B_CustomRelay_MCU_T CustomRelay2;    /* '<S16>/Custom Relay2' */
   B_CustomRelay_MCU_T CustomRelay1;    /* '<S16>/Custom Relay1' */
   B_CustomRelay_MCU_T CustomRelay;     /* '<S16>/Custom Relay' */
-  B_Subsystem2_MCU_T Subsystem3;       /* '<Root>/Subsystem3' */
-  B_Subsystem2_MCU_T Subsystem2;       /* '<Root>/Subsystem2' */
+  B_Subsystem_MCU_T Subsystem3;        /* '<Root>/Subsystem3' */
+  B_Subsystem_MCU_T Subsystem2;        /* '<Root>/Subsystem2' */
+  B_Subsystem_MCU_T Subsystem;         /* '<Root>/Subsystem' */
 } B_MCU_T;
 
 /* Block states (default storage) for system '<Root>' */

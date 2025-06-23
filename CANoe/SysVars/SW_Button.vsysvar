@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" interface="">
+    <namespace name="SW_Button" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ModeUp" bitcount="32" isSigned="false" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ModeDown" bitcount="32" isSigned="false" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ProfileChange" bitcount="32" isSigned="false" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="AutoToggle" bitcount="32" isSigned="false" encoding="65001" type="int" />
+    </namespace>
+  </namespace>
+</systemvariables>

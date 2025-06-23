@@ -1,0 +1,72 @@
+/*@!Encoding:65001*/
+includes
+{
+  #include "SW_Button_Config.cin"
+  #include "SW_Button_Functions.cin"
+}
+
+on start
+{
+  gEventCounter = 0;
+  write("SW_Button Node: Started and waiting for panel inputs.");
+}
+
+on sysvar SysVar::SW_Button::ModeUp
+{
+  if(@this == 1)
+  {
+    gPressStartTime_ModeUp = timeNowNS() / 1000000;
+    SendButtonMessage(BUTTON_ID_MODE_UP, BUTTON_ACTION_PRESS, 0);
+  }
+  else
+  {
+    dword pressDuration;
+    pressDuration = timeNowNS() / 1000000 - gPressStartTime_ModeUp;
+    SendButtonMessage(BUTTON_ID_MODE_UP, BUTTON_ACTION_RELEASE, (word)pressDuration);
+  }
+}
+
+on sysvar SysVar::SW_Button::ModeDown
+{
+  if(@this == 1)
+  {
+    gPressStartTime_ModeDown = timeNowNS() / 1000000;
+    SendButtonMessage(BUTTON_ID_MODE_DOWN, BUTTON_ACTION_PRESS, 0);
+  }
+  else
+  {
+    dword pressDuration;
+    pressDuration = timeNowNS() / 1000000 - gPressStartTime_ModeDown;
+    SendButtonMessage(BUTTON_ID_MODE_DOWN, BUTTON_ACTION_RELEASE, (word)pressDuration);
+  }
+}
+
+on sysvar SysVar::SW_Button::ProfileChange
+{
+  if(@this == 1)
+  {
+    gPressStartTime_ProfileChange = timeNowNS() / 1000000;
+    SendButtonMessage(BUTTON_ID_PROFILE_CHANGE, BUTTON_ACTION_PRESS, 0);
+  }
+  else
+  {
+    dword pressDuration;
+    pressDuration = timeNowNS() / 1000000 - gPressStartTime_ProfileChange;
+    SendButtonMessage(BUTTON_ID_PROFILE_CHANGE, BUTTON_ACTION_RELEASE, (word)pressDuration);
+  }
+}
+
+on sysvar SysVar::SW_Button::AutoToggle
+{
+  if(@this == 1)
+  {
+    gPressStartTime_AutoToggle = timeNowNS() / 1000000;
+    SendButtonMessage(BUTTON_ID_AUTO_TOGGLE, BUTTON_ACTION_PRESS, 0);
+  }
+  else
+  {
+    dword pressDuration;
+    pressDuration = timeNowNS() / 1000000 - gPressStartTime_AutoToggle;
+    SendButtonMessage(BUTTON_ID_AUTO_TOGGLE, BUTTON_ACTION_RELEASE, (word)pressDuration);
+  }
+}

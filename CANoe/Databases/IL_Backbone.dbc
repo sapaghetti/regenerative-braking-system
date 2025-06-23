@@ -126,7 +126,7 @@ BO_ 2185298690 M006_Battery_Basic: 12 ZCU_Rear
  SG_ Battery_Current : 32|16@1+ (0.1,-3200) [-3200|3200] "A"  HPC
  SG_ Battery_Voltage : 16|16@1+ (0.1,0) [0|6553.5] "V"  HPC
  SG_ Battery_Temp : 8|8@1+ (1,-40) [-40|215] "degC"  HPC
- SG_ Battery_SOC : 0|8@1+ (0.5,0) [0|100] "%"  HPC
+ SG_ Battery_SOC : 0|8@1+ (1,0) [0|100] "%"  HPC
 
 BO_ 2185298691 M006_EXT_Battery_Detail: 8 ZCU_Rear
  SG_ Reserved : 56|8@1+ (1,0) [0|0] ""  HPC

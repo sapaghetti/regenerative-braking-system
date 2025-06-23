@@ -3,7 +3,7 @@ variables
 {
   const int ECU_ID = 0x01;
   const int SYSTEM_VERSION = 0x0100;
-  
+
   const int MAIN_CYCLE = 10;
   const int WATCHDOG_TIMEOUT = 20;
 
@@ -11,8 +11,11 @@ variables
   const byte BATTERY_TEMP_MIN = 10;
   const byte BATTERY_TEMP_MAX = 45;
   const float MAX_DECEL_FOR_BRAKE_LIGHT = 1.3;
-  const dword FAILSAFE_RESPONSE_TIME = 50;
-  const dword FRICTION_BRAKE_RESPONSE_TIME = 10;
+
+  const float MAX_PROPULSION_TORQUE = 350.0;
+  const float MAX_REGEN_TORQUE_AT_PEDAL = 200.0;
+  const byte APS_DEADZONE = 5;
+  const byte BPPS_DEADZONE = 5;
 
   const dword FAULT_WATCHDOG_TIMEOUT = 0x00000001;
   const dword FAULT_CRITICAL_EXTERNAL = 0x00000002;
@@ -61,16 +64,19 @@ variables
 
   float currentVehicleSpeed;
   float currentMotorSpeed;
+  float steeringAngle;
+  byte apsPosition;
+  byte bppsPosition;
+
+  float targetMotorTorque;
   float currentRegenTorque;
-  float targetRegenTorque;
+
   float maxRegenPower;
   float cumulativeRegenEnergy;
   float instantRegenPower;
 
   byte batterySOC;
   byte batteryTemp;
-  float steeringAngle;
-  byte apsPosition;
 
   dword faultRegister;
   byte watchdogCounter;
@@ -82,6 +88,8 @@ variables
   byte gCrcData[10];
   long gCrcRetval;
   dword gCrcValue;
+
+  float gAutoRegenBaseTorque;
 
   float gPrevVehicleSpeed_VD;
   dword gPrevTime_VD;

@@ -4,63 +4,53 @@
   <tt>
     <capltestcase>
       <title />
-      <name>TC_INIT_001</name>
-      <tcid>36e50397-b7e1-433a-b726-5f959625d56d</tcid>
+      <name>TC_UNIT_201</name>
+      <tcid>fdc5b698-3b5e-4b8a-b1e7-e6a5bab6bbe2</tcid>
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_INIT_002</name>
-      <tcid>f6552c2f-5134-4b64-bc5b-e4cca1f0a88a</tcid>
+      <name>TC_UNIT_202</name>
+      <tcid>c4714bae-2171-4344-80f3-6ee1e9d1afe6</tcid>
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_INIT_003</name>
-      <tcid>e65561ad-1d57-4e27-b610-badc64f5201e</tcid>
+      <name>TC_UNIT_203</name>
+      <tcid>afeef608-18b3-4c4b-a405-631ebd7058d6</tcid>
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_INIT_004</name>
-      <tcid>e518e5b2-d7c1-496f-97c4-b133beff380c</tcid>
+      <name>TC_UNIT_204</name>
+      <tcid>3b0f533e-9046-40d1-a689-3dc709ae7033</tcid>
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_COMM_001</name>
-      <tcid>234034e6-d42d-4a8a-8486-f4616305225a</tcid>
+      <name>TC_UNIT_205</name>
+      <tcid>c1db8685-6eb5-4105-9f4a-87709ca94692</tcid>
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_COMM_002</name>
-      <tcid>c4d03d90-4538-48ea-bf58-f8cde1264877</tcid>
+      <name>TC_INT_201</name>
+      <tcid>43931755-f64e-428c-861d-f283594c2944</tcid>
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_COMM_003</name>
-      <tcid>3f2d896c-2fb2-4c14-8c93-9e4304ee0628</tcid>
+      <name>TC_INT_202</name>
+      <tcid>8cc46592-f3d9-41c1-9829-91223e9d9c6e</tcid>
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_COMM_004</name>
-      <tcid>749cf6e0-08bb-4d3d-b89b-f72b687c2cb7</tcid>
+      <name>TC_INT_203</name>
+      <tcid>df785639-336b-46d9-8448-c15c3d3eac69</tcid>
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_FUNC_002</name>
-      <tcid>3e071bb9-acea-4d99-8eb4-d30cef57db26</tcid>
+      <name>TC_INT_204</name>
+      <tcid>8633a741-1c7e-4c22-b2eb-0ae317f10e89</tcid>
     </capltestcase>
     <capltestcase>
       <title />
-      <name>TC_STATE_001</name>
-      <tcid>c46aa87a-6b51-4ed7-8337-6de06c2aa77c</tcid>
-    </capltestcase>
-    <capltestcase>
-      <title />
-      <name>TC_STATE_002</name>
-      <tcid>d1d37e84-f1e0-4d9d-a0e0-dd6e42a27df0</tcid>
-    </capltestcase>
-    <capltestcase>
-      <title />
-      <name>TC_STATE_003</name>
-      <tcid>f643ff5b-67a4-42f7-aa39-f4daea3a3acf</tcid>
+      <name>TC_SW_201</name>
+      <tcid>20202997-e346-4f5d-a6fb-935a5b52996f</tcid>
     </capltestcase>
   </tt>
   <ttlib>

@@ -5,294 +5,274 @@ includes
   #include "../../CANoe/Nodes/ZCU_Front/ZCU_Front_Functions.cin"
 }
 
-export testcase TC_INIT_001()
+on timer timerMainTask
 {
-  byte l_returnValue;
-  TestStep("준비", "올바른 펌웨어 서명(@ZCU_Sim::Firmware_Signature = 0xDEADBEEF)을 설정합니다.");
-  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
-
-  TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
-  l_returnValue = PerformSecureBoot();
-  TestStep("검증", "반환 값이 1인지 확인합니다.");
-  if (l_returnValue == 1)
-  {
-    TestStepPass("반환 값 검증", "PerformSecureBoot()가 예상대로 1을 반환했습니다.");
-  }
-  else
-  {
-    TestStepFail("반환 값 검증", "PerformSecureBoot()가 %d를 반환했습니다. 예상 값: 1", l_returnValue);
-  }
+  HandleMainTaskTimer();
 }
 
-export testcase TC_INIT_002()
+on message L001_EPAS_Data
 {
-  byte l_returnValue;
-  TestStep("준비", "잘못된 펌웨어 서명(@ZCU_Sim::Firmware_Signature = 0xBADF00D)을 설정합니다.");
-  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xBADF00D);
+  HandleEpasMessage(this);
+}
 
-  TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
-  l_returnValue = PerformSecureBoot();
+on message L002_ADAS_Sensor
+{
+  HandleAdasMessage(this);
+}
+
+export testcase TC_UNIT_201()
+{
+  byte returnValue;
+
+  TestStep("실행", "ValidateSensorRange(50.0, 0.0, 100.0) 함수를 호출합니다.");
+  returnValue = ValidateSensorRange(50.0, 0.0, 100.0);
+
   TestStep("검증", "반환 값이 0인지 확인합니다.");
-  if (l_returnValue == 0)
+  if (returnValue == 0)
   {
-    TestStepPass("반환 값 검증", "PerformSecureBoot()가 예상대로 0을 반환했습니다.");
+    TestStepPass("결과", "정상 범위 내의 값에 대해 예상대로 0을 반환했습니다.");
   }
   else
   {
-    TestStepFail("반환 값 검증", "PerformSecureBoot()가 %d를 반환했습니다. 예상 값: 0", l_returnValue);
+    TestStepFail("결과", "반환 값이 %d 입니다. 예상 값: 0", returnValue);
   }
 }
 
-export testcase TC_INIT_003()
+export testcase TC_UNIT_202()
 {
-  TestStep("준비", "정상 센서 값(APS/BPPS=0.0)을 설정하고 전역 변수를 초기화합니다.");
-  SysSetVariableFloat("ZCU_Sim", "APS_Position", 0.0);
-  SysSetVariableFloat("ZCU_Sim", "BPPS_Position", 0.0);
+  byte returnValue;
+
+  TestStep("실행", "ValidateSensorRange(101.0, 0.0, 100.0) 함수를 호출합니다.");
+  returnValue = ValidateSensorRange(101.0, 0.0, 100.0);
+
+  TestStep("검증", "반환 값이 2인지 확인합니다.");
+  if (returnValue == 2)
+  {
+    TestStepPass("결과", "범위를 초과하는 값에 대해 예상대로 2를 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "반환 값이 %d 입니다. 예상 값: 2", returnValue);
+  }
+}
+
+export testcase TC_UNIT_203()
+{
+  TestStep("준비", "전역 변수를 초기화합니다.");
   InitializeGlobals();
 
-  TestStep("실행", "PerformInitialSelfTest() 함수를 호출합니다.");
-  PerformInitialSelfTest();
-
-  TestStep("검증", "faultRegister가 0으로 유지되는지 확인합니다.");
-  if (faultRegister == 0)
-  {
-    TestStepPass("폴트 레지스터 검증", "faultRegister가 예상대로 0입니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 레지스터 검증", "faultRegister가 0x%X 입니다. 예상 값: 0", faultRegister);
-  }
-}
-
-export testcase TC_INIT_004()
-{
-  TestStep("준비", "페달 동시 입력 값(APS/BPPS=10.0)을 설정하고 전역 변수를 초기화합니다.");
-  SysSetVariableFloat("ZCU_Sim", "APS_Position", 10.0);
-  SysSetVariableFloat("ZCU_Sim", "BPPS_Position", 10.0);
-  InitializeGlobals();
-
-  TestStep("실행", "PerformInitialSelfTest() 함수를 호출합니다.");
-  PerformInitialSelfTest();
-
-  TestStep("검증", "faultRegister에 FAULT_CROSS_CHECK 비트가 설정되었는지 확인합니다.");
-  if ((faultRegister & FAULT_CROSS_CHECK) == FAULT_CROSS_CHECK)
-  {
-    TestStepPass("폴트 레지스터 검증", "FAULT_CROSS_CHECK 비트가 예상대로 설정되었습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 레지스터 검증", "FAULT_CROSS_CHECK 비트가 설정되지 않았습니다. (faultRegister: 0x%X)", faultRegister);
-  }
-}
-
-export testcase TC_COMM_001()
-{
-  message L001_EPAS_Data msg;
-  TestStep("준비", "EPAS 통신 폴트를 설정하고 카운터를 초기화합니다.");
-  faultRegister = FAULT_EPAS_COMM; 
-  gLastEpasCounter = 0;
-
-  TestStep("실행", "정상적인 EPAS 메시지 핸들러를 호출합니다 (카운터=1, 조향각=10.0).");
-  msg.Message_Counter = 1;
-  msg.Steering_Angle = 10.0;
-  HandleEpasMessage(msg);
-
-  TestStep("검증", "sensors.steeringAngle 값이 업데이트되고 FAULT_EPAS_COMM 폴트가 해제되었는지 확인합니다.");
-  if (sensors.steeringAngle == 10.0)
-  {
-    TestStepPass("센서 값 검증", "sensors.steeringAngle이 10.0으로 올바르게 업데이트되었습니다.");
-  }
-  else
-  {
-    TestStepFail("센서 값 검증", "sensors.steeringAngle이 %f 입니다. 예상 값: 10.0", sensors.steeringAngle);
-  }
-  
-  if ((faultRegister & FAULT_EPAS_COMM) == 0)
-  {
-    TestStepPass("폴트 해제 검증", "FAULT_EPAS_COMM 폴트가 예상대로 해제되었습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 해제 검증", "FAULT_EPAS_COMM 폴트가 해제되지 않았습니다.");
-  }
-}
-
-export testcase TC_COMM_002()
-{
-  message L001_EPAS_Data msg;
-  TestStep("준비", "마지막 카운터를 1로 설정하고 폴트를 초기화합니다.");
-  gLastEpasCounter = 1;
-  ClearFault(FAULT_EPAS_COMM);
-
-  TestStep("실행", "카운터가 누락된 EPAS 메시지 핸들러를 호출합니다 (카운터=3).");
-  msg.Message_Counter = 3;
-  HandleEpasMessage(msg);
-
-  TestStep("검증", "FAULT_EPAS_COMM 폴트가 설정되었는지 확인합니다.");
-  if ((faultRegister & FAULT_EPAS_COMM) == FAULT_EPAS_COMM)
-  {
-    TestStepPass("폴트 설정 검증", "FAULT_EPAS_COMM 폴트가 카운터 오류로 인해 예상대로 설정되었습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 설정 검증", "FAULT_EPAS_COMM 폴트가 설정되지 않았습니다.");
-  }
-}
-
-export testcase TC_COMM_003()
-{
-  message L002_ADAS_Sensor msg;
-  TestStep("준비", "센서 범위 폴트를 초기화합니다.");
-  ClearFault(FAULT_SENSOR_RANGE);
-
-  TestStep("실행", "유효 범위를 초과하는 ADAS 센서 메시지 핸들러를 호출합니다 (거리=7000.0).");
-  msg.Front_Vehicle_Distance = 7000.0;
-  HandleAdasMessage(msg);
-  
-  TestStep("검증", "FAULT_SENSOR_RANGE 폴트가 설정되었는지 확인합니다.");
-  if ((faultRegister & FAULT_SENSOR_RANGE) == FAULT_SENSOR_RANGE)
-  {
-    TestStepPass("폴트 설정 검증", "FAULT_SENSOR_RANGE 폴트가 예상대로 설정되었습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 설정 검증", "FAULT_SENSOR_RANGE 폴트가 설정되지 않았습니다.");
-  }
-}
-
-export testcase TC_COMM_004()
-{
-  message L001_EPAS_Data msg;
-  TestStep("준비", "초기 메시지를 수신하여 통신을 활성화하고 폴트를 초기화합니다.");
-  output(msg); 
-  TestWaitForTimeout(15);
-  ClearFault(FAULT_EPAS_COMM);
-  commMon.firstMsgReceived_EPAS = 1; 
-  commMon.lastRxTime_EPAS = timeNowNS() / 1000000;
-  TestStep("실행", "TIMEOUT_EPAS 시간 이상 대기 후 통신 모니터링 함수를 호출합니다.");
-  TestWaitForTimeout(TIMEOUT_EPAS + 5);
-  commMon.failureCount_EPAS = MAX_COMM_FAILURES - 1;
-  MonitorCommunication();
-
-  TestStep("검증", "FAULT_EPAS_COMM 폴트가 설정되었는지 확인합니다.");
-  if ((faultRegister & FAULT_EPAS_COMM) == FAULT_EPAS_COMM)
-  {
-    TestStepPass("폴트 설정 검증", "통신 타임아웃으로 FAULT_EPAS_COMM 폴트가 예상대로 설정되었습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 설정 검증", "FAULT_EPAS_COMM 폴트가 설정되지 않았습니다.");
-  }
-}
-
-export testcase TC_FUNC_001()
-{
-  TestStep("준비", "메시지 전송에 필요한 센서 값들을 설정합니다.");
-  
-  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
-  HandleStartEvent();
-  sysSetVariableFloat("ZCU_Sim", "APS_Position", 50.0);
-  SysSetVariableFloat("ZCU_Sim", "Vehicle_Speed", 100.0);
-  sensors.steeringAngle = 90.0;
-
-  TestStep("실행", "SendM005_VehicleDynamics() 함수를 호출합니다.");
-  SendM005_VehicleDynamics();
-  TestStep("검증", "M005_Vehicle_Dynamics 메시지가 20ms 내에 수신되고 신호 값들이 정확한지 확인합니다.");
-  if (TestWaitForMessage(M005_Vehicle_Dynamics, 20) == 1)
-  {
-    TestStepPass("메시지 수신", "M005_Vehicle_Dynamics 메시지가 성공적으로 수신되었습니다.");
-    if ($M005_Vehicle_Dynamics::APS_Position == 100) TestStepPass("신호 값 검증", "APS_Position 값이 100으로 정확합니다.");
-    else TestStepFail("신호 값 검증", "APS_Position 값이 %d 입니다. 예상 값: 100", $Backbone::M005_Vehicle_Dynamics::APS_Position);
-    if ($M005_Vehicle_Dynamics::Vehicle_Speed == 10000) TestStepPass("신호 값 검증", "Vehicle_Speed 값이 10000으로 정확합니다.");
-    else TestStepFail("신호 값 검증", "Vehicle_Speed 값이 %d 입니다. 예상 값: 10000", $M005_Vehicle_Dynamics::Vehicle_Speed);
-    if ($M005_Vehicle_Dynamics::Steering_Angle == 32900) TestStepPass("신호 값 검증", "Steering_Angle 값이 32900으로 정확합니다.");
-    else TestStepFail("신호 값 검증", "Steering_Angle 값이 %d 입니다. 예상 값: 32900", $M005_Vehicle_Dynamics::Steering_Angle);
-  }
-  else
-  {
-    TestStepFail("메시지 수신", "M005_Vehicle_Dynamics 메시지가 20ms 내에 수신되지 않았습니다.");
-  }
-}
-
-export testcase TC_FUNC_002()
-{
-  TestStep("준비", "전역 변수를 초기화하고 치명적인 폴트(FAULT_APS_SENSOR)를 설정합니다.");
-  InitializeGlobals();
-  SetFault(FAULT_APS_SENSOR); 
-
-  TestStep("검증", "M004_FailSafe_Status_2 메시지가 20ms 내에 수신되고 페이로드가 정확한지 확인합니다.");
-  if (TestWaitForMessage(M004_FailSafe_Status_2, 20) == 1)
-  {
-    TestStepPass("메시지 수신", "M004_FailSafe_Status_2 메시지가 성공적으로 수신되었습니다.");
-    if ($M004_FailSafe_Status_2::Source_ECU == ECU_ID) TestStepPass("신호 값 검증", "Source_ECU 값이 ECU_ID로 정확합니다.");
-    else TestStepFail("신호 값 검증", "Source_ECU 값이 %d 입니다. 예상 값: %d", $M004_FailSafe_Status_2::Source_ECU, ECU_ID);
-    if ($M004_FailSafe_Status_2::Fault_Code == 1) TestStepPass("신호 값 검증", "Fault_Code 값이 1로 정확합니다.");
-    else TestStepFail("신호 값 검증", "Fault_Code 값이 %d 입니다. 예상 값: 1", $M004_FailSafe_Status_2::Fault_Code);
-    if ($M004_FailSafe_Status_2::Fault_Type == (FAULT_APS_SENSOR & 0xFF)) TestStepPass("신호 값 검증", "Fault_Type 값이 정확합니다.");
-    else TestStepFail("신호 값 검증", "Fault_Type 값이 %d 입니다. 예상 값: %d", $M004_FailSafe_Status_2::Fault_Type, (FAULT_APS_SENSOR & 0xFF));
-  }
-  else
-  {
-    TestStepFail("메시지 수신", "M004_FailSafe_Status_2 메시지가 20ms 내에 수신되지 않았습니다.");
-  }
-}
-
-export testcase TC_STATE_001()
-{
-  TestStep("준비", "시스템을 초기화합니다. (currentState = STATE_INIT)");
-  InitializeGlobals();
-
-  TestStep("실행", "필수 메시지(EPAS, ADAS) 수신 조건을 만족시키고 상태 업데이트 함수를 호출합니다.");
-  commMon.firstMsgReceived_EPAS = 1;
-  commMon.firstMsgReceived_ADAS = 1;
-  UpdateSystemState();
-  TestStep("검증", "currentState가 STATE_NORMAL로 전이되었는지 확인합니다.");
-  if (currentState == STATE_NORMAL)
-  {
-    TestStepPass("상태 전이 검증", "시스템 상태가 예상대로 STATE_NORMAL로 전이되었습니다.");
-  }
-  else
-  {
-    TestStepFail("상태 전이 검증", "시스템 상태가 %d 입니다. 예상 값: STATE_NORMAL (%d)", currentState, STATE_NORMAL);
-  }
-}
-
-export testcase TC_STATE_002()
-{
-  TestStep("준비", "시스템 상태를 STATE_NORMAL로, 폴트는 없는 상태로 설정합니다.");
-  currentState = STATE_NORMAL;
-  faultRegister = 0;
-
-  TestStep("실행", "통신 폴트(FAULT_EPAS_COMM)를 설정합니다.");
+  TestStep("실행 1", "SetFault(FAULT_EPAS_COMM)를 호출합니다.");
   SetFault(FAULT_EPAS_COMM);
 
-  TestStep("검증", "currentState가 STATE_DEGRADED로 즉시 전이되었는지 확인합니다.");
-  if (currentState == STATE_DEGRADED)
+  TestStep("검증 1", "faultRegister와 diagnostics.errorFlags에 FAULT_EPAS_COMM 비트가 설정되었는지 확인합니다.");
+  if ((faultRegister & FAULT_EPAS_COMM) != 0 && (diagnostics.errorFlags & FAULT_EPAS_COMM) != 0)
   {
-    TestStepPass("상태 전이 검증", "시스템 상태가 예상대로 STATE_DEGRADED로 전이되었습니다.");
+    TestStepPass("SetFault 검증", "SetFault 호출 후 faultRegister와 diagnostics.errorFlags에 폴트가 정상 설정되었습니다.");
   }
   else
   {
-    TestStepFail("상태 전이 검증", "시스템 상태가 %d 입니다. 예상 값: STATE_DEGRADED (%d)", currentState, STATE_DEGRADED);
+    TestStepFail("SetFault 검증", "SetFault 호출 후 폴트가 설정되지 않았습니다. (faultRegister: 0x%08X, errorFlags: 0x%08X)", faultRegister, diagnostics.errorFlags);
+  }
+
+  TestStep("실행 2", "ClearFault(FAULT_EPAS_COMM)를 호출합니다.");
+  ClearFault(FAULT_EPAS_COMM);
+
+  TestStep("검증 2", "faultRegister와 diagnostics.errorFlags에서 FAULT_EPAS_COMM 비트가 해제되었는지 확인합니다.");
+  if ((faultRegister & FAULT_EPAS_COMM) == 0 && (diagnostics.errorFlags & FAULT_EPAS_COMM) == 0)
+  {
+    TestStepPass("ClearFault 검증", "ClearFault 호출 후 faultRegister와 diagnostics.errorFlags에서 폴트가 정상 해제되었습니다.");
+  }
+  else
+  {
+    TestStepFail("ClearFault 검증", "ClearFault 호출 후 폴트가 해제되지 않았습니다. (faultRegister: 0x%08X, errorFlags: 0x%08X)", faultRegister, diagnostics.errorFlags);
   }
 }
 
-export testcase TC_STATE_003()
+export testcase TC_UNIT_204()
 {
-  TestStep("준비", "시스템 상태를 STATE_NORMAL로, 폴트는 없는 상태로 설정합니다.");
-  currentState = STATE_NORMAL;
-  faultRegister = 0;
+  byte returnValue;
 
-  TestStep("실행", "치명적인 폴트(FAULT_CROSS_CHECK)를 설정합니다.");
-  SetFault(FAULT_CROSS_CHECK);
+  TestStep("준비", "시스템 변수 @ZCU_Front::Firmware_Signature를 정상 값(0xDEADBEEF)으로 설정합니다.");
+  SysSetVariableDWord("ZCU_Front", "Firmware_Signature", 0xDEADBEEF);
+
+  TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
+  returnValue = PerformSecureBoot();
+
+  TestStep("검증", "반환 값이 1인지 확인합니다.");
+  if (returnValue == 1)
+  {
+    TestStepPass("결과", "올바른 서명에 대해 예상대로 1을 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "반환 값이 %d 입니다. 예상 값: 1", returnValue);
+  }
+}
+
+export testcase TC_UNIT_205()
+{
+  byte returnValue;
+
+  TestStep("준비", "시스템 변수 @ZCU_Front::Firmware_Signature를 비정상 값(0xBADF00D)으로 설정합니다.");
+  SysSetVariableDWord("ZCU_Front", "Firmware_Signature", 0xBADF00D);
+
+  TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
+  returnValue = PerformSecureBoot();
+
+  TestStep("검증", "반환 값이 0인지 확인합니다.");
+  if (returnValue == 0)
+  {
+    TestStepPass("결과", "잘못된 서명에 대해 예상대로 0을 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "반환 값이 %d 입니다. 예상 값: 0", returnValue);
+  }
+
+  SysSetVariableDWord("ZCU_Front", "Firmware_Signature", 0xDEADBEEF);
+}
+
+export testcase TC_INT_201()
+{
+  message L001_EPAS_Data msg;
+
+  TestStep("준비", "L001_EPAS_Data 메시지 전송 중지, 전역 변수 초기화, FAULT_EPAS_COMM 폴트를 설정합니다.");
+  TestDisableMsg(L001_EPAS_Data);
+  InitializeGlobals();
+  SetFault(FAULT_EPAS_COMM);
+
+  TestStep("실행", "정상적인 L001_EPAS_Data 메시지 (카운터=1, 조향각=50.0)를 전송합니다.");
+  msg.Message_Counter = 1;
+  msg.Steering_Angle.phys = 50.0;
+  output(msg);
+  testWaitForTimeout(5);
+
+  TestStep("검증", "센서값 업데이트, 실패 카운트 리셋, 폴트 해제 여부를 확인합니다.");
+  if (sensors.steeringAngle == 50.0 && commMon.failureCount_EPAS == 0 && (faultRegister & FAULT_EPAS_COMM) == 0)
+  {
+    TestStepPass("결과", "메시지 핸들러가 정상적으로 통합 동작했습니다. (Angle=%.1f, FailCount=%d, FaultCleared)", sensors.steeringAngle, commMon.failureCount_EPAS);
+  }
+  else
+  {
+    TestStepFail("결과", "메시지 핸들러 통합 동작 실패. (Angle=%.1f, FailCount=%d, FaultRegister=0x%08X)", sensors.steeringAngle, commMon.failureCount_EPAS, faultRegister);
+  }
+
+  TestEnableMsg(L001_EPAS_Data);
+}
+
+export testcase TC_INT_202()
+{
+  message L001_EPAS_Data msg;
+
+  TestStep("준비", "L001_EPAS_Data 메시지 전송 중지, 전역 변수 초기화, gLastEpasCounter를 1로 설정합니다.");
+  TestDisableMsg(L001_EPAS_Data);
+  InitializeGlobals();
+  gLastEpasCounter = 1;
+
+  TestStep("실행", "비순차적인 L001_EPAS_Data 메시지 (카운터=3)를 전송합니다.");
+  msg.Message_Counter = 3;
+  output(msg);
+  testWaitForTimeout(5);
+
+  TestStep("검증", "실패 카운트 증가 및 폴트 설정 여부를 확인합니다.");
+  if (commMon.failureCount_EPAS == 1 && (faultRegister & FAULT_EPAS_COMM) != 0)
+  {
+    TestStepPass("결과", "카운터 오류 시 통신 폴트를 정상적으로 설정했습니다. (FailCount=%d)", commMon.failureCount_EPAS);
+  }
+  else
+  {
+    TestStepFail("결과", "카운터 오류 시 폴트 설정 실패. (FailCount=%d, FaultRegister=0x%08X)", commMon.failureCount_EPAS, faultRegister);
+  }
+
+  TestEnableMsg(L001_EPAS_Data);
+}
+
+export testcase TC_INT_203()
+{
+  message L001_EPAS_Data msg;
+
+  TestStep("준비", "L001_EPAS_Data 메시지 전송을 중지하고, 전역 변수를 초기화합니다.");
+  TestDisableMsg(L001_EPAS_Data);
+  InitializeGlobals();
+
+  TestStep("실행", "L001_EPAS_Data 메시지 전송 후 500ms 대기하여 timerMainTask 핸들러가 충분히 실행되도록 합니다.");
+  SetTimerCyclic(timerMainTask, MAIN_CYCLE);
+  msg.Message_Counter = 1;
+  output(msg);
+  TestWaitForTimeout(500);
+  CancelTimer(timerMainTask);
+
+  TestStep("검증", "FAULT_EPAS_COMM 폴트가 설정되었는지 확인합니다.");
+  if ((faultRegister & FAULT_EPAS_COMM) != 0)
+  {
+    TestStepPass("결과", "주기적 태스크 통합으로 통신 타임아웃 폴트를 정상적으로 감지했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "주기적 태스크 통합으로 통신 타임아웃을 감지하지 못했습니다. (FaultRegister=0x%08X)", faultRegister);
+  }
+
+  TestEnableMsg(L001_EPAS_Data);
+}
+
+export testcase TC_INT_204()
+{
+  TestStep("준비", "전역 변수를 초기화하고, currentState를 STATE_NORMAL로 설정합니다.");
+  InitializeGlobals();
+  currentState = STATE_NORMAL;
+
+  TestStep("실행", "치명적인 폴트(FAULT_BPPS_SENSOR)를 설정합니다.");
+  SetFault(FAULT_BPPS_SENSOR);
 
   TestStep("검증", "currentState가 STATE_FAIL_SAFE로 즉시 전이되었는지 확인합니다.");
   if (currentState == STATE_FAIL_SAFE)
   {
-    TestStepPass("상태 전이 검증", "시스템 상태가 예상대로 STATE_FAIL_SAFE로 전이되었습니다.");
+    TestStepPass("결과", "SetFault 호출 시 UpdateSystemState가 통합 호출되어 STATE_FAIL_SAFE로 정상 전이되었습니다.");
   }
   else
   {
-    TestStepFail("상태 전이 검증", "시스템 상태가 %d 입니다. 예상 값: STATE_FAIL_SAFE (%d)", currentState, STATE_FAIL_SAFE);
+    TestStepFail("결과", "상태가 전이되지 않았습니다. (currentState=%d, Expected=%d)", currentState, STATE_FAIL_SAFE);
+  }
+}
+
+export testcase TC_SW_201()
+{
+  TestStep("준비", "시뮬레이션된 APS/BPPS 값을 설정합니다. (@ZCU_Front::APS_Position=50.0, @ZCU_Front::BPPS_Position=25.0)");
+  HandleStartEvent();
+  SysSetVariableFloat("ZCU_Front", "APS_Position", 50.0);
+  SysSetVariableFloat("ZCU_Front", "BPPS_Position", 25.0);
+
+  TestStep("실행 및 검증 1", "20ms 내에 M005_Vehicle_Dynamics 메시지를 수신하고 APS_Position 신호 값을 확인합니다.");
+  if (TestWaitForMessage(M005_Vehicle_Dynamics, 20) == 1)
+  {
+    if ($M005_Vehicle_Dynamics::APS_Position.phys == 50.0)
+    {
+      TestStepPass("M005 검증", "M005 메시지를 수신했으며 APS_Position 값이 정확합니다. (Value=%.1f)", $M005_Vehicle_Dynamics::APS_Position.phys);
+    }
+    else
+    {
+      TestStepFail("M005 검증", "APS_Position 값이 %.1f 입니다. 예상 값: 50.0", $M005_Vehicle_Dynamics::APS_Position.phys);
+    }
+  }
+  else
+  {
+    TestStepFail("M005 검증", "20ms 내에 M005_Vehicle_Dynamics 메시지를 수신하지 못했습니다.");
+  }
+
+  TestStep("실행 및 검증 2", "10ms 내에 M005_EXT_Brake_Pedal 메시지를 수신하고 BPPS_Position 신호 값을 확인합니다.");
+  if (TestWaitForMessage(M005_EXT_Brake_Pedal, 10) == 1)
+  {
+    if ($M005_EXT_Brake_Pedal::BPPS_Position.phys == 25.0)
+    {
+      TestStepPass("M005_EXT 검증", "M005_EXT 메시지를 수신했으며 BPPS_Position 값이 정확합니다. (Value=%.1f)", $M005_EXT_Brake_Pedal::BPPS_Position.phys);
+    }
+    else
+    {
+      TestStepFail("M005_EXT 검증", "BPPS_Position 값이 %.1f 입니다. 예상 값: 25.0", $M005_EXT_Brake_Pedal::BPPS_Position.phys);
+    }
+  }
+  else
+  {
+    TestStepFail("M005_EXT 검증", "10ms 내에 M005_EXT_Brake_Pedal 메시지를 수신하지 못했습니다.");
   }
 }

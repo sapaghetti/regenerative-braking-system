@@ -5,413 +5,488 @@ includes
   #include "../../CANoe/Nodes/ZCU_Center/ZCU_Center_Functions.cin"
 }
 
-export testcase TC_INIT_001()
+on timer timerMainTask
 {
-  byte l_returnValue;
+  HandleMainTaskTimer();
+}
 
-  TestStep("준비", "올바른 펌웨어 서명(@ZCU_Sim::Firmware_Signature = 0xDEADBEEF)을 설정합니다.");
-  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xDEADBEEF);
+on message L003_Voice_Command
+{
+  HandleVoiceCommandMessage(this);
+}
+
+on message L004_SW_Button_Input
+{
+  HandleSwButtonInputMessage(this);
+}
+
+on message M009_Mode_Change_Resp
+{
+  HandleModeChangeRespMessage(this);
+}
+
+on message M012_Cluster_Display
+{
+  HandleClusterDisplayMessage(this);
+}
+
+export testcase TC_UNIT_301()
+{
+  byte returnValue;
+
+  TestStep("준비", "시스템 변수 @ZCU_Center::Firmware_Signature를 정상 값(0xDEADBEEF)으로 설정합니다.");
+  sysSetVariableDWord("ZCU_Center", "Firmware_Signature", 0xDEADBEEF);
 
   TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
-  l_returnValue = PerformSecureBoot();
+  returnValue = PerformSecureBoot();
 
   TestStep("검증", "반환 값이 1인지 확인합니다.");
-  if (l_returnValue == 1)
+  if (returnValue == 1)
   {
-    TestStepPass("반환 값 검증", "PerformSecureBoot()가 예상대로 1을 반환했습니다.");
+    TestStepPass("결과", "올바른 서명에 대해 예상대로 1을 반환했습니다.");
   }
   else
   {
-    TestStepFail("반환 값 검증", "PerformSecureBoot()가 %d를 반환했습니다. 예상 값: 1", l_returnValue);
+    TestStepFail("결과", "반환 값이 %d 입니다. 예상 값: 1", returnValue);
   }
 }
 
-export testcase TC_INIT_002()
+export testcase TC_UNIT_302()
 {
-  byte l_returnValue;
+  byte returnValue;
 
-  TestStep("준비", "잘못된 펌웨어 서명(@ZCU_Sim::Firmware_Signature = 0xBADF00D)을 설정합니다.");
-  SysSetVariableDWord("ZCU_Sim", "Firmware_Signature", 0xBADF00D);
+  TestStep("준비", "시스템 변수 @ZCU_Center::Firmware_Signature를 비정상 값(0xBADF00D)으로 설정합니다.");
+  sysSetVariableDWord("ZCU_Center", "Firmware_Signature", 0xBADF00D);
 
   TestStep("실행", "PerformSecureBoot() 함수를 호출합니다.");
-  l_returnValue = PerformSecureBoot();
+  returnValue = PerformSecureBoot();
 
   TestStep("검증", "반환 값이 0인지 확인합니다.");
-  if (l_returnValue == 0)
+  if (returnValue == 0)
   {
-    TestStepPass("반환 값 검증", "PerformSecureBoot()가 예상대로 0을 반환했습니다.");
+    TestStepPass("결과", "잘못된 서명에 대해 예상대로 0을 반환했습니다.");
   }
   else
   {
-    TestStepFail("반환 값 검증", "PerformSecureBoot()가 %d를 반환했습니다. 예상 값: 0", l_returnValue);
+    TestStepFail("결과", "반환 값이 %d 입니다. 예상 값: 0", returnValue);
   }
+
+  sysSetVariableDWord("ZCU_Center", "Firmware_Signature", 0xDEADBEEF);
 }
 
-export testcase TC_INIT_003()
-{
-  TestStep("준비", "전역 변수를 초기화하고 클러스터 연결 상태를 '미연결'(@ZCU_Sim::Cluster_Connected = 0)로 설정합니다.");
-  InitializeGlobals();
-  SysSetVariableDWord("ZCU_Sim", "Cluster_Connected", 0);
-
-  TestStep("실행", "PerformInitialSelfTest() 함수를 호출합니다.");
-  PerformInitialSelfTest();
-
-  TestStep("검증", "faultRegister에 FAULT_CLUSTER_DISPLAY 비트가 설정되었는지 확인합니다.");
-  if ((faultRegister & FAULT_CLUSTER_DISPLAY) == FAULT_CLUSTER_DISPLAY)
-  {
-    TestStepPass("폴트 레지스터 검증", "FAULT_CLUSTER_DISPLAY 비트가 예상대로 설정되었습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 레지스터 검증", "FAULT_CLUSTER_DISPLAY 비트가 설정되지 않았습니다. (faultRegister: 0x%08X)", faultRegister);
-  }
-}
-
-export testcase TC_HMI_001()
-{
-  byte l_returnValue;
-  InitializeGlobals();
-
-  TestStep("실행", "최소 시간(50ms) 미만인 49ms로 ValidateButtonInput() 함수를 호출합니다.");
-  l_returnValue = ValidateButtonInput(BUTTON_MODE_UP, BUTTON_ACTION_PRESS, 49, timeNowNS()/1000000);
-
-  TestStep("검증", "반환 값이 0이고 FAULT_BUTTON_INPUT 폴트가 설정되었는지 확인합니다.");
-  if (l_returnValue == 0)
-  {
-    TestStepPass("반환 값 검증", "ValidateButtonInput()이 예상대로 0을 반환했습니다.");
-  }
-  else
-  {
-    TestStepFail("반환 값 검증", "ValidateButtonInput()이 %d를 반환했습니다. 예상 값: 0", l_returnValue);
-  }
-
-  if ((faultRegister & FAULT_BUTTON_INPUT) == FAULT_BUTTON_INPUT)
-  {
-    TestStepPass("폴트 설정 검증", "FAULT_BUTTON_INPUT 폴트가 예상대로 설정되었습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 설정 검증", "FAULT_BUTTON_INPUT 폴트가 설정되지 않았습니다.");
-  }
-}
-
-export testcase TC_HMI_002()
-{
-  byte l_returnValue;
-  InitializeGlobals();
-
-  TestStep("실행 1", "유효한 최초 입력을 수행합니다.");
-  ValidateButtonInput(BUTTON_MODE_UP, BUTTON_ACTION_PRESS, 100, 1000);
-  hmiInput.lastButtonTime = 1000;
-
-  TestStep("실행 2", "최소 간격(300ms)보다 짧은 299ms 후에 다시 함수를 호출합니다.");
-  l_returnValue = ValidateButtonInput(BUTTON_MODE_DOWN, BUTTON_ACTION_PRESS, 100, 1299);
-
-  TestStep("검증", "반환 값이 0인지 확인합니다.");
-  if (l_returnValue == 0)
-  {
-    TestStepPass("반환 값 검증", "두 번째 호출이 예상대로 0을 반환하여 중복 입력을 방지했습니다.");
-  }
-  else
-  {
-    TestStepFail("반환 값 검증", "두 번째 호출이 %d를 반환했습니다. 예상 값: 0", l_returnValue);
-  }
-}
-
-export testcase TC_HMI_003()
-{
-  byte l_returnValue;
-  InitializeGlobals();
-
-  TestStep("실행", "최소 신뢰도(70%) 미만인 69%로 ValidateVoiceInput() 함수를 호출합니다.");
-  l_returnValue = ValidateVoiceInput(VOICE_CMD_MODE_CHANGE, MODE_AUTO, 69, timeNowNS()/1000000);
-
-  TestStep("검증", "반환 값이 0이고 FAULT_VOICE_INPUT 폴트가 설정되지 않았는지 확인합니다.");
-  if (l_returnValue == 0)
-  {
-    TestStepPass("반환 값 검증", "ValidateVoiceInput()이 예상대로 0을 반환했습니다.");
-  }
-  else
-  {
-    TestStepFail("반환 값 검증", "ValidateVoiceInput()이 %d를 반환했습니다. 예상 값: 0", l_returnValue);
-  }
-
-  if ((faultRegister & FAULT_VOICE_INPUT) == 0)
-  {
-    TestStepPass("폴트 미설정 검증", "신뢰도 미달은 폴트 조건이 아니므로 FAULT_VOICE_INPUT이 설정되지 않았습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 미설정 검증", "FAULT_VOICE_INPUT 폴트가 설정되었습니다.");
-  }
-}
-
-export testcase TC_HMI_004()
-{
-  byte l_returnValue;
-  InitializeGlobals();
-
-  TestStep("실행", "유효하지 않은 명령 타입(5)으로 ValidateVoiceInput() 함수를 호출합니다.");
-  l_returnValue = ValidateVoiceInput(5, MODE_AUTO, 80, timeNowNS()/1000000);
-
-  TestStep("검증", "반환 값이 0이고 FAULT_VOICE_INPUT 폴트가 설정되었는지 확인합니다.");
-  if (l_returnValue == 0)
-  {
-    TestStepPass("반환 값 검증", "ValidateVoiceInput()이 예상대로 0을 반환했습니다.");
-  }
-  else
-  {
-    TestStepFail("반환 값 검증", "ValidateVoiceInput()이 %d를 반환했습니다. 예상 값: 0", l_returnValue);
-  }
-
-  if ((faultRegister & FAULT_VOICE_INPUT) == FAULT_VOICE_INPUT)
-  {
-    TestStepPass("폴트 설정 검증", "FAULT_VOICE_INPUT 폴트가 예상대로 설정되었습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 설정 검증", "FAULT_VOICE_INPUT 폴트가 설정되지 않았습니다.");
-  }
-}
-
-export testcase TC_STATE_001()
-{
-  TestStep("준비", "시스템을 초기화(currentState=STATE_INIT)하고 M012 첫 메시지 수신 플래그를 설정합니다.");
-  InitializeGlobals();
-  commMon.firstMsgReceived_M012 = 1;
-
-  TestStep("실행", "UpdateSystemState() 함수를 호출하여 상태 전이를 트리거합니다.");
-  UpdateSystemState();
-
-  TestStep("검증", "currentState가 STATE_NORMAL로 전이되었는지 확인합니다.");
-  if (currentState == STATE_NORMAL)
-  {
-    TestStepPass("상태 전이 검증", "시스템 상태가 예상대로 STATE_NORMAL(1)로 전이되었습니다.");
-  }
-  else
-  {
-    TestStepFail("상태 전이 검증", "시스템 상태가 %d 입니다. 예상 값: STATE_NORMAL(1)", currentState);
-  }
-}
-
-export testcase TC_STATE_002()
-{
-  TestStep("준비", "시스템 상태를 STATE_NORMAL로, 폴트는 없는 상태로 설정합니다.");
-  InitializeGlobals();
-  currentState = STATE_NORMAL;
-
-  TestStep("실행", "비치명적 폴트(FAULT_HPC_COMM)를 설정합니다.");
-  SetFault(FAULT_HPC_COMM);
-
-  TestStep("검증", "currentState가 STATE_DEGRADED로 즉시 전이되었는지 확인합니다.");
-  if (currentState == STATE_DEGRADED)
-  {
-    TestStepPass("상태 전이 검증", "시스템 상태가 예상대로 STATE_DEGRADED(2)로 전이되었습니다.");
-  }
-  else
-  {
-    TestStepFail("상태 전이 검증", "시스템 상태가 %d 입니다. 예상 값: STATE_DEGRADED(2)", currentState);
-  }
-}
-
-export testcase TC_STATE_003()
-{
-  TestStep("준비", "시스템 상태를 STATE_NORMAL로, 폴트는 없는 상태로 설정합니다.");
-  InitializeGlobals();
-  currentState = STATE_NORMAL;
-
-  TestStep("실행", "치명적인 폴트(FAULT_HMI_TIMEOUT)를 설정합니다.");
-  SetFault(FAULT_HMI_TIMEOUT);
-
-  TestStep("검증", "currentState가 STATE_FAIL_SAFE로 즉시 전이되었는지 확인합니다.");
-  if (currentState == STATE_FAIL_SAFE)
-  {
-    TestStepPass("상태 전이 검증", "시스템 상태가 예상대로 STATE_FAIL_SAFE(3)로 전이되었습니다.");
-  }
-  else
-  {
-    TestStepFail("상태 전이 검증", "시스템 상태가 %d 입니다. 예상 값: STATE_FAIL_SAFE(3)", currentState);
-  }
-}
-
-export testcase TC_FUNC_001()
-{
-  message L004_SW_Button_Input l_msg;
-  byte l_dataArray[6];
-  dword l_crc;
-  long l_retval;
-
-  TestStep("준비", "전역 변수를 초기화하고 현재 디스플레이 모드를 MODE_LEVEL_1로 설정합니다.");
-  InitializeGlobals();
-  clusterDisplay.currentDisplayMode = MODE_LEVEL_1;
-
-  l_msg.Button_ID = BUTTON_MODE_UP;
-  l_msg.Button_Action = BUTTON_ACTION_PRESS;
-  l_msg.Press_Duration = 100;
-  l_msg.Event_Timestamp = (word)(timeNowNS() / 1000000);
-
-  l_dataArray[0] = l_msg.Button_ID;
-  l_dataArray[1] = l_msg.Button_Action;
-  l_dataArray[2] = (byte)(l_msg.Press_Duration & 0xFF);
-  l_dataArray[3] = (byte)((l_msg.Press_Duration >> 8) & 0xFF);
-  l_dataArray[4] = (byte)(l_msg.Event_Timestamp & 0xFF);
-  l_dataArray[5] = (byte)((l_msg.Event_Timestamp >> 8) & 0xFF);
-  l_retval = Crc_CalculateCRC16(l_dataArray, elcount(l_dataArray), 0, elcount(l_dataArray), 0, 1, l_crc);
-  if (l_retval == 0)
-  {
-    l_msg.CRC16_Checksum = (word)l_crc;
-  }
-
-  TestStep("실행", "버튼 'UP'에 해당하는 L004_SW_Button_Input 메시지 핸들러를 호출합니다.");
-  HandleSwButtonInputMessage(l_msg);
-
-  TestStep("검증", "M008_Mode_Change_Req 메시지가 20ms 내에 수신되고 Requested_Mode가 MODE_LEVEL_2인지, waitingForResponse가 1인지 확인합니다.");
-  if (TestWaitForMessage(M008_Mode_Change_Req, 20) == 1)
-  {
-    TestStepPass("메시지 수신", "M008_Mode_Change_Req 메시지가 성공적으로 수신되었습니다.");
-    if ($M008_Mode_Change_Req::Requested_Mode == MODE_LEVEL_2)
-    {
-      TestStepPass("신호 값 검증", "Requested_Mode 신호가 예상대로 MODE_LEVEL_2(2)로 설정되었습니다.");
-    }
-    else
-    {
-      TestStepFail("신호 값 검증", "Requested_Mode 신호가 %d 입니다. 예상 값: 2", $M008_Mode_Change_Req::Requested_Mode);
-    }
-  }
-  else
-  {
-    TestStepFail("메시지 수신", "M008_Mode_Change_Req 메시지가 20ms 내에 수신되지 않았습니다.");
-  }
-
-  if (commMon.waitingForResponse == 1)
-  {
-    TestStepPass("상태 변수 검증", "commMon.waitingForResponse가 예상대로 1로 설정되었습니다.");
-  }
-  else
-  {
-    TestStepFail("상태 변수 검증", "commMon.waitingForResponse가 0 입니다. 예상 값: 1");
-  }
-}
-
-export testcase TC_FUNC_002()
-{
-  message M009_Mode_Change_Resp l_msg;
-  byte l_dataArray[6];
-  dword l_crc;
-  long l_retval;
-
-  TestStep("준비", "응답 대기 상태로 설정하고 관련 폴트(FAULT_HMI_TIMEOUT)를 미리 설정합니다.");
-  InitializeGlobals();
-  commMon.waitingForResponse = 1;
-  SetFault(FAULT_HMI_TIMEOUT);
-
-  l_msg.Mode_Change_Status = 0;
-  l_msg.Current_Mode = MODE_LEVEL_2;
-  l_msg.Active_Profile = PROFILE_EFFICIENCY;
-  l_msg.Failure_Reason = 0;
-  l_msg.Response_Timestamp = (word)(timeNowNS() / 1000000);
-
-  l_dataArray[0] = l_msg.Current_Mode;
-  l_dataArray[1] = l_msg.Mode_Change_Status;
-  l_dataArray[2] = l_msg.Active_Profile;
-  l_dataArray[3] = l_msg.Failure_Reason;
-  l_dataArray[4] = (byte)(l_msg.Response_Timestamp & 0xFF);
-  l_dataArray[5] = (byte)((l_msg.Response_Timestamp >> 8) & 0xFF);
-  l_retval = Crc_CalculateCRC16(l_dataArray, elcount(l_dataArray), 0, elcount(l_dataArray), 0, 1, l_crc);
-  if (l_retval == 0)
-  {
-    l_msg.CRC16_Checksum = (word)l_crc;
-  }
-
-  TestStep("실행", "성공적인 M009_Mode_Change_Resp 메시지 핸들러를 호출합니다.");
-  HandleModeChangeRespMessage(l_msg);
-
-  TestStep("검증", "클러스터 모드가 업데이트되고, 폴트가 해제되며, 응답 대기 상태가 해제되는지 확인합니다.");
-  if (clusterDisplay.currentDisplayMode == MODE_LEVEL_2)
-  {
-    TestStepPass("데이터 업데이트 검증", "clusterDisplay.currentDisplayMode가 예상대로 MODE_LEVEL_2로 업데이트되었습니다.");
-  }
-  else
-  {
-    TestStepFail("데이터 업데이트 검증", "clusterDisplay.currentDisplayMode가 %d 입니다. 예상 값: 2", clusterDisplay.currentDisplayMode);
-  }
-
-  if ((faultRegister & FAULT_HMI_TIMEOUT) == 0)
-  {
-    TestStepPass("폴트 해제 검증", "FAULT_HMI_TIMEOUT 폴트가 예상대로 해제되었습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 해제 검증", "FAULT_HMI_TIMEOUT 폴트가 해제되지 않았습니다.");
-  }
-
-  if (commMon.waitingForResponse == 0)
-  {
-    TestStepPass("상태 변수 검증", "commMon.waitingForResponse가 예상대로 0으로 복귀되었습니다.");
-  }
-  else
-  {
-    TestStepFail("상태 변수 검증", "commMon.waitingForResponse가 1 입니다. 예상 값: 0");
-  }
-}
-
-export testcase TC_FUNC_003()
-{
-  TestStep("준비", "첫 메시지 수신 상태로 만들고, 폴트를 초기화하며, 실패 카운트를 최대치 직전으로 설정합니다.");
-  InitializeGlobals();
-  commMon.firstMsgReceived_M012 = 1;
-  commMon.lastRxTime_M012 = timeNowNS() / 1000000;
-  commMon.failureCount_M012 = MAX_COMM_FAILURES - 1;
-  ClearFault(FAULT_HPC_COMM);
-
-  TestStep("실행", "타임아웃 시간(300ms) 이상 대기 후 통신 모니터링 함수를 호출합니다.");
-  TestWaitForTimeout(TIMEOUT_HPC_M012 + 5);
-  MonitorCommunication();
-
-  TestStep("검증", "faultRegister에 FAULT_HPC_COMM 비트가 설정되었는지 확인합니다.");
-  if ((faultRegister & FAULT_HPC_COMM) == FAULT_HPC_COMM)
-  {
-    TestStepPass("폴트 설정 검증", "통신 타임아웃으로 FAULT_HPC_COMM 폴트가 예상대로 설정되었습니다.");
-  }
-  else
-  {
-    TestStepFail("폴트 설정 검증", "FAULT_HPC_COMM 폴트가 설정되지 않았습니다. (failureCount: %d)", commMon.failureCount_M012);
-  }
-}
-
-export testcase TC_FUNC_004()
+export testcase TC_UNIT_303()
 {
   TestStep("준비", "전역 변수를 초기화합니다.");
   InitializeGlobals();
 
-  TestStep("실행", "OnEnterFailSafe() 함수를 호출합니다.");
-  OnEnterFailSafe();
+  TestStep("실행 1", "SetFault(FAULT_HPC_COMM)를 호출합니다.");
+  SetFault(FAULT_HPC_COMM);
 
-  TestStep("검증", "M004_FailSafe_Status_3 메시지가 20ms 내에 수신되고 신호 값들이 정확한지 확인합니다.");
-  if (TestWaitForMessage(M004_FailSafe_Status_3, 20) == 1)
+  TestStep("검증 1", "faultRegister와 diagnostics.errorFlags에 FAULT_HPC_COMM 비트가 설정되었는지 확인합니다.");
+  if ((faultRegister == FAULT_HPC_COMM) && (diagnostics.errorFlags == FAULT_HPC_COMM))
   {
-    TestStepPass("메시지 수신", "M004_FailSafe_Status_3 메시지가 성공적으로 수신되었습니다.");
+    TestStepPass("SetFault 검증", "SetFault 호출 후 faultRegister와 diagnostics.errorFlags에 폴트가 정상 설정되었습니다.");
+  }
+  else
+  {
+    TestStepFail("SetFault 검증", "SetFault 호출 후 폴트가 설정되지 않았습니다. (faultRegister: 0x%08X, errorFlags: 0x%08X)", faultRegister, diagnostics.errorFlags);
+  }
 
-    if ($M004_FailSafe_Status_3::Source_ECU == ECU_ID)
+  TestStep("실행 2", "ClearFault(FAULT_HPC_COMM)를 호출합니다.");
+  ClearFault(FAULT_HPC_COMM);
+
+  TestStep("검증 2", "faultRegister와 diagnostics.errorFlags에서 FAULT_HPC_COMM 비트가 해제되었는지 확인합니다.");
+  if (faultRegister == 0 && diagnostics.errorFlags == 0)
+  {
+    TestStepPass("ClearFault 검증", "ClearFault 호출 후 faultRegister와 diagnostics.errorFlags에서 폴트가 정상 해제되었습니다.");
+  }
+  else
+  {
+    TestStepFail("ClearFault 검증", "ClearFault 호출 후 폴트가 해제되지 않았습니다. (faultRegister: 0x%08X, errorFlags: 0x%08X)", faultRegister, diagnostics.errorFlags);
+  }
+}
+
+export testcase TC_UNIT_304()
+{
+  byte returnValue1, returnValue2;
+  dword time1, time2;
+
+  TestStep("준비", "전역 변수를 초기화합니다.");
+  InitializeGlobals();
+
+  TestStep("실행 1", "첫 번째 버튼 입력을 처리합니다.");
+  time1 = timeNowNS() / 1000000;
+  returnValue1 = ValidateButtonInput(BUTTON_MODE_UP, BUTTON_ACTION_PRESS, 100, time1);
+  hmiInput.lastButtonTime = time1;
+
+  TestStep("실행 2", "100ms 대기 후 두 번째 버튼 입력을 처리합니다.");
+  testWaitForTimeout(100);
+  time2 = timeNowNS() / 1000000;
+  returnValue2 = ValidateButtonInput(BUTTON_MODE_UP, BUTTON_ACTION_PRESS, 100, time2);
+
+  TestStep("검증", "두 번째 호출의 반환 값이 0인지 확인합니다.");
+  if (returnValue1 == 1 && returnValue2 == 0)
+  {
+    TestStepPass("결과", "짧은 시간 내의 연속 입력을 예상대로 무시했습니다 (반환값: %d).", returnValue2);
+  }
+  else
+  {
+    TestStepFail("결과", "연속 입력 처리가 잘못되었습니다. (반환값1: %d, 반환값2: %d)", returnValue1, returnValue2);
+  }
+}
+
+export testcase TC_UNIT_305()
+{
+  byte returnValue;
+
+  TestStep("준비", "전역 변수를 초기화합니다.");
+  InitializeGlobals();
+
+  TestStep("실행", "신뢰도 69%%의 음성 입력을 검증합니다.");
+  returnValue = ValidateVoiceInput(VOICE_CMD_MODE_CHANGE, MODE_LEVEL_2, 69, timeNowNS() / 1000000);
+
+  TestStep("검증", "반환 값이 0인지 확인합니다.");
+  if (returnValue == 0)
+  {
+    TestStepPass("결과", "신뢰도 미달 음성 입력을 예상대로 무시했습니다 (반환값: 0).");
+  }
+  else
+  {
+    TestStepFail("결과", "신뢰도 미달 음성 입력 처리가 잘못되었습니다. (반환값: %d)", returnValue);
+  }
+}
+
+export testcase TC_INT_301()
+{
+  message L004_SW_Button_Input msg;
+  byte dataArray[6];
+  dword crc;
+
+  TestStep("준비", "ZCU_Center를 시작 상태로 초기화합니다.");
+  HandleStartEvent();
+  TestWaitForTimeout(20);
+
+  TestStep("실행", "L004_SW_Button_Input 메시지를 전송합니다 (Mode Up).");
+  msg.Button_ID = BUTTON_MODE_UP;
+  msg.Button_Action = BUTTON_ACTION_PRESS;
+  msg.Press_Duration = 100;
+  msg.Event_Timestamp = 0;
+
+  dataArray[0] = (msg.Button_ID & 0x0F) | ((msg.Button_Action & 0x0F) << 4);
+  dataArray[1] = (byte)(msg.Press_Duration & 0xFF);
+  dataArray[2] = (byte)((msg.Press_Duration >> 8) & 0xFF);
+  dataArray[3] = msg.Event_Counter;
+  dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
+  Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  msg.CRC16_Checksum = (word)crc;
+
+  output(msg);
+
+  TestStep("검증", "50ms 내에 M008_Mode_Change_Req 메시지를 수신하고 신호 값을 확인합니다.");
+  if (TestWaitForMessage(M008_Mode_Change_Req, 50) == 1)
+  {
+    if ($M008_Mode_Change_Req::Requested_Mode == 1 && $M008_Mode_Change_Req::Request_Source == REQUEST_SOURCE_BUTTON)
     {
-      TestStepPass("신호 값 검증 (Source_ECU)", "Source_ECU 값이 ECU_ID(3)로 정확합니다.");
+      TestStepPass("결과", "M008 메시지가 올바른 신호 값으로 전송되었습니다.");
     }
     else
     {
-      TestStepFail("신호 값 검증 (Source_ECU)", "Source_ECU 값이 %d 입니다. 예상 값: %d", $M004_FailSafe_Status_3::Source_ECU, ECU_ID);
-    }
-
-    if ($M004_FailSafe_Status_3::Fault_Code == 1)
-    {
-      TestStepPass("신호 값 검증 (Fault_Code)", "Fault_Code 값이 1로 정확합니다.");
-    }
-    else
-    {
-      TestStepFail("신호 값 검증 (Fault_Code)", "Fault_Code 값이 %d 입니다. 예상 값: 1", $M004_FailSafe_Status_3::Fault_Code);
+      TestStepFail("결과", "M008 메시지의 신호 값이 잘못되었습니다. (Mode: %d, Source: %d)", 
+                   $M008_Mode_Change_Req::Requested_Mode, $M008_Mode_Change_Req::Request_Source);
     }
   }
   else
   {
-    TestStepFail("메시지 수신", "M004_FailSafe_Status_3 메시지가 20ms 내에 수신되지 않았습니다.");
+    TestStepFail("결과", "50ms 내에 M008_Mode_Change_Req 메시지를 수신하지 못했습니다.");
+  }
+}
+
+export testcase TC_INT_302()
+{
+  message M009_Mode_Change_Resp msg;
+  byte dataArray[6];
+  dword crc;
+
+  TestStep("준비", "초기화 및 모드 변경 요청을 먼저 보냅니다.");
+  HandleStartEvent();
+  TestWaitForTimeout(20);
+  SendModeChangeRequest(MODE_LEVEL_3, REQUEST_SOURCE_BUTTON, PROFILE_COMFORT);
+  TestWaitForTimeout(10);
+
+  TestStep("실행", "성공적인 M009_Mode_Change_Resp 메시지를 전송합니다.");
+  msg.Mode_Change_Status = 0;
+  msg.Current_Mode = 3;
+  msg.Active_Profile = PROFILE_COMFORT;
+  msg.Failure_Reason = 0;
+  msg.Response_Timestamp = 0;
+
+  dataArray[0] = msg.Current_Mode;
+  dataArray[1] = msg.Mode_Change_Status;
+  dataArray[2] = msg.Active_Profile;
+  dataArray[3] = msg.Failure_Reason;
+  dataArray[4] = (byte)(msg.Response_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Response_Timestamp >> 8) & 0xFF);
+  Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  msg.CRC16_Checksum = (word)crc;
+
+  output(msg);
+  TestWaitForTimeout(5);
+
+  TestStep("검증", "clusterDisplay의 상태와 commMon의 응답 대기 플래그를 확인합니다.");
+  if (clusterDisplay.currentDisplayMode == 3 && clusterDisplay.comfortModeEnabled == 1 && commMon.waitingForResponse == 0)
+  {
+    TestStepPass("결과", "모드 변경 성공 응답 처리가 정확합니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "모드 변경 성공 응답 처리 실패. (Mode: %d, Comfort: %d, Waiting: %d)",
+                 clusterDisplay.currentDisplayMode, clusterDisplay.comfortModeEnabled, commMon.waitingForResponse);
+  }
+}
+
+export testcase TC_INT_303()
+{
+  message M009_Mode_Change_Resp msg;
+  byte dataArray[6];
+  dword crc;
+
+  TestStep("준비", "초기화 및 모드 변경 요청을 먼저 보냅니다.");
+  HandleStartEvent();
+  TestWaitForTimeout(20);
+  SendModeChangeRequest(MODE_LEVEL_2, REQUEST_SOURCE_BUTTON, PROFILE_EFFICIENCY);
+  TestWaitForTimeout(10);
+
+  TestStep("실행", "실패 M009_Mode_Change_Resp 메시지를 전송합니다.");
+  msg.Mode_Change_Status = 1;
+  msg.Failure_Reason = 1;
+  msg.Current_Mode = hmiInput.requestedMode;
+  msg.Active_Profile = clusterDisplay.activeProfile;
+  msg.Response_Timestamp = 0;
+
+  dataArray[0] = msg.Current_Mode;
+  dataArray[1] = msg.Mode_Change_Status;
+  dataArray[2] = msg.Active_Profile;
+  dataArray[3] = msg.Failure_Reason;
+  dataArray[4] = (byte)(msg.Response_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Response_Timestamp >> 8) & 0xFF);
+  Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  msg.CRC16_Checksum = (word)crc;
+
+  output(msg);
+  TestWaitForTimeout(5);
+
+  TestStep("검증", "faultRegister에 FAULT_MODE_CHANGE_FAIL 비트가 설정되었는지 확인합니다.");
+  if ((faultRegister & FAULT_MODE_CHANGE_FAIL) != 0)
+  {
+    TestStepPass("결과", "모드 변경 실패 응답 처리 시 폴트를 정상적으로 설정했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "모드 변경 실패 폴트 설정이 누락되었습니다. (FaultRegister: 0x%08X)", faultRegister);
+  }
+}
+
+export testcase TC_INT_304()
+{
+  TestStep("준비", "ZCU_Center를 시작하고 주기 타이머를 활성화합니다.");
+  HandleStartEvent();
+  TransitionToState(STATE_NORMAL);
+
+  TestStep("실행", "M008 요청 전송 후 M009 응답 없이 HMI_RESPONSE_TIMEOUT(200ms) 이상 대기합니다.");
+  SendModeChangeRequest(MODE_LEVEL_1, REQUEST_SOURCE_VOICE, PROFILE_EFFICIENCY);
+  TestWaitForTimeout(220);
+
+  TestStep("검증", "faultRegister에 FAULT_HMI_TIMEOUT 비트가 설정되었는지 확인합니다.");
+  if ((faultRegister & FAULT_HMI_TIMEOUT) != 0)
+  {
+    TestStepPass("결과", "HMI 응답 타임아웃을 정상적으로 감지하고 폴트를 설정했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "HMI 응답 타임아웃 감지 실패. (FaultRegister: 0x%08X)", faultRegister);
+  }
+
+  cancelTimer(timerMainTask);
+}
+
+export testcase TC_SW_301()
+{
+  message L004_SW_Button_Input msg;
+  byte dataArray[6];
+  dword crc;
+
+  TestStep("준비", "ZCU_Center를 시작 상태로 초기화합니다.");
+  HandleStartEvent();
+  TestWaitForTimeout(20);
+
+  TestStep("실행", "L004_SW_Button_Input 메시지를 전송합니다 (Mode Down).");
+  msg.Button_ID = BUTTON_MODE_UP;
+  msg.Button_Action = BUTTON_ACTION_PRESS;
+  msg.Press_Duration = 100;
+  msg.Event_Timestamp = 0;
+
+  dataArray[0] = (msg.Button_ID & 0x0F) | ((msg.Button_Action & 0x0F) << 4);
+  dataArray[1] = (byte)(msg.Press_Duration & 0xFF);
+  dataArray[2] = (byte)((msg.Press_Duration >> 8) & 0xFF);
+  dataArray[3] = msg.Event_Counter;
+  dataArray[4] = (byte)(msg.Event_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Event_Timestamp >> 8) & 0xFF);
+  Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  msg.CRC16_Checksum = (word)crc;
+
+  output(msg);
+
+  TestStep("검증", "200ms 내에 M008_Mode_Change_Req 메시지를 수신하고 Request_Source를 확인합니다.");
+  if (TestWaitForMessage(M008_Mode_Change_Req, 200) == 1)
+  {
+    if ($M008_Mode_Change_Req::Request_Source == REQUEST_SOURCE_BUTTON)
+    {
+      TestStepPass("결과", "200ms 내에 올바른 M008 메시지를 전송했습니다.");
+    }
+    else
+    {
+      TestStepFail("결과", "M008 메시지의 Request_Source가 잘못되었습니다. (Source: %d)", $M008_Mode_Change_Req::Request_Source);
+    }
+  }
+  else
+  {
+    TestStepFail("결과", "200ms 내에 M008_Mode_Change_Req 메시지를 수신하지 못했습니다.");
+  }
+}
+
+export testcase TC_SW_302()
+{
+  message L003_Voice_Command msg;
+  byte dataArray[6];
+  dword crc;
+
+  TestStep("준비", "ZCU_Center를 시작 상태로 초기화합니다.");
+  HandleStartEvent();
+  TestWaitForTimeout(20);
+
+  TestStep("실행", "L003_Voice_Command 메시지를 전송합니다 (Auto Mode).");
+  msg.Command_Type = VOICE_CMD_MODE_CHANGE;
+  msg.Command_Value = MODE_AUTO;
+  msg.Confidence_Level = 90;
+  msg.Language_ID = 1;
+  msg.Voice_Timestamp = 0;
+
+  dataArray[0] = msg.Command_Type;
+  dataArray[1] = msg.Command_Value;
+  dataArray[2] = msg.Confidence_Level;
+  dataArray[3] = msg.Language_ID;
+  dataArray[4] = (byte)(msg.Voice_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Voice_Timestamp >> 8) & 0xFF);
+  Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  msg.CRC16_Checksum = (word)crc;
+
+  output(msg);
+
+  TestStep("검증", "200ms 내에 M008 메시지를 수신하고 신호 값들을 확인합니다.");
+  if (TestWaitForMessage(M008_Mode_Change_Req, 200) == 1)
+  {
+    if ($M008_Mode_Change_Req::Requested_Mode == MODE_AUTO && $M008_Mode_Change_Req::Request_Source == REQUEST_SOURCE_VOICE)
+    {
+      TestStepPass("결과", "200ms 내에 올바른 M008 메시지를 전송했습니다.");
+    }
+    else
+    {
+      TestStepFail("결과", "M008 메시지의 신호 값이 잘못되었습니다. (Mode: %d, Source: %d)", $M008_Mode_Change_Req::Requested_Mode, $M008_Mode_Change_Req::Request_Source);
+    }
+  }
+  else
+  {
+    TestStepFail("결과", "200ms 내에 M008_Mode_Change_Req 메시지를 수신하지 못했습니다.");
+  }
+}
+
+export testcase TC_SW_303()
+{
+  message M012_Cluster_Display msg;
+  byte dataArray[10];
+  dword crc;
+
+  TestStep("준비", "ZCU_Center를 시작 상태로 초기화합니다.");
+  HandleStartEvent();
+  TestWaitForTimeout(20);
+
+  TestStep("실행", "M012_Cluster_Display 메시지를 전송합니다.");
+  msg.Display_Mode = 3;
+  msg.Instant_Regen_Power = 5000;
+  msg.Cumulative_Regen_Energy = 12345;
+  msg.Warning_Status = WARNING_BATTERY;
+  msg.Vehicle_Speed = 6000;
+  msg.Motor_Speed = 3000;
+
+  dataArray[0] = msg.Display_Mode;
+  dataArray[1] = (byte)(msg.Instant_Regen_Power & 0xFF);
+  dataArray[2] = (byte)((msg.Instant_Regen_Power >> 8) & 0xFF);
+  dataArray[3] = (byte)(msg.Cumulative_Regen_Energy & 0xFF);
+  dataArray[4] = (byte)((msg.Cumulative_Regen_Energy >> 8) & 0xFF);
+  dataArray[5] = msg.Warning_Status;
+  dataArray[6] = (byte)(msg.Vehicle_Speed & 0xFF);
+  dataArray[7] = (byte)((msg.Vehicle_Speed >> 8) & 0xFF);
+  dataArray[8] = (byte)(msg.Motor_Speed & 0xFF);
+  dataArray[9] = (byte)((msg.Motor_Speed >> 8) & 0xFF);
+  Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  msg.CRC16_Checksum = (word)crc;
+
+  output(msg);
+  TestWaitForTimeout(5);
+
+  TestStep("검증", "ZCU_Center 네임스페이스의 시스템 변수 값들을 확인합니다.");
+  if (sysGetVariableDWord("ZCU_Center", "Cluster_Display_Mode") == 3 &&
+      sysGetVariableDWord("ZCU_Center", "Cluster_Instant_Power") == 5000 &&
+      (sysGetVariableDWord("ZCU_Center", "Cluster_Warning_Status") & WARNING_BATTERY) != 0)
+  {
+    TestStepPass("결과", "M012 수신 후 클러스터 관련 시스템 변수들이 정상적으로 업데이트되었습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "클러스터 관련 시스템 변수 업데이트 실패. (Mode:%d, Power:%d, Warn:%d)",
+                  sysGetVariableDWord("ZCU_Center", "Cluster_Display_Mode"),
+                  sysGetVariableDWord("ZCU_Center", "Cluster_Instant_Power"),
+                  sysGetVariableDWord("ZCU_Center", "Cluster_Warning_Status"));
+  }
+}
+
+export testcase TC_SW_304()
+{
+  message M009_Mode_Change_Resp msg;
+  byte dataArray[6];
+  dword crc;
+
+  TestStep("준비", "ZCU_Center를 시작 상태로 초기화합니다.");
+  HandleStartEvent();
+  TestWaitForTimeout(20);
+
+  TestStep("실행", "Active_Profile이 PROFILE_COMFORT인 M009 응답 메시지를 전송합니다.");
+  msg.Mode_Change_Status = 0;
+  msg.Active_Profile = PROFILE_COMFORT;
+  msg.Current_Mode = clusterDisplay.currentDisplayMode;
+  msg.Failure_Reason = 0;
+  msg.Response_Timestamp = 0;
+
+  dataArray[0] = msg.Current_Mode;
+  dataArray[1] = msg.Mode_Change_Status;
+  dataArray[2] = msg.Active_Profile;
+  dataArray[3] = msg.Failure_Reason;
+  dataArray[4] = (byte)(msg.Response_Timestamp & 0xFF);
+  dataArray[5] = (byte)((msg.Response_Timestamp >> 8) & 0xFF);
+  Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  msg.CRC16_Checksum = (word)crc;
+
+  output(msg);
+  TestWaitForTimeout(5);
+
+  TestStep("검증", "@ZCU_Center::OTA_Comfort_Activated 시스템 변수가 1로 설정되었는지 확인합니다.");
+  if (sysGetVariableDWord("ZCU_Center", "OTA_Comfort_Activated") == 1)
+  {
+    TestStepPass("결과", "편안한 모드 활성화 시 OTA 기능 UI가 정상적으로 활성화되었습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "OTA 기능 UI 활성화 실패. (OTA_Comfort_Activated: %d)", sysGetVariableDWord("ZCU_Center", "OTA_Comfort_Activated"));
   }
 }

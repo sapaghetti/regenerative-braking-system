@@ -1,0 +1,38 @@
+/*@!Encoding:65001*/
+void SendButtonMessage(byte buttonId, byte buttonAction, word pressDuration)
+{
+  byte dataArray[6];
+  dword crc;
+  long crc_ret;
+  
+  gMsg_L004.Button_ID = buttonId & 0x0F;
+  gMsg_L004.Button_Action = buttonAction & 0x0F;
+  gMsg_L004.Press_Duration = pressDuration;
+  gMsg_L004.Event_Counter = gEventCounter;
+  gMsg_L004.Event_Timestamp = (word)(timeNowNS() / 1000000);
+
+  dataArray[0] = (gMsg_L004.Button_ID & 0x0F) | ((gMsg_L004.Button_Action & 0x0F) << 4);
+  dataArray[1] = (byte)(gMsg_L004.Press_Duration & 0xFF);
+  dataArray[2] = (byte)((gMsg_L004.Press_Duration >> 8) & 0xFF);
+  dataArray[3] = gMsg_L004.Event_Counter;
+  dataArray[4] = (byte)(gMsg_L004.Event_Timestamp & 0xFF);
+  dataArray[5] = (byte)((gMsg_L004.Event_Timestamp >> 8) & 0xFF);
+
+  crc_ret = Crc_CalculateCRC16(dataArray, elcount(dataArray), 0, elcount(dataArray), 0, 1, crc);
+  if (crc_ret == 0)
+  {
+    gMsg_L004.CRC16_Checksum = (word)crc;
+  }
+  else
+  {
+    write("SW_Button Node: CRC calculation failed with error: %d", crc_ret);
+    gMsg_L004.CRC16_Checksum = 0x0000;
+  }
+  
+  output(gMsg_L004);
+  
+  write("SW_Button Node: Sent L004 - ID:%d, Action:%d, Duration:%dms, Counter:%d", 
+        buttonId, buttonAction, pressDuration, gEventCounter);
+  
+  gEventCounter = (gEventCounter + 1) % 256;
+}
