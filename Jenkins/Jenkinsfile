@@ -4,7 +4,7 @@ pipeline {
     environment {
         PYTHON_EXE = "D:\\Jenkins_Python\\.venv\\Scripts\\python.exe"
         SCRIPT_NAME = "Jenkins\\run_canoe_com.py"
-        REPORT_GENERATION_PATH = "D:\\can\\vTESTstudio\TesReports" // 에이전트에서 리포트가 생성되는 경로
+        REPORT_GENERATION_PATH = "D:\\can\\vTESTstudio\\TestReports" // 에이전트에서 리포트가 생성되는 경로
         REPORT_FILE_PATTERN = "*.vtestreport"
         ARTIFACT_STAGING_DIR = "reports" // 에이전트 워크스페이스 내의 폴더
     }
