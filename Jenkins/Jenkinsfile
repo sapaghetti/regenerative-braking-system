@@ -7,7 +7,7 @@ pipeline {
         PYTHON_EXE = "D:\\Jenkins_Python\\.venv\\Scripts\\python.exe" // 백슬래시 2개 사용 (Groovy 문자열 이스케이프)
         // 젠킨스 워크스페이스 경로는 ${WORKSPACE} 변수를 통해 자동으로 접근됩니다. // <<< 이 부분 수정!
         // SCRIPT_PATH는 ${WORKSPACE}\\${SCRIPT_NAME}으로 구성됩니다.      // <<< 이 부분 수정!
-        SCRIPT_NAME = "run_canoe_com.py" // 스크립트 파일명, 이전 대화에서 "run_canoe_with_integrated_vteststudio.py"였으나 현재 스크립트 이름에 맞춤
+        SCRIPT_NAME = "Jenkins\\run_canoe_com.py" // 스크립트 파일명, 이전 대화에서 "run_canoe_with_integrated_vteststudio.py"였으나 현재 스크립트 이름에 맞춤
     }
 
     stages {
