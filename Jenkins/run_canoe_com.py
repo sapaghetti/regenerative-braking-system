@@ -10,13 +10,10 @@ MEASUREMENT_DURATION_SECONDS = 20 # 3분 (180초)로 설정, 필요에 따라 �
 # 젠킨스 로그에 표시할 메시지
 LOG_FILE = "canoe_automation.log"
 
-# 열고 싶은 .vtestreport 파일 경로
-REPORT_FILE_PATH = r"D:\can\CANoe\Report_Test_Configuration_1.vtestreport"
-
 def log_message(message):
     """콘솔과 로그 파일에 메시지를 출력합니다."""
     print(message)
-    with open(LOG_FILE, "a") as f:
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
         f.write(message + "\n")
 
 def wait_for_canoe_ready(canoe_app, timeout=120):
@@ -53,37 +50,6 @@ def wait_for_measurement_start(canoe_app, timeout=60):
         time.sleep(1) # 1초마다 상태 확인
     log_message("Error: CANoe measurement did not start within the specified time.")
     return False
-
-def open_report_file(file_path):
-    """지정된 파일을 기본 연결 프로그램으로 엽니다."""
-    try:
-        log_message(f"Attempting to open report file: {file_path}")
-        # os.startfile은 Windows 전용이며, 파일의 기본 연결 프로그램을 사용합니다.
-        os.startfile(file_path) 
-        log_message("Report file opened successfully (assuming default association).")
-        return True
-    except AttributeError:
-        # os.startfile이 없는 경우 (예: Linux)
-        log_message("os.startfile is not available (non-Windows OS?). Trying subprocess.Popen...")
-        try:
-            # Linux/macOS 등에서는 'xdg-open' 또는 'open' 명령어를 사용
-            if os.name == 'posix': # Unix-like system
-                subprocess.Popen(['xdg-open', file_path]) # Linux
-            elif os.name == 'mac': # macOS
-                subprocess.Popen(['open', file_path]) # macOS
-            else:
-                raise Exception("Unsupported OS for opening files automatically.")
-            log_message("Report file opened successfully via subprocess.")
-            return True
-        except Exception as e:
-            log_message(f"Could not open report file using subprocess: {e}")
-            return False
-    except FileNotFoundError:
-        log_message(f"Error: Report file not found at '{file_path}'. Please check the path and if the file was generated.")
-        return False
-    except Exception as e:
-        log_message(f"An unexpected error occurred while opening the report file: {e}")
-        return False
 
 def run_canoe_automation():
     canoe = None
@@ -153,13 +119,6 @@ def run_canoe_automation():
         # COM 객체 참조 해제 (메모리 누수 방지)
         if 'canoe' in locals() and canoe is not None:
             canoe = None # 중요: COM 객체 참조 해제
-
-        # 측정 종료 후 리포트 파일 열기 (성공 여부와 상관없이 시도)
-        if not open_report_file(REPORT_FILE_PATH):
-            log_message("Could not automatically open the report file. Please check the path and file association.")
-        
-        log_message("--- CANoe Automation Script Finished ---")
-
 
 if __name__ == "__main__":
     # 이전 로그 파일 삭제
