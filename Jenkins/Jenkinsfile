@@ -4,39 +4,63 @@ pipeline {
     environment {
         PYTHON_EXE = "D:\\Jenkins_Python\\.venv\\Scripts\\python.exe"
         SCRIPT_NAME = "Jenkins\\run_canoe_com.py"
-        REPORT_GENERATION_PATH = "D:\\can\\vTESTstudio\\TestReports" // 에이전트에서 리포트가 생성되는 경로
+        REPORT_GENERATION_PATH = "D:\\can\\vTESTstudio\\TestReports" // <-- 오타 수정 및 백슬래시 이스케이프 확인
         REPORT_FILE_PATTERN = "*.vtestreport"
-        ARTIFACT_STAGING_DIR = "reports" // 에이전트 워크스페이스 내의 폴더
+        ARTIFACT_STAGING_DIR = "reports"
     }
-    stages {
-        // ... (Checkout Source, Run CANoe Automation 기존 스테이지) ...
+
+    stages { // 이 stages 블록 내용이 비어있으면 안됩니다.
+        stage('Checkout Source') {
+            steps {
+                git branch: 'feature/Jenkins', url: 'https://github.com/jjongs2/can.git'
+            }
+        }
+
+        stage('Run CANoe Automation') {
+            steps {
+                bat """
+                    echo Running integrated CANoe automation script...
+                    "${PYTHON_EXE}" "${WORKSPACE}\\%SCRIPT_NAME%"
+                    if %errorlevel% neq 0 (
+                        exit /b %errorlevel%
+                    )
+                """
+            }
+        }
     }
+
     post {
         always {
-            echo 'Pipeline finished.'
+            // 여기에 steps 블록이 있어야 합니다.
+            steps { // <----------------- 이 steps 블록 추가!
+                echo 'Pipeline finished.'
+                // 이 script 블록은 steps 블록 안에 있어야 합니다.
+                script { // <----------------- 이 script 블록은 steps 안에!
+                    echo "Attempting to archive vTESTreport files..."
+                    def sourceReportPath = env.REPORT_GENERATION_PATH
+                    def destinationStagingPath = "${WORKSPACE}\\%ARTIFACT_STAGING_DIR%"
+
+                    try {
+                        bat "mkdir %ARTIFACT_STAGING_DIR%"
+                        echo "Created staging directory: ${destinationStagingPath}"
+
+                        bat "xcopy /s /y \"${sourceReportPath}\\%REPORT_FILE_PATTERN%\" \"${destinationStagingPath}\\\""
+                        echo "Copied report files from ${sourceReportPath} to ${destinationStagingPath}"
+                        
+                        archiveArtifacts artifacts: "${ARTIFACT_STAGING_DIR}/**/*.vtestreport", fingerprint: true
+                        echo "Successfully archived vTESTreport files."
+
+                    } catch (Exception e) {
+                        echo "Failed to archive vTESTreport files: ${e.getMessage()}"
+                    }
+                }
+            } // <----------------- steps 블록 닫힘
         }
         success {
             echo 'Pipeline succeeded!'
         }
         failure {
             echo 'Pipeline failed!'
-        }
-        script {
-            echo "Attempting to archive vTESTreport files for download via Jenkins UI..."
-            def sourcePath = env.REPORT_GENERATION_PATH
-            def destinationStagingPath = "${WORKSPACE}\\%ARTIFACT_STAGING_DIR%"
-
-            try {
-                bat "mkdir %ARTIFACT_STAGING_DIR%"
-                bat "xcopy /s /y \"${sourcePath}\\%REPORT_FILE_PATTERN%\" \"${destinationStagingPath}\\\""
-                echo "Copied report files to agent staging directory."
-                
-                archiveArtifacts artifacts: "${ARTIFACT_STAGING_DIR}/**/*.vtestreport", fingerprint: true
-                echo "Successfully archived vTESTreport files to Jenkins Master for UI download."
-
-            } catch (Exception e) {
-                echo "Failed to archive vTESTreport files: ${e.getMessage()}"
-            }
         }
     }
 }
