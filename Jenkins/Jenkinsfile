@@ -1,35 +1,16 @@
-// Jenkinsfile
-
 pipeline {
     agent any
 
     environment {
-        PYTHON_EXE = "D:\\Jenkins_Python\\.venv\\Scripts\\python.exe" // 백슬래시 2개 사용 (Groovy 문자열 이스케이프)
-        // 젠킨스 워크스페이스 경로는 ${WORKSPACE} 변수를 통해 자동으로 접근됩니다. // <<< 이 부분 수정!
-        // SCRIPT_PATH는 ${WORKSPACE}\\${SCRIPT_NAME}으로 구성됩니다.      // <<< 이 부분 수정!
-        SCRIPT_NAME = "Jenkins\\run_canoe_com.py" // 스크립트 파일명, 이전 대화에서 "run_canoe_with_integrated_vteststudio.py"였으나 현재 스크립트 이름에 맞춤
+        PYTHON_EXE = "D:\\Jenkins_Python\\.venv\\Scripts\\python.exe"
+        SCRIPT_NAME = "Jenkins\\run_canoe_com.py"
+        REPORT_GENERATION_PATH = "D:\\can\\vTESTstudio\TesReports" // 에이전트에서 리포트가 생성되는 경로
+        REPORT_FILE_PATTERN = "*.vtestreport"
+        ARTIFACT_STAGING_DIR = "reports" // 에이전트 워크스페이스 내의 폴더
     }
-
     stages {
-        stage('Checkout Source') {
-            steps {
-                git branch: 'feature/Jenkins', url: 'https://github.com/jjongs2/can.git'
-            }
-        }
-
-        stage('Run CANoe Automation') {
-            steps {
-                bat """
-                    echo Running integrated CANoe automation script...
-                    "${PYTHON_EXE}" "${WORKSPACE}\\%SCRIPT_NAME%"
-                    if %errorlevel% neq 0 (
-                        exit /b %errorlevel%
-                    )
-                """
-            }
-        }
+        // ... (Checkout Source, Run CANoe Automation 기존 스테이지) ...
     }
-
     post {
         always {
             echo 'Pipeline finished.'
@@ -39,6 +20,23 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed!'
+        }
+        script {
+            echo "Attempting to archive vTESTreport files for download via Jenkins UI..."
+            def sourcePath = env.REPORT_GENERATION_PATH
+            def destinationStagingPath = "${WORKSPACE}\\%ARTIFACT_STAGING_DIR%"
+
+            try {
+                bat "mkdir %ARTIFACT_STAGING_DIR%"
+                bat "xcopy /s /y \"${sourcePath}\\%REPORT_FILE_PATTERN%\" \"${destinationStagingPath}\\\""
+                echo "Copied report files to agent staging directory."
+                
+                archiveArtifacts artifacts: "${ARTIFACT_STAGING_DIR}/**/*.vtestreport", fingerprint: true
+                echo "Successfully archived vTESTreport files to Jenkins Master for UI download."
+
+            } catch (Exception e) {
+                echo "Failed to archive vTESTreport files: ${e.getMessage()}"
+            }
         }
     }
 }
