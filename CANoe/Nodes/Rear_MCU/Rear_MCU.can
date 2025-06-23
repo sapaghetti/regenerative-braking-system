@@ -18,7 +18,7 @@ on start
 on timer mcu_msg_Timer
 {
   message L005_MCU_Detail_Status mcu_msg;
-  mcu_msg.Motor_Torque = @MCU::Motor_Torque;
+  mcu_msg.Motor_Torque.phys = @MCU::Motor_Torque;
   output(mcu_msg);
   cancelTimer(mcu_msg_Timer);
   settimer(mcu_msg_Timer, MCU_MSG_TIMEOUT);
@@ -26,6 +26,6 @@ on timer mcu_msg_Timer
 
 on message L008_MCU_Control
 {
-  @MCU::Target_Torque = this.Target_Torque;
+  @MCU::Target_Torque = this.Target_Torque.phys;
   @MCU::Regen_Mode = this.Regen_Mode;
 }

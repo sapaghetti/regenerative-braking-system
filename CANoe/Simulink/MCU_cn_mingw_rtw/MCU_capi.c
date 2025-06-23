@@ -6,9 +6,9 @@
  *
  * Code generation for model "MCU".
  *
- * Model version              : 14.52
+ * Model version              : 14.53
  * Simulink Coder version : 24.2 (R2024b) 21-Jun-2024
- * C source code generated on : Fri Jun 20 13:50:42 2025
+ * C source code generated on : Mon Jun 23 10:58:58 2025
  *
  * Target selection: cn_mingw.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -51,43 +51,43 @@ static const rtwCAPI_Signals rtBlockSignals[] = {
     TARGET_STRING(""), 0, 1, 0, 0, 0 },
 
   { 2, 6, TARGET_STRING("MCU/Subsystem2"),
-    TARGET_STRING(""), 0, 2, 0, 0, 0 },
+    TARGET_STRING(""), 0, 0, 0, 0, 0 },
 
   { 3, 7, TARGET_STRING("MCU/Subsystem3"),
-    TARGET_STRING(""), 0, 2, 0, 0, 0 },
+    TARGET_STRING(""), 0, 0, 0, 0, 0 },
 
   { 4, 14, TARGET_STRING("MCU/current controller"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 5, 21, TARGET_STRING("MCU/current controller"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 6, 17, TARGET_STRING("MCU/current controller"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 7, 21, TARGET_STRING("MCU/current controller"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 8, 20, TARGET_STRING("MCU/current controller"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 9, 21, TARGET_STRING("MCU/current controller"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 10, 0, TARGET_STRING("MCU/Data Type Conversion"),
     TARGET_STRING(""), 0, 1, 0, 0, 1 },
 
-  { 11, 0, TARGET_STRING("MCU/Data Type Conversion14"),
+  { 11, 0, TARGET_STRING("MCU/Gain2"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 12, 0, TARGET_STRING("MCU/Simulation Step/S-Function"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 13, 0, TARGET_STRING("MCU/Simulation Step/S-Function1"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 14, 0, TARGET_STRING("MCU/Simulation Step/S-Function1"),
-    TARGET_STRING(""), 1, 2, 0, 0, 2 },
+    TARGET_STRING(""), 1, 0, 0, 0, 2 },
 
   { 15, 4, TARGET_STRING("MCU/Subsystem/In1"),
     TARGET_STRING(""), 0, 0, 0, 0, 0 },
@@ -96,105 +96,105 @@ static const rtwCAPI_Signals rtBlockSignals[] = {
     TARGET_STRING(""), 0, 1, 0, 0, 0 },
 
   { 17, 6, TARGET_STRING("MCU/Subsystem2/In1"),
-    TARGET_STRING(""), 0, 2, 0, 0, 0 },
+    TARGET_STRING(""), 0, 0, 0, 0, 0 },
 
   { 18, 7, TARGET_STRING("MCU/Subsystem3/In1"),
-    TARGET_STRING(""), 0, 2, 0, 0, 0 },
+    TARGET_STRING(""), 0, 0, 0, 0, 0 },
 
   { 19, 0, TARGET_STRING("MCU/System Variable Input/S-Function"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 20, 0, TARGET_STRING("MCU/System Variable Input1/S-Function"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 21, 14, TARGET_STRING("MCU/current controller/Custom Relay"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 22, 17, TARGET_STRING("MCU/current controller/Custom Relay1"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 23, 20, TARGET_STRING("MCU/current controller/Custom Relay2"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 24, 21, TARGET_STRING("MCU/current controller/Data Type Conversion1"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 25, 21, TARGET_STRING("MCU/current controller/Data Type Conversion3"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 26, 21, TARGET_STRING("MCU/current controller/Data Type Conversion5"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 27, 0, TARGET_STRING(
     "MCU/Battery/Current Measurement/do not delete this gain"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 28, 0, TARGET_STRING(
     "MCU/Permanent Magnet Synchronous Machine/Electrical model/first 2 columns of D"),
-    TARGET_STRING(""), 0, 2, 1, 0, 1 },
+    TARGET_STRING(""), 0, 0, 1, 0, 1 },
 
   { 29, 0, TARGET_STRING(
     "MCU/Permanent Magnet Synchronous Machine/Mechanical model/Gain"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 30, 0, TARGET_STRING(
     "MCU/Permanent Magnet Synchronous Machine/Mechanical model/Gain2"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 31, 0, TARGET_STRING("MCU/Universal Bridge1/Model/Constant"),
-    TARGET_STRING(""), 0, 2, 2, 0, 1 },
+    TARGET_STRING(""), 0, 0, 2, 0, 1 },
 
   { 32, 14, TARGET_STRING("MCU/current controller/Custom Relay/Index Vector"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 33, 17, TARGET_STRING("MCU/current controller/Custom Relay1/Index Vector"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 34, 20, TARGET_STRING("MCU/current controller/Custom Relay2/Index Vector"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 35, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING(""), 0, 2, 3, 0, 1 },
+    TARGET_STRING(""), 0, 0, 3, 0, 1 },
 
   { 36, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING(""), 1, 2, 2, 0, 1 },
+    TARGET_STRING(""), 1, 0, 2, 0, 1 },
 
   { 37, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING(""), 2, 2, 0, 0, 1 },
+    TARGET_STRING(""), 2, 0, 0, 0, 1 },
 
   { 38, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/Sum"),
-    TARGET_STRING(""), 0, 2, 4, 0, 1 },
+    TARGET_STRING(""), 0, 0, 4, 0, 1 },
 
   { 39, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Data Type Conversion2"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 40, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Gain2"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 41, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Saturation"),
-    TARGET_STRING("Voltage (V)"), 0, 2, 0, 0, 1 },
+    TARGET_STRING("Voltage (V)"), 0, 0, 0, 0, 1 },
 
   { 42, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Add"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 43, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Current Filter"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 44, 0, TARGET_STRING(
     "MCU/Permanent Magnet Synchronous Machine/Electrical model/Ihistory_States/Add"),
-    TARGET_STRING(""), 0, 2, 5, 0, 1 },
+    TARGET_STRING(""), 0, 0, 5, 0, 1 },
 
   { 45, 0, TARGET_STRING(
     "MCU/Permanent Magnet Synchronous Machine/Electrical model/Ihistory_States/Add2"),
-    TARGET_STRING(""), 0, 2, 5, 0, 1 },
+    TARGET_STRING(""), 0, 0, 5, 0, 1 },
 
   { 46, 0, TARGET_STRING(
     "MCU/Battery/Model/Discrete/Exponential Zone Voltage/Add1"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 47, 22, TARGET_STRING(
     "MCU/speed controller/Discrete PID Controller/I Gain/Internal Parameters/Integral Gain"),
-    TARGET_STRING(""), 0, 2, 0, 0, 1 },
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   {
     0, 0, (NULL), (NULL), 0, 0, 0, 0, 0
@@ -206,352 +206,352 @@ static const rtwCAPI_BlockParameters rtBlockParameters[] = {
    * paramName, dataTypeIndex, dimIndex, fixPtIdx
    */
   { 48, TARGET_STRING("MCU/Battery"),
-    TARGET_STRING("SOC"), 2, 0, 0 },
+    TARGET_STRING("SOC"), 0, 0, 0 },
 
   { 49, TARGET_STRING("MCU/AUTO"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 50, TARGET_STRING("MCU/Constant"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 51, TARGET_STRING("MCU/Regen_Mode1"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 52, TARGET_STRING("MCU/Regen_Mode2"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 53, TARGET_STRING("MCU/Regen_Mode3"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 54, TARGET_STRING("MCU/Gain2"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 55, TARGET_STRING("MCU/Simulation Step/S-Function"),
-    TARGET_STRING("P1"), 2, 0, 0 },
+    TARGET_STRING("P1"), 0, 0, 0 },
 
   { 56, TARGET_STRING("MCU/Simulation Step/S-Function1"),
-    TARGET_STRING("P1"), 2, 0, 0 },
+    TARGET_STRING("P1"), 0, 0, 0 },
 
   { 57, TARGET_STRING("MCU/speed controller/Discrete PID Controller"),
-    TARGET_STRING("P"), 2, 0, 0 },
+    TARGET_STRING("P"), 0, 0, 0 },
 
   { 58, TARGET_STRING("MCU/speed controller/Discrete PID Controller"),
-    TARGET_STRING("I"), 2, 0, 0 },
+    TARGET_STRING("I"), 0, 0, 0 },
 
   { 59, TARGET_STRING("MCU/speed controller/Discrete PID Controller"),
-    TARGET_STRING("InitialConditionForIntegrator"), 2, 0, 0 },
+    TARGET_STRING("InitialConditionForIntegrator"), 0, 0, 0 },
 
   { 60, TARGET_STRING("MCU/Battery/Current Measurement/do not delete this gain"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 61, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/I"),
-    TARGET_STRING("Value"), 2, 1, 0 },
+    TARGET_STRING("Value"), 0, 1, 0 },
 
   { 62, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/M(2,5)"),
-    TARGET_STRING("Value"), 2, 6, 0 },
+    TARGET_STRING("Value"), 0, 6, 0 },
 
   { 63, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/-R//L"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 64, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/1//(3*L)"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 65, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Gain3"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 66, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Mechanical model/Coulomb & Viscous Friction"),
-    TARGET_STRING("offset"), 2, 0, 0 },
+    TARGET_STRING("offset"), 0, 0, 0 },
 
   { 67, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Mechanical model/Coulomb & Viscous Friction"),
-    TARGET_STRING("gain"), 2, 0, 0 },
+    TARGET_STRING("gain"), 0, 0, 0 },
 
   { 68, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Mechanical model/Discrete-Time Integrator"),
-    TARGET_STRING("gainval"), 2, 0, 0 },
+    TARGET_STRING("gainval"), 0, 0, 0 },
 
   { 69, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Mechanical model/Discrete-Time Integrator"),
-    TARGET_STRING("InitialCondition"), 2, 0, 0 },
+    TARGET_STRING("InitialCondition"), 0, 0, 0 },
 
   { 70, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Mechanical model/Discrete-Time Integrator1"),
-    TARGET_STRING("gainval"), 2, 0, 0 },
+    TARGET_STRING("gainval"), 0, 0, 0 },
 
   { 71, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Mechanical model/Discrete-Time Integrator1"),
-    TARGET_STRING("InitialCondition"), 2, 0, 0 },
+    TARGET_STRING("InitialCondition"), 0, 0, 0 },
 
   { 72, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Mechanical model/Gain"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 73, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Mechanical model/Gain2"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 74, TARGET_STRING("MCU/Universal Bridge1/Model/Constant"),
-    TARGET_STRING("Value"), 2, 7, 0 },
+    TARGET_STRING("Value"), 0, 7, 0 },
 
   { 75, TARGET_STRING("MCU/current controller/Custom Relay/OFF"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 76, TARGET_STRING("MCU/current controller/Custom Relay/ON"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 77, TARGET_STRING("MCU/current controller/Custom Relay/offset"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 78, TARGET_STRING("MCU/current controller/Custom Relay/rev"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 79, TARGET_STRING("MCU/current controller/Custom Relay/Delay"),
-    TARGET_STRING("InitialCondition"), 2, 0, 0 },
+    TARGET_STRING("InitialCondition"), 0, 0, 0 },
 
   { 80, TARGET_STRING("MCU/current controller/Custom Relay1/OFF"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 81, TARGET_STRING("MCU/current controller/Custom Relay1/ON"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 82, TARGET_STRING("MCU/current controller/Custom Relay1/offset"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 83, TARGET_STRING("MCU/current controller/Custom Relay1/rev"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 84, TARGET_STRING("MCU/current controller/Custom Relay1/Delay"),
-    TARGET_STRING("InitialCondition"), 2, 0, 0 },
+    TARGET_STRING("InitialCondition"), 0, 0, 0 },
 
   { 85, TARGET_STRING("MCU/current controller/Custom Relay2/OFF"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 86, TARGET_STRING("MCU/current controller/Custom Relay2/ON"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 87, TARGET_STRING("MCU/current controller/Custom Relay2/offset"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 88, TARGET_STRING("MCU/current controller/Custom Relay2/rev"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 89, TARGET_STRING("MCU/current controller/Custom Relay2/Delay"),
-    TARGET_STRING("InitialCondition"), 2, 0, 0 },
+    TARGET_STRING("InitialCondition"), 0, 0, 0 },
 
   { 90, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P1"), 2, 0, 0 },
+    TARGET_STRING("P1"), 0, 0, 0 },
 
   { 91, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P2"), 2, 0, 0 },
+    TARGET_STRING("P2"), 0, 0, 0 },
 
   { 92, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P3"), 2, 8, 0 },
+    TARGET_STRING("P3"), 0, 8, 0 },
 
   { 93, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P4"), 2, 3, 0 },
+    TARGET_STRING("P4"), 0, 3, 0 },
 
   { 94, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P5"), 2, 9, 0 },
+    TARGET_STRING("P5"), 0, 9, 0 },
 
   { 95, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P6"), 2, 0, 0 },
+    TARGET_STRING("P6"), 0, 0, 0 },
 
   { 96, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P7"), 2, 0, 0 },
+    TARGET_STRING("P7"), 0, 0, 0 },
 
   { 97, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P8"), 2, 10, 0 },
+    TARGET_STRING("P8"), 0, 10, 0 },
 
   { 98, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P10"), 2, 11, 0 },
+    TARGET_STRING("P10"), 0, 11, 0 },
 
   { 99, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P11"), 2, 11, 0 },
+    TARGET_STRING("P11"), 0, 11, 0 },
 
   { 100, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P12"), 2, 10, 0 },
+    TARGET_STRING("P12"), 0, 10, 0 },
 
   { 101, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P13"), 2, 0, 0 },
+    TARGET_STRING("P13"), 0, 0, 0 },
 
   { 102, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P14"), 2, 0, 0 },
+    TARGET_STRING("P14"), 0, 0, 0 },
 
   { 103, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P16"), 2, 0, 0 },
+    TARGET_STRING("P16"), 0, 0, 0 },
 
   { 104, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P17"), 2, 0, 0 },
+    TARGET_STRING("P17"), 0, 0, 0 },
 
   { 105, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P18"), 2, 0, 0 },
+    TARGET_STRING("P18"), 0, 0, 0 },
 
   { 106, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P19"), 2, 0, 0 },
+    TARGET_STRING("P19"), 0, 0, 0 },
 
   { 107, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P20"), 2, 7, 0 },
+    TARGET_STRING("P20"), 0, 7, 0 },
 
   { 108, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P21"), 2, 7, 0 },
+    TARGET_STRING("P21"), 0, 7, 0 },
 
   { 109, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P22"), 2, 2, 0 },
+    TARGET_STRING("P22"), 0, 2, 0 },
 
   { 110, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P23"), 2, 7, 0 },
+    TARGET_STRING("P23"), 0, 7, 0 },
 
   { 111, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
-    TARGET_STRING("P24"), 2, 0, 0 },
+    TARGET_STRING("P24"), 0, 0, 0 },
 
   { 112, TARGET_STRING("MCU/powergui/EquivalentModel1/Unit Delay"),
-    TARGET_STRING("InitialCondition"), 2, 0, 0 },
+    TARGET_STRING("InitialCondition"), 0, 0, 0 },
 
   { 113, TARGET_STRING("MCU/Battery/Model/Discrete/Constant"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 114, TARGET_STRING("MCU/Battery/Model/Discrete/Constant1"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 115, TARGET_STRING("MCU/Battery/Model/Discrete/capacity"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 116, TARGET_STRING("MCU/Battery/Model/Discrete/constantA"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 117, TARGET_STRING("MCU/Battery/Model/Discrete/constantB"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 118, TARGET_STRING("MCU/Battery/Model/Discrete/constantK"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 119, TARGET_STRING("MCU/Battery/Model/Discrete/Coulomb Counter"),
-    TARGET_STRING("gainval"), 2, 0, 0 },
+    TARGET_STRING("gainval"), 0, 0, 0 },
 
   { 120, TARGET_STRING("MCU/Battery/Model/Discrete/Coulomb Counter"),
-    TARGET_STRING("UpperSaturationLimit"), 2, 0, 0 },
+    TARGET_STRING("UpperSaturationLimit"), 0, 0, 0 },
 
   { 121, TARGET_STRING("MCU/Battery/Model/Discrete/Coulomb Counter"),
-    TARGET_STRING("LowerSaturationLimit"), 2, 0, 0 },
+    TARGET_STRING("LowerSaturationLimit"), 0, 0, 0 },
 
   { 122, TARGET_STRING("MCU/Battery/Model/Discrete/Gain"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 123, TARGET_STRING("MCU/Battery/Model/Discrete/Gain1"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 124, TARGET_STRING("MCU/Battery/Model/Discrete/Gain2"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 125, TARGET_STRING("MCU/Battery/Model/Discrete/Saturation"),
-    TARGET_STRING("UpperLimit"), 2, 0, 0 },
+    TARGET_STRING("UpperLimit"), 0, 0, 0 },
 
   { 126, TARGET_STRING("MCU/Battery/Model/Discrete/Saturation"),
-    TARGET_STRING("LowerLimit"), 2, 0, 0 },
+    TARGET_STRING("LowerLimit"), 0, 0, 0 },
 
   { 127, TARGET_STRING("MCU/Battery/Model/Discrete/Current Filter"),
-    TARGET_STRING("Numerator"), 2, 0, 0 },
+    TARGET_STRING("Numerator"), 0, 0, 0 },
 
   { 128, TARGET_STRING("MCU/Battery/Model/Discrete/Current Filter"),
-    TARGET_STRING("Denominator"), 2, 11, 0 },
+    TARGET_STRING("Denominator"), 0, 11, 0 },
 
   { 129, TARGET_STRING("MCU/Battery/Model/Discrete/Current Filter"),
-    TARGET_STRING("InitialStates"), 2, 0, 0 },
+    TARGET_STRING("InitialStates"), 0, 0, 0 },
 
   { 130, TARGET_STRING("MCU/Battery/Model/Discrete/Unit Delay"),
-    TARGET_STRING("InitialCondition"), 2, 0, 0 },
+    TARGET_STRING("InitialCondition"), 0, 0, 0 },
 
   { 131, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Discretize  TBE or Tustin/u1"),
-    TARGET_STRING("Value"), 3, 0, 0 },
+    TARGET_STRING("Value"), 2, 0, 0 },
 
   { 132, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Discretize  TBE or Tustin/u5"),
-    TARGET_STRING("Value"), 2, 1, 0 },
+    TARGET_STRING("Value"), 0, 1, 0 },
 
   { 133, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Discretize  TBE or Tustin/Tustin: 1//2 BE : 1.0"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 134, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Discretize  TBE or Tustin/Tustin: Ts//2 BE : Ts"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 135, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Discretize  TBE or Tustin/wbase3"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 136, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor/Constant"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 137, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor/Constant1"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 138, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor/Constant2"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 139, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor/Constant3"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 140, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor/Constant4"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 141, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor/Constant5"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 142, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Ihistory_States/BE=1 Tustin=1//2"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 143, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Ihistory_States/Ts"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 144, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Ihistory_States/Unit Delay"),
-    TARGET_STRING("InitialCondition"), 2, 5, 0 },
+    TARGET_STRING("InitialCondition"), 0, 5, 0 },
 
   { 145, TARGET_STRING("MCU/Battery/Model/Discrete/Compare To Zero/Constant"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 146, TARGET_STRING("MCU/Battery/Model/Discrete/Compare To Zero1/Constant"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 0, 0, 0 },
 
   { 147, TARGET_STRING("MCU/Battery/Model/Discrete/Exponential Zone Voltage/Discrete-Time Integrator"),
-    TARGET_STRING("gainval"), 2, 0, 0 },
+    TARGET_STRING("gainval"), 0, 0, 0 },
 
   { 148, TARGET_STRING("MCU/Battery/Model/Discrete/Exponential Zone Voltage/Gain"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 149, TARGET_STRING("MCU/Battery/Model/Discrete/Exponential Zone Voltage/Gain1"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 150, TARGET_STRING("MCU/Battery/Model/Discrete/SoC/Gain1"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 151, TARGET_STRING("MCU/Battery/Model/Discrete/SoC/Saturation"),
-    TARGET_STRING("UpperLimit"), 2, 0, 0 },
+    TARGET_STRING("UpperLimit"), 0, 0, 0 },
 
   { 152, TARGET_STRING("MCU/Battery/Model/Discrete/SoC/Saturation"),
-    TARGET_STRING("LowerLimit"), 2, 0, 0 },
+    TARGET_STRING("LowerLimit"), 0, 0, 0 },
 
   { 153, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase a/Gain4"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 154, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase a/Saturation"),
-    TARGET_STRING("UpperLimit"), 2, 0, 0 },
+    TARGET_STRING("UpperLimit"), 0, 0, 0 },
 
   { 155, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase a/Saturation"),
-    TARGET_STRING("LowerLimit"), 2, 0, 0 },
+    TARGET_STRING("LowerLimit"), 0, 0, 0 },
 
   { 156, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase b/Gain4"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 157, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase b/Saturation"),
-    TARGET_STRING("UpperLimit"), 2, 0, 0 },
+    TARGET_STRING("UpperLimit"), 0, 0, 0 },
 
   { 158, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase b/Saturation"),
-    TARGET_STRING("LowerLimit"), 2, 0, 0 },
+    TARGET_STRING("LowerLimit"), 0, 0, 0 },
 
   { 159, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase c/Gain4"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 160, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase c/Saturation"),
-    TARGET_STRING("UpperLimit"), 2, 0, 0 },
+    TARGET_STRING("UpperLimit"), 0, 0, 0 },
 
   { 161, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/BEMF, Flux/Phase c/Saturation"),
-    TARGET_STRING("LowerLimit"), 2, 0, 0 },
+    TARGET_STRING("LowerLimit"), 0, 0, 0 },
 
   { 162, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Hall effect sensor/Angle converter/rad2deg"),
-    TARGET_STRING("Gain"), 2, 0, 0 },
+    TARGET_STRING("Gain"), 0, 0, 0 },
 
   { 163, TARGET_STRING("MCU/speed controller/Discrete PID Controller/Integrator/Discrete/Integrator"),
-    TARGET_STRING("gainval"), 2, 0, 0 },
+    TARGET_STRING("gainval"), 0, 0, 0 },
 
   {
     0, (NULL), (NULL), 0, 0, 0
@@ -568,8 +568,8 @@ static const rtwCAPI_ModelParameters rtModelParameters[] = {
 
 /* Declare Data Addresses statically */
 static void* rtDataAddrMap[] = {
-  &MCU_B.In1,                          /* 0: Signal */
-  &MCU_B.In1_g,                        /* 1: Signal */
+  &MCU_B.Subsystem.In1,                /* 0: Signal */
+  &MCU_B.In1,                          /* 1: Signal */
   &MCU_B.Subsystem2.In1,               /* 2: Signal */
   &MCU_B.Subsystem3.In1,               /* 3: Signal */
   &MCU_B.CustomRelay.IndexVector,      /* 4: Signal */
@@ -579,12 +579,12 @@ static void* rtDataAddrMap[] = {
   &MCU_B.CustomRelay2.IndexVector,     /* 8: Signal */
   &MCU_B.DataTypeConversion5,          /* 9: Signal */
   &MCU_B.DataTypeConversion,           /* 10: Signal */
-  &MCU_B.DataTypeConversion14,         /* 11: Signal */
+  &MCU_B.Gain2,                        /* 11: Signal */
   &MCU_B.SFunction,                    /* 12: Signal */
   &MCU_B.SFunction1_o1,                /* 13: Signal */
   (void *) &MCU_ConstB.SFunction1_o2,  /* 14: Signal */
-  &MCU_B.In1,                          /* 15: Signal */
-  &MCU_B.In1_g,                        /* 16: Signal */
+  &MCU_B.Subsystem.In1,                /* 15: Signal */
+  &MCU_B.In1,                          /* 16: Signal */
   &MCU_B.Subsystem2.In1,               /* 17: Signal */
   &MCU_B.Subsystem3.In1,               /* 18: Signal */
   &MCU_B.SFunction_j,                  /* 19: Signal */
@@ -598,7 +598,7 @@ static void* rtDataAddrMap[] = {
   &MCU_B.donotdeletethisgain,          /* 27: Signal */
   &MCU_B.first2columnsofD[0],          /* 28: Signal */
   &MCU_B.Gain,                         /* 29: Signal */
-  &MCU_B.Gain2,                        /* 30: Signal */
+  &MCU_B.Gain2_i,                      /* 30: Signal */
   &MCU_B.Constant[0],                  /* 31: Signal */
   &MCU_B.CustomRelay.IndexVector,      /* 32: Signal */
   &MCU_B.CustomRelay1.IndexVector,     /* 33: Signal */
@@ -745,12 +745,10 @@ static int32_T* rtVarDimsAddrMap[] = {
 static TARGET_CONST rtwCAPI_DataTypeMap rtDataTypeMap[] = {
   /* cName, mwName, numElements, elemMapIndex, dataSize, slDataId, *
    * isComplex, isPointer, enumStorageType */
-  { "short", "int16_T", 0, 0, sizeof(int16_T), (uint8_T)SS_INT16, 0, 0, 0 },
+  { "double", "real_T", 0, 0, sizeof(real_T), (uint8_T)SS_DOUBLE, 0, 0, 0 },
 
   { "unsigned char", "uint8_T", 0, 0, sizeof(uint8_T), (uint8_T)SS_UINT8, 0, 0,
     0 },
-
-  { "double", "real_T", 0, 0, sizeof(real_T), (uint8_T)SS_DOUBLE, 0, 0, 0 },
 
   { "unsigned char", "boolean_T", 0, 0, sizeof(boolean_T), (uint8_T)SS_BOOLEAN,
     0, 0, 0 }
@@ -875,10 +873,10 @@ static rtwCAPI_ModelMappingStaticInfo mmiStatic = {
     rtElementMap, rtSampleTimeMap, rtDimensionArray },
   "float",
 
-  { 79128752U,
-    3521382121U,
-    4189807452U,
-    1510244186U },
+  { 124838842U,
+    1933162013U,
+    1287255322U,
+    4200287352U },
   (NULL), 0,
   (boolean_T)0
 };

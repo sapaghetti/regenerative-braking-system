@@ -24,16 +24,16 @@ on timer mcu_ctrl_msg_Timer
 {
   message L008_MCU_Control mcu_ctrl_msg;
   mcu_ctrl_msg.Regen_Mode = @ZCU_Rear::Regen_Mode;
-  //mcu_ctrl_msg.Target_Torque = @ZCU_Rear::Target_Torque;
-  /* test */
-  if(cnt < 10) {
-    mcu_ctrl_msg.Target_Torque = 1000;
-    cnt++;
-  }
-  else {
-    mcu_ctrl_msg.Target_Torque = 3000;  
-  }
-  //////////
+  mcu_ctrl_msg.Target_Torque.phys = @ZCU_Rear::Target_Torque;
+//  /* test */
+//  if(cnt < 10) {
+//    mcu_ctrl_msg.Target_Torque = 1000;
+//    cnt++;
+//  }
+//  else {
+//    mcu_ctrl_msg.Target_Torque = 3000;  
+//  }
+//  //////////
   output(mcu_ctrl_msg);
   cancelTimer(mcu_ctrl_msg_Timer);
   settimer(mcu_ctrl_msg_Timer, MCU_CTRL_MSG_TIMEOUT);
@@ -41,12 +41,31 @@ on timer mcu_ctrl_msg_Timer
 
 on message L005_MCU_Detail_Status
 {
-  @ZCU_Rear::Motor_Torque = this.Motor_Torque;
+  message M002_Regen_Torque_Feedback fb_msg;
+  
+  @ZCU_Rear::Motor_Torque = this.Motor_Torque.phys;
+  fb_msg.Actual_Regen_Torque.phys = @ZCU_Rear::Motor_Torque;
+  output(fb_msg);
 }
 
 on message L007_BMS_Detail_Status
 {
+  message M006_Battery_Basic fb_msg;
+  
   @ZCU_Rear::SoC = this.Battery_SoC;
-  @ZCU_Rear::Current = this.Battery_Current;
-  @ZCU_Rear::Voltage = this.Battery_Voltage;
+  @ZCU_Rear::Current = this.Battery_Current.phys;
+  @ZCU_Rear::Voltage = this.Battery_Voltage.phys;
+  
+  fb_msg.Battery_SOC = @ZCU_Rear::SoC;
+  fb_msg.Battery_Current.phys = @ZCU_Rear::Current;
+  fb_msg.Battery_Voltage.phys = @ZCU_Rear::Voltage;
+  fb_msg.Battery_Temp = 30;
+  
+  output(fb_msg);
+}
+
+on message M001_Regen_Torque_Cmd
+{
+  @ZCU_Rear::Regen_Mode = this.Regen_Mode;
+  @ZCU_Rear::Target_Torque = this.Target_Regen_Torque.phys;
 }

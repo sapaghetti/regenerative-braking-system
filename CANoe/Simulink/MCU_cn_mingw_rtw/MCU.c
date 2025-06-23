@@ -6,9 +6,9 @@
  *
  * Code generation for model "MCU".
  *
- * Model version              : 14.52
+ * Model version              : 14.53
  * Simulink Coder version : 24.2 (R2024b) 21-Jun-2024
- * C source code generated on : Fri Jun 20 13:50:42 2025
+ * C source code generated on : Mon Jun 23 10:58:58 2025
  *
  * Target selection: cn_mingw.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -60,12 +60,13 @@ static void rate_scheduler(void)
 
 /*
  * Output and update for atomic system:
+ *    '<Root>/Subsystem'
  *    '<Root>/Subsystem2'
  *    '<Root>/Subsystem3'
  */
-void MCU_Subsystem2(real_T rtu_In1, B_Subsystem2_MCU_T *localB)
+void MCU_Subsystem(real_T rtu_In1, B_Subsystem_MCU_T *localB)
 {
-  /* SignalConversion generated from: '<S7>/In1' */
+  /* SignalConversion generated from: '<S5>/In1' */
   localB->In1 = rtu_In1;
 }
 
@@ -216,7 +217,6 @@ static void MCU_output(void)
   real_T rtb_AdX_idx_1;
   real_T rtb_CastToDouble;
   real_T rtb_CoulombCounter;
-  real_T rtb_Gain2;
   real_T rtb_Gain4;
   real_T rtb_Gain4_g;
   real_T rtb_Gain4_k;
@@ -229,6 +229,7 @@ static void MCU_output(void)
   real_T rtb_Product4_idx_2;
   real_T rtb_inversion_0;
   real_T rtb_inversion_1;
+  real_T rtb_inversion_2;
   int32_T first2columnsofD_tmp;
   int32_T i;
   int32_T tmp_3;
@@ -428,17 +429,17 @@ static void MCU_output(void)
    *  Fcn: '<S39>/Fcn'
    */
   if (rtb_Gain_m > MCU_P.Saturation_UpperSat_n) {
-    rtb_inversion_0 = MCU_P.Saturation_UpperSat_n;
+    rtb_CastToDouble = MCU_P.Saturation_UpperSat_n;
   } else if (rtb_Gain_m < MCU_P.Saturation_LowerSat_g) {
-    rtb_inversion_0 = MCU_P.Saturation_LowerSat_g;
+    rtb_CastToDouble = MCU_P.Saturation_LowerSat_g;
   } else {
-    rtb_inversion_0 = rtb_Gain_m;
+    rtb_CastToDouble = rtb_Gain_m;
   }
 
   /* Gain: '<S39>/Gain4' incorporates:
    *  Saturate: '<S39>/Saturation'
    */
-  rtb_Gain4 = MCU_P.Gain4_Gain * rtb_inversion_0;
+  rtb_Gain4 = MCU_P.Gain4_Gain * rtb_CastToDouble;
 
   /* Gain: '<S34>/Gain' incorporates:
    *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator'
@@ -551,36 +552,17 @@ static void MCU_output(void)
   /* Gain: '<Root>/Gain2' incorporates:
    *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator'
    */
-  rtb_Gain2 = MCU_P.Gain2_Gain * MCU_DW.DiscreteTimeIntegrator_DSTATE;
-
-  /* DataTypeConversion: '<Root>/Data Type Conversion14' */
-  rtb_inversion_0 = floor(rtb_Gain2);
-  if (rtIsNaN(rtb_inversion_0) || rtIsInf(rtb_inversion_0)) {
-    rtb_inversion_0 = 0.0;
-  } else {
-    rtb_inversion_0 = fmod(rtb_inversion_0, 65536.0);
-  }
-
-  if (rtb_inversion_0 < 0.0) {
-    /* DataTypeConversion: '<Root>/Data Type Conversion14' */
-    MCU_B.DataTypeConversion14 = (int16_T)-(int16_T)(uint16_T)-rtb_inversion_0;
-  } else {
-    /* DataTypeConversion: '<Root>/Data Type Conversion14' */
-    MCU_B.DataTypeConversion14 = (int16_T)(uint16_T)rtb_inversion_0;
-  }
-
-  /* End of DataTypeConversion: '<Root>/Data Type Conversion14' */
+  MCU_B.Gain2 = MCU_P.Gain2_Gain * MCU_DW.DiscreteTimeIntegrator_DSTATE;
   tmp = (MCU_M->Timing.TaskCounters.TID[1] == 0);
   if (tmp) {
     /* Outputs for Atomic SubSystem: '<Root>/Subsystem' */
-    /* SignalConversion generated from: '<S5>/In1' */
-    MCU_B.In1 = MCU_B.DataTypeConversion14;
+    MCU_Subsystem(MCU_B.Gain2, &MCU_B.Subsystem);
 
     /* End of Outputs for SubSystem: '<Root>/Subsystem' */
 
     /* S-Function (sysvarout): '<S12>/S-Function' */
-    if (cnSetSystemVariableValues(MCU_DW.SFunction_SysVar, 1, &MCU_B.In1, 4) !=
-        0) {
+    if (cnSetSystemVariableValues(MCU_DW.SFunction_SysVar, 1,
+         &MCU_B.Subsystem.In1, 0) != 0) {
       rtmSetErrorStatus(MCU_M, cnGetErrorMessage());
     }
   }
@@ -617,15 +599,15 @@ static void MCU_output(void)
    *  UnitDelay: '<S38>/Unit Delay'
    */
   for (i = 0; i < 2; i++) {
-    rtb_inversion_0 = 0.0;
+    rtb_CastToDouble = 0.0;
     for (first2columnsofD_tmp = 0; first2columnsofD_tmp < 5;
          first2columnsofD_tmp++) {
-      rtb_inversion_0 += rtb_u3L[(first2columnsofD_tmp << 1) + i] *
+      rtb_CastToDouble += rtb_u3L[(first2columnsofD_tmp << 1) + i] *
         (MCU_P.BE1Tustin12_Gain *
          rtb_TmpSignalConversionAtProduc[first2columnsofD_tmp]);
     }
 
-    tmp_1[i] = MCU_DW.UnitDelay_DSTATE_n[i] + rtb_inversion_0;
+    tmp_1[i] = MCU_DW.UnitDelay_DSTATE_n[i] + rtb_CastToDouble;
   }
 
   /* End of Sum: '<S38>/Add1' */
@@ -654,7 +636,7 @@ static void MCU_output(void)
 
   /* Outputs for Atomic SubSystem: '<Root>/speed controller' */
   /* Sum: '<S18>/Add3' */
-  rtb_CastToDouble = MCU_B.SFunction_j - rtb_Gain2;
+  rtb_CastToDouble = MCU_B.SFunction_j - MCU_B.Gain2;
 
   /* Gain: '<S87>/Integral Gain' */
   MCU_B.IntegralGain = MCU_P.DiscretePIDController_I * rtb_CastToDouble;
@@ -752,8 +734,8 @@ static void MCU_output(void)
    */
   rtb_CastToDouble = rtb_inversion[2];
   rtb_inversion_0 = rtb_inversion[0];
-  rtb_Gain2 = rtb_inversion[3];
-  rtb_inversion_1 = rtb_inversion[1];
+  rtb_inversion_1 = rtb_inversion[3];
+  rtb_inversion_2 = rtb_inversion[1];
   for (i = 0; i <= 2; i += 2) {
     first2columnsofD_tmp = (i + 1) << 1;
     tmp_3 = i << 1;
@@ -763,8 +745,8 @@ static void MCU_output(void)
       (rtb_CastToDouble)), _mm_mul_pd(tmp_5, _mm_set1_pd(rtb_inversion_0))));
     rtb_Sum5_0[tmp_3] = tmp_2[0];
     rtb_Sum5_0[first2columnsofD_tmp] = tmp_2[1];
-    _mm_storeu_pd(&tmp_2[0], _mm_add_pd(_mm_mul_pd(tmp_4, _mm_set1_pd(rtb_Gain2)),
-      _mm_mul_pd(tmp_5, _mm_set1_pd(rtb_inversion_1))));
+    _mm_storeu_pd(&tmp_2[0], _mm_add_pd(_mm_mul_pd(tmp_4, _mm_set1_pd
+      (rtb_inversion_1)), _mm_mul_pd(tmp_5, _mm_set1_pd(rtb_inversion_2))));
     rtb_Sum5_0[tmp_3 + 1] = tmp_2[0];
     rtb_Sum5_0[first2columnsofD_tmp + 1] = tmp_2[1];
   }
@@ -772,9 +754,10 @@ static void MCU_output(void)
   for (i = 4; i < 5; i++) {
     first2columnsofD_tmp = i << 1;
     _mm_storeu_pd(&rtb_Sum5_0[first2columnsofD_tmp], _mm_add_pd(_mm_mul_pd
-      (_mm_set1_pd(rtb_u3L[first2columnsofD_tmp + 1]), _mm_set_pd(rtb_Gain2,
-      rtb_CastToDouble)), _mm_mul_pd(_mm_set1_pd(rtb_u3L[first2columnsofD_tmp]),
-      _mm_set_pd(rtb_inversion_1, rtb_inversion_0))));
+      (_mm_set1_pd(rtb_u3L[first2columnsofD_tmp + 1]), _mm_set_pd
+       (rtb_inversion_1, rtb_CastToDouble)), _mm_mul_pd(_mm_set1_pd
+      (rtb_u3L[first2columnsofD_tmp]), _mm_set_pd(rtb_inversion_2,
+      rtb_inversion_0))));
   }
 
   /* End of Product: '<S36>/Product1' */
@@ -813,10 +796,10 @@ static void MCU_output(void)
     rtb_inversion_0 = rtb_inversion[i];
 
     /* Product: '<S38>/Product1' */
-    rtb_Gain2 = 0.0;
+    rtb_inversion_1 = 0.0;
     for (first2columnsofD_tmp = 0; first2columnsofD_tmp < 5;
          first2columnsofD_tmp++) {
-      rtb_Gain2 += rtb_Sum5_0[(first2columnsofD_tmp << 1) + i] *
+      rtb_inversion_1 += rtb_Sum5_0[(first2columnsofD_tmp << 1) + i] *
         rtb_TmpSignalConversionAtProduc[first2columnsofD_tmp];
     }
 
@@ -830,18 +813,18 @@ static void MCU_output(void)
                      rtb_Product4_0) * MCU_DW.UnitDelay_DSTATE_n[1] +
                     (rtb_CastToDouble * rtb_Product4_idx_1 + rtb_inversion_0 *
                      rtb_Product4_idx_0) * MCU_DW.UnitDelay_DSTATE_n[0]) +
-      rtb_Gain2;
+      rtb_inversion_1;
   }
 
   /* Signum: '<S43>/Sign' incorporates:
    *  DiscreteIntegrator: '<S34>/Discrete-Time Integrator'
    */
   if (rtIsNaN(MCU_DW.DiscreteTimeIntegrator_DSTATE)) {
-    rtb_inversion_0 = (rtNaN);
+    rtb_CastToDouble = (rtNaN);
   } else if (MCU_DW.DiscreteTimeIntegrator_DSTATE < 0.0) {
-    rtb_inversion_0 = -1.0;
+    rtb_CastToDouble = -1.0;
   } else {
-    rtb_inversion_0 = (MCU_DW.DiscreteTimeIntegrator_DSTATE > 0.0);
+    rtb_CastToDouble = (MCU_DW.DiscreteTimeIntegrator_DSTATE > 0.0);
   }
 
   /* Gain: '<S34>/Gain2' incorporates:
@@ -856,11 +839,12 @@ static void MCU_output(void)
    *  Sum: '<S34>/Sum'
    *  Sum: '<S43>/Sum'
    */
-  MCU_B.Gain2 = ((((rtb_Integrator * rtb_Gain4 + rtb_AdX_idx_1 * rtb_Gain4_k) +
-                   rtb_CoulombCounter * rtb_Gain4_g) * MCU_P.Gain3_Gain -
-                  MCU_P.Constant_Value_h) - (MCU_P.CoulombViscousFriction_offset
-    * rtb_inversion_0 + MCU_P.CoulombViscousFriction_gain *
-    MCU_DW.DiscreteTimeIntegrator_DSTATE)) * MCU_P.Gain2_Gain_l;
+  MCU_B.Gain2_i = ((((rtb_Integrator * rtb_Gain4 + rtb_AdX_idx_1 * rtb_Gain4_k)
+                     + rtb_CoulombCounter * rtb_Gain4_g) * MCU_P.Gain3_Gain -
+                    MCU_P.Constant_Value_h) -
+                   (MCU_P.CoulombViscousFriction_offset * rtb_CastToDouble +
+                    MCU_P.CoulombViscousFriction_gain *
+                    MCU_DW.DiscreteTimeIntegrator_DSTATE)) * MCU_P.Gain2_Gain_l;
 
   /* Outputs for Atomic SubSystem: '<Root>/current controller' */
   /* Outputs for Atomic SubSystem: '<S16>/Custom Relay' */
@@ -1020,37 +1004,37 @@ static void MCU_output(void)
   /* DataTypeConversion: '<Root>/Data Type Conversion' incorporates:
    *  Saturate: '<S28>/Saturation'
    */
-  rtb_inversion_0 = floor(rtb_Gain4_g);
-  if (rtIsNaN(rtb_inversion_0) || rtIsInf(rtb_inversion_0)) {
-    rtb_inversion_0 = 0.0;
+  rtb_CastToDouble = floor(rtb_Gain4_g);
+  if (rtIsNaN(rtb_CastToDouble) || rtIsInf(rtb_CastToDouble)) {
+    rtb_CastToDouble = 0.0;
   } else {
-    rtb_inversion_0 = fmod(rtb_inversion_0, 256.0);
+    rtb_CastToDouble = fmod(rtb_CastToDouble, 256.0);
   }
 
-  if (rtb_inversion_0 < 0.0) {
+  if (rtb_CastToDouble < 0.0) {
     /* DataTypeConversion: '<Root>/Data Type Conversion' */
-    MCU_B.DataTypeConversion = (uint8_T)-(int8_T)(uint8_T)-rtb_inversion_0;
+    MCU_B.DataTypeConversion = (uint8_T)-(int8_T)(uint8_T)-rtb_CastToDouble;
   } else {
     /* DataTypeConversion: '<Root>/Data Type Conversion' */
-    MCU_B.DataTypeConversion = (uint8_T)rtb_inversion_0;
+    MCU_B.DataTypeConversion = (uint8_T)rtb_CastToDouble;
   }
 
   /* End of DataTypeConversion: '<Root>/Data Type Conversion' */
   if (tmp) {
     /* Outputs for Atomic SubSystem: '<Root>/Subsystem1' */
     /* SignalConversion generated from: '<S6>/In1' */
-    MCU_B.In1_g = MCU_B.DataTypeConversion;
+    MCU_B.In1 = MCU_B.DataTypeConversion;
 
     /* End of Outputs for SubSystem: '<Root>/Subsystem1' */
 
     /* S-Function (sysvarout): '<S11>/S-Function' */
-    if (cnSetSystemVariableValues(MCU_DW.SFunction_SysVar_f, 1, &MCU_B.In1_g, 3)
+    if (cnSetSystemVariableValues(MCU_DW.SFunction_SysVar_f, 1, &MCU_B.In1, 3)
         != 0) {
       rtmSetErrorStatus(MCU_M, cnGetErrorMessage());
     }
 
     /* Outputs for Atomic SubSystem: '<Root>/Subsystem2' */
-    MCU_Subsystem2(MCU_B.donotdeletethisgain, &MCU_B.Subsystem2);
+    MCU_Subsystem(MCU_B.donotdeletethisgain, &MCU_B.Subsystem2);
 
     /* End of Outputs for SubSystem: '<Root>/Subsystem2' */
 
@@ -1061,7 +1045,7 @@ static void MCU_output(void)
     }
 
     /* Outputs for Atomic SubSystem: '<Root>/Subsystem3' */
-    MCU_Subsystem2(MCU_B.VoltageV, &MCU_B.Subsystem3);
+    MCU_Subsystem(MCU_B.VoltageV, &MCU_B.Subsystem3);
 
     /* End of Outputs for SubSystem: '<Root>/Subsystem3' */
 
@@ -1086,16 +1070,16 @@ static void MCU_output(void)
   /* '<S31>:1:3' */
   if (rtb_Halleffectsignalh_c) {
     if (rtb_Gain4_k < 0.0) {
-      rtb_inversion_0 = 0.0;
+      rtb_CastToDouble = 0.0;
     } else {
-      rtb_inversion_0 = rtb_Gain4_k;
+      rtb_CastToDouble = rtb_Gain4_k;
     }
 
     rtb_Gain4_k = (MCU_P.capacity_Value / (0.1 * MCU_P.capacity_Value +
       rtb_Gain4_k) * -MCU_P.constantK_Value * MCU_B.CurrentFilter -
                    MCU_P.capacity_Value / (MCU_P.capacity_Value - rtb_Gain4_k) *
                    MCU_P.constantK_Value * rtb_Gain4_k) + exp
-      (-MCU_P.constantB_Value * rtb_inversion_0) * MCU_P.constantA_Value;
+      (-MCU_P.constantB_Value * rtb_CastToDouble) * MCU_P.constantA_Value;
   } else {
     rtb_Gain4_k = MCU_P.capacity_Value / (MCU_P.capacity_Value - rtb_Gain4_k) *
       -MCU_P.constantK_Value * (rtb_Gain4_k + MCU_B.CurrentFilter) + exp
@@ -1157,7 +1141,7 @@ static void MCU_update(void)
 
   /* Update for DiscreteIntegrator: '<S34>/Discrete-Time Integrator' */
   MCU_DW.DiscreteTimeIntegrator_DSTATE += MCU_P.DiscreteTimeIntegrator_gainval *
-    MCU_B.Gain2;
+    MCU_B.Gain2_i;
 
   /* Update for UnitDelay: '<S48>/Unit Delay' incorporates:
    *  Selector: '<S32>/first 2 columns of D'
@@ -2053,7 +2037,7 @@ RT_MODEL_MCU_T *MCU(void)
   MCU_M->Sizes.numU = (0);             /* Number of model inputs */
   MCU_M->Sizes.sysDirFeedThru = (0);   /* The model is not direct feedthrough */
   MCU_M->Sizes.numSampTimes = (2);     /* Number of sample times */
-  MCU_M->Sizes.numBlocks = (229);      /* Number of blocks */
+  MCU_M->Sizes.numBlocks = (227);      /* Number of blocks */
   MCU_M->Sizes.numBlockIO = (35);      /* Number of block outputs */
   MCU_M->Sizes.numBlockPrms = (310);   /* Sum of parameter "widths" */
   return MCU_M;
@@ -2066,7 +2050,7 @@ RT_MODEL_MCU_T *MCU(void)
 
 void CallRateMonotonicScheduler(void)
 {
-  rate_monotonic_scheduler();
+//rate_monotonic_scheduler();
 }
 
 #endif
