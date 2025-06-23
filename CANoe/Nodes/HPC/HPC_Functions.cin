@@ -126,6 +126,8 @@ void InitializeGlobals()
   watchdogCounter = 0;
   gTaskCounter = 0;
 
+  gAutoRegenBaseTorque = 100.0;
+
   gPrevVehicleSpeed_VD = 0;
   gPrevTime_VD = 0;
 }
@@ -169,7 +171,7 @@ float CalculateOptimalTorque()
       case REGEN_LEVEL2: baseTorque = 100.0; break;
       case REGEN_LEVEL3: baseTorque = 150.0; break;
       case REGEN_AUTO:
-        baseTorque = 100.0; // 기본 토크
+        baseTorque = gAutoRegenBaseTorque; // 자동 모드에서는 최적화된 기본 토크 값 사용
         if (v2xData.trafficLightStatus == 1) baseTorque *= 1.5; // 신호등 상태에 따라 가중치
         if (v2xData.roadGrade > 5) baseTorque *= 1.3; // 도로 경사도에 따라 가중치
         break;
@@ -235,6 +237,51 @@ void ExecuteTorqueControlTask()
   
   output(cmd);
   setTimer(timerWatchdog, WATCHDOG_TIMEOUT); // 와치독 타이머 리셋
+}
+
+/*
+ * @brief 자동 모드 최적화 태스크. 주기적으로 자동 회생 제동 강도를 조절합니다.
+ */
+void ExecuteAutoModeOptimizationTask()
+{
+  // 자동 모드 및 정상 상태가 아니면 로직을 실행하지 않음
+  if (currentRegenMode != REGEN_AUTO || currentState != STATE_NORMAL)
+  {
+    return;
+  }
+
+  // 로직 1: 교통 정체 수준에 따른 최적화 (가다 서다 반복 상황)
+  // v2xData.congestionLevel은 0~5 범위로 가정
+  if (v2xData.congestionLevel > 3)
+  {
+    // 정체가 심하면 더 강한 회생 제동을 위해 기본 토크를 점진적으로 증가
+    if (gAutoRegenBaseTorque < 140.0)
+    {
+      gAutoRegenBaseTorque += 2.0; // 최대 140Nm까지
+    }
+  }
+  // 로직 2: 고속 주행 시 최적화 (고속도로 항속 상황)
+  else if (currentVehicleSpeed > 80.0 && v2xData.congestionLevel < 2)
+  {
+    // 고속 주행 시 부드러운 주행감(Coasting)을 위해 기본 토크를 점진적으로 감소
+    if (gAutoRegenBaseTorque > 60.0)
+    {
+      gAutoRegenBaseTorque -= 2.0; // 최소 60Nm까지
+    }
+  }
+  // 로직 3: 일반적인 상황에서는 기본값으로 복귀
+  else
+  {
+    if (gAutoRegenBaseTorque > 100.0)
+    {
+      gAutoRegenBaseTorque -= 1.0;
+    }
+    else if (gAutoRegenBaseTorque < 100.0)
+    {
+      gAutoRegenBaseTorque += 1.0;
+    }
+  }
+  write("HPC: 자동 모드 최적화 실행. 현재 기본 토크: %.1f Nm", gAutoRegenBaseTorque);
 }
 
 /*

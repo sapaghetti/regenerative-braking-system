@@ -89,6 +89,8 @@ variables
   long gCrcRetval;
   dword gCrcValue;
 
+  float gAutoRegenBaseTorque;
+
   float gPrevVehicleSpeed_VD;
   dword gPrevTime_VD;
 }
