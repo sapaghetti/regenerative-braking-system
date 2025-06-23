@@ -501,30 +501,30 @@ void HandleRegenTorqueFeedbackMessage(message M002_Regen_Torque_Feedback msg)
 
   if (targetMotorTorque < 0) // 제동 상황일 때만
   {
-      torqueDifference = (-targetMotorTorque) - actualRegen; // 목표 토크(절대값)와 실제 토크의 차이
-      if (torqueDifference > 50.0 && currentState == STATE_NORMAL)
-      {
-          // 부족한 토크만큼 마찰 제동을 요청
-          frictionReq.Required_Friction_Torque = (word)(torqueDifference / 0.1);
-          frictionReq.Brake_Request_Type = 3; // 회생제동 보상
-          frictionReq.Brake_Force_Distribution = 50; // 전후 50:50 배분
-          frictionReq.Control_Flags = 0x01;
-          frictionReq.E2E_Counter = ++watchdogCounter;
+    torqueDifference = (-targetMotorTorque) + actualRegen; // 목표 토크(절대값)와 실제 토크(음수)의 차이
+    if (torqueDifference > 50.0 && currentState == STATE_NORMAL)
+    {
+      // 부족한 토크만큼 마찰 제동을 요청
+      frictionReq.Required_Friction_Torque = (word)(torqueDifference / 0.1);
+      frictionReq.Brake_Request_Type = 3; // 회생제동 보상
+      frictionReq.Brake_Force_Distribution = 50; // 전후 50:50 배분
+      frictionReq.Control_Flags = 0x01;
+      frictionReq.E2E_Counter = ++watchdogCounter;
 
-          // CRC 계산
-          gCrcData[0] = (byte)(frictionReq.Required_Friction_Torque & 0xFF);
-          gCrcData[1] = (byte)((frictionReq.Required_Friction_Torque >> 8) & 0xFF);
-          gCrcData[2] = frictionReq.Brake_Request_Type;
-          gCrcData[3] = frictionReq.Brake_Force_Distribution;
-          gCrcData[4] = frictionReq.Control_Flags;
-          gCrcData[5] = frictionReq.E2E_Counter;
-          gCrcRetval = Crc_CalculateCRC16(gCrcData, 6, 0, 6, 0, 1, gCrcValue);
-          if(gCrcRetval == 0) frictionReq.E2E_CRC16 = (word)gCrcValue;
-          else frictionReq.E2E_CRC16 = 0x0000;
+      // CRC 계산
+      gCrcData[0] = (byte)(frictionReq.Required_Friction_Torque & 0xFF);
+      gCrcData[1] = (byte)((frictionReq.Required_Friction_Torque >> 8) & 0xFF);
+      gCrcData[2] = frictionReq.Brake_Request_Type;
+      gCrcData[3] = frictionReq.Brake_Force_Distribution;
+      gCrcData[4] = frictionReq.Control_Flags;
+      gCrcData[5] = frictionReq.E2E_Counter;
+      gCrcRetval = Crc_CalculateCRC16(gCrcData, 6, 0, 6, 0, 1, gCrcValue);
+      if(gCrcRetval == 0) frictionReq.E2E_CRC16 = (word)gCrcValue;
+      else frictionReq.E2E_CRC16 = 0x0000;
 
-          output(frictionReq);
-          write("HPC: 마찰 제동 보상 요청: %.2f Nm", torqueDifference);
-      }
+      output(frictionReq);
+      write("HPC: 마찰 제동 보상 요청: %.2f Nm", torqueDifference);
+    }
   }
 }
 
