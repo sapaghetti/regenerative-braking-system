@@ -1,0 +1,67 @@
+pipeline {
+    agent any
+
+    environment {
+        PYTHON_EXE = "D:\\Jenkins_Python\\.venv\\Scripts\\python.exe"
+        SCRIPT_NAME = "Jenkins\\run_canoe_com.py"
+        REPORT_GENERATION_PATH = "D:\\can\\vTESTstudio\\TestReports" // <-- 오타 수정 및 백슬래시 이스케이프 확인
+        REPORT_FILE_PATTERN = "*.vtestreport"
+        ARTIFACT_STAGING_DIR = "reports"
+    }
+
+    stages { // 이 stages 블록 내용이 비어있으면 안됩니다.
+        stage('Fetch Source Code') {
+            steps {
+                git branch: 'feature/Jenkins', url: 'https://github.com/jjongs2/can.git'
+            }
+        }
+
+        stage('Run CANoe') {
+            steps {
+                bat """
+                    chcp 65001
+                    echo Running integrated CANoe automation script...
+                    "${PYTHON_EXE}" "${WORKSPACE}\\%SCRIPT_NAME%"
+                    if %errorlevel% neq 0 (
+                        exit /b %errorlevel%
+                    )
+                """
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+            script {
+                echo "Attempting to archive vTESTreport files..."
+                def sourceReportPath = env.REPORT_GENERATION_PATH
+                def destinationStagingPath = "${WORKSPACE}\\%ARTIFACT_STAGING_DIR%"
+
+                try {
+                    // 디렉토리가 없으면 생성하도록 조건 추가
+                    bat "if not exist \"%ARTIFACT_STAGING_DIR%\" mkdir \"%ARTIFACT_STAGING_DIR%\""
+                    echo "Ensured staging directory exists: ${destinationStagingPath}"
+
+                    // xcopy 명령어를 사용하여 파일 복사
+                    // /s는 하위 디렉토리를 포함하고, /y는 덮어쓸 때 확인 메시지를 묻지 않음.
+                    // destinationStagingPath 뒤에 \\를 붙여 디렉토리로 인식하게 함
+                    bat "xcopy /s /y \"${sourceReportPath}\\%REPORT_FILE_PATTERN%\" \"${destinationStagingPath}\\\""
+                    echo "Copied report files from ${sourceReportPath} to ${destinationStagingPath}"
+
+                    archiveArtifacts artifacts: "${ARTIFACT_STAGING_DIR}/**/*.vtestreport", fingerprint: true
+                    echo "Successfully archived vTESTreport files."
+
+                } catch (Exception e) {
+                    echo "Failed to archive vTESTreport files: ${e.getMessage()}"
+                }
+            }
+        }
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}

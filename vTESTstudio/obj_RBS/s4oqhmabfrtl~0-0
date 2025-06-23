@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ks_c_5601-1987"?>
+<tclibrary>
+  <testcase name="TC_INIT_001" id="2692808451" comment="" signature="testcase TC_INIT_001()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>162</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_INIT_002" id="2833970952" comment="" signature="testcase TC_INIT_002()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>706</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_INIT_003" id="2975133453" comment="" signature="testcase TC_INIT_003()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>1248</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_INIT_004" id="3116295954" comment="" signature="testcase TC_INIT_004()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>1814</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_COMM_001" id="1590655821" comment="" signature="testcase TC_COMM_001()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>2476</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_COMM_002" id="327099858" comment="" signature="testcase TC_COMM_002()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>3327</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_COMM_003" id="1872980823" comment="" signature="testcase TC_COMM_003()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>3892</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_COMM_004" id="609424860" comment="" signature="testcase TC_COMM_004()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>4455</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_FUNC_001" id="198641463" comment="" signature="testcase TC_FUNC_001()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>5202</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_FUNC_002" id="3230052796" comment="" signature="testcase TC_FUNC_002()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>6616</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_STATE_001" id="712755834" comment="" signature="testcase TC_STATE_001()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>7775</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_STATE_002" id="712755801" comment="" signature="testcase TC_STATE_002()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>8358</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+  <testcase name="TC_STATE_003" id="712755768" comment="" signature="testcase TC_STATE_003()" file="D:\can\vTESTstudio\TU_ZCU_Front\ZCU_Front_Test.can" SourceFilePersistencyGuid="tpcmdcn9uftf" IsPrivate="false" IsNetSignatureAndDefinedInExternalDll="true">
+    <document_position><![CDATA[<OffsetDocumentPosition xmlns:SerializedType="Vector.ITE.Document.OffsetDocumentPosition"><Offset>8896</Offset></OffsetDocumentPosition>]]></document_position>
+    <implementation_language lang="CAPL" />
+  </testcase>
+</tclibrary>
