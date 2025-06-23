@@ -28,7 +28,7 @@ download_base_url = f'{server_base_url}/ota_download'
 # 다운로드 저장 폴더
 DOWNLOAD_FOLDER = "OTA_download"
 UPDATE_FOLDER = "OTA_update_file"
-OTA_BASE_PROJECT_PATH = "C:\\Users\\Public\\Documents\\Vector\\CANoe\\canoe19_project\\ota_project"
+OTA_BASE_PROJECT_PATH = "C:/RBS/CANoe"
 ecu_info = [("CGW", "CGW_backup"), ("TMU", "TMU_backup"), ("EDT", "EDT_backup")]
 ecu_update_forder = [("CGW", "CGW_update"), ("TMU", "TMU_update"), ("EDT", "EDT_update")]
 
@@ -54,7 +54,7 @@ os.makedirs(UPDATE_FOLDER, exist_ok=True)
 # canoe 연동
 try:
     canoe_inst = CANoe()
-    canoe_inst.open(canoe_cfg=r'C:\Users\Public\Documents\Vector\CANoe\canoe19_project\ota_project\ota_project.cfg')
+    canoe_inst.open(canoe_cfg=os.path.join(OTA_BASE_PROJECT_PATH, 'RBS.cfg'))
     canoe_inst.start_measurement()
 except Exception as e:
     print(f"[ERROR] CANoe 연결 실패: {e}. CANoe가 실행 중인지, 경로가 올바른지 확인하세요.")
@@ -615,7 +615,7 @@ if __name__ == "__main__":
     try:
         print(f"[MQTT] MQTT 브로커({MQTT_BROKER_HOST}:{MQTT_BROKER_PORT}) 연결 시도 중...")
         mqtt_client_instance.tls_set(
-            ca_certs="C:\\vscodestudy\\OTA\\OTA_Client\\certs\\isrgrootx1.pem", # <--- 사용자 로컬 PC의 Let's Encrypt CA 인증서 경로!
+            ca_certs="./certs/isrgrootx1.pem", # <--- 사용자 로컬 PC의 Let's Encrypt CA 인증서 경로!
             #ca_certs="C:\\vscodestudy\\OTA\\client_ca_chain.pem",
             certfile=None, # 상호 TLS를 사용하지 않는다면 None
             keyfile=None,  # 상호 TLS를 사용하지 않는다면 None
