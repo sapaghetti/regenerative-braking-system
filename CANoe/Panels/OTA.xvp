@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=19.0.155.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="Display">
+    <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xd5a453abec609e4b5debf70ed743671624e8" ControlName="LCD Control 1">
+      <Property Name="Name">Xd5a453abec609e4b5debf70ed743671624e8</Property>
+      <Property Name="Size">96, 38</Property>
+      <Property Name="Location">374, 186</Property>
+      <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
+      <Property Name="ColorOn">Black</Property>
+      <Property Name="DecimalPlaces">0</Property>
+      <Property Name="NumberIntDigits">3</Property>
+      <Property Name="SymbolConfiguration">8;16;OTA;;;Progress;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ProgressBarControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X93e15666e5bf0e439aea733eb82657218165" ControlName="Progress Bar 1">
+      <Property Name="Name">X93e15666e5bf0e439aea733eb82657218165</Property>
+      <Property Name="Size">154, 38</Property>
+      <Property Name="Location">214, 186</Property>
+      <Property Name="ValueSize">40, 12</Property>
+      <Property Name="OriginValue">0</Property>
+      <Property Name="SymbolConfiguration">8;16;OTA;;;Progress;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X03d9facaecfb4e4a75e8430efd1be86220be" ControlName="Button 2">
+      <Property Name="Name">X03d9facaecfb4e4a75e8430efd1be86220be</Property>
+      <Property Name="Size">97, 46</Property>
+      <Property Name="Location">384, 72</Property>
+      <Property Name="TabIndex">2</Property>
+      <Property Name="Text">NO</Property>
+      <Property Name="SymbolConfiguration">8;16;OTA;;;OTA_UserSelect;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X959e307ae6552e49a0ebf1de90fdecfb30ad" ControlName="Button 1">
+      <Property Name="Name">X959e307ae6552e49a0ebf1de90fdecfb30ad</Property>
+      <Property Name="Size">105, 46</Property>
+      <Property Name="Location">127, 72</Property>
+      <Property Name="TabIndex">1</Property>
+      <Property Name="Text">YES</Property>
+      <Property Name="SymbolConfiguration">8;16;OTA;;;OTA_UserSelect;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">594, 335</Property>
+    <Property Name="Location">0, 0</Property>
+    <Property Name="BackColor">White</Property>
+  </Object>
+</Panel>

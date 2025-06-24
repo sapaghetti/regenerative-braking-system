@@ -149,7 +149,7 @@ on timer checkTimer
         {
           started = 1;
           @OTA::Ota_flag = 0;
-          snprintf(filename, elCount(filename), "C:\\vscodestudy\\OTA\\OTA_Client\\OTA_update_file\\firmware_update_ecu_%d_ver_%d.bin", @OTA::ECU_id, @OTA::ECU_ver);
+          snprintf(filename, elCount(filename), "C:/RBS/OTA_Client/OTA_update_file/firmware_update_ecu_%d_ver_%d.bin", @OTA::ECU_id, @OTA::ECU_ver);
           //hFile = openFileRead("C:\\vscodestudy\\OTA\\OTA_Client\\OTA_update_file\\firmware_update.bin", 1);
           hFile = openFileRead(filename, 1);
           if (hFile != 0)
@@ -237,6 +237,7 @@ on timer checkTimer
         }
         else
         {
+          write("✅ 전송 완료: %d 바이트", totalSent);
           fileClose(hFile);
           started = 0;
           otaReady = 0;
@@ -245,7 +246,6 @@ on timer checkTimer
           readBytes = 0;
           reqCount = 0;
           code_len = 0;
-          write("✅ 전송 완료: %d 바이트", totalSent);
         }
       }
       //}
