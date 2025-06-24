@@ -36,3 +36,6 @@ _PythonTypeLib_*/
 __pycache__/
 SynchronizedFiles/
 *_TypeLibraries/
+
+.metadata/
+.vscode/
