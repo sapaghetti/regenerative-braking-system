@@ -115,9 +115,9 @@ on message M001_Regen_Torque_Cmd
 
 /**
  * @brief 브레이크 라이트 제어 메시지 수신 이벤트 핸들러
- * @note 브레이크 라이트 점등 명령을 수신 (현재 주석 처리됨)
+ * @note 브레이크 라이트 점등 명령을 수신
  */
 on message M013_Brake_Light_Ctrl
 {
-  //@ZCU_Rear::Back_Light = this.Brake_Light_Command;
+  @ZCU_Rear::Back_Light = this.Brake_Light_Command;
 }
