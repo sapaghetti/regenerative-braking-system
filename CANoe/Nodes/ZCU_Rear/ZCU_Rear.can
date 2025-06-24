@@ -65,3 +65,8 @@ on message M001_Regen_Torque_Cmd
   @ZCU_Rear::Regen_Mode = this.Regen_Mode;
   @ZCU_Rear::Target_Torque = this.Target_Regen_Torque.phys;
 }
+
+on message M013_Brake_Light_Ctrl
+{
+  @ZCU_Rear::Back_Light = this.Brake_Light_Command;
+}
