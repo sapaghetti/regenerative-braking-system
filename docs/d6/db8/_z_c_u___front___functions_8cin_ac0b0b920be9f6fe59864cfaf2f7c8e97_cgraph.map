@@ -1,0 +1,17 @@
+<map id="PerformDiagnostics" name="PerformDiagnostics">
+<area shape="rect" id="Node000001" title="주기적인 진단 검사를 수행" alt="" coords="5,56,142,83"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거" alt="" coords="190,56,260,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,67,174,67,174,72,142,72"/>
+<area shape="rect" id="Node000003" href="$d6/db8/_z_c_u___front___functions_8cin.html#a92e4ed6722de9556e15267afb3bcd408" title="현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트" alt="" coords="308,56,447,83"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="261,67,292,67,292,72,261,72"/>
+<area shape="rect" id="Node000004" href="$d6/db8/_z_c_u___front___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태 간의 전환을 관리" alt="" coords="495,56,619,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="448,67,480,67,480,72,448,72"/>
+<area shape="rect" id="Node000005" href="$d6/db8/_z_c_u___front___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="667,5,792,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="604,53,666,34,668,39,606,58"/>
+<area shape="rect" id="Node000006" href="$d6/db8/_z_c_u___front___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="671,56,788,83"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="619,67,655,67,655,72,619,72"/>
+<area shape="rect" id="Node000008" href="$d6/db8/_z_c_u___front___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="674,107,785,133"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="606,81,668,99,666,104,604,86"/>
+<area shape="rect" id="Node000007" href="$d6/db8/_z_c_u___front___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="840,56,977,83"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="789,67,824,67,824,72,789,72"/>
+</map>

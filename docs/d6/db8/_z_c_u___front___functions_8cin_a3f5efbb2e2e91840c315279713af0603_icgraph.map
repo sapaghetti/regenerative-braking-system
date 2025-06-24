@@ -1,0 +1,5 @@
+<map id="SendM005_VehicleDynamics" name="SendM005_VehicleDynamics">
+<area shape="rect" id="Node000001" title="주요 차량 동역학 메시지(M005)를 전송" alt="" coords="205,5,396,32"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title="&#39;on timer timerMainTask&#39; 이벤트 핸들러 로직을 처리" alt="" coords="5,5,157,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="190,21,157,21,157,16,190,16"/>
+</map>

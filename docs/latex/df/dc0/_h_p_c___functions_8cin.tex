@@ -1,0 +1,714 @@
+\doxysection{HPC\+\_\+\+Functions.\+cin File Reference}
+\hypertarget{_h_p_c___functions_8cin}{}\label{_h_p_c___functions_8cin}\index{HPC\_Functions.cin@{HPC\_Functions.cin}}
+
+
+HPC의 모든 함수 정의  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a598bf7b3ec0ae1d926518b0efeb737b6}{On\+Enter\+Fail\+Safe}} ()
+\begin{DoxyCompactList}\small\item\em Fail-\/\+Safe 상태 진입 시 호출되는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_abdb69cf2fc071a91146925ae09a0e165}{On\+Enter\+Battery\+Protection}} ()
+\begin{DoxyCompactList}\small\item\em 배터리 보호 상태 진입 시 호출되는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a31603fc205c3ff32f36ad4526390a568}{On\+Enter\+Normal}} ()
+\begin{DoxyCompactList}\small\item\em 정상 상태 진입 시 호출되는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_af1b0517afcfeca68cdbae6a6c5713681}{Transition\+To\+State}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{new\+State}})
+\begin{DoxyCompactList}\small\item\em 시스템 상태를 새로운 상태로 전환하는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a3687ef7ceccb672c6d9dc192a4a3f13e}{Set\+Fault}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{fault\+Bit}})
+\begin{DoxyCompactList}\small\item\em 폴트 레지스터에 특정 폴트 비트를 설정하는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a1366b73e3db319850ae23722e5460d22}{Clear\+Fault}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{fault\+Bit}})
+\begin{DoxyCompactList}\small\item\em 폴트 레지스터에서 특정 폴트 비트를 해제하는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a9bcdcb765a42512f7ff98bf5feafcdc5}{Initialize\+Globals}} ()
+\begin{DoxyCompactList}\small\item\em 시작 시 모든 전역 변수를 기본 상태로 초기화 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___functions_8cin_a5bf912ec486886c058c6ce71d003510e}{Calculate\+Optimal\+Torque}} ()
+\begin{DoxyCompactList}\small\item\em 운전자 입력과 차량 상태를 기반으로 최적의 모터 토크를 계산하는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a0a7b3c1a46493465c903a60e4734324d}{Update\+Vehicle\+Physics}} ()
+\begin{DoxyCompactList}\small\item\em 토크 값을 기반으로 차량의 RPM과 속도를 업데이트하는 물리 시뮬레이션 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a423ebeea655dbb5e55334903ea57f2f4}{Execute\+Torque\+Control\+Task}} ()
+\begin{DoxyCompactList}\small\item\em 주기적으로 모터 토크 제어 명령을 전송하는 태스크 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_ab502db67314641abf278f07f6e1ed0b4}{Execute\+Auto\+Mode\+Optimization\+Task}} ()
+\begin{DoxyCompactList}\small\item\em 자동 모드 최적화 태스크 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_aa2b8d001ec88445e343041ae94222b0e}{Execute\+Cluster\+Display\+Task}} ()
+\begin{DoxyCompactList}\small\item\em 클러스터에 표시할 정보를 주기적으로 전송하는 태스크 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a1782d17ad4bf194142b8f2e4d8606ae7}{Execute\+Energy\+Efficiency\+Task}} ()
+\begin{DoxyCompactList}\small\item\em 에너지 효율 계산(누적 회생 에너지)을 주기적으로 수행하는 태스크 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_ad2de22b5df4a2cb674be3bb2fdbb0ede}{Handle\+Main\+Task\+Timer}} ()
+\begin{DoxyCompactList}\small\item\em 메인 태스크 타이머 이벤트 발생 시 주기적으로 호출되는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a7cd5f0a479fccce095a8e8c84f187c57}{Handle\+Start\+Event}} ()
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on start\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a31eb42e7dd5ed8642efb93b2a9c6b713}{Handle\+Stop\+Event}} ()
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on stop\+Measurement\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a26008801b33e04dffd66ca83462ba0d0}{Handle\+Watchdog\+Timeout}} ()
+\begin{DoxyCompactList}\small\item\em 워치독 타임아웃 발생 시 호출되는 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_af450e04a807128db83074ca849355192}{Send\+Mode\+Change\+Response}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M008\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Req}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{request}})
+\begin{DoxyCompactList}\small\item\em 회생제동 모드 변경 요청에 대한 응답 메시지를 전송하는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_ac66c8f49082857f2dc040501bb308c29}{Handle\+Mode\+Change\+Req\+Message}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M008\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Req}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{msg}})
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on message M008\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Req\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a73d85badd86c2a7c8e87392ca5853774}{Handle\+Battery\+Basic\+Message}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M006\+\_\+\+Battery\+\_\+\+Basic}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{msg}})
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on message M006\+\_\+\+Battery\+\_\+\+Basic\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a53da730e3423fce16ab918e06a569285}{Handle\+Regen\+Torque\+Feedback\+Message}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M002\+\_\+\+Regen\+\_\+\+Torque\+\_\+\+Feedback}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{msg}})
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on message M002\+\_\+\+Regen\+\_\+\+Torque\+\_\+\+Feedback\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a9da26348776e72e8c944d25ca103d523}{Handle\+Fail\+Safe\+Status\+Message}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{fault\+Code}})
+\begin{DoxyCompactList}\small\item\em Fail-\/\+Safe 상태 메시지 수신 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_aa71ffa0c99278810cc55706c1263e220}{Handle\+Vehicle\+Dynamics\+Message}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M005\+\_\+\+Vehicle\+\_\+\+Dynamics}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{msg}})
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on message M005\+\_\+\+Vehicle\+\_\+\+Dynamics\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___functions_8cin_a657682219bd24756ee6a173e8b4b73ee}{Handle\+Brake\+Pedal\+Message}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M005\+\_\+\+EXT\+\_\+\+Brake\+\_\+\+Pedal}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{msg}})
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on message M005\+\_\+\+EXT\+\_\+\+Brake\+\_\+\+Pedal\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+HPC의 모든 함수 정의 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_h_p_c___functions_8cin_a5bf912ec486886c058c6ce71d003510e}\label{_h_p_c___functions_8cin_a5bf912ec486886c058c6ce71d003510e} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!CalculateOptimalTorque@{CalculateOptimalTorque}}
+\index{CalculateOptimalTorque@{CalculateOptimalTorque}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{CalculateOptimalTorque()}{CalculateOptimalTorque()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} Calculate\+Optimal\+Torque (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+운전자 입력과 차량 상태를 기반으로 최적의 모터 토크를 계산하는 함수 
+
+\begin{DoxyReturn}{Returns}
+계산된 최종 모터 토크 (구동\+: 양수, 제동\+: 음수) 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+다음 우선순위로 토크를 계산\+:
+\begin{DoxyEnumerate}
+\item 브레이크 오버라이드 \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{시스템(\+BOS)} -\/ 브레이크 페달 우선
+\item 가속 의도 처리 -\/ 가속 페달 입력
+\item 페달 Off 회생 제동 -\/ 원페달 드라이빙
+\item 시스템 제약 조건 적용 -\/ 배터리 보호, 속도별 보정 
+\end{DoxyEnumerate}
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a5bf912ec486886c058c6ce71d003510e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a1366b73e3db319850ae23722e5460d22}\label{_h_p_c___functions_8cin_a1366b73e3db319850ae23722e5460d22} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!ClearFault@{ClearFault}}
+\index{ClearFault@{ClearFault}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{ClearFault()}{ClearFault()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Clear\+Fault (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}}}]{fault\+Bit }\end{DoxyParamCaption})}
+
+
+
+폴트 레지스터에서 특정 폴트 비트를 해제하는 함수 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fault\+Bit} & 해제할 폴트 비트 \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a1366b73e3db319850ae23722e5460d22_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_ab502db67314641abf278f07f6e1ed0b4}\label{_h_p_c___functions_8cin_ab502db67314641abf278f07f6e1ed0b4} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!ExecuteAutoModeOptimizationTask@{ExecuteAutoModeOptimizationTask}}
+\index{ExecuteAutoModeOptimizationTask@{ExecuteAutoModeOptimizationTask}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{ExecuteAutoModeOptimizationTask()}{ExecuteAutoModeOptimizationTask()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Execute\+Auto\+Mode\+Optimization\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+자동 모드 최적화 태스크 
+
+\begin{DoxyNote}{Note}
+주기적으로 자동 회생 제동 강도를 교통 상황과 도로 조건에 맞게 조절
+\begin{DoxyItemize}
+\item 교통 정체 시\+: 강한 회생 제동으로 가다서다 상황 대응
+\item 고속 주행 시\+: 부드러운 Coasting을 위해 회생 제동 감소
+\item 일반 상황\+: \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{기본값(100\+Nm)}으로 복귀 
+\end{DoxyItemize}
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_ab502db67314641abf278f07f6e1ed0b4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_aa2b8d001ec88445e343041ae94222b0e}\label{_h_p_c___functions_8cin_aa2b8d001ec88445e343041ae94222b0e} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!ExecuteClusterDisplayTask@{ExecuteClusterDisplayTask}}
+\index{ExecuteClusterDisplayTask@{ExecuteClusterDisplayTask}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{ExecuteClusterDisplayTask()}{ExecuteClusterDisplayTask()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Execute\+Cluster\+Display\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+클러스터에 표시할 정보를 주기적으로 전송하는 태스크 
+
+\begin{DoxyNote}{Note}
+회생 제동 모드, 배터리 SOC, 누적 회생 에너지, 경고 상태, 차량/모터 속도 정보 전송 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_aa2b8d001ec88445e343041ae94222b0e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a1782d17ad4bf194142b8f2e4d8606ae7}\label{_h_p_c___functions_8cin_a1782d17ad4bf194142b8f2e4d8606ae7} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!ExecuteEnergyEfficiencyTask@{ExecuteEnergyEfficiencyTask}}
+\index{ExecuteEnergyEfficiencyTask@{ExecuteEnergyEfficiencyTask}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{ExecuteEnergyEfficiencyTask()}{ExecuteEnergyEfficiencyTask()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Execute\+Energy\+Efficiency\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+에너지 효율 계산(누적 회생 에너지)을 주기적으로 수행하는 태스크 
+
+\begin{DoxyNote}{Note}
+회생 제동 시에만 순간 전력과 누적 에너지를 계산 \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{전력(\+W)} = \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{토크(\+Nm)} × 각속도(rad/s) 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a1782d17ad4bf194142b8f2e4d8606ae7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a423ebeea655dbb5e55334903ea57f2f4}\label{_h_p_c___functions_8cin_a423ebeea655dbb5e55334903ea57f2f4} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!ExecuteTorqueControlTask@{ExecuteTorqueControlTask}}
+\index{ExecuteTorqueControlTask@{ExecuteTorqueControlTask}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{ExecuteTorqueControlTask()}{ExecuteTorqueControlTask()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Execute\+Torque\+Control\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+주기적으로 모터 토크 제어 명령을 전송하는 태스크 
+
+\begin{DoxyNote}{Note}
+FAIL\+\_\+\+SAFE 상태에서는 실행하지 않으며, CRC를 포함한 E2E 보호 적용 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a423ebeea655dbb5e55334903ea57f2f4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a423ebeea655dbb5e55334903ea57f2f4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a73d85badd86c2a7c8e87392ca5853774}\label{_h_p_c___functions_8cin_a73d85badd86c2a7c8e87392ca5853774} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!HandleBatteryBasicMessage@{HandleBatteryBasicMessage}}
+\index{HandleBatteryBasicMessage@{HandleBatteryBasicMessage}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleBatteryBasicMessage()}{HandleBatteryBasicMessage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Battery\+Basic\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M006\+\_\+\+Battery\+\_\+\+Basic}}}]{msg }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on message M006\+\_\+\+Battery\+\_\+\+Basic\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & 수신된 메시지 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+배터리 SOC 및 온도 정보를 수신하여 배터리 보호 상태를 결정 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a73d85badd86c2a7c8e87392ca5853774_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a73d85badd86c2a7c8e87392ca5853774_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a657682219bd24756ee6a173e8b4b73ee}\label{_h_p_c___functions_8cin_a657682219bd24756ee6a173e8b4b73ee} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!HandleBrakePedalMessage@{HandleBrakePedalMessage}}
+\index{HandleBrakePedalMessage@{HandleBrakePedalMessage}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleBrakePedalMessage()}{HandleBrakePedalMessage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Brake\+Pedal\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M005\+\_\+\+EXT\+\_\+\+Brake\+\_\+\+Pedal}}}]{msg }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on message M005\+\_\+\+EXT\+\_\+\+Brake\+\_\+\+Pedal\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & 수신된 메시지 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+브레이크 페달 위치 정보를 수신하여 제동 의도를 파악 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a657682219bd24756ee6a173e8b4b73ee_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a9da26348776e72e8c944d25ca103d523}\label{_h_p_c___functions_8cin_a9da26348776e72e8c944d25ca103d523} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!HandleFailSafeStatusMessage@{HandleFailSafeStatusMessage}}
+\index{HandleFailSafeStatusMessage@{HandleFailSafeStatusMessage}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleFailSafeStatusMessage()}{HandleFailSafeStatusMessage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Fail\+Safe\+Status\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}}}]{fault\+Code }\end{DoxyParamCaption})}
+
+
+
+Fail-\/\+Safe 상태 메시지 수신 이벤트 핸들러 로직을 처리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fault\+Code} & 수신된 폴트 코드 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+다른 ECU로부터 Critical Fault 수신 시 FAIL\+\_\+\+SAFE 상태로 전환 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a9da26348776e72e8c944d25ca103d523_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a9da26348776e72e8c944d25ca103d523_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_ad2de22b5df4a2cb674be3bb2fdbb0ede}\label{_h_p_c___functions_8cin_ad2de22b5df4a2cb674be3bb2fdbb0ede} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!HandleMainTaskTimer@{HandleMainTaskTimer}}
+\index{HandleMainTaskTimer@{HandleMainTaskTimer}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleMainTaskTimer()}{HandleMainTaskTimer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Main\+Task\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+메인 태스크 타이머 이벤트 발생 시 주기적으로 호출되는 함수 
+
+\begin{DoxyNote}{Note}
+다양한 주기로 태스크를 스케줄링\+:
+\begin{DoxyItemize}
+\item 매 \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{주기(10ms)}\+: 토크 제어, 물리 시뮬레이션
+\item 100ms 주기\+: 클러스터 디스플레이
+\item 200ms 주기\+: 에너지 효율 계산
+\item 500ms 주기\+: 자동 모드 최적화 
+\end{DoxyItemize}
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_ad2de22b5df4a2cb674be3bb2fdbb0ede_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_ad2de22b5df4a2cb674be3bb2fdbb0ede_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_ac66c8f49082857f2dc040501bb308c29}\label{_h_p_c___functions_8cin_ac66c8f49082857f2dc040501bb308c29} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!HandleModeChangeReqMessage@{HandleModeChangeReqMessage}}
+\index{HandleModeChangeReqMessage@{HandleModeChangeReqMessage}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleModeChangeReqMessage()}{HandleModeChangeReqMessage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Mode\+Change\+Req\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M008\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Req}}}]{msg }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on message M008\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Req\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & 수신된 메시지 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+회생 제동 모드 변경 요청을 처리하고 응답 메시지 전송 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_ac66c8f49082857f2dc040501bb308c29_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_ac66c8f49082857f2dc040501bb308c29_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a53da730e3423fce16ab918e06a569285}\label{_h_p_c___functions_8cin_a53da730e3423fce16ab918e06a569285} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!HandleRegenTorqueFeedbackMessage@{HandleRegenTorqueFeedbackMessage}}
+\index{HandleRegenTorqueFeedbackMessage@{HandleRegenTorqueFeedbackMessage}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleRegenTorqueFeedbackMessage()}{HandleRegenTorqueFeedbackMessage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Regen\+Torque\+Feedback\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M002\+\_\+\+Regen\+\_\+\+Torque\+\_\+\+Feedback}}}]{msg }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on message M002\+\_\+\+Regen\+\_\+\+Torque\+\_\+\+Feedback\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & 수신된 메시지 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+목표 회생 제동량 대비 실제 회생 제동량이 부족할 경우, 마찰 제동으로 보상 요청 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a53da730e3423fce16ab918e06a569285_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a7cd5f0a479fccce095a8e8c84f187c57}\label{_h_p_c___functions_8cin_a7cd5f0a479fccce095a8e8c84f187c57} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!HandleStartEvent@{HandleStartEvent}}
+\index{HandleStartEvent@{HandleStartEvent}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleStartEvent()}{HandleStartEvent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Start\+Event (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on start\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+\begin{DoxyNote}{Note}
+전역 변수 초기화, 메인 태스크 및 워치독 타이머 시작, NORMAL 상태로 전이 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a7cd5f0a479fccce095a8e8c84f187c57_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{df/dc0/_h_p_c___functions_8cin_a7cd5f0a479fccce095a8e8c84f187c57_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a31eb42e7dd5ed8642efb93b2a9c6b713}\label{_h_p_c___functions_8cin_a31eb42e7dd5ed8642efb93b2a9c6b713} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!HandleStopEvent@{HandleStopEvent}}
+\index{HandleStopEvent@{HandleStopEvent}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleStopEvent()}{HandleStopEvent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Stop\+Event (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on stop\+Measurement\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{df/dc0/_h_p_c___functions_8cin_a31eb42e7dd5ed8642efb93b2a9c6b713_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_aa71ffa0c99278810cc55706c1263e220}\label{_h_p_c___functions_8cin_aa71ffa0c99278810cc55706c1263e220} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!HandleVehicleDynamicsMessage@{HandleVehicleDynamicsMessage}}
+\index{HandleVehicleDynamicsMessage@{HandleVehicleDynamicsMessage}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleVehicleDynamicsMessage()}{HandleVehicleDynamicsMessage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Vehicle\+Dynamics\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M005\+\_\+\+Vehicle\+\_\+\+Dynamics}}}]{msg }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on message M005\+\_\+\+Vehicle\+\_\+\+Dynamics\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & 수신된 메시지 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+가속 페달 위치, 차량 속도, 조향각 등의 정보를 갱신하고, 감속도를 계산하여 제동등을 제어 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_aa71ffa0c99278810cc55706c1263e220_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a26008801b33e04dffd66ca83462ba0d0}\label{_h_p_c___functions_8cin_a26008801b33e04dffd66ca83462ba0d0} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!HandleWatchdogTimeout@{HandleWatchdogTimeout}}
+\index{HandleWatchdogTimeout@{HandleWatchdogTimeout}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleWatchdogTimeout()}{HandleWatchdogTimeout()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Watchdog\+Timeout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+워치독 타임아웃 발생 시 호출되는 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+워치독 폴트를 설정하고 FAIL\+\_\+\+SAFE 상태로 전환 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a26008801b33e04dffd66ca83462ba0d0_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a26008801b33e04dffd66ca83462ba0d0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a9bcdcb765a42512f7ff98bf5feafcdc5}\label{_h_p_c___functions_8cin_a9bcdcb765a42512f7ff98bf5feafcdc5} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!InitializeGlobals@{InitializeGlobals}}
+\index{InitializeGlobals@{InitializeGlobals}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{InitializeGlobals()}{InitializeGlobals()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Initialize\+Globals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+시작 시 모든 전역 변수를 기본 상태로 초기화 
+
+\begin{DoxyNote}{Note}
+시스템 시작 시 모든 데이터 구조체와 변수를 안전한 초기값으로 설정 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a9bcdcb765a42512f7ff98bf5feafcdc5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_abdb69cf2fc071a91146925ae09a0e165}\label{_h_p_c___functions_8cin_abdb69cf2fc071a91146925ae09a0e165} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!OnEnterBatteryProtection@{OnEnterBatteryProtection}}
+\index{OnEnterBatteryProtection@{OnEnterBatteryProtection}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{OnEnterBatteryProtection()}{OnEnterBatteryProtection()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} On\+Enter\+Battery\+Protection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+배터리 보호 상태 진입 시 호출되는 함수 
+
+\begin{DoxyNote}{Note}
+회생 제동 토크가 제한됨을 알리고 관련 폴트를 설정 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{df/dc0/_h_p_c___functions_8cin_abdb69cf2fc071a91146925ae09a0e165_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_abdb69cf2fc071a91146925ae09a0e165_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a598bf7b3ec0ae1d926518b0efeb737b6}\label{_h_p_c___functions_8cin_a598bf7b3ec0ae1d926518b0efeb737b6} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!OnEnterFailSafe@{OnEnterFailSafe}}
+\index{OnEnterFailSafe@{OnEnterFailSafe}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{OnEnterFailSafe()}{OnEnterFailSafe()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} On\+Enter\+Fail\+Safe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Fail-\/\+Safe 상태 진입 시 호출되는 함수 
+
+\begin{DoxyNote}{Note}
+모든 토크 명령을 비활성화하고, 안전 상태임을 알림 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a598bf7b3ec0ae1d926518b0efeb737b6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a31603fc205c3ff32f36ad4526390a568}\label{_h_p_c___functions_8cin_a31603fc205c3ff32f36ad4526390a568} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!OnEnterNormal@{OnEnterNormal}}
+\index{OnEnterNormal@{OnEnterNormal}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{OnEnterNormal()}{OnEnterNormal()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} On\+Enter\+Normal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+정상 상태 진입 시 호출되는 함수 
+
+\begin{DoxyNote}{Note}
+정상 작동 상태로 복귀했음을 알림 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{df/dc0/_h_p_c___functions_8cin_a31603fc205c3ff32f36ad4526390a568_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a31603fc205c3ff32f36ad4526390a568_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_af450e04a807128db83074ca849355192}\label{_h_p_c___functions_8cin_af450e04a807128db83074ca849355192} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!SendModeChangeResponse@{SendModeChangeResponse}}
+\index{SendModeChangeResponse@{SendModeChangeResponse}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{SendModeChangeResponse()}{SendModeChangeResponse()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Send\+Mode\+Change\+Response (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M008\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Req}}}]{request }\end{DoxyParamCaption})}
+
+
+
+회생제동 모드 변경 요청에 대한 응답 메시지를 전송하는 함수 
+
+
+\begin{DoxyParams}{Parameters}
+{\em request} & 수신된 모드 변경 요청 메시지 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+정상 또는 배터리 보호 상태에서만 모드 변경 허용 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_af450e04a807128db83074ca849355192_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a3687ef7ceccb672c6d9dc192a4a3f13e}\label{_h_p_c___functions_8cin_a3687ef7ceccb672c6d9dc192a4a3f13e} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!SetFault@{SetFault}}
+\index{SetFault@{SetFault}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{SetFault()}{SetFault()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Set\+Fault (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}}}]{fault\+Bit }\end{DoxyParamCaption})}
+
+
+
+폴트 레지스터에 특정 폴트 비트를 설정하는 함수 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fault\+Bit} & 설정할 폴트 비트 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+이미 설정된 폴트는 중복 설정하지 않음 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a3687ef7ceccb672c6d9dc192a4a3f13e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_af1b0517afcfeca68cdbae6a6c5713681}\label{_h_p_c___functions_8cin_af1b0517afcfeca68cdbae6a6c5713681} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!TransitionToState@{TransitionToState}}
+\index{TransitionToState@{TransitionToState}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{TransitionToState()}{TransitionToState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Transition\+To\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}}}]{new\+State }\end{DoxyParamCaption})}
+
+
+
+시스템 상태를 새로운 상태로 전환하는 함수 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+State} & 새로운 시스템 상태 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+상태 변경 시 해당 상태의 진입 함수를 호출하고 시스템 변수를 업데이트 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_af1b0517afcfeca68cdbae6a6c5713681_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_af1b0517afcfeca68cdbae6a6c5713681_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_h_p_c___functions_8cin_a0a7b3c1a46493465c903a60e4734324d}\label{_h_p_c___functions_8cin_a0a7b3c1a46493465c903a60e4734324d} 
+\index{HPC\_Functions.cin@{HPC\_Functions.cin}!UpdateVehiclePhysics@{UpdateVehiclePhysics}}
+\index{UpdateVehiclePhysics@{UpdateVehiclePhysics}!HPC\_Functions.cin@{HPC\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{UpdateVehiclePhysics()}{UpdateVehiclePhysics()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Update\+Vehicle\+Physics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+토크 값을 기반으로 차량의 RPM과 속도를 업데이트하는 물리 시뮬레이션 함수 
+
+\begin{DoxyNote}{Note}
+뉴턴의 회전 운동 법칙을 사용하여 각가속도를 계산하고, 기어비와 바퀴 반경을 고려하여 차량 속도를 결정 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dc0/_h_p_c___functions_8cin_a0a7b3c1a46493465c903a60e4734324d_icgraph}
+\end{center}
+\end{figure}

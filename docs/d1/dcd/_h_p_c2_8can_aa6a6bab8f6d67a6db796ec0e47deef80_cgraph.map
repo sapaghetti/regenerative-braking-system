@@ -1,0 +1,7 @@
+<map id="on_message_M008_Mode_Change_Req" name="on_message_M008_Mode_Change_Req">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,179,48"/>
+<area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#ac66c8f49082857f2dc040501bb308c29" title="&#39;on message M008_Mode_Change_Req&#39; 이벤트 핸들러 로직을 처리" alt="" coords="227,13,443,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,24,211,24,211,29,179,29"/>
+<area shape="rect" id="Node000003" href="$df/dc0/_h_p_c___functions_8cin.html#af450e04a807128db83074ca849355192" title="회생제동 모드 변경 요청에 대한 응답 메시지를 전송하는 함수" alt="" coords="491,13,678,40"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="443,24,475,24,475,29,443,29"/>
+</map>

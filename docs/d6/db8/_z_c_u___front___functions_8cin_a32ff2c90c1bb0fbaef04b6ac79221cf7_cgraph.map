@@ -1,0 +1,23 @@
+<map id="PerformInitialSelfTest" name="PerformInitialSelfTest">
+<area shape="rect" id="Node000001" title="시작 시 중요한 센서에 대한 자체 테스트를 수행" alt="" coords="5,81,152,108"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#a9a34d9cbfe6dc2dfb84ee4d2874ddc66" title="시뮬레이션 환경에서 가속 페달 위치를 읽음" alt="" coords="233,5,312,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,78,199,42,217,35,219,40,201,46,112,83"/>
+<area shape="rect" id="Node000003" href="$d6/db8/_z_c_u___front___functions_8cin.html#ace785de2b57781d939598034a5906a62" title="시뮬레이션 환경에서 브레이크 페달 위치를 읽음" alt="" coords="229,56,317,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="152,82,213,74,214,80,153,88"/>
+<area shape="rect" id="Node000004" href="$d6/db8/_z_c_u___front___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거" alt="" coords="238,107,308,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="153,102,223,111,222,116,152,107"/>
+<area shape="rect" id="Node000011" href="$d6/db8/_z_c_u___front___functions_8cin.html#aa04c8f60ae0bb1869842b1e3b97e0c3e" title="센서 값이 정의된 최소/최대 범위 내에 있는지 확인" alt="" coords="200,157,346,184"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="112,106,201,143,218,149,216,154,199,148,110,111"/>
+<area shape="rect" id="Node000005" href="$d6/db8/_z_c_u___front___functions_8cin.html#a92e4ed6722de9556e15267afb3bcd408" title="현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트" alt="" coords="394,107,533,133"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="308,117,378,117,378,123,308,123"/>
+<area shape="rect" id="Node000006" href="$d6/db8/_z_c_u___front___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태 간의 전환을 관리" alt="" coords="581,107,705,133"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="534,117,566,117,566,123,534,123"/>
+<area shape="rect" id="Node000007" href="$d6/db8/_z_c_u___front___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="753,56,878,83"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="690,103,752,85,754,90,692,109"/>
+<area shape="rect" id="Node000008" href="$d6/db8/_z_c_u___front___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="757,107,874,133"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="705,117,741,117,741,123,705,123"/>
+<area shape="rect" id="Node000010" href="$d6/db8/_z_c_u___front___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="760,157,871,184"/>
+<area shape="poly" id="edge9_Node000006_Node000010" title=" " alt="" coords="692,131,754,150,752,155,690,137"/>
+<area shape="rect" id="Node000009" href="$d6/db8/_z_c_u___front___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="926,107,1063,133"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="875,117,910,117,910,123,875,123"/>
+</map>

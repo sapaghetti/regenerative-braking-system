@@ -1,0 +1,18 @@
+<map id="on_key_f" name="on_key_f">
+<area shape="rect" id="Node000001" title="키보드 &#39;f&#39; 키 입력 이벤트 핸들러" alt="" coords="5,31,80,57"/>
+<area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#a26008801b33e04dffd66ca83462ba0d0" title="워치독 타임아웃 발생 시 호출되는 이벤트 핸들러" alt="" coords="128,31,295,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,41,112,41,112,47,80,47"/>
+<area shape="rect" id="Node000003" href="$df/dc0/_h_p_c___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하는 함수" alt="" coords="738,5,808,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="295,33,514,16,723,15,723,20,514,21,295,38"/>
+<area shape="rect" id="Node000004" href="$df/dc0/_h_p_c___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태를 새로운 상태로 전환하는 함수" alt="" coords="343,56,466,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="296,52,328,57,327,62,295,58"/>
+<area shape="rect" id="Node000005" href="$df/dc0/_h_p_c___functions_8cin.html#abdb69cf2fc071a91146925ae09a0e165" title="배터리 보호 상태 진입 시 호출되는 함수" alt="" coords="514,31,685,57"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="466,59,499,54,499,60,467,64"/>
+<area shape="rect" id="Node000006" href="$df/dc0/_h_p_c___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="Fail&#45;Safe 상태 진입 시 호출되는 함수" alt="" coords="541,81,658,108"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="467,75,526,82,525,88,466,80"/>
+<area shape="rect" id="Node000007" href="$df/dc0/_h_p_c___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="정상 상태 진입 시 호출되는 함수" alt="" coords="544,132,655,159"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="434,81,515,118,534,124,533,129,513,122,432,86"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="685,29,723,23,723,29,685,34"/>
+<area shape="rect" id="Node000008" href="$df/dc0/_h_p_c___functions_8cin.html#a1366b73e3db319850ae23722e5460d22" title="폴트 레지스터에서 특정 폴트 비트를 해제하는 함수" alt="" coords="733,132,814,159"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="655,143,717,143,717,148,655,148"/>
+</map>

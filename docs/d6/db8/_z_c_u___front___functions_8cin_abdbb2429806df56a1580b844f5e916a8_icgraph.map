@@ -1,0 +1,5 @@
+<map id="MonitorCommunication" name="MonitorCommunication">
+<area shape="rect" id="Node000001" title="다른 ECU와의 통신 타임아웃을 모니터링" alt="" coords="205,5,360,32"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title="&#39;on timer timerMainTask&#39; 이벤트 핸들러 로직을 처리" alt="" coords="5,5,157,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,21,157,21,157,16,189,16"/>
+</map>

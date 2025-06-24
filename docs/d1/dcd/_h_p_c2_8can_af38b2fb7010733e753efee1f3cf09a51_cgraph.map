@@ -1,0 +1,17 @@
+<map id="on_timer_timerMainTask" name="on_timer_timerMainTask">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,107,169,133"/>
+<area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title="메인 태스크 타이머 이벤트 발생 시 주기적으로 호출되는 함수" alt="" coords="217,107,368,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,117,201,117,201,123,169,123"/>
+<area shape="rect" id="Node000003" href="$df/dc0/_h_p_c___functions_8cin.html#ab502db67314641abf278f07f6e1ed0b4" title="자동 모드 최적화 태스크" alt="" coords="416,5,645,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="310,104,356,72,415,42,436,34,437,39,417,46,359,77,313,108"/>
+<area shape="rect" id="Node000004" href="$df/dc0/_h_p_c___functions_8cin.html#aa2b8d001ec88445e343041ae94222b0e" title="클러스터에 표시할 정보를 주기적으로 전송하는 태스크" alt="" coords="439,56,622,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="358,103,449,84,450,89,359,109"/>
+<area shape="rect" id="Node000005" href="$df/dc0/_h_p_c___functions_8cin.html#a1782d17ad4bf194142b8f2e4d8606ae7" title="에너지 효율 계산(누적 회생 에너지)을 주기적으로 수행하는 태스크" alt="" coords="433,107,628,133"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="368,117,417,117,417,123,368,123"/>
+<area shape="rect" id="Node000006" href="$df/dc0/_h_p_c___functions_8cin.html#a423ebeea655dbb5e55334903ea57f2f4" title="주기적으로 모터 토크 제어 명령을 전송하는 태스크" alt="" coords="442,157,620,184"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="359,131,450,151,449,156,358,137"/>
+<area shape="rect" id="Node000008" href="$df/dc0/_h_p_c___functions_8cin.html#a0a7b3c1a46493465c903a60e4734324d" title="토크 값을 기반으로 차량의 RPM과 속도를 업데이트하는 물리 시뮬레이션 함수" alt="" coords="454,208,607,235"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="313,132,359,163,417,194,440,202,438,207,415,198,356,168,310,136"/>
+<area shape="rect" id="Node000007" href="$df/dc0/_h_p_c___functions_8cin.html#a5bf912ec486886c058c6ce71d003510e" title="운전자 입력과 차량 상태를 기반으로 최적의 모터 토크를 계산하는 함수" alt="" coords="693,157,854,184"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="620,168,678,168,678,173,620,173"/>
+</map>

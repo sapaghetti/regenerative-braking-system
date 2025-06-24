@@ -1,0 +1,1021 @@
+\doxysection{ZCU\+\_\+\+Center\+\_\+\+Functions.\+cin File Reference}
+\hypertarget{_z_c_u___center___functions_8cin}{}\label{_z_c_u___center___functions_8cin}\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+
+
+ZCU\+\_\+\+Center의 모든 함수 정의  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_af4e7a6049295665ea22c4c37ea1d5096}{Perform\+Secure\+Boot}} ()
+\begin{DoxyCompactList}\small\item\em 시스템 부팅 시 보안 검증을 수행 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a598bf7b3ec0ae1d926518b0efeb737b6}{On\+Enter\+Fail\+Safe}} ()
+\begin{DoxyCompactList}\small\item\em FAIL\+\_\+\+SAFE 상태 진입 시 호출되는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_ae17e103908732a0e9095af5898aeb993}{On\+Enter\+Degraded}} ()
+\begin{DoxyCompactList}\small\item\em DEGRADED 상태 진입 시 호출되는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a31603fc205c3ff32f36ad4526390a568}{On\+Enter\+Normal}} ()
+\begin{DoxyCompactList}\small\item\em NORMAL 상태 진입 시 호출되는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_af1b0517afcfeca68cdbae6a6c5713681}{Transition\+To\+State}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{new\+State}})
+\begin{DoxyCompactList}\small\item\em 시스템 상태 간의 전환을 관리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a92e4ed6722de9556e15267afb3bcd408}{Update\+System\+State}} ()
+\begin{DoxyCompactList}\small\item\em 현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a1366b73e3db319850ae23722e5460d22}{Clear\+Fault}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{fault\+Bit}})
+\begin{DoxyCompactList}\small\item\em 폴트 레지스터에서 특정 폴트 비트를 지움 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a3687ef7ceccb672c6d9dc192a4a3f13e}{Set\+Fault}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{fault\+Bit}})
+\begin{DoxyCompactList}\small\item\em 폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a5eedc910c4474a4304fd312e0a5defed}{Validate\+Button\+Input}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{button\+ID}}, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{button\+Action}}, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{word}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{press\+Duration}}, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{current\+Time}})
+\begin{DoxyCompactList}\small\item\em 버튼 입력의 유효성을 검증 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_ad9e72a9e666b7ac9f0bcd13051e0e154}{Validate\+Voice\+Input}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{command\+Type}}, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{command\+Value}}, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{confidence}}, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{current\+Time}})
+\begin{DoxyCompactList}\small\item\em 음성 입력의 유효성을 검증 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a6bc7ad0eb6bdd0d521a10d96484f31fb}{Determine\+Requested\+Mode\+From\+Button}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{button\+ID}}, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{button\+Action}})
+\begin{DoxyCompactList}\small\item\em 버튼 입력을 기반으로 모드 변경 요청을 생성 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a776a833c371218d728b4a27e2f6dfca5}{Determine\+Requested\+Mode\+From\+Voice}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{command\+Type}}, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{command\+Value}})
+\begin{DoxyCompactList}\small\item\em 음성 입력을 기반으로 모드 변경 요청을 생성 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a8b9a584cbd1346ca9fc94f4857a5aaaa}{Update\+Cluster\+Display}} ()
+\begin{DoxyCompactList}\small\item\em 클러스터 디스플레이를 업데이트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a0e249bdb595a702f63b2fe0ba68defa7}{Update\+OTAComfort\+Mode}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{profile\+Type}})
+\begin{DoxyCompactList}\small\item\em OTA 편안한 모드 활성화 여부에 따른 UI 업데이트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_aa8a5bb905e77e44b01f1175685e49836}{Send\+Mode\+Change\+Request}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} requested\+Mode, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} request\+Source, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{profile\+Type}})
+\begin{DoxyCompactList}\small\item\em 모드 변경 요청 \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{메시지(\+M008)}를 전송 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_adbe029b647d08d864d1b19a5163c792d}{Send\+Fail\+Safe\+Status}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{fault\+Level}})
+\begin{DoxyCompactList}\small\item\em Fail-\/\+Safe 상태 \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{메시지(\+M004)}를 전송 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_add4192ea9f3fe6aed7fcf4db8a81a917}{Send\+Diagnostic\+Data}} ()
+\begin{DoxyCompactList}\small\item\em 진단 데이터 \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{메시지(\+M016)}를 전송 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_ae3d1e63b132583b4264a9b2210fad30c}{Verify\+E2\+EProtection}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{data\+Array}}\mbox{[}$\,$\mbox{]}, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{data\+Length}}, \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{word}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{received\+CRC}})
+\begin{DoxyCompactList}\small\item\em CAN 메시지의 E2E 보호 검증 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_ac0b0b920be9f6fe59864cfaf2f7c8e97}{Perform\+Diagnostics}} ()
+\begin{DoxyCompactList}\small\item\em 주기적인 진단 검사를 수행 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_abdbb2429806df56a1580b844f5e916a8}{Monitor\+Communication}} ()
+\begin{DoxyCompactList}\small\item\em HPC와의 통신 타임아웃을 모니터링 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a3c58ebf1d48b20c1b2cce5c6a999983d}{Perform\+Watchdog}} ()
+\begin{DoxyCompactList}\small\item\em 메인 루프가 실행 중인지 확인하기 위해 워치독 검사를 수행 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a9bcdcb765a42512f7ff98bf5feafcdc5}{Initialize\+Globals}} ()
+\begin{DoxyCompactList}\small\item\em 시작 시 모든 전역 변수를 기본 상태로 초기화 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a32ff2c90c1bb0fbaef04b6ac79221cf7}{Perform\+Initial\+Self\+Test}} ()
+\begin{DoxyCompactList}\small\item\em 시작 시 HMI 시스템에 대한 자체 테스트를 수행 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a7cd5f0a479fccce095a8e8c84f187c57}{Handle\+Start\+Event}} ()
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on start\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a31eb42e7dd5ed8642efb93b2a9c6b713}{Handle\+Stop\+Event}} ()
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on stop\+Measurement\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_ad2de22b5df4a2cb674be3bb2fdbb0ede}{Handle\+Main\+Task\+Timer}} ()
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on timer timer\+Main\+Task\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_afeb35a6cbc7536f113abaa2a0e7831a6}{Handle\+Voice\+Command\+Message}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{L003\+\_\+\+Voice\+\_\+\+Command}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{msg}})
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on message L003\+\_\+\+Voice\+\_\+\+Command\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a47730f4911cc48000c6c00372ebeea03}{Handle\+Sw\+Button\+Input\+Message}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{L004\+\_\+\+SW\+\_\+\+Button\+\_\+\+Input}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{msg}})
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on message L004\+\_\+\+SW\+\_\+\+Button\+\_\+\+Input\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a0b986b10951b10e8fe82eb6a244e2829}{Handle\+Mode\+Change\+Resp\+Message}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M009\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Resp}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{msg}})
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on message M009\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Resp\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a661e5acce29451790b2e7ef1d70eeec4}{Handle\+Cluster\+Display\+Message}} (\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M012\+\_\+\+Cluster\+\_\+\+Display}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{msg}})
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on message M012\+\_\+\+Cluster\+\_\+\+Display\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a7ad551283e601822ef0f4a49a33e46fb}{Handle\+Fault\+Injection\+Key}} ()
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on key \textquotesingle{}f\textquotesingle{}\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_acc2a475f9c71f60ca2822640d5abd13f}{Handle\+Simulate\+Voice\+Key}} ()
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on key \textquotesingle{}v\textquotesingle{}\textquotesingle{} 이벤트 핸들러 로직을 처리 (음성 명령 시뮬레이션) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a881f7319dd66e135c91ec8cafa7e0b16}{Handle\+Clear\+Faults\+Key}} ()
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on key \textquotesingle{}c\textquotesingle{}\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a3f923746bfa75bb5c0ababc0e9506237}{Handle\+Status\+Display\+Key}} ()
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on key \textquotesingle{}s\textquotesingle{}\textquotesingle{} 이벤트 핸들러 로직을 처리 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_z_c_u___center___functions_8cin_a935043ac074668558a91dec4220d367a}{Handle\+Cluster\+Test\+Key}} ()
+\begin{DoxyCompactList}\small\item\em \textquotesingle{}on key \textquotesingle{}t\textquotesingle{}\textquotesingle{} 이벤트 핸들러 로직을 처리 (클러스터 테스트) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+ZCU\+\_\+\+Center의 모든 함수 정의 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_z_c_u___center___functions_8cin_a1366b73e3db319850ae23722e5460d22}\label{_z_c_u___center___functions_8cin_a1366b73e3db319850ae23722e5460d22} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!ClearFault@{ClearFault}}
+\index{ClearFault@{ClearFault}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{ClearFault()}{ClearFault()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Clear\+Fault (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}}}]{fault\+Bit }\end{DoxyParamCaption})}
+
+
+
+폴트 레지스터에서 특정 폴트 비트를 지움 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fault\+Bit} & 지울 폴트 비트 \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a1366b73e3db319850ae23722e5460d22_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a6bc7ad0eb6bdd0d521a10d96484f31fb}\label{_z_c_u___center___functions_8cin_a6bc7ad0eb6bdd0d521a10d96484f31fb} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!DetermineRequestedModeFromButton@{DetermineRequestedModeFromButton}}
+\index{DetermineRequestedModeFromButton@{DetermineRequestedModeFromButton}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{DetermineRequestedModeFromButton()}{DetermineRequestedModeFromButton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Determine\+Requested\+Mode\+From\+Button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{button\+ID,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{button\+Action }\end{DoxyParamCaption})}
+
+
+
+버튼 입력을 기반으로 모드 변경 요청을 생성 
+
+
+\begin{DoxyParams}{Parameters}
+{\em button\+ID} & 버튼 ID \\
+\hline
+{\em button\+Action} & 버튼 액션 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+요청할 모드 (실패시 0x\+FF) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a6bc7ad0eb6bdd0d521a10d96484f31fb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a776a833c371218d728b4a27e2f6dfca5}\label{_z_c_u___center___functions_8cin_a776a833c371218d728b4a27e2f6dfca5} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!DetermineRequestedModeFromVoice@{DetermineRequestedModeFromVoice}}
+\index{DetermineRequestedModeFromVoice@{DetermineRequestedModeFromVoice}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{DetermineRequestedModeFromVoice()}{DetermineRequestedModeFromVoice()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Determine\+Requested\+Mode\+From\+Voice (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{command\+Type,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{command\+Value }\end{DoxyParamCaption})}
+
+
+
+음성 입력을 기반으로 모드 변경 요청을 생성 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command\+Type} & 명령 타입 \\
+\hline
+{\em command\+Value} & 명령 값 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+요청할 모드 (실패시 0x\+FF) 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a776a833c371218d728b4a27e2f6dfca5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a881f7319dd66e135c91ec8cafa7e0b16}\label{_z_c_u___center___functions_8cin_a881f7319dd66e135c91ec8cafa7e0b16} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleClearFaultsKey@{HandleClearFaultsKey}}
+\index{HandleClearFaultsKey@{HandleClearFaultsKey}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleClearFaultsKey()}{HandleClearFaultsKey()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Clear\+Faults\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on key \textquotesingle{}c\textquotesingle{}\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a881f7319dd66e135c91ec8cafa7e0b16_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{d6/d09/_z_c_u___center___functions_8cin_a881f7319dd66e135c91ec8cafa7e0b16_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a661e5acce29451790b2e7ef1d70eeec4}\label{_z_c_u___center___functions_8cin_a661e5acce29451790b2e7ef1d70eeec4} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleClusterDisplayMessage@{HandleClusterDisplayMessage}}
+\index{HandleClusterDisplayMessage@{HandleClusterDisplayMessage}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleClusterDisplayMessage()}{HandleClusterDisplayMessage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Cluster\+Display\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M012\+\_\+\+Cluster\+\_\+\+Display}}}]{msg }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on message M012\+\_\+\+Cluster\+\_\+\+Display\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & 수신된 클러스터 표시 데이터 메시지 \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a661e5acce29451790b2e7ef1d70eeec4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a661e5acce29451790b2e7ef1d70eeec4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a935043ac074668558a91dec4220d367a}\label{_z_c_u___center___functions_8cin_a935043ac074668558a91dec4220d367a} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleClusterTestKey@{HandleClusterTestKey}}
+\index{HandleClusterTestKey@{HandleClusterTestKey}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleClusterTestKey()}{HandleClusterTestKey()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Cluster\+Test\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on key \textquotesingle{}t\textquotesingle{}\textquotesingle{} 이벤트 핸들러 로직을 처리 (클러스터 테스트) 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{d6/d09/_z_c_u___center___functions_8cin_a935043ac074668558a91dec4220d367a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=286pt]{d6/d09/_z_c_u___center___functions_8cin_a935043ac074668558a91dec4220d367a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a7ad551283e601822ef0f4a49a33e46fb}\label{_z_c_u___center___functions_8cin_a7ad551283e601822ef0f4a49a33e46fb} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleFaultInjectionKey@{HandleFaultInjectionKey}}
+\index{HandleFaultInjectionKey@{HandleFaultInjectionKey}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleFaultInjectionKey()}{HandleFaultInjectionKey()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Fault\+Injection\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on key \textquotesingle{}f\textquotesingle{}\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a7ad551283e601822ef0f4a49a33e46fb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{d6/d09/_z_c_u___center___functions_8cin_a7ad551283e601822ef0f4a49a33e46fb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_ad2de22b5df4a2cb674be3bb2fdbb0ede}\label{_z_c_u___center___functions_8cin_ad2de22b5df4a2cb674be3bb2fdbb0ede} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleMainTaskTimer@{HandleMainTaskTimer}}
+\index{HandleMainTaskTimer@{HandleMainTaskTimer}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleMainTaskTimer()}{HandleMainTaskTimer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Main\+Task\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on timer timer\+Main\+Task\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_ad2de22b5df4a2cb674be3bb2fdbb0ede_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a0b986b10951b10e8fe82eb6a244e2829}\label{_z_c_u___center___functions_8cin_a0b986b10951b10e8fe82eb6a244e2829} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleModeChangeRespMessage@{HandleModeChangeRespMessage}}
+\index{HandleModeChangeRespMessage@{HandleModeChangeRespMessage}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleModeChangeRespMessage()}{HandleModeChangeRespMessage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Mode\+Change\+Resp\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{M009\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Resp}}}]{msg }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on message M009\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Resp\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & 수신된 모드 변경 응답 메시지 \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a0b986b10951b10e8fe82eb6a244e2829_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a0b986b10951b10e8fe82eb6a244e2829_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_acc2a475f9c71f60ca2822640d5abd13f}\label{_z_c_u___center___functions_8cin_acc2a475f9c71f60ca2822640d5abd13f} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleSimulateVoiceKey@{HandleSimulateVoiceKey}}
+\index{HandleSimulateVoiceKey@{HandleSimulateVoiceKey}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleSimulateVoiceKey()}{HandleSimulateVoiceKey()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Simulate\+Voice\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on key \textquotesingle{}v\textquotesingle{}\textquotesingle{} 이벤트 핸들러 로직을 처리 (음성 명령 시뮬레이션) 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_acc2a475f9c71f60ca2822640d5abd13f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{d6/d09/_z_c_u___center___functions_8cin_acc2a475f9c71f60ca2822640d5abd13f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a7cd5f0a479fccce095a8e8c84f187c57}\label{_z_c_u___center___functions_8cin_a7cd5f0a479fccce095a8e8c84f187c57} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleStartEvent@{HandleStartEvent}}
+\index{HandleStartEvent@{HandleStartEvent}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleStartEvent()}{HandleStartEvent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Start\+Event (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on start\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a7cd5f0a479fccce095a8e8c84f187c57_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a3f923746bfa75bb5c0ababc0e9506237}\label{_z_c_u___center___functions_8cin_a3f923746bfa75bb5c0ababc0e9506237} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleStatusDisplayKey@{HandleStatusDisplayKey}}
+\index{HandleStatusDisplayKey@{HandleStatusDisplayKey}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleStatusDisplayKey()}{HandleStatusDisplayKey()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Status\+Display\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on key \textquotesingle{}s\textquotesingle{}\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{d6/d09/_z_c_u___center___functions_8cin_a3f923746bfa75bb5c0ababc0e9506237_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a31eb42e7dd5ed8642efb93b2a9c6b713}\label{_z_c_u___center___functions_8cin_a31eb42e7dd5ed8642efb93b2a9c6b713} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleStopEvent@{HandleStopEvent}}
+\index{HandleStopEvent@{HandleStopEvent}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleStopEvent()}{HandleStopEvent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Stop\+Event (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on stop\+Measurement\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+\Hypertarget{_z_c_u___center___functions_8cin_a47730f4911cc48000c6c00372ebeea03}\label{_z_c_u___center___functions_8cin_a47730f4911cc48000c6c00372ebeea03} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleSwButtonInputMessage@{HandleSwButtonInputMessage}}
+\index{HandleSwButtonInputMessage@{HandleSwButtonInputMessage}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleSwButtonInputMessage()}{HandleSwButtonInputMessage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Sw\+Button\+Input\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{L004\+\_\+\+SW\+\_\+\+Button\+\_\+\+Input}}}]{msg }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on message L004\+\_\+\+SW\+\_\+\+Button\+\_\+\+Input\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & 수신된 스티어링 휠 버튼 입력 메시지 \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a47730f4911cc48000c6c00372ebeea03_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a47730f4911cc48000c6c00372ebeea03_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_afeb35a6cbc7536f113abaa2a0e7831a6}\label{_z_c_u___center___functions_8cin_afeb35a6cbc7536f113abaa2a0e7831a6} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!HandleVoiceCommandMessage@{HandleVoiceCommandMessage}}
+\index{HandleVoiceCommandMessage@{HandleVoiceCommandMessage}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{HandleVoiceCommandMessage()}{HandleVoiceCommandMessage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Handle\+Voice\+Command\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{L003\+\_\+\+Voice\+\_\+\+Command}}}]{msg }\end{DoxyParamCaption})}
+
+
+
+\textquotesingle{}on message L003\+\_\+\+Voice\+\_\+\+Command\textquotesingle{} 이벤트 핸들러 로직을 처리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & 수신된 음성 명령 메시지 \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_afeb35a6cbc7536f113abaa2a0e7831a6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_afeb35a6cbc7536f113abaa2a0e7831a6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a9bcdcb765a42512f7ff98bf5feafcdc5}\label{_z_c_u___center___functions_8cin_a9bcdcb765a42512f7ff98bf5feafcdc5} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!InitializeGlobals@{InitializeGlobals}}
+\index{InitializeGlobals@{InitializeGlobals}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{InitializeGlobals()}{InitializeGlobals()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Initialize\+Globals (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+시작 시 모든 전역 변수를 기본 상태로 초기화 
+
+\begin{DoxyNote}{Note}
+시스템 시작 시 모든 데이터 구조체와 변수를 안전한 초기값으로 설정 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{d6/d09/_z_c_u___center___functions_8cin_a9bcdcb765a42512f7ff98bf5feafcdc5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_abdbb2429806df56a1580b844f5e916a8}\label{_z_c_u___center___functions_8cin_abdbb2429806df56a1580b844f5e916a8} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!MonitorCommunication@{MonitorCommunication}}
+\index{MonitorCommunication@{MonitorCommunication}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{MonitorCommunication()}{MonitorCommunication()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Monitor\+Communication (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+HPC와의 통신 타임아웃을 모니터링 
+
+\begin{DoxyNote}{Note}
+설정된 타임아웃 시간을 초과하면 통신 폴트를 설정 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_abdbb2429806df56a1580b844f5e916a8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{d6/d09/_z_c_u___center___functions_8cin_abdbb2429806df56a1580b844f5e916a8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_ae17e103908732a0e9095af5898aeb993}\label{_z_c_u___center___functions_8cin_ae17e103908732a0e9095af5898aeb993} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!OnEnterDegraded@{OnEnterDegraded}}
+\index{OnEnterDegraded@{OnEnterDegraded}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{OnEnterDegraded()}{OnEnterDegraded()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} On\+Enter\+Degraded (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+DEGRADED 상태 진입 시 호출되는 함수 
+
+\begin{DoxyNote}{Note}
+제한된 기능으로 작동함을 알림 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_ae17e103908732a0e9095af5898aeb993_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a598bf7b3ec0ae1d926518b0efeb737b6}\label{_z_c_u___center___functions_8cin_a598bf7b3ec0ae1d926518b0efeb737b6} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!OnEnterFailSafe@{OnEnterFailSafe}}
+\index{OnEnterFailSafe@{OnEnterFailSafe}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{OnEnterFailSafe()}{OnEnterFailSafe()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} On\+Enter\+Fail\+Safe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+FAIL\+\_\+\+SAFE 상태 진입 시 호출되는 함수 
+
+\begin{DoxyNote}{Note}
+시스템 안전을 보장하기 위해 HMI 처리를 중지하고 고장 상태를 전파 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{d6/d09/_z_c_u___center___functions_8cin_a598bf7b3ec0ae1d926518b0efeb737b6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a598bf7b3ec0ae1d926518b0efeb737b6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a31603fc205c3ff32f36ad4526390a568}\label{_z_c_u___center___functions_8cin_a31603fc205c3ff32f36ad4526390a568} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!OnEnterNormal@{OnEnterNormal}}
+\index{OnEnterNormal@{OnEnterNormal}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{OnEnterNormal()}{OnEnterNormal()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} On\+Enter\+Normal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+NORMAL 상태 진입 시 호출되는 함수 
+
+\begin{DoxyNote}{Note}
+완전한 기능으로 작동 중임을 알림 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a31603fc205c3ff32f36ad4526390a568_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_ac0b0b920be9f6fe59864cfaf2f7c8e97}\label{_z_c_u___center___functions_8cin_ac0b0b920be9f6fe59864cfaf2f7c8e97} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!PerformDiagnostics@{PerformDiagnostics}}
+\index{PerformDiagnostics@{PerformDiagnostics}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{PerformDiagnostics()}{PerformDiagnostics()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Perform\+Diagnostics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+주기적인 진단 검사를 수행 
+
+\begin{DoxyNote}{Note}
+CPU, 메모리 사용량 및 동작 시간을 업데이트하고 과부하 상태를 감지 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_ac0b0b920be9f6fe59864cfaf2f7c8e97_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{d6/d09/_z_c_u___center___functions_8cin_ac0b0b920be9f6fe59864cfaf2f7c8e97_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a32ff2c90c1bb0fbaef04b6ac79221cf7}\label{_z_c_u___center___functions_8cin_a32ff2c90c1bb0fbaef04b6ac79221cf7} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!PerformInitialSelfTest@{PerformInitialSelfTest}}
+\index{PerformInitialSelfTest@{PerformInitialSelfTest}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{PerformInitialSelfTest()}{PerformInitialSelfTest()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Perform\+Initial\+Self\+Test (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+시작 시 HMI 시스템에 대한 자체 테스트를 수행 
+
+\begin{DoxyNote}{Note}
+클러스터 연결 상태 및 HMI 입력 시스템의 초기 상태를 확인 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a32ff2c90c1bb0fbaef04b6ac79221cf7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{d6/d09/_z_c_u___center___functions_8cin_a32ff2c90c1bb0fbaef04b6ac79221cf7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_af4e7a6049295665ea22c4c37ea1d5096}\label{_z_c_u___center___functions_8cin_af4e7a6049295665ea22c4c37ea1d5096} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!PerformSecureBoot@{PerformSecureBoot}}
+\index{PerformSecureBoot@{PerformSecureBoot}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{PerformSecureBoot()}{PerformSecureBoot()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Perform\+Secure\+Boot (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+시스템 부팅 시 보안 검증을 수행 
+
+\begin{DoxyReturn}{Returns}
+검증 성공 시 1, 실패 시 0 
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+펌웨어 서명을 검증하여 변조된 소프트웨어 실행을 방지 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=311pt]{d6/d09/_z_c_u___center___functions_8cin_af4e7a6049295665ea22c4c37ea1d5096_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a3c58ebf1d48b20c1b2cce5c6a999983d}\label{_z_c_u___center___functions_8cin_a3c58ebf1d48b20c1b2cce5c6a999983d} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!PerformWatchdog@{PerformWatchdog}}
+\index{PerformWatchdog@{PerformWatchdog}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{PerformWatchdog()}{PerformWatchdog()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Perform\+Watchdog (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+메인 루프가 실행 중인지 확인하기 위해 워치독 검사를 수행 
+
+\begin{DoxyNote}{Note}
+설정된 시간 내에 응답이 없으면 시스템 과부하 폴트를 설정 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a3c58ebf1d48b20c1b2cce5c6a999983d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{d6/d09/_z_c_u___center___functions_8cin_a3c58ebf1d48b20c1b2cce5c6a999983d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_add4192ea9f3fe6aed7fcf4db8a81a917}\label{_z_c_u___center___functions_8cin_add4192ea9f3fe6aed7fcf4db8a81a917} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!SendDiagnosticData@{SendDiagnosticData}}
+\index{SendDiagnosticData@{SendDiagnosticData}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{SendDiagnosticData()}{SendDiagnosticData()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Send\+Diagnostic\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+진단 데이터 \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{메시지(\+M016)}를 전송 
+
+\begin{DoxyNote}{Note}
+주기적으로 시스템 상태를 보고 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{d6/d09/_z_c_u___center___functions_8cin_add4192ea9f3fe6aed7fcf4db8a81a917_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_adbe029b647d08d864d1b19a5163c792d}\label{_z_c_u___center___functions_8cin_adbe029b647d08d864d1b19a5163c792d} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!SendFailSafeStatus@{SendFailSafeStatus}}
+\index{SendFailSafeStatus@{SendFailSafeStatus}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{SendFailSafeStatus()}{SendFailSafeStatus()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Send\+Fail\+Safe\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{fault\+Level }\end{DoxyParamCaption})}
+
+
+
+Fail-\/\+Safe 상태 \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{메시지(\+M004)}를 전송 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fault\+Level} & 보고할 폴트 레벨 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+시스템 고장 발생 시 다른 ECU에 상태를 전파 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_adbe029b647d08d864d1b19a5163c792d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_aa8a5bb905e77e44b01f1175685e49836}\label{_z_c_u___center___functions_8cin_aa8a5bb905e77e44b01f1175685e49836} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!SendModeChangeRequest@{SendModeChangeRequest}}
+\index{SendModeChangeRequest@{SendModeChangeRequest}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{SendModeChangeRequest()}{SendModeChangeRequest()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Send\+Mode\+Change\+Request (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{requested\+Mode,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{request\+Source,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{profile\+Type }\end{DoxyParamCaption})}
+
+
+
+모드 변경 요청 \doxylink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{메시지(\+M008)}를 전송 
+
+
+\begin{DoxyParams}{Parameters}
+{\em requested\+Mode} & 요청할 모드 \\
+\hline
+{\em request\+Source} & 요청 소스 (버튼/음성) \\
+\hline
+{\em profile\+Type} & 프로파일 타입 \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_aa8a5bb905e77e44b01f1175685e49836_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a3687ef7ceccb672c6d9dc192a4a3f13e}\label{_z_c_u___center___functions_8cin_a3687ef7ceccb672c6d9dc192a4a3f13e} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!SetFault@{SetFault}}
+\index{SetFault@{SetFault}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{SetFault()}{SetFault()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Set\+Fault (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}}}]{fault\+Bit }\end{DoxyParamCaption})}
+
+
+
+폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거 
+
+
+\begin{DoxyParams}{Parameters}
+{\em fault\+Bit} & 설정할 폴트 비트 \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a3687ef7ceccb672c6d9dc192a4a3f13e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a3687ef7ceccb672c6d9dc192a4a3f13e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_af1b0517afcfeca68cdbae6a6c5713681}\label{_z_c_u___center___functions_8cin_af1b0517afcfeca68cdbae6a6c5713681} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!TransitionToState@{TransitionToState}}
+\index{TransitionToState@{TransitionToState}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{TransitionToState()}{TransitionToState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Transition\+To\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}}}]{new\+State }\end{DoxyParamCaption})}
+
+
+
+시스템 상태 간의 전환을 관리 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+State} & 전환할 새로운 상태 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+상태 변경 시 해당 상태의 진입 함수를 호출 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_af1b0517afcfeca68cdbae6a6c5713681_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_af1b0517afcfeca68cdbae6a6c5713681_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a8b9a584cbd1346ca9fc94f4857a5aaaa}\label{_z_c_u___center___functions_8cin_a8b9a584cbd1346ca9fc94f4857a5aaaa} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!UpdateClusterDisplay@{UpdateClusterDisplay}}
+\index{UpdateClusterDisplay@{UpdateClusterDisplay}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{UpdateClusterDisplay()}{UpdateClusterDisplay()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Update\+Cluster\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+클러스터 디스플레이를 업데이트 
+
+\begin{DoxyNote}{Note}
+현재 클러스터 표시 데이터를 기반으로 실제 클러스터 하드웨어를 제어 
+\end{DoxyNote}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a8b9a584cbd1346ca9fc94f4857a5aaaa_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a0e249bdb595a702f63b2fe0ba68defa7}\label{_z_c_u___center___functions_8cin_a0e249bdb595a702f63b2fe0ba68defa7} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!UpdateOTAComfortMode@{UpdateOTAComfortMode}}
+\index{UpdateOTAComfortMode@{UpdateOTAComfortMode}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{UpdateOTAComfortMode()}{UpdateOTAComfortMode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Update\+OTAComfort\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{profile\+Type }\end{DoxyParamCaption})}
+
+
+
+OTA 편안한 모드 활성화 여부에 따른 UI 업데이트 
+
+
+\begin{DoxyParams}{Parameters}
+{\em profile\+Type} & 활성 프로파일 \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a0e249bdb595a702f63b2fe0ba68defa7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a0e249bdb595a702f63b2fe0ba68defa7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a92e4ed6722de9556e15267afb3bcd408}\label{_z_c_u___center___functions_8cin_a92e4ed6722de9556e15267afb3bcd408} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!UpdateSystemState@{UpdateSystemState}}
+\index{UpdateSystemState@{UpdateSystemState}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{UpdateSystemState()}{UpdateSystemState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} Update\+System\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트 
+
+\begin{DoxyNote}{Note}
+활성화된 폴트를 평가하고 적절한 시스템 상태를 결정 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a92e4ed6722de9556e15267afb3bcd408_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a92e4ed6722de9556e15267afb3bcd408_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_a5eedc910c4474a4304fd312e0a5defed}\label{_z_c_u___center___functions_8cin_a5eedc910c4474a4304fd312e0a5defed} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!ValidateButtonInput@{ValidateButtonInput}}
+\index{ValidateButtonInput@{ValidateButtonInput}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{ValidateButtonInput()}{ValidateButtonInput()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Validate\+Button\+Input (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{button\+ID,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{button\+Action,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{word}}}]{press\+Duration,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}}}]{current\+Time }\end{DoxyParamCaption})}
+
+
+
+버튼 입력의 유효성을 검증 
+
+
+\begin{DoxyParams}{Parameters}
+{\em button\+ID} & 버튼 ID \\
+\hline
+{\em button\+Action} & 버튼 액션 \\
+\hline
+{\em press\+Duration} & 눌림 지속 시간 \\
+\hline
+{\em current\+Time} & 현재 시간 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+유효하면 1, 유효하지 않으면 0 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a5eedc910c4474a4304fd312e0a5defed_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_a5eedc910c4474a4304fd312e0a5defed_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_ad9e72a9e666b7ac9f0bcd13051e0e154}\label{_z_c_u___center___functions_8cin_ad9e72a9e666b7ac9f0bcd13051e0e154} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!ValidateVoiceInput@{ValidateVoiceInput}}
+\index{ValidateVoiceInput@{ValidateVoiceInput}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{ValidateVoiceInput()}{ValidateVoiceInput()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Validate\+Voice\+Input (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{command\+Type,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{command\+Value,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{confidence,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}}}]{current\+Time }\end{DoxyParamCaption})}
+
+
+
+음성 입력의 유효성을 검증 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command\+Type} & 명령 타입 \\
+\hline
+{\em command\+Value} & 명령 값 \\
+\hline
+{\em confidence} & 신뢰도 \\
+\hline
+{\em current\+Time} & 현재 시간 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+유효하면 1, 유효하지 않으면 0 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_ad9e72a9e666b7ac9f0bcd13051e0e154_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_ad9e72a9e666b7ac9f0bcd13051e0e154_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center___functions_8cin_ae3d1e63b132583b4264a9b2210fad30c}\label{_z_c_u___center___functions_8cin_ae3d1e63b132583b4264a9b2210fad30c} 
+\index{ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}!VerifyE2EProtection@{VerifyE2EProtection}}
+\index{VerifyE2EProtection@{VerifyE2EProtection}!ZCU\_Center\_Functions.cin@{ZCU\_Center\_Functions.cin}}
+\doxysubsubsection{\texorpdfstring{VerifyE2EProtection()}{VerifyE2EProtection()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Verify\+E2\+EProtection (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}}}]{data\+Array\mbox{[}$\,$\mbox{]},  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}}}]{data\+Length,  }\item[{\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{word}}}]{received\+CRC }\end{DoxyParamCaption})}
+
+
+
+CAN 메시지의 E2E 보호 검증 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data\+Array} & 데이터 배열 \\
+\hline
+{\em data\+Length} & 데이터 길이 \\
+\hline
+{\em received\+CRC} & 수신된 CRC 값 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+검증 성공 시 1, 실패 시 0 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d09/_z_c_u___center___functions_8cin_ae3d1e63b132583b4264a9b2210fad30c_icgraph}
+\end{center}
+\end{figure}

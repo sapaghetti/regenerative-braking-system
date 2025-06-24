@@ -1,0 +1,19 @@
+<map id="VerifyE2EProtection" name="VerifyE2EProtection">
+<area shape="rect" id="Node000001" title="CAN 메시지의 E2E 보호 검증" alt="" coords="508,113,646,140"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#a661e5acce29451790b2e7ef1d70eeec4" title="&#39;on message M012_Cluster_Display&#39; 이벤트 핸들러 로직을 처리" alt="" coords="248,24,449,51"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="535,108,459,74,398,54,400,49,461,70,537,104"/>
+<area shape="rect" id="Node000004" href="$d6/d09/_z_c_u___center___functions_8cin.html#a0b986b10951b10e8fe82eb6a244e2829" title="&#39;on message M009_Mode_Change_Resp&#39; 이벤트 핸들러 로직을 처리" alt="" coords="237,84,460,111"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="492,118,457,114,458,109,493,113"/>
+<area shape="rect" id="Node000006" href="$d6/d09/_z_c_u___center___functions_8cin.html#a47730f4911cc48000c6c00372ebeea03" title="&#39;on message L004_SW_Button_Input&#39; 이벤트 핸들러 로직을 처리" alt="" coords="248,139,449,165"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="493,139,450,143,449,138,492,133"/>
+<area shape="rect" id="Node000008" href="$d6/d09/_z_c_u___center___functions_8cin.html#afeb35a6cbc7536f113abaa2a0e7831a6" title="&#39;on message L003_Voice_Command&#39; 이벤트 핸들러 로직을 처리" alt="" coords="245,197,452,224"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="534,149,461,180,401,199,399,194,459,175,532,144"/>
+<area shape="rect" id="Node000003" href="$d8/d1a/_z_c_u___center_8can.html#a4f8bb7706f83855fc948532a22b80e65" title="클러스터 표시 데이터 메시지 수신 이벤트 핸들러" alt="" coords="5,5,189,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="232,35,189,33,189,28,232,30"/>
+<area shape="rect" id="Node000005" href="$d8/d1a/_z_c_u___center_8can.html#a80c50fc98f3e20714d2e7aec41c52f8e" title="모드 변경 응답 메시지 수신 이벤트 핸들러" alt="" coords="10,72,184,115"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="221,98,184,97,184,92,221,93"/>
+<area shape="rect" id="Node000007" href="$d8/d1a/_z_c_u___center_8can.html#a94aa8c12c778744941b6132cd8d0220b" title="스티어링 휠 버튼 입력 메시지 수신 이벤트 핸들러" alt="" coords="17,139,177,181"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="232,158,177,160,177,155,232,153"/>
+<area shape="rect" id="Node000009" href="$d8/d1a/_z_c_u___center_8can.html#a60681a91e13e0350940216c9fb745a2a" title="음성 명령 메시지 수신 이벤트 핸들러" alt="" coords="12,205,182,248"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="229,221,182,224,182,219,229,216"/>
+</map>

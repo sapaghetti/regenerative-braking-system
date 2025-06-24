@@ -1,0 +1,5 @@
+<map id="HandleStartEvent" name="HandleStartEvent">
+<area shape="rect" id="Node000001" title="&#39;on start&#39; 이벤트 핸들러 로직을 처리" alt="" coords="122,5,246,32"/>
+<area shape="rect" id="Node000002" href="$d4/dd2/_h_p_c_8can.html#a8048a45bb4a5c1e5a546050aaabbed26" title="시뮬레이션 시작 시 호출되는 이벤트 핸들러" alt="" coords="5,5,74,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,21,74,21,74,16,106,16"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="SendM005_VehicleDynamics" name="SendM005_VehicleDynamics">
+<area shape="rect" id="Node000001" title="주요 차량 동역학 메시지(M005)를 전송" alt="" coords="5,56,197,83"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#a9a34d9cbfe6dc2dfb84ee4d2874ddc66" title="시뮬레이션 환경에서 가속 페달 위치를 읽음" alt="" coords="278,5,358,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="161,53,262,29,264,34,162,58"/>
+<area shape="rect" id="Node000003" href="$d6/db8/_z_c_u___front___functions_8cin.html#ad172d049553976d7a8df27cc09016a52" title="시뮬레이션 환경에서 차량 속도를 읽음" alt="" coords="252,56,384,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="197,67,237,67,237,72,197,72"/>
+<area shape="rect" id="Node000004" href="$d6/db8/_z_c_u___front___functions_8cin.html#aa04c8f60ae0bb1869842b1e3b97e0c3e" title="센서 값이 정의된 최소/최대 범위 내에 있는지 확인" alt="" coords="245,107,391,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="162,81,243,100,242,105,161,86"/>
+</map>

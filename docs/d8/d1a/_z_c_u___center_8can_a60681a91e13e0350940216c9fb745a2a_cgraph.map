@@ -1,0 +1,31 @@
+<map id="on_message_L003_Voice_Command" name="on_message_L003_Voice_Command">
+<area shape="rect" id="Node000001" title="음성 명령 메시지 수신 이벤트 핸들러" alt="" coords="5,89,175,132"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#afeb35a6cbc7536f113abaa2a0e7831a6" title="&#39;on message L003_Voice_Command&#39; 이벤트 핸들러 로직을 처리" alt="" coords="223,97,430,124"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,108,207,108,207,113,175,113"/>
+<area shape="rect" id="Node000003" href="$d6/d09/_z_c_u___center___functions_8cin.html#a776a833c371218d728b4a27e2f6dfca5" title="음성 입력을 기반으로 모드 변경 요청을 생성" alt="" coords="478,5,684,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="368,94,477,57,497,51,499,56,479,63,369,99"/>
+<area shape="rect" id="Node000004" href="$d6/d09/_z_c_u___center___functions_8cin.html#aa8a5bb905e77e44b01f1175685e49836" title="모드 변경 요청 메시지(M008)를 전송" alt="" coords="492,72,670,99"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="430,98,477,93,477,98,431,103"/>
+<area shape="rect" id="Node000005" href="$d6/d09/_z_c_u___center___functions_8cin.html#ad9e72a9e666b7ac9f0bcd13051e0e154" title="음성 입력의 유효성을 검증" alt="" coords="517,123,645,149"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="431,118,502,125,501,131,430,124"/>
+<area shape="rect" id="Node000015" href="$d6/d09/_z_c_u___center___functions_8cin.html#ae3d1e63b132583b4264a9b2210fad30c" title="CAN 메시지의 E2E 보호 검증" alt="" coords="512,173,650,200"/>
+<area shape="poly" id="edge14_Node000002_Node000015" title=" " alt="" coords="367,122,479,159,506,166,505,172,477,164,365,127"/>
+<area shape="rect" id="Node000006" href="$d6/d09/_z_c_u___center___functions_8cin.html#a1366b73e3db319850ae23722e5460d22" title="폴트 레지스터에서 특정 폴트 비트를 지움" alt="" coords="732,97,814,124"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="645,125,717,115,718,121,646,130"/>
+<area shape="rect" id="Node000007" href="$d6/d09/_z_c_u___center___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거" alt="" coords="738,148,808,175"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="646,142,723,152,722,157,645,147"/>
+<area shape="rect" id="Node000008" href="$d6/d09/_z_c_u___center___functions_8cin.html#a92e4ed6722de9556e15267afb3bcd408" title="현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트" alt="" coords="862,148,1001,175"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="808,159,846,159,846,164,808,164"/>
+<area shape="rect" id="Node000009" href="$d6/d09/_z_c_u___center___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태 간의 전환을 관리" alt="" coords="1049,148,1172,175"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1001,159,1033,159,1033,164,1001,164"/>
+<area shape="rect" id="Node000010" href="$d6/d09/_z_c_u___center___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="1220,97,1346,124"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1158,145,1220,126,1221,131,1160,150"/>
+<area shape="rect" id="Node000011" href="$d6/d09/_z_c_u___center___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="1224,148,1342,175"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="1173,159,1209,159,1209,164,1173,164"/>
+<area shape="rect" id="Node000014" href="$d6/d09/_z_c_u___center___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="1227,199,1339,225"/>
+<area shape="poly" id="edge13_Node000009_Node000014" title=" " alt="" coords="1160,173,1221,191,1220,196,1158,178"/>
+<area shape="rect" id="Node000012" href="$d6/d09/_z_c_u___center___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="1400,123,1537,149"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="1342,151,1384,145,1385,150,1342,156"/>
+<area shape="rect" id="Node000013" href="$d6/d09/_z_c_u___center___functions_8cin.html#a8b9a584cbd1346ca9fc94f4857a5aaaa" title="클러스터 디스플레이를 업데이트" alt="" coords="1394,173,1543,200"/>
+<area shape="poly" id="edge12_Node000011_Node000013" title=" " alt="" coords="1342,167,1379,172,1378,177,1342,172"/>
+</map>
