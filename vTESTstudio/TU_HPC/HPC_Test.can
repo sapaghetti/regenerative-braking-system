@@ -139,7 +139,7 @@ export testcase TC_UNIT_104()
   currentRegenMode = REGEN_AUTO;
   currentVehicleSpeed = 10.0;
   gAutoRegenBaseTorque = 100.0;
-  v2xData.trafficLightStatus = 1;
+  @TMU::TrafficLightRed = 1;
   v2xData.roadGrade = 6;
 
   TestStep("실행", "CalculateOptimalTorque() 함수를 호출합니다.");
@@ -472,6 +472,7 @@ export testcase TC_INT_105()
   HandleStartEvent();
   currentRegenMode = REGEN_LEVEL1;
   currentVehicleSpeed = 50;
+  currentMotorSpeed = currentVehicleSpeed * GEAR_RATIO * 60 / (2 * PI * WHEEL_RADIUS * 3.6);
   apsPosition = 0;
   bppsPosition = 0;
   
