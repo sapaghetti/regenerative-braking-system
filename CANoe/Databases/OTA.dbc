@@ -105,7 +105,7 @@ BA_DEF_DEF_  "CANoeDrift" 0;
 BA_DEF_DEF_  "CANoeStartDelay" 0;
 BA_DEF_DEF_  "VFrameFormat" "StandardCAN";
 BA_ "BusType" "CAN FD";
-BA_ "DBName" "test1";
+BA_ "DBName" "OTA";
 BA_ "VFrameFormat" BO_ 262 14;
 BA_ "VFrameFormat" BO_ 258 14;
 BA_ "VFrameFormat" BO_ 515 14;
