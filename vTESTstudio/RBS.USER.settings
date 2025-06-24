@@ -2,7 +2,16 @@
 <Settings>
   <ProductVersion>10.1.5.0</ProductVersion>
   <Project>
-    <SerializableDictionaryOfStringObject />
+    <SerializableDictionaryOfStringObject>
+      <item>
+        <key type="System.String">
+          <string>CANoeConfigPathSutImport</string>
+        </key>
+        <value type="System.String">
+          <string>C:\RBS\CANoe\RBS.cfg</string>
+        </value>
+      </item>
+    </SerializableDictionaryOfStringObject>
   </Project>
   <WindowManagement>
     <SerializableDictionaryOfStringObject>
@@ -11,7 +20,7 @@
           <string>ActiveDocumentIndex</string>
         </key>
         <value type="System.Int32">
-          <int>3</int>
+          <int>2</int>
         </value>
       </item>
       <item>
@@ -62,7 +71,7 @@
         <value type="System.String">
           <string>&lt;DockSiteLayout xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SerializationFormat="ToolWindowsOnly" Version="2"&gt;
 	&lt;AutoHideHost /&gt;
-	&lt;Content xsi:type="SplitContainer" Orientation="Horizontal" DockedSize="1524.4,629.2"&gt;
+	&lt;Content xsi:type="SplitContainer" Orientation="Horizontal" DockedSize="1524.4,724.4"&gt;
 		&lt;UIElement xsi:type="SplitContainer" Orientation="Vertical" DockedSize="200,600"&gt;
 			&lt;UIElement xsi:type="ToolWindowContainer" DockedSize="211,407" SelectedWindowUniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b"&gt;
 				&lt;UIElement xsi:type="ToolWindowRef" UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" /&gt;
@@ -75,11 +84,11 @@
 		&lt;UIElement xsi:type="SplitContainer" Orientation="Vertical" DockedSize="716,400"&gt;
 			&lt;UIElement xsi:type="Workspace"&gt;
 				&lt;Content xsi:type="TabbedMdiHost"&gt;
-					&lt;Content xsi:type="TabbedMdiContainer" SelectedWindowUniqueId="860d42f3-8e58-4da1-bb9a-89f044bff106"&gt;
-						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="a818e05d-0f82-42d4-966f-8a24fed6abf5" /&gt;
-						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="d536175a-4f56-48b0-80b2-b771616da405" /&gt;
-						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="a8b2f51a-21e7-4fce-a2d0-762bd7ee53ed" /&gt;
-						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="860d42f3-8e58-4da1-bb9a-89f044bff106" /&gt;
+					&lt;Content xsi:type="TabbedMdiContainer" SelectedWindowUniqueId="87a1c876-86d6-4e99-8677-c83c03b720dc"&gt;
+						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="922d3d44-590b-48c6-a9a5-ebb1e2b9730d" /&gt;
+						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="5f83107d-5a01-47a5-99a5-13443ff85038" /&gt;
+						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="87a1c876-86d6-4e99-8677-c83c03b720dc" /&gt;
+						&lt;UIElement xsi:type="DocumentWindowRef" UniqueId="971c4626-8b8a-47ef-a8eb-e769b6bcad4a" /&gt;
 					&lt;/Content&gt;
 				&lt;/Content&gt;
 			&lt;/UIElement&gt;
@@ -109,11 +118,11 @@
 		&lt;/RaftingHost&gt;
 	&lt;/RaftingHosts&gt;
 	&lt;ToolWindows&gt;
-		&lt;ToolWindow UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" SerializationId="ProjectView" ContainerDockedSize="211,407" IsOpen="true" LastActiveDateTime="2025-06-21T17:21:45.4493376+09:00" State="Docked" /&gt;
-		&lt;ToolWindow UniqueId="284e2df0-0932-4854-9bf2-dbb96b34796a" SerializationId="LibraryView" ContainerDockedSize="211,266" IsOpen="true" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="80d3d55f-464d-44bb-8ea2-fa78f6b2e89b" SerializationId="ProjectView" ContainerDockedSize="211,407" IsOpen="true" LastActiveDateTime="2025-06-25T01:59:23.1278147+09:00" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="284e2df0-0932-4854-9bf2-dbb96b34796a" SerializationId="LibraryView" ContainerDockedSize="211,266" IsOpen="true" LastActiveDateTime="2025-06-21T19:32:23.8290094+09:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="0ce8c2bf-4325-402d-8ebc-52ba6d40ccf2" SerializationId="HomeDirectoryView" ContainerDockedSize="211,266" IsOpen="true" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="b0825994-7121-418f-bf5b-233d0dedd923" SerializationId="OutputService" ContainerDockedSize="716,200" IsOpen="true" LastActiveDateTime="2025-06-21T17:29:27.4803386+09:00" State="Docked" /&gt;
-		&lt;ToolWindow UniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1" SerializationId="FindResults1" ContainerDockedSize="716,200" IsOpen="true" State="Docked" /&gt;
+		&lt;ToolWindow UniqueId="b703a70f-aa52-477d-96fe-1c8fb52528f1" SerializationId="FindResults1" ContainerDockedSize="716,200" IsOpen="true" LastActiveDateTime="2025-06-18T12:50:10.686474+09:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="273e697c-d09c-47e6-9cf8-19391a67d987" SerializationId="CaplFunctionExplorer" ContainerDockedSize="211,676" IsOpen="false" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="6ac6e7cf-52c3-491e-8377-5b5c951e99f5" SerializationId="SymbolExplorer" ContainerDockedSize="250,200" IsOpen="true" LastActiveDateTime="2025-06-18T09:52:17.7459863+09:00" State="Docked" /&gt;
 		&lt;ToolWindow UniqueId="c6ddf369-eb82-4a69-9937-df3f2de48fcc" SerializationId="InterfaceFunctionExplorer" ContainerDockedSize="250,200" IsOpen="true" State="Docked" /&gt;
@@ -131,8 +140,8 @@
         <value type="System.Collections.Generic.List`1[Vector.ITE.ViewInterfaces.ViewSettings]">
           <ArrayOfViewSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <ViewSettings>
-              <Key>Path_.\TU_ZCU_Front\ZCU_Front_Test.vtt</Key>
-              <LastTouched>2025-06-21T08:47:13.5852675Z</LastTouched>
+              <Key>Path_.\TU_HPC\HPC_Test.vtt</Key>
+              <LastTouched>2025-06-24T17:05:13.2651536Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -141,18 +150,18 @@
                   <value type="Vector.ITE.TestTable.Editor.TtEditorSettings">
                     <TtEditorSettings>
                       <SplitterSettingsTet>
-                        <SplitPosition>150</SplitPosition>
+                        <SplitPosition>300</SplitPosition>
                         <Expanded>true</Expanded>
                       </SplitterSettingsTet>
                       <SplitterSettingsPv>
-                        <SplitPosition>250</SplitPosition>
+                        <SplitPosition>450</SplitPosition>
                         <Expanded>true</Expanded>
                       </SplitterSettingsPv>
                       <SplitterSettingsLv>
-                        <SplitPosition>249</SplitPosition>
+                        <SplitPosition>308</SplitPosition>
                         <Expanded>true</Expanded>
                       </SplitterSettingsLv>
-                      <ActiveView>2</ActiveView>
+                      <ActiveView>1</ActiveView>
                     </TtEditorSettings>
                   </value>
                 </item>
@@ -226,22 +235,8 @@
               </Settings>
             </ViewSettings>
             <ViewSettings>
-              <Key>ProjectConfiguration</Key>
-              <LastTouched>2025-06-21T08:47:13.438662Z</LastTouched>
-              <Settings>
-                <item>
-                  <key type="System.String">
-                    <string>SelectedTabPage</string>
-                  </key>
-                  <value type="Vector.ITE.Document.EProjectConfigurationTabPage">
-                    <EProjectConfigurationTabPage>BuildOptions</EProjectConfigurationTabPage>
-                  </value>
-                </item>
-              </Settings>
-            </ViewSettings>
-            <ViewSettings>
-              <Key>Path_.\TU_ZCU_Center\ZCU_Center_Test.can</Key>
-              <LastTouched>2025-06-21T08:47:13.5365081Z</LastTouched>
+              <Key>Path_.\..\CANoe\Nodes\HPC\HPC_Functions.cin</Key>
+              <LastTouched>2025-06-24T17:11:40.5328547Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -262,107 +257,51 @@
                     <PersistentOutliningNodes>
                       <OutliningNodes>
                         <PersistentOutliningNode>
-                          <Offset>21</Offset>
+                          <Offset>360</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>528</Offset>
+                          <Offset>903</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>612</Offset>
+                          <Offset>1078</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>195</Offset>
+                          <Offset>1511</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1072</Offset>
+                          <Offset>1359</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1156</Offset>
+                          <Offset>1325</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>741</Offset>
+                          <Offset>2202</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1696</Offset>
+                          <Offset>2136</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1786</Offset>
+                          <Offset>2395</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1285</Offset>
+                          <Offset>2761</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>2258</Offset>
+                          <Offset>4058</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>2344</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>2509</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>2594</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>1938</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>3115</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>3199</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>2702</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>3631</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>3716</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>3862</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>3962</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>3315</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>4358</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>4443</Offset>
-                          <IsCollapsed>false</IsCollapsed>
-                        </PersistentOutliningNode>
-                        <PersistentOutliningNode>
-                          <Offset>4605</Offset>
+                          <Offset>4349</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
@@ -370,147 +309,211 @@
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>4067</Offset>
+                          <Offset>4627</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>5132</Offset>
+                          <Offset>5383</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>5219</Offset>
+                          <Offset>5354</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>4798</Offset>
+                          <Offset>5586</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>5653</Offset>
+                          <Offset>3826</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>5742</Offset>
+                          <Offset>6467</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>5346</Offset>
+                          <Offset>5934</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>6186</Offset>
+                          <Offset>7089</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>6276</Offset>
+                          <Offset>8448</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>5871</Offset>
+                          <Offset>8675</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>7257</Offset>
+                          <Offset>8587</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>7735</Offset>
+                          <Offset>8941</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>7840</Offset>
+                          <Offset>8846</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>7596</Offset>
+                          <Offset>9085</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>7971</Offset>
+                          <Offset>9175</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>8096</Offset>
+                          <Offset>9043</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>8189</Offset>
+                          <Offset>8340</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>6405</Offset>
+                          <Offset>10427</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>9187</Offset>
+                          <Offset>10490</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>9467</Offset>
+                          <Offset>9441</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>9583</Offset>
+                          <Offset>10873</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>9762</Offset>
+                          <Offset>10801</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>9846</Offset>
+                          <Offset>11724</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>9961</Offset>
+                          <Offset>11798</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>10055</Offset>
+                          <Offset>11874</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>8306</Offset>
+                          <Offset>11633</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>10704</Offset>
+                          <Offset>12066</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>10795</Offset>
+                          <Offset>12453</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>10172</Offset>
+                          <Offset>12627</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>11354</Offset>
+                          <Offset>13284</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>11454</Offset>
+                          <Offset>13488</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>11640</Offset>
+                          <Offset>14169</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>11732</Offset>
+                          <Offset>14241</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>11220</Offset>
+                          <Offset>13120</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>11869</Offset>
+                          <Offset>14775</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>10946</Offset>
+                          <Offset>15324</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>15423</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>15100</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>16093</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>15936</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>15746</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>17314</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>17259</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>17908</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>17960</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>18380</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>18187</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>18092</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>17681</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>18928</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>18986</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>18884</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                       </OutliningNodes>
@@ -522,7 +525,7 @@
                     <string>Offset</string>
                   </key>
                   <value type="System.Int32">
-                    <int>29</int>
+                    <int>3802</int>
                   </value>
                 </item>
                 <item>
@@ -530,7 +533,246 @@
                     <string>FirstVisibleDisplayLineIndex</string>
                   </key>
                   <value type="System.Int32">
-                    <int>0</int>
+                    <int>164</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>SplitterPosNavigator</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.Common.PersistentItems.PersistentSplitterPosition">
+                    <PersistentSplitterPosition>
+                      <Width>200</Width>
+                      <MinWidth>125</MinWidth>
+                    </PersistentSplitterPosition>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CNCRootNodes</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.CAPL.Navigator.Model.SerializedNodeList">
+                    <ArrayOfSerializedNode>
+                      <SerializedNode>
+                        <Name>Includes</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Variables</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>System</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Value Objects</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>CAN</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>LIN</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>FlexRay</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>BAP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Diagnostics</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>J1939</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>GMLAN</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>J1587</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>A429</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Service Signal</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>SOME/IP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Ethernet</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>TCP/IP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>A664</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Autosar PDU</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>XCP/CCP</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Map Window</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Station Items</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>CANopen</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Application Layer Objects</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Communication Objects</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Support</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Functions</Name>
+                        <ParentID />
+                        <IsExpanded>true</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Functions</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Cases</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Sequences</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                      <SerializedNode>
+                        <Name>Test Control</Name>
+                        <ParentID />
+                        <IsExpanded>false</IsExpanded>
+                      </SerializedNode>
+                    </ArrayOfSerializedNode>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CNCGroups</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.CAPL.Navigator.Model.SerializedNodeList">
+                    <ArrayOfSerializedNode />
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>CNCVirtualGroups</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.CAPL.Navigator.Model.SerializedNodeList">
+                    <ArrayOfSerializedNode />
+                  </value>
+                </item>
+              </Settings>
+            </ViewSettings>
+            <ViewSettings>
+              <Key>Path_.\..\CANoe\Nodes\HPC\HPC_Config.cin</Key>
+              <LastTouched>2025-06-24T17:21:31.5364231Z</LastTouched>
+              <Settings>
+                <item>
+                  <key type="System.String">
+                    <string>AcitiproHonizontalSplitterPosNavigator</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.Common.PersistentItems.PersistentActiproSplitterPosition">
+                    <PersistentActiproSplitterPosition>
+                      <SplitPercentage>0</SplitPercentage>
+                      <HasSplitEnabled>false</HasSplitEnabled>
+                    </PersistentActiproSplitterPosition>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>Outlining</string>
+                  </key>
+                  <value type="Vector.ITE.Languages.Common.PersistentItems.PersistentOutliningNodes">
+                    <PersistentOutliningNodes>
+                      <OutliningNodes>
+                        <PersistentOutliningNode>
+                          <Offset>100</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                      </OutliningNodes>
+                    </PersistentOutliningNodes>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>Offset</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>5042</int>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>FirstVisibleDisplayLineIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>169</int>
                   </value>
                 </item>
                 <item>
@@ -727,37 +969,8 @@
               </Settings>
             </ViewSettings>
             <ViewSettings>
-              <Key>TestUnitConfiguration_r078tqqhtd2q</Key>
-              <LastTouched>2025-06-21T08:27:45.8020874Z</LastTouched>
-              <Settings>
-                <item>
-                  <key type="System.String">
-                    <string>SelectedTabPage</string>
-                  </key>
-                  <value type="Vector.ITE.Document.TestUnitConfigurationTabPage">
-                    <TestUnitConfigurationTabPage>Properties</TestUnitConfigurationTabPage>
-                  </value>
-                </item>
-                <item>
-                  <key type="System.String">
-                    <string>StartValue_GUI</string>
-                  </key>
-                  <value type="System.String">
-                    <string>&lt;settings&gt;
-  &lt;Editable&gt;103&lt;/Editable&gt;
-  &lt;Name&gt;89&lt;/Name&gt;
-  &lt;Value&gt;89&lt;/Value&gt;
-  &lt;Type&gt;89&lt;/Type&gt;
-  &lt;TestUnits&gt;75&lt;/TestUnits&gt;
-  &lt;Dependencies&gt;90&lt;/Dependencies&gt;
-&lt;/settings&gt;</string>
-                  </value>
-                </item>
-              </Settings>
-            </ViewSettings>
-            <ViewSettings>
-              <Key>Path_.\TU_ZCU_Front\ZCU_Front_Test.can</Key>
-              <LastTouched>2025-06-21T08:47:13.5665395Z</LastTouched>
+              <Key>Path_.\TU_ZCU_Center\ZCU_Center_Test.can</Key>
+              <LastTouched>2025-06-24T17:21:15.5130863Z</LastTouched>
               <Settings>
                 <item>
                   <key type="System.String">
@@ -782,167 +995,211 @@
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>522</Offset>
+                          <Offset>188</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>606</Offset>
+                          <Offset>248</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>191</Offset>
+                          <Offset>320</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1064</Offset>
+                          <Offset>394</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1148</Offset>
+                          <Offset>468</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>735</Offset>
+                          <Offset>874</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1643</Offset>
+                          <Offset>943</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1719</Offset>
+                          <Offset>540</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1277</Offset>
+                          <Offset>1379</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>2272</Offset>
+                          <Offset>1448</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>2358</Offset>
+                          <Offset>1046</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>1843</Offset>
+                          <Offset>1952</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>2921</Offset>
+                          <Offset>2072</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>3014</Offset>
+                          <Offset>2472</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>3168</Offset>
+                          <Offset>2597</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>3250</Offset>
+                          <Offset>1623</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>2505</Offset>
+                          <Offset>3403</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>3722</Offset>
+                          <Offset>3498</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>3815</Offset>
+                          <Offset>2791</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>3356</Offset>
+                          <Offset>3925</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>4290</Offset>
+                          <Offset>4003</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>4375</Offset>
+                          <Offset>3634</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>3921</Offset>
+                          <Offset>5213</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>5033</Offset>
+                          <Offset>5293</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>5125</Offset>
+                          <Offset>5091</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>4484</Offset>
+                          <Offset>5491</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>5747</Offset>
+                          <Offset>4119</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>6526</Offset>
+                          <Offset>6712</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>5231</Offset>
+                          <Offset>6777</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>6909</Offset>
+                          <Offset>5604</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>7684</Offset>
+                          <Offset>8097</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>6645</Offset>
+                          <Offset>8174</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>8161</Offset>
+                          <Offset>7015</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>8245</Offset>
+                          <Offset>8731</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>7805</Offset>
+                          <Offset>8809</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>8693</Offset>
+                          <Offset>8305</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>8779</Offset>
+                          <Offset>10026</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>8388</Offset>
+                          <Offset>10107</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>9239</Offset>
+                          <Offset>9950</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>9326</Offset>
+                          <Offset>10246</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                         <PersistentOutliningNode>
-                          <Offset>8926</Offset>
+                          <Offset>8964</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11389</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11470</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11260</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11648</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>10359</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>13105</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>13191</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>11761</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>14556</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>14638</Offset>
+                          <IsCollapsed>false</IsCollapsed>
+                        </PersistentOutliningNode>
+                        <PersistentOutliningNode>
+                          <Offset>13544</Offset>
                           <IsCollapsed>false</IsCollapsed>
                         </PersistentOutliningNode>
                       </OutliningNodes>
@@ -954,7 +1211,7 @@
                     <string>Offset</string>
                   </key>
                   <value type="System.Int32">
-                    <int>187</int>
+                    <int>4289</int>
                   </value>
                 </item>
                 <item>
@@ -962,7 +1219,7 @@
                     <string>FirstVisibleDisplayLineIndex</string>
                   </key>
                   <value type="System.Int32">
-                    <int>0</int>
+                    <int>173</int>
                   </value>
                 </item>
                 <item>
@@ -1377,17 +1634,11 @@
               <Settings>
                 <item>
                   <key type="System.String">
-                    <string>TraceItems_TopIndex</string>
+                    <string>TraceItems_Expanded</string>
                   </key>
-                  <value type="System.Int32">
-                    <int>0</int>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType />
                   </value>
-                </item>
-                <item>
-                  <key type="System.String">
-                    <string>TraceItems_Focused</string>
-                  </key>
-                  <value type="null" />
                 </item>
                 <item>
                   <key type="System.String">
@@ -1399,10 +1650,16 @@
                 </item>
                 <item>
                   <key type="System.String">
-                    <string>TraceItems_Expanded</string>
+                    <string>TraceItems_Focused</string>
                   </key>
-                  <value type="System.Collections.ArrayList">
-                    <ArrayOfAnyType />
+                  <value type="null" />
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>TraceItems_TopIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
                   </value>
                 </item>
               </Settings>
@@ -1412,18 +1669,12 @@
               <Settings>
                 <item>
                   <key type="System.String">
-                    <string>HomeDirectoryView_TopIndex</string>
+                    <string>HomeDirectoryView_Expanded</string>
                   </key>
-                  <value type="System.Int32">
-                    <int>0</int>
-                  </value>
-                </item>
-                <item>
-                  <key type="System.String">
-                    <string>HomeDirectoryView_Focused</string>
-                  </key>
-                  <value type="System.String">
-                    <string>vTESTstudio/vTESTstudio</string>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/vTESTstudio</anyType>
+                    </ArrayOfAnyType>
                   </value>
                 </item>
                 <item>
@@ -1438,12 +1689,18 @@
                 </item>
                 <item>
                   <key type="System.String">
-                    <string>HomeDirectoryView_Expanded</string>
+                    <string>HomeDirectoryView_Focused</string>
                   </key>
-                  <value type="System.Collections.ArrayList">
-                    <ArrayOfAnyType>
-                      <anyType xsi:type="xsd:string">vTESTstudio/vTESTstudio</anyType>
-                    </ArrayOfAnyType>
+                  <value type="System.String">
+                    <string>vTESTstudio/vTESTstudio</string>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>HomeDirectoryView_TopIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
                   </value>
                 </item>
               </Settings>
@@ -1453,17 +1710,11 @@
               <Settings>
                 <item>
                   <key type="System.String">
-                    <string>LibraryView_TopIndex</string>
+                    <string>LibraryView_Expanded</string>
                   </key>
-                  <value type="System.Int32">
-                    <int>0</int>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType />
                   </value>
-                </item>
-                <item>
-                  <key type="System.String">
-                    <string>LibraryView_Focused</string>
-                  </key>
-                  <value type="null" />
                 </item>
                 <item>
                   <key type="System.String">
@@ -1475,10 +1726,16 @@
                 </item>
                 <item>
                   <key type="System.String">
-                    <string>LibraryView_Expanded</string>
+                    <string>LibraryView_Focused</string>
                   </key>
-                  <value type="System.Collections.ArrayList">
-                    <ArrayOfAnyType />
+                  <value type="null" />
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>LibraryView_TopIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
                   </value>
                 </item>
               </Settings>
@@ -1488,18 +1745,15 @@
               <Settings>
                 <item>
                   <key type="System.String">
-                    <string>ProjectView_TopIndex</string>
+                    <string>ProjectView_Expanded</string>
                   </key>
-                  <value type="System.Int32">
-                    <int>0</int>
-                  </value>
-                </item>
-                <item>
-                  <key type="System.String">
-                    <string>ProjectView_Focused</string>
-                  </key>
-                  <value type="System.String">
-                    <string>vTESTstudio/ProjectRoot/Test Units/TU_ZCU_Front/ZCU_Front_Test.vtt</string>
+                  <value type="System.Collections.ArrayList">
+                    <ArrayOfAnyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot</anyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot/Test Units/TU_HPC</anyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot/Test Units/TU_ZCU_Front</anyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot/Test Units/TU_ZCU_Center</anyType>
+                    </ArrayOfAnyType>
                   </value>
                 </item>
                 <item>
@@ -1508,20 +1762,24 @@
                   </key>
                   <value type="System.Collections.ArrayList">
                     <ArrayOfAnyType>
-                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot/Test Units/TU_ZCU_Front/ZCU_Front_Test.vtt</anyType>
+                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot/Test Units/TU_HPC/HPC_Test.can</anyType>
                     </ArrayOfAnyType>
                   </value>
                 </item>
                 <item>
                   <key type="System.String">
-                    <string>ProjectView_Expanded</string>
+                    <string>ProjectView_Focused</string>
                   </key>
-                  <value type="System.Collections.ArrayList">
-                    <ArrayOfAnyType>
-                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot</anyType>
-                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot/Test Units/TU_ZCU_Front</anyType>
-                      <anyType xsi:type="xsd:string">vTESTstudio/ProjectRoot/Test Units/TU_ZCU_Center</anyType>
-                    </ArrayOfAnyType>
+                  <value type="System.String">
+                    <string>vTESTstudio/ProjectRoot/Test Units/TU_HPC/HPC_Test.can</string>
+                  </value>
+                </item>
+                <item>
+                  <key type="System.String">
+                    <string>ProjectView_TopIndex</string>
+                  </key>
+                  <value type="System.Int32">
+                    <int>0</int>
                   </value>
                 </item>
               </Settings>
