@@ -158,7 +158,8 @@ BO_ 2215838977 M012_Cluster_Display: 12 HPC
  SG_ Vehicle_Speed : 48|16@1+ (0.01,0) [0|655.35] ""  ZCU_Center
  SG_ Warning_Status : 40|8@1+ (1,0) [0|255] ""  ZCU_Center
  SG_ Cumulative_Regen_Energy : 24|16@1+ (10,0) [0|655350] "Wh"  ZCU_Center
- SG_ Instant_Regen_Power : 8|16@1+ (100,0) [0|6553500] "W"  ZCU_Center
+ SG_ Reserved : 16|8@1+ (1,0) [0|0] ""  ZCU_Center
+ SG_ Battery_SOC : 8|8@1+ (1,0) [0|100] "%"  ZCU_Center
  SG_ Display_Mode : 0|8@1+ (1,0) [0|4] ""  ZCU_Center
 
 BO_ 2215904514 M013_Brake_Light_Ctrl: 8 HPC

@@ -7,6 +7,10 @@ variables
   const int MAIN_CYCLE = 10;
   const int WATCHDOG_TIMEOUT = 20;
 
+  const float VEHICLE_INERTIA = 1.5;    // kg*m^2, 차량의 등가 관성 모멘트 (모터 기준)
+  const float GEAR_RATIO = 9.1;         // 감속기 기어비
+  const float WHEEL_RADIUS = 0.33;      // m, 바퀴 반경
+
   const float BATTERY_SOC_LIMIT = 95.0;
   const byte BATTERY_TEMP_MIN = 10;
   const byte BATTERY_TEMP_MAX = 45;

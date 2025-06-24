@@ -326,10 +326,10 @@ void UpdateClusterDisplay()
 {
   // 시뮬레이션 환경에서 클러스터 변수 업데이트
   sysSetVariableDWord("ZCU_Center", "Cluster_Display_Mode", clusterDisplay.currentDisplayMode);
-  sysSetVariableDWord("ZCU_Center", "Cluster_Instant_Power", clusterDisplay.instantRegenPower);
+  sysSetVariableDWord("ZCU_Center", "Cluster_Battery_SOC", clusterDisplay.batterySOC);
   sysSetVariableDWord("ZCU_Center", "Cluster_Cumulative_Energy", clusterDisplay.cumulativeRegenEnergy);
   sysSetVariableDWord("ZCU_Center", "Cluster_Vehicle_Speed", clusterDisplay.vehicleSpeed);
-  sysSetVariableDWord("ZCU_Center", "Cluster_Motor_Speed", clusterDisplay.motorSpeed);
+  sysSetVariableFloat("ZCU_Center", "Cluster_Motor_Speed", (float)(clusterDisplay.motorSpeed / 19027.0 * 8));
   sysSetVariableDWord("ZCU_Center", "Cluster_Warning_Status", clusterDisplay.warningStatus);
   sysSetVariableDWord("ZCU_Center", "Cluster_Active_Profile", clusterDisplay.activeProfile);
   sysSetVariableDWord("ZCU_Center", "Cluster_Comfort_Mode", clusterDisplay.comfortModeEnabled);
@@ -337,8 +337,8 @@ void UpdateClusterDisplay()
   clusterDisplay.lastUpdateTime = timeNowNS() / 1000000;
   clusterDisplay.displayDataValid = 1;
 
-//  write("ZCU_Center: Cluster updated - Mode=%d, Pwr=%dW, Eng=%dWh, V=%.2fkm/h, M=%drpm, Warn=0x%02X",
-//        clusterDisplay.currentDisplayMode, clusterDisplay.instantRegenPower, 
+//  write("ZCU_Center: Cluster updated - Mode=%d, SOC=%d%%, Eng=%dWh, V=%.2fkm/h, M=%drpm, Warn=0x%02X",
+//        clusterDisplay.currentDisplayMode, clusterDisplay.batterySOC, 
 //        clusterDisplay.cumulativeRegenEnergy, clusterDisplay.vehicleSpeed,
 //        clusterDisplay.motorSpeed, clusterDisplay.warningStatus);
 }
@@ -661,7 +661,7 @@ void InitializeGlobals()
   // 클러스터 표시 데이터 초기화
   clusterDisplay.currentDisplayMode = MODE_LEVEL_0;
   clusterDisplay.previousDisplayMode = MODE_LEVEL_0;
-  clusterDisplay.instantRegenPower = 0;
+  clusterDisplay.batterySOC = 0;
   clusterDisplay.cumulativeRegenEnergy = 0;
   clusterDisplay.vehicleSpeed = 0;
   clusterDisplay.motorSpeed = 0;
@@ -1063,8 +1063,8 @@ void HandleClusterDisplayMessage(message M012_Cluster_Display msg)
 
   // E2E 보호 검증
   dataArray[0] = msg.Display_Mode;
-  dataArray[1] = (byte)(msg.Instant_Regen_Power & 0xFF);
-  dataArray[2] = (byte)((msg.Instant_Regen_Power >> 8) & 0xFF);
+  dataArray[1] = msg.Battery_SOC;
+  dataArray[2] = msg.Reserved;
   dataArray[3] = (byte)(msg.Cumulative_Regen_Energy & 0xFF);
   dataArray[4] = (byte)((msg.Cumulative_Regen_Energy >> 8) & 0xFF);
   dataArray[5] = msg.Warning_Status;
@@ -1081,9 +1081,9 @@ void HandleClusterDisplayMessage(message M012_Cluster_Display msg)
 
   // 클러스터 표시 데이터 업데이트
   clusterDisplay.currentDisplayMode = msg.Display_Mode;
-  clusterDisplay.instantRegenPower = msg.Instant_Regen_Power;
+  clusterDisplay.batterySOC = msg.Battery_SOC;
   clusterDisplay.cumulativeRegenEnergy = msg.Cumulative_Regen_Energy;
-  clusterDisplay.vehicleSpeed = msg.Vehicle_Speed / 100.0;
+  clusterDisplay.vehicleSpeed = msg.Vehicle_Speed.phys;
   clusterDisplay.motorSpeed = msg.Motor_Speed;
   clusterDisplay.warningStatus = msg.Warning_Status;
 
@@ -1146,7 +1146,8 @@ void HandleStatusDisplayKey()
   write("=== ZCU_Center Status ===");
   write("State: %d, Faults: 0x%08X", currentState, faultRegister);
   write("Current Mode: %d, Active Profile: %d", clusterDisplay.currentDisplayMode, clusterDisplay.activeProfile);
-  write("Instant Power: %dW, Cumulative Energy: %dWh", clusterDisplay.instantRegenPower, clusterDisplay.cumulativeRegenEnergy);
+  write("Battery SOC: %d%%", clusterDisplay.batterySOC);
+  write("Cumulative Energy: %dWh", clusterDisplay.cumulativeRegenEnergy);
   write("Warning Status: 0x%02X, Comfort Mode: %d", clusterDisplay.warningStatus, clusterDisplay.comfortModeEnabled);
   write("Comm Status: 0x%02X, M012 Fail: %d, M009 Fail: %d", 
         commMon.commStatus, commMon.failureCount_M012, commMon.failureCount_M009);
@@ -1163,7 +1164,6 @@ void HandleClusterTestKey()
 {
   write("ZCU_Center: Testing cluster display with sample data");
   
-  clusterDisplay.instantRegenPower = 5000;  // 5kW
   clusterDisplay.cumulativeRegenEnergy = 1500;  // 1.5kWh
   clusterDisplay.warningStatus = WARNING_BATTERY;
   

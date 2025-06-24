@@ -1,4 +1,4 @@
-/*@!Encoding:65001*/
+﻿/*@!Encoding:65001*/
 includes
 {
   #include "../../CANoe/Nodes/ZCU_Center/ZCU_Center_Config.cin"
@@ -413,15 +413,15 @@ export testcase TC_SW_303()
 
   TestStep("실행", "M012_Cluster_Display 메시지를 전송합니다.");
   msg.Display_Mode = 3;
-  msg.Instant_Regen_Power = 5000;
+  msg.Battery_SOC = 50;
   msg.Cumulative_Regen_Energy = 12345;
   msg.Warning_Status = WARNING_BATTERY;
   msg.Vehicle_Speed = 6000;
   msg.Motor_Speed = 3000;
 
   dataArray[0] = msg.Display_Mode;
-  dataArray[1] = (byte)(msg.Instant_Regen_Power & 0xFF);
-  dataArray[2] = (byte)((msg.Instant_Regen_Power >> 8) & 0xFF);
+  dataArray[1] = msg.Battery_SOC;
+  dataArray[2] = msg.Reserved;
   dataArray[3] = (byte)(msg.Cumulative_Regen_Energy & 0xFF);
   dataArray[4] = (byte)((msg.Cumulative_Regen_Energy >> 8) & 0xFF);
   dataArray[5] = msg.Warning_Status;
@@ -437,16 +437,16 @@ export testcase TC_SW_303()
 
   TestStep("검증", "ZCU_Center 네임스페이스의 시스템 변수 값들을 확인합니다.");
   if (sysGetVariableDWord("ZCU_Center", "Cluster_Display_Mode") == 3 &&
-      sysGetVariableDWord("ZCU_Center", "Cluster_Instant_Power") == 5000 &&
+      sysGetVariableDWord("ZCU_Center", "Cluster_Battery_SOC") == 50 &&
       (sysGetVariableDWord("ZCU_Center", "Cluster_Warning_Status") & WARNING_BATTERY) != 0)
   {
     TestStepPass("결과", "M012 수신 후 클러스터 관련 시스템 변수들이 정상적으로 업데이트되었습니다.");
   }
   else
   {
-    TestStepFail("결과", "클러스터 관련 시스템 변수 업데이트 실패. (Mode:%d, Power:%d, Warn:%d)",
+    TestStepFail("결과", "클러스터 관련 시스템 변수 업데이트 실패. (Mode:%d, Battery:%d, Warn:%d)",
                   sysGetVariableDWord("ZCU_Center", "Cluster_Display_Mode"),
-                  sysGetVariableDWord("ZCU_Center", "Cluster_Instant_Power"),
+                  sysGetVariableDWord("ZCU_Center", "Cluster_Battery_SOC"),
                   sysGetVariableDWord("ZCU_Center", "Cluster_Warning_Status"));
   }
 }

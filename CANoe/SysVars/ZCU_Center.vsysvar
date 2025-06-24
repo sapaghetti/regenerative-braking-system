@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <systemvariables version="4">
   <namespace name="" interface="">
     <namespace name="ZCU_Center" interface="">
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Center_System_Status" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="1" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Cluster_Active_Profile" bitcount="32" isSigned="false" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="%" name="Cluster_Battery_SOC" comment="" bitcount="32" isSigned="false" encoding="65001" type="int" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Cluster_Comfort_Mode" bitcount="32" isSigned="false" encoding="65001" type="int" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Cluster_Connected" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="1" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="Wh" name="Cluster_Cumulative_Energy" bitcount="32" isSigned="false" encoding="65001" type="int" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Cluster_Display_Mode" bitcount="32" isSigned="false" encoding="65001" type="int" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="W" name="Cluster_Instant_Power" bitcount="32" isSigned="false" encoding="65001" type="int" />
-      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="rpm" name="Cluster_Motor_Speed" bitcount="32" isSigned="false" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="rpm" name="Cluster_Motor_Speed" bitcount="64" isSigned="true" encoding="65001" type="float" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="km/h" name="Cluster_Vehicle_Speed" bitcount="32" isSigned="false" encoding="65001" type="int" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Cluster_Warning_Status" bitcount="32" isSigned="false" encoding="65001" type="int" />
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Firmware_Signature" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="3735928559" />

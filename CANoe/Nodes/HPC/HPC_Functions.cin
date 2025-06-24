@@ -1,4 +1,4 @@
-/*@!Encoding:65001*/
+﻿/*@!Encoding:65001*/
 // =================================================================
 // 상태 전이 함수
 // =================================================================
@@ -201,6 +201,39 @@ float CalculateOptimalTorque()
   return finalTorque;
 }
 
+/*
+ * @brief 토크 값을 기반으로 차량의 RPM과 속도를 업데이트하는 물리 시뮬레이션 함수
+ */
+void UpdateVehiclePhysics()
+{
+  float angular_acceleration; // rad/s^2, 각가속도
+  float delta_rpm;            // RPM 변화량
+  float wheel_rpm;            // 바퀴 RPM
+  
+  // 1. 각가속도 계산 (α = τ / I)
+  angular_acceleration = targetMotorTorque / VEHICLE_INERTIA;
+  
+  // 2. RPM 변화량 계산 (rad/s를 rpm으로 변환)
+  // 변화량(rpm) = 변화량(rev/s) * 60 = 변화량(rad/s) / (2*PI) * 60
+  delta_rpm = (angular_acceleration / (2 * pi)) * 60.0;
+  
+  // 3. 현재 모터 속도(RPM) 업데이트
+  currentMotorSpeed += delta_rpm * (MAIN_CYCLE / 1000.0); // 시간 변화량 적용
+  
+  // 모터가 역회전하지 않도록 방지
+  if (currentMotorSpeed < 0)
+  {
+    currentMotorSpeed = 0;
+  }
+
+  // 4. 차량 속도(km/h) 업데이트
+  // 바퀴 RPM = 모터 RPM / 기어비
+  wheel_rpm = currentMotorSpeed / GEAR_RATIO;
+  // 차량 속도(m/s) = 바퀴 RPS * 바퀴 둘레 = (바퀴 RPM / 60) * (2 * PI * R)
+  // 차량 속도(km/h) = 차량 속도(m/s) * 3.6
+  currentVehicleSpeed = (wheel_rpm / 60.0) * (2 * PI * WHEEL_RADIUS) * 3.6;
+}
+
 // =================================================================
 // 주기적 태스크 함수
 // =================================================================
@@ -218,11 +251,11 @@ void ExecuteTorqueControlTask()
   
   // CAN 메시지의 'Target_Regen_Torque' 시그널은 구동(양수)과 제동(음수) 토크 모두를 위해 사용됩니다.
   // 범위는 -3200 ~ +3200 Nm 이며, 오프셋이 적용됩니다.
-  cmd.Target_Regen_Torque = (word)((targetMotorTorque + 3200) / 0.1);
+  cmd.Target_Regen_Torque.phys = targetMotorTorque;
   cmd.Regen_Mode = (byte)currentRegenMode;
-  cmd.Torque_Rate_Limit = 25; // 250 Nm/s
+  cmd.Torque_Rate_Limit.phys = 250;
   cmd.E2E_Counter = ++watchdogCounter;
-  cmd.Max_Regen_Power = (byte)(maxRegenPower / 0.5);
+  cmd.Max_Regen_Power.phys = maxRegenPower;
 
   // E2E CRC 계산
   gCrcData[0] = (byte)(cmd.Target_Regen_Torque & 0xFF);
@@ -292,16 +325,16 @@ void ExecuteClusterDisplayTask()
   message M012_Cluster_Display display;
   
   display.Display_Mode = (byte)currentRegenMode;
-  display.Instant_Regen_Power = (word)(instantRegenPower / 100);
-  display.Cumulative_Regen_Energy = (word)(cumulativeRegenEnergy / 10);
+  display.Battery_SOC = batterySOC;
+  display.Cumulative_Regen_Energy.phys = cumulativeRegenEnergy;
   display.Warning_Status = (currentState == STATE_BATTERY_PROTECTION) ? 0x01 : 0x00;
-  display.Vehicle_Speed = (word)(currentVehicleSpeed * 100);
-  display.Motor_Speed = (word)currentMotorSpeed;
+  display.Vehicle_Speed.phys = currentVehicleSpeed;
+  display.Motor_Speed = (dword)currentMotorSpeed;
 
   // CRC 계산
   gCrcData[0] = display.Display_Mode;
-  gCrcData[1] = (byte)(display.Instant_Regen_Power & 0xFF);
-  gCrcData[2] = (byte)((display.Instant_Regen_Power >> 8) & 0xFF);
+  gCrcData[1] = display.Battery_SOC;
+  gCrcData[2] = 0;
   gCrcData[3] = (byte)(display.Cumulative_Regen_Energy & 0xFF);
   gCrcData[4] = (byte)((display.Cumulative_Regen_Energy >> 8) & 0xFF);
   gCrcData[5] = display.Warning_Status;
@@ -349,18 +382,24 @@ void ExecuteEnergyEfficiencyTask()
  */
 void HandleMainTaskTimer()
 {
-  ExecuteTorqueControlTask(); // 10ms 마다 실행
+  ExecuteTorqueControlTask();
+  UpdateVehiclePhysics();
 
-  if ((gTaskCounter % 10) == 0) // 100ms 마다 실행
+  if ((gTaskCounter % 10) == 0)
   {
     ExecuteClusterDisplayTask();
   }
 
-  if ((gTaskCounter % 20) == 0) // 200ms 마다 실행
+  if ((gTaskCounter % 20) == 0)
   {
     ExecuteEnergyEfficiencyTask();
   }
-  
+
+  if ((gTaskCounter % 50) == 0)
+  {
+    ExecuteAutoModeOptimizationTask();
+  }
+
   gTaskCounter++;
 }
 
@@ -497,7 +536,7 @@ void HandleRegenTorqueFeedbackMessage(message M002_Regen_Torque_Feedback msg)
   float torqueDifference;
   message M003_Friction_Brake_Req frictionReq;
     
-  actualRegen = (msg.Actual_Regen_Torque * 0.1) - 3200;
+  actualRegen = msg.Actual_Regen_Torque.phys;
 
   if (targetMotorTorque < 0) // 제동 상황일 때만
   {
@@ -556,8 +595,6 @@ void HandleVehicleDynamicsMessage(message M005_Vehicle_Dynamics msg)
   
   currentTime = timeNow();
   
-  currentVehicleSpeed = msg.Vehicle_Speed.phys;
-  currentMotorSpeed = currentVehicleSpeed * 90; // 모터 속도 근사 계산 (예: 100 km/h -> 9000 RPM)
   steeringAngle = msg.Steering_Angle.phys;
 
   if ((msg.Sensor_Status & 0x80) == 0x80) {

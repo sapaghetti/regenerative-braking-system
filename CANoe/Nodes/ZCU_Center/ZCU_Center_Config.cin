@@ -157,8 +157,8 @@ variables
     byte currentDisplayMode;
     /** @brief 이전 표시 모드 */
     byte previousDisplayMode;
-    /** @brief 순간 회생 전력 (W) */
-    dword instantRegenPower;
+    /** @brief 배터리 충전량 (%) */
+    byte batterySOC;
     /** @brief 누적 회생 에너지 (Wh) */
     dword cumulativeRegenEnergy;
     /** @brief 차량 속도 (분해능: 0.01 km/h) */
