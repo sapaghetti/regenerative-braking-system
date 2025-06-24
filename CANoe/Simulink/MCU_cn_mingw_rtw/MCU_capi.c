@@ -6,9 +6,9 @@
  *
  * Code generation for model "MCU".
  *
- * Model version              : 14.53
+ * Model version              : 14.55
  * Simulink Coder version : 24.2 (R2024b) 21-Jun-2024
- * C source code generated on : Mon Jun 23 10:58:58 2025
+ * C source code generated on : Tue Jun 24 19:10:09 2025
  *
  * Target selection: cn_mingw.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -873,10 +873,10 @@ static rtwCAPI_ModelMappingStaticInfo mmiStatic = {
     rtElementMap, rtSampleTimeMap, rtDimensionArray },
   "float",
 
-  { 124838842U,
-    1933162013U,
-    1287255322U,
-    4200287352U },
+  { 3942387753U,
+    3650243760U,
+    670352702U,
+    545980781U },
   (NULL), 0,
   (boolean_T)0
 };

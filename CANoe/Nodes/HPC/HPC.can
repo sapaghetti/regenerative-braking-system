@@ -61,3 +61,21 @@ on message M005_EXT_Brake_Pedal
 {
   HandleBrakePedalMessage(this);
 }
+
+/**
+ * @brief 키보드 'f' 키 입력 이벤트 핸들러
+ * @note 수동으로 HPC 통신 폴트를 주입하여 테스트
+ */
+on key 'f'
+{
+  HandleWatchdogTimeout();
+}
+
+/**
+ * @brief 키보드 'c' 키 입력 이벤트 핸들러
+ * @note 모든 폴트를 지우고 상태를 초기화
+ */
+on key 'c'
+{
+  TransitionToState(STATE_NORMAL);
+}

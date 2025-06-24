@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <systemvariables version="4">
-<!-- PLEASE DO NOT MODIFY. THIS FILE IS AUTO-GENERATED - MANUAL MODIFICATION MIGHT CAUSE UNINTENDED BEHAVIOR. -->
 <namespace name="" comment="" interface="">
   <namespace name="MCU" comment="" interface="">
     <namespace name="Parameters" comment="" interface="">

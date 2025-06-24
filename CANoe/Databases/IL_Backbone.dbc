@@ -33,7 +33,7 @@ NS_ :
 
 BS_:
 
-BU_: ZCU_Rear ZCU_Center ZCU_Front HPC
+BU_: HPC2 ZCU_Rear ZCU_Center ZCU_Front HPC
 VAL_TABLE_ vtbSensorReqCause 15 "SNA" 2 "by Request 2" 1 "by Request 1" 0 "normal cycle" ;
 VAL_TABLE_ vtbErrorDescription 255 "ERROR" ;
 
@@ -51,6 +51,72 @@ BO_ 3221225472 VECTOR__INDEPENDENT_SIG_MSG: 0 Vector__XXX
  SG_ Simulation_Status : 0|8@1+ (1,0) [0|3] "" Vector__XXX
  SG_ Current_Scenario : 0|8@1+ (1,0) [0|255] "" Vector__XXX
 
+BO_ 2166359556 M024_Security_Response_2: 8 HPC2
+ SG_ Security_CRC16 : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Response_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Quarantine_Duration : 24|8@1+ (1,0) [0|255] "s"  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Security_Level : 16|8@1+ (1,0) [0|3] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Target_ECU_Mask : 8|8@1+ (1,0) [0|255] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Response_Action : 0|8@1+ (1,0) [0|255] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+
+BO_ 2236614913 M016_Diagnostic_Data_5: 8 HPC2
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Operating_Hours : 32|16@1+ (1,0) [0|65535] "hours"  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Temperature : 24|8@1+ (1,-40) [-40|215] "degC"  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Memory_Usage : 16|8@1+ (1,0) [0|100] "%"  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ CPU_Usage : 8|8@1+ (1,0) [0|100] "%"  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ ECU_ID : 0|8@1+ (1,0) [0|255] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+
+BO_ 2216953090 M013_Brake_Light_Ctrl_2: 8 HPC2
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear
+ SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  ZCU_Rear
+ SG_ Control_Flags : 24|8@1+ (1,0) [0|255] ""  ZCU_Rear
+ SG_ Light_Intensity : 16|8@1+ (1,0) [0|100] "%"  ZCU_Rear
+ SG_ Deceleration_Level : 8|8@1+ (0.1,0) [0|25.5] "m/s^2"  ZCU_Rear
+ SG_ Brake_Light_Command : 0|8@1+ (1,0) [0|2] ""  ZCU_Rear
+
+BO_ 2216887553 M012_Cluster_Display_2: 12 HPC2
+ SG_ CRC16_Checksum : 80|16@1+ (1,0) [0|65535] ""  ZCU_Center
+ SG_ Motor_Speed : 64|16@1+ (1,0) [0|65535] ""  ZCU_Center
+ SG_ Vehicle_Speed : 48|16@1+ (0.01,0) [0|655.35] ""  ZCU_Center
+ SG_ Warning_Status : 40|8@1+ (1,0) [0|255] ""  ZCU_Center
+ SG_ Cumulative_Regen_Energy : 24|16@1+ (10,0) [0|655350] "Wh"  ZCU_Center
+ SG_ Reserved : 16|8@1+ (1,0) [0|0] ""  ZCU_Center
+ SG_ Battery_SOC : 8|8@1+ (1,0) [0|100] "%"  ZCU_Center
+ SG_ Display_Mode : 0|8@1+ (1,0) [0|4] ""  ZCU_Center
+
+BO_ 2200109570 M009_Mode_Change_Resp_2: 8 HPC2
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  ZCU_Center
+ SG_ Response_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  ZCU_Center
+ SG_ Failure_Reason : 24|8@1+ (1,0) [0|3] ""  ZCU_Center
+ SG_ Active_Profile : 16|8@1+ (1,0) [0|1] ""  ZCU_Center
+ SG_ Mode_Change_Status : 8|8@1+ (1,0) [0|2] ""  ZCU_Center
+ SG_ Current_Mode : 0|8@1+ (1,0) [0|4] ""  ZCU_Center
+
+BO_ 2152728065 M004_FailSafe_Status_5: 8 HPC2
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Event_Counter : 24|8@1+ (1,0) [0|255] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Fault_Type : 16|8@1+ (1,0) [0|255] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Source_ECU : 8|8@1+ (1,0) [0|255] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+ SG_ Fault_Code : 0|8@1+ (1,0) [0|2] ""  ZCU_Rear,ZCU_Front,ZCU_Center
+
+BO_ 2166620419 M003_Friction_Brake_Req_2: 8 HPC2
+ SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear
+ SG_ E2E_Counter : 40|8@1+ (1,0) [0|255] ""  ZCU_Rear
+ SG_ Control_Flags : 32|8@1+ (1,0) [0|255] ""  ZCU_Rear
+ SG_ Brake_Force_Distribution : 24|8@1+ (1,0) [0|100] "%"  ZCU_Rear
+ SG_ Brake_Request_Type : 16|8@1+ (1,0) [0|3] ""  ZCU_Rear
+ SG_ Required_Friction_Torque : 0|16@1+ (0.1,0) [0|6553.5] "Nm"  ZCU_Rear
+
+BO_ 2166620417 M001_Regen_Torque_Cmd_2: 8 HPC2
+ SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear
+ SG_ Max_Regen_Power : 40|8@1+ (0.5,0) [0|127.5] "kW"  ZCU_Rear
+ SG_ E2E_Counter : 32|8@1+ (1,0) [0|255] ""  ZCU_Rear
+ SG_ Torque_Rate_Limit : 24|8@1+ (10,0) [0|2550] "Nm/s"  ZCU_Rear
+ SG_ Regen_Mode : 16|8@1+ (1,0) [0|4] ""  ZCU_Rear
+ SG_ Target_Regen_Torque : 0|16@1+ (0.1,-3200) [-3200|3200] "Nm"  ZCU_Rear
+
 BO_ 2165571841 M001_Regen_Torque_Cmd: 8 HPC
  SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear
  SG_ Max_Regen_Power : 40|8@1+ (0.5,0) [0|127.5] "kW"  ZCU_Rear
@@ -60,11 +126,11 @@ BO_ 2165571841 M001_Regen_Torque_Cmd: 8 HPC
  SG_ Target_Regen_Torque : 0|16@1+ (0.1,-3200) [-3200|3200] "Nm"  ZCU_Rear
 
 BO_ 2168520962 M002_Regen_Torque_Feedback: 8 ZCU_Rear
- SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ MCU_Status : 40|8@1+ (1,0) [0|255] ""  HPC
- SG_ Regen_Power : 32|8@1+ (0.5,0) [0|127.5] "kW"  HPC
- SG_ Motor_Speed : 16|16@1+ (1,0) [0|65535] "rpm"  HPC
- SG_ Actual_Regen_Torque : 0|16@1+ (0.1,-3200) [-3200|3200] "Nm"  HPC
+ SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ MCU_Status : 40|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Regen_Power : 32|8@1+ (0.5,0) [0|127.5] "kW"  HPC2,HPC
+ SG_ Motor_Speed : 16|16@1+ (1,0) [0|65535] "rpm"  HPC2,HPC
+ SG_ Actual_Regen_Torque : 0|16@1+ (0.1,-3200) [-3200|3200] "Nm"  HPC2,HPC
 
 BO_ 2165571843 M003_Friction_Brake_Req: 8 HPC
  SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear
@@ -83,66 +149,66 @@ BO_ 2148533761 M004_FailSafe_Status_1: 8 HPC
  SG_ Fault_Code : 0|8@1+ (1,0) [0|2] ""  ZCU_Rear,ZCU_Center,ZCU_Front
 
 BO_ 2149582337 M004_FailSafe_Status_2: 8 ZCU_Front
- SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] "" ZCU_Rear,ZCU_Center,HPC
- SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms" ZCU_Rear,ZCU_Center,HPC
- SG_ Event_Counter : 24|8@1+ (1,0) [0|255] "" ZCU_Rear,ZCU_Center,HPC
- SG_ Fault_Type : 16|8@1+ (1,0) [0|255] "" ZCU_Rear,ZCU_Center,HPC
- SG_ Source_ECU : 8|8@1+ (1,0) [0|255] "" ZCU_Rear,ZCU_Center,HPC
- SG_ Fault_Code : 0|8@1+ (1,0) [0|2] "" ZCU_Rear,ZCU_Center,HPC
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC2,ZCU_Rear,ZCU_Center,HPC
+ SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC2,ZCU_Rear,ZCU_Center,HPC
+ SG_ Event_Counter : 24|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Rear,ZCU_Center,HPC
+ SG_ Fault_Type : 16|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Rear,ZCU_Center,HPC
+ SG_ Source_ECU : 8|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Rear,ZCU_Center,HPC
+ SG_ Fault_Code : 0|8@1+ (1,0) [0|2] ""  HPC2,ZCU_Rear,ZCU_Center,HPC
 
 BO_ 2150630913 M004_FailSafe_Status_3: 8 ZCU_Center
- SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] "" ZCU_Rear,ZCU_Front,HPC
- SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms" ZCU_Rear,ZCU_Front,HPC
- SG_ Event_Counter : 24|8@1+ (1,0) [0|255] "" ZCU_Rear,ZCU_Front,HPC
- SG_ Fault_Type : 16|8@1+ (1,0) [0|255] "" ZCU_Rear,ZCU_Front,HPC
- SG_ Source_ECU : 8|8@1+ (1,0) [0|255] "" ZCU_Rear,ZCU_Front,HPC
- SG_ Fault_Code : 0|8@1+ (1,0) [0|2] "" ZCU_Rear,ZCU_Front,HPC
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC2,ZCU_Rear,ZCU_Front,HPC
+ SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC2,ZCU_Rear,ZCU_Front,HPC
+ SG_ Event_Counter : 24|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Rear,ZCU_Front,HPC
+ SG_ Fault_Type : 16|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Rear,ZCU_Front,HPC
+ SG_ Source_ECU : 8|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Rear,ZCU_Front,HPC
+ SG_ Fault_Code : 0|8@1+ (1,0) [0|2] ""  HPC2,ZCU_Rear,ZCU_Front,HPC
 
 BO_ 2151679489 M004_FailSafe_Status_4: 8 ZCU_Rear
- SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] "" ZCU_Center,ZCU_Front,HPC
- SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms" ZCU_Center,ZCU_Front,HPC
- SG_ Event_Counter : 24|8@1+ (1,0) [0|255] "" ZCU_Center,ZCU_Front,HPC
- SG_ Fault_Type : 16|8@1+ (1,0) [0|255] "" ZCU_Center,ZCU_Front,HPC
- SG_ Source_ECU : 8|8@1+ (1,0) [0|255] "" ZCU_Center,ZCU_Front,HPC
- SG_ Fault_Code : 0|8@1+ (1,0) [0|2] "" ZCU_Center,ZCU_Front,HPC
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC2,ZCU_Center,ZCU_Front,HPC
+ SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC2,ZCU_Center,ZCU_Front,HPC
+ SG_ Event_Counter : 24|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Center,ZCU_Front,HPC
+ SG_ Fault_Type : 16|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Center,ZCU_Front,HPC
+ SG_ Source_ECU : 8|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Center,ZCU_Front,HPC
+ SG_ Fault_Code : 0|8@1+ (1,0) [0|2] ""  HPC2,ZCU_Center,ZCU_Front,HPC
 
 BO_ 2183201537 M005_Vehicle_Dynamics: 8 ZCU_Front
- SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Sensor_Status : 40|8@1+ (1,0) [0|255] ""  HPC
- SG_ Steering_Angle : 24|16@1+ (0.1,-3200) [-3200|3200] "deg"  HPC
- SG_ Vehicle_Speed : 8|16@1+ (0.01,0) [0|655.35] "km/h"  HPC
- SG_ APS_Position : 0|8@1+ (0.5,0) [0|100] "%"  HPC
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Sensor_Status : 40|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Steering_Angle : 24|16@1+ (0.1,-3200) [-3200|3200] "deg"  HPC2,HPC
+ SG_ Vehicle_Speed : 8|16@1+ (0.01,0) [0|655.35] "km/h"  HPC2,HPC
+ SG_ APS_Position : 0|8@1+ (0.5,0) [0|100] "%"  HPC2,HPC
 
 BO_ 2183201538 M005_EXT_Brake_Pedal: 4 ZCU_Front
- SG_ CRC16_Checksum : 16|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Sensor_Status : 8|8@1+ (1,0) [0|255] ""  HPC
- SG_ BPPS_Position : 0|8@1+ (0.5,0) [0|100] "%"  HPC
+ SG_ CRC16_Checksum : 16|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Sensor_Status : 8|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ BPPS_Position : 0|8@1+ (0.5,0) [0|100] "%"  HPC2,HPC
 
 BO_ 2185298690 M006_Battery_Basic: 12 ZCU_Rear
- SG_ Reserved : 80|16@1+ (1,0) [0|0] ""  HPC
- SG_ CRC16_Checksum : 64|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Regen_Limit_Factor : 56|8@1+ (1,0) [0|100] "%"  HPC
- SG_ BMS_Status : 48|8@1+ (1,0) [0|255] ""  HPC
- SG_ Battery_Current : 32|16@1+ (0.1,-3200) [-3200|3200] "A"  HPC
- SG_ Battery_Voltage : 16|16@1+ (0.1,0) [0|6553.5] "V"  HPC
- SG_ Battery_Temp : 8|8@1+ (1,-40) [-40|215] "degC"  HPC
- SG_ Battery_SOC : 0|8@1+ (1,0) [0|100] "%"  HPC
+ SG_ Reserved : 80|16@1+ (1,0) [0|0] ""  HPC2,HPC
+ SG_ CRC16_Checksum : 64|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Regen_Limit_Factor : 56|8@1+ (1,0) [0|100] "%"  HPC2,HPC
+ SG_ BMS_Status : 48|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Battery_Current : 32|16@1+ (0.1,-3200) [-3200|3200] "A"  HPC2,HPC
+ SG_ Battery_Voltage : 16|16@1+ (0.1,0) [0|6553.5] "V"  HPC2,HPC
+ SG_ Battery_Temp : 8|8@1+ (1,-40) [-40|215] "degC"  HPC2,HPC
+ SG_ Battery_SOC : 0|8@1+ (1,0) [0|100] "%"  HPC2,HPC
 
 BO_ 2185298691 M006_EXT_Battery_Detail: 8 ZCU_Rear
- SG_ Reserved : 56|8@1+ (1,0) [0|0] ""  HPC
- SG_ SOH_Percentage : 48|8@1+ (1,0) [0|100] "%"  HPC
- SG_ Cell_Min_Voltage : 32|16@1+ (1,0) [0|65535] "mV"  HPC
- SG_ Cell_Max_Voltage : 16|16@1+ (1,0) [0|65535] "mV"  HPC
- SG_ Cell_Min_Temp : 8|8@1+ (1,-40) [-40|215] "degC"  HPC
- SG_ Cell_Max_Temp : 0|8@1+ (1,-40) [-40|215] "degC"  HPC
+ SG_ Reserved : 56|8@1+ (1,0) [0|0] ""  HPC2,HPC
+ SG_ SOH_Percentage : 48|8@1+ (1,0) [0|100] "%"  HPC2,HPC
+ SG_ Cell_Min_Voltage : 32|16@1+ (1,0) [0|65535] "mV"  HPC2,HPC
+ SG_ Cell_Max_Voltage : 16|16@1+ (1,0) [0|65535] "mV"  HPC2,HPC
+ SG_ Cell_Min_Temp : 8|8@1+ (1,-40) [-40|215] "degC"  HPC2,HPC
+ SG_ Cell_Max_Temp : 0|8@1+ (1,-40) [-40|215] "degC"  HPC2,HPC
 
 BO_ 2201027073 M008_Mode_Change_Req: 8 ZCU_Center
- SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC
- SG_ Event_Counter : 24|8@1+ (1,0) [0|255] ""  HPC
- SG_ Profile_Type : 16|8@1+ (1,0) [0|1] ""  HPC
- SG_ Request_Source : 8|8@1+ (1,0) [0|2] ""  HPC
- SG_ Requested_Mode : 0|8@1+ (1,0) [0|4] ""  HPC
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC2,HPC
+ SG_ Event_Counter : 24|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Profile_Type : 16|8@1+ (1,0) [0|1] ""  HPC2,HPC
+ SG_ Request_Source : 8|8@1+ (1,0) [0|2] ""  HPC2,HPC
+ SG_ Requested_Mode : 0|8@1+ (1,0) [0|4] ""  HPC2,HPC
 
 BO_ 2199060994 M009_Mode_Change_Resp: 8 HPC
  SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  ZCU_Center
@@ -179,106 +245,106 @@ BO_ 2232420609 M016_Diagnostic_Data_1: 8 HPC
  SG_ ECU_ID : 0|8@1+ (1,0) [0|255] ""  ZCU_Rear,ZCU_Center,ZCU_Front
 
 BO_ 2233469185 M016_Diagnostic_Data_2: 8 ZCU_Front
- SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] "" ZCU_Rear,ZCU_Center,HPC
- SG_ Operating_Hours : 32|16@1+ (1,0) [0|65535] "hours" ZCU_Rear,ZCU_Center,HPC
- SG_ Temperature : 24|8@1+ (1,-40) [-40|215] "degC" ZCU_Rear,ZCU_Center,HPC
- SG_ Memory_Usage : 16|8@1+ (1,0) [0|100] "%" ZCU_Rear,ZCU_Center,HPC
- SG_ CPU_Usage : 8|8@1+ (1,0) [0|100] "%" ZCU_Rear,ZCU_Center,HPC
- SG_ ECU_ID : 0|8@1+ (1,0) [0|255] "" ZCU_Rear,ZCU_Center,HPC
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC2,ZCU_Rear,ZCU_Center,HPC
+ SG_ Operating_Hours : 32|16@1+ (1,0) [0|65535] "hours"  HPC2,ZCU_Rear,ZCU_Center,HPC
+ SG_ Temperature : 24|8@1+ (1,-40) [-40|215] "degC"  HPC2,ZCU_Rear,ZCU_Center,HPC
+ SG_ Memory_Usage : 16|8@1+ (1,0) [0|100] "%"  HPC2,ZCU_Rear,ZCU_Center,HPC
+ SG_ CPU_Usage : 8|8@1+ (1,0) [0|100] "%"  HPC2,ZCU_Rear,ZCU_Center,HPC
+ SG_ ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Rear,ZCU_Center,HPC
 
 BO_ 2234517761 M016_Diagnostic_Data_3: 8 ZCU_Center
- SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] "" ZCU_Rear,ZCU_Front,HPC
- SG_ Operating_Hours : 32|16@1+ (1,0) [0|65535] "hours" ZCU_Rear,ZCU_Front,HPC
- SG_ Temperature : 24|8@1+ (1,-40) [-40|215] "degC" ZCU_Rear,ZCU_Front,HPC
- SG_ Memory_Usage : 16|8@1+ (1,0) [0|100] "%" ZCU_Rear,ZCU_Front,HPC
- SG_ CPU_Usage : 8|8@1+ (1,0) [0|100] "%" ZCU_Rear,ZCU_Front,HPC
- SG_ ECU_ID : 0|8@1+ (1,0) [0|255] "" ZCU_Rear,ZCU_Front,HPC
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC2,ZCU_Rear,ZCU_Front,HPC
+ SG_ Operating_Hours : 32|16@1+ (1,0) [0|65535] "hours"  HPC2,ZCU_Rear,ZCU_Front,HPC
+ SG_ Temperature : 24|8@1+ (1,-40) [-40|215] "degC"  HPC2,ZCU_Rear,ZCU_Front,HPC
+ SG_ Memory_Usage : 16|8@1+ (1,0) [0|100] "%"  HPC2,ZCU_Rear,ZCU_Front,HPC
+ SG_ CPU_Usage : 8|8@1+ (1,0) [0|100] "%"  HPC2,ZCU_Rear,ZCU_Front,HPC
+ SG_ ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Rear,ZCU_Front,HPC
 
 BO_ 2235566337 M016_Diagnostic_Data_4: 8 ZCU_Rear
- SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] "" ZCU_Center,ZCU_Front,HPC
- SG_ Operating_Hours : 32|16@1+ (1,0) [0|65535] "hours" ZCU_Center,ZCU_Front,HPC
- SG_ Temperature : 24|8@1+ (1,-40) [-40|215] "degC" ZCU_Center,ZCU_Front,HPC
- SG_ Memory_Usage : 16|8@1+ (1,0) [0|100] "%" ZCU_Center,ZCU_Front,HPC
- SG_ CPU_Usage : 8|8@1+ (1,0) [0|100] "%" ZCU_Center,ZCU_Front,HPC
- SG_ ECU_ID : 0|8@1+ (1,0) [0|255] "" ZCU_Center,ZCU_Front,HPC
+ SG_ CRC16_Checksum : 48|16@1+ (1,0) [0|65535] ""  HPC2,ZCU_Center,ZCU_Front,HPC
+ SG_ Operating_Hours : 32|16@1+ (1,0) [0|65535] "hours"  HPC2,ZCU_Center,ZCU_Front,HPC
+ SG_ Temperature : 24|8@1+ (1,-40) [-40|215] "degC"  HPC2,ZCU_Center,ZCU_Front,HPC
+ SG_ Memory_Usage : 16|8@1+ (1,0) [0|100] "%"  HPC2,ZCU_Center,ZCU_Front,HPC
+ SG_ CPU_Usage : 8|8@1+ (1,0) [0|100] "%"  HPC2,ZCU_Center,ZCU_Front,HPC
+ SG_ ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,ZCU_Center,ZCU_Front,HPC
 
 BO_ 2149647873 M021_Functional_Safety_2: 8 ZCU_Front
- SG_ Safety_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Safe_State_Transition : 40|8@1+ (1,0) [0|255] ""  HPC
- SG_ FTTI_Remaining : 32|8@1+ (1,0) [0|255] "ms"  HPC
- SG_ Diagnostic_Coverage : 24|8@1+ (1,0) [0|100] "%"  HPC
- SG_ Fault_Detection : 16|8@1+ (1,0) [0|255] ""  HPC
- SG_ Safety_Status : 8|8@1+ (1,0) [0|255] ""  HPC
- SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC
+ SG_ Safety_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Safe_State_Transition : 40|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ FTTI_Remaining : 32|8@1+ (1,0) [0|255] "ms"  HPC2,HPC
+ SG_ Diagnostic_Coverage : 24|8@1+ (1,0) [0|100] "%"  HPC2,HPC
+ SG_ Fault_Detection : 16|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Safety_Status : 8|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,HPC
 
 BO_ 2150696449 M021_Functional_Safety_3: 8 ZCU_Center
- SG_ Safety_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Safe_State_Transition : 40|8@1+ (1,0) [0|255] ""  HPC
- SG_ FTTI_Remaining : 32|8@1+ (1,0) [0|255] "ms"  HPC
- SG_ Diagnostic_Coverage : 24|8@1+ (1,0) [0|100] "%"  HPC
- SG_ Fault_Detection : 16|8@1+ (1,0) [0|255] ""  HPC
- SG_ Safety_Status : 8|8@1+ (1,0) [0|255] ""  HPC
- SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC
+ SG_ Safety_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Safe_State_Transition : 40|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ FTTI_Remaining : 32|8@1+ (1,0) [0|255] "ms"  HPC2,HPC
+ SG_ Diagnostic_Coverage : 24|8@1+ (1,0) [0|100] "%"  HPC2,HPC
+ SG_ Fault_Detection : 16|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Safety_Status : 8|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,HPC
 
 BO_ 2151745025 M021_Functional_Safety_4: 8 ZCU_Rear
- SG_ Safety_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Safe_State_Transition : 40|8@1+ (1,0) [0|255] ""  HPC
- SG_ FTTI_Remaining : 32|8@1+ (1,0) [0|255] "ms"  HPC
- SG_ Diagnostic_Coverage : 24|8@1+ (1,0) [0|100] "%"  HPC
- SG_ Fault_Detection : 16|8@1+ (1,0) [0|255] ""  HPC
- SG_ Safety_Status : 8|8@1+ (1,0) [0|255] ""  HPC
- SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC
+ SG_ Safety_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Safe_State_Transition : 40|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ FTTI_Remaining : 32|8@1+ (1,0) [0|255] "ms"  HPC2,HPC
+ SG_ Diagnostic_Coverage : 24|8@1+ (1,0) [0|100] "%"  HPC2,HPC
+ SG_ Fault_Detection : 16|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Safety_Status : 8|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,HPC
 
 BO_ 2166425090 M022_E2E_Comm_Quality_2: 8 ZCU_Front
- SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Reserved : 40|8@1+ (1,0) [0|0] ""  HPC
- SG_ Comm_Status : 32|8@1+ (1,0) [0|255] ""  HPC
- SG_ Counter_Jump_Count : 24|8@1+ (1,0) [0|255] "count"  HPC
- SG_ Message_Loss_Rate : 16|8@1+ (0.1,0) [0|25.5] "%"  HPC
- SG_ E2E_Error_Rate : 8|8@1+ (0.1,0) [0|25.5] "%"  HPC
- SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC
+ SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Reserved : 40|8@1+ (1,0) [0|0] ""  HPC2,HPC
+ SG_ Comm_Status : 32|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Counter_Jump_Count : 24|8@1+ (1,0) [0|255] "count"  HPC2,HPC
+ SG_ Message_Loss_Rate : 16|8@1+ (0.1,0) [0|25.5] "%"  HPC2,HPC
+ SG_ E2E_Error_Rate : 8|8@1+ (0.1,0) [0|25.5] "%"  HPC2,HPC
+ SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,HPC
 
 BO_ 2167473666 M022_E2E_Comm_Quality_3: 8 ZCU_Center
- SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Reserved : 40|8@1+ (1,0) [0|0] ""  HPC
- SG_ Comm_Status : 32|8@1+ (1,0) [0|255] ""  HPC
- SG_ Counter_Jump_Count : 24|8@1+ (1,0) [0|255] "count"  HPC
- SG_ Message_Loss_Rate : 16|8@1+ (0.1,0) [0|25.5] "%"  HPC
- SG_ E2E_Error_Rate : 8|8@1+ (0.1,0) [0|25.5] "%"  HPC
- SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC
+ SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Reserved : 40|8@1+ (1,0) [0|0] ""  HPC2,HPC
+ SG_ Comm_Status : 32|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Counter_Jump_Count : 24|8@1+ (1,0) [0|255] "count"  HPC2,HPC
+ SG_ Message_Loss_Rate : 16|8@1+ (0.1,0) [0|25.5] "%"  HPC2,HPC
+ SG_ E2E_Error_Rate : 8|8@1+ (0.1,0) [0|25.5] "%"  HPC2,HPC
+ SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,HPC
 
 BO_ 2168522242 M022_E2E_Comm_Quality_4: 8 ZCU_Rear
- SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Reserved : 40|8@1+ (1,0) [0|0] ""  HPC
- SG_ Comm_Status : 32|8@1+ (1,0) [0|255] ""  HPC
- SG_ Counter_Jump_Count : 24|8@1+ (1,0) [0|255] "count"  HPC
- SG_ Message_Loss_Rate : 16|8@1+ (0.1,0) [0|25.5] "%"  HPC
- SG_ E2E_Error_Rate : 8|8@1+ (0.1,0) [0|25.5] "%"  HPC
- SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC
+ SG_ E2E_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Reserved : 40|8@1+ (1,0) [0|0] ""  HPC2,HPC
+ SG_ Comm_Status : 32|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Counter_Jump_Count : 24|8@1+ (1,0) [0|255] "count"  HPC2,HPC
+ SG_ Message_Loss_Rate : 16|8@1+ (0.1,0) [0|25.5] "%"  HPC2,HPC
+ SG_ E2E_Error_Rate : 8|8@1+ (0.1,0) [0|25.5] "%"  HPC2,HPC
+ SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,HPC
 
 BO_ 2166425091 M023_Security_Intrusion_2: 8 ZCU_Front
- SG_ Security_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC
- SG_ Target_Asset : 24|8@1+ (1,0) [0|3] ""  HPC
- SG_ Attack_Vector : 16|8@1+ (1,0) [0|4] ""  HPC
- SG_ Threat_Type : 8|8@1+ (1,0) [0|255] ""  HPC
- SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC
+ SG_ Security_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC2,HPC
+ SG_ Target_Asset : 24|8@1+ (1,0) [0|3] ""  HPC2,HPC
+ SG_ Attack_Vector : 16|8@1+ (1,0) [0|4] ""  HPC2,HPC
+ SG_ Threat_Type : 8|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,HPC
 
 BO_ 2167473667 M023_Security_Intrusion_3: 8 ZCU_Center
- SG_ Security_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC
- SG_ Target_Asset : 24|8@1+ (1,0) [0|3] ""  HPC
- SG_ Attack_Vector : 16|8@1+ (1,0) [0|4] ""  HPC
- SG_ Threat_Type : 8|8@1+ (1,0) [0|255] ""  HPC
- SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC
+ SG_ Security_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC2,HPC
+ SG_ Target_Asset : 24|8@1+ (1,0) [0|3] ""  HPC2,HPC
+ SG_ Attack_Vector : 16|8@1+ (1,0) [0|4] ""  HPC2,HPC
+ SG_ Threat_Type : 8|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,HPC
 
 BO_ 2168522243 M023_Security_Intrusion_4: 8 ZCU_Rear
- SG_ Security_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC
- SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC
- SG_ Target_Asset : 24|8@1+ (1,0) [0|3] ""  HPC
- SG_ Attack_Vector : 16|8@1+ (1,0) [0|4] ""  HPC
- SG_ Threat_Type : 8|8@1+ (1,0) [0|255] ""  HPC
- SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC
+ SG_ Security_CRC16 : 48|16@1+ (1,0) [0|65535] ""  HPC2,HPC
+ SG_ Event_Timestamp : 32|16@1+ (1,0) [0|65535] "ms"  HPC2,HPC
+ SG_ Target_Asset : 24|8@1+ (1,0) [0|3] ""  HPC2,HPC
+ SG_ Attack_Vector : 16|8@1+ (1,0) [0|4] ""  HPC2,HPC
+ SG_ Threat_Type : 8|8@1+ (1,0) [0|255] ""  HPC2,HPC
+ SG_ Source_ECU_ID : 0|8@1+ (1,0) [0|255] ""  HPC2,HPC
 
 BO_ 2165310980 M024_Security_Response: 8 HPC
  SG_ Security_CRC16 : 48|16@1+ (1,0) [0|65535] ""  ZCU_Rear,ZCU_Center,ZCU_Front
@@ -329,17 +395,20 @@ BA_DEF_DEF_  "GenMsgCycleTimeFast" 20;
 BA_DEF_DEF_  "GenMsgILSupport" "Yes";
 BA_DEF_DEF_  "GenMsgFastOnStart" 0;
 BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
-BA_ "BusType" "CAN FD";
 BA_ "DatabaseVersion" "";
-BA_ "VFrameFormat" BO_ 2151679489 15;
-BA_ "VFrameFormat" BO_ 2150630913 15;
-BA_ "VFrameFormat" BO_ 2149582337 15;
-BA_ "GenMsgCycleTime" BO_ 2235566337 1000;
-BA_ "VFrameFormat" BO_ 2235566337 15;
-BA_ "GenMsgCycleTime" BO_ 2234517761 1000;
-BA_ "VFrameFormat" BO_ 2234517761 15;
-BA_ "GenMsgCycleTime" BO_ 2233469185 1000;
-BA_ "VFrameFormat" BO_ 2233469185 15;
+BA_ "BusType" "CAN FD";
+BA_ "VFrameFormat" BO_ 2166359556 15;
+BA_ "GenMsgCycleTime" BO_ 2236614913 1000;
+BA_ "VFrameFormat" BO_ 2236614913 15;
+BA_ "VFrameFormat" BO_ 2216953090 15;
+BA_ "GenMsgCycleTime" BO_ 2216887553 100;
+BA_ "VFrameFormat" BO_ 2216887553 15;
+BA_ "VFrameFormat" BO_ 2200109570 15;
+BA_ "VFrameFormat" BO_ 2152728065 15;
+BA_ "GenMsgCycleTime" BO_ 2166620419 10;
+BA_ "VFrameFormat" BO_ 2166620419 15;
+BA_ "GenMsgCycleTime" BO_ 2166620417 10;
+BA_ "VFrameFormat" BO_ 2166620417 15;
 BA_ "GenMsgCycleTime" BO_ 2165571841 10;
 BA_ "VFrameFormat" BO_ 2165571841 15;
 BA_ "GenMsgCycleTime" BO_ 2168520962 10;
@@ -347,6 +416,9 @@ BA_ "VFrameFormat" BO_ 2168520962 15;
 BA_ "GenMsgCycleTime" BO_ 2165571843 10;
 BA_ "VFrameFormat" BO_ 2165571843 15;
 BA_ "VFrameFormat" BO_ 2148533761 15;
+BA_ "VFrameFormat" BO_ 2149582337 15;
+BA_ "VFrameFormat" BO_ 2150630913 15;
+BA_ "VFrameFormat" BO_ 2151679489 15;
 BA_ "GenMsgCycleTime" BO_ 2183201537 20;
 BA_ "VFrameFormat" BO_ 2183201537 15;
 BA_ "GenMsgCycleTime" BO_ 2183201538 10;
@@ -362,6 +434,12 @@ BA_ "VFrameFormat" BO_ 2215838977 15;
 BA_ "VFrameFormat" BO_ 2215904514 15;
 BA_ "GenMsgCycleTime" BO_ 2232420609 1000;
 BA_ "VFrameFormat" BO_ 2232420609 15;
+BA_ "GenMsgCycleTime" BO_ 2233469185 1000;
+BA_ "VFrameFormat" BO_ 2233469185 15;
+BA_ "GenMsgCycleTime" BO_ 2234517761 1000;
+BA_ "VFrameFormat" BO_ 2234517761 15;
+BA_ "GenMsgCycleTime" BO_ 2235566337 1000;
+BA_ "VFrameFormat" BO_ 2235566337 15;
 BA_ "GenMsgCycleTime" BO_ 2149647873 100;
 BA_ "VFrameFormat" BO_ 2149647873 15;
 BA_ "GenMsgCycleTime" BO_ 2150696449 100;
@@ -380,12 +458,22 @@ BA_ "VFrameFormat" BO_ 2168522243 15;
 BA_ "VFrameFormat" BO_ 2165310980 15;
 VAL_ 3221225472 Action_Type 3 "Reset" 2 "Pause" 1 "Stop" 0 "Start" ;
 VAL_ 3221225472 Simulation_Status 3 "Error" 2 "Paused" 1 "Running" 0 "Idle" ;
-VAL_ 2151679489 Fault_Code 2 "Warning" 1 "Critical" 0 "Normal" ;
-VAL_ 2150630913 Fault_Code 2 "Warning" 1 "Critical" 0 "Normal" ;
-VAL_ 2149582337 Fault_Code 2 "Warning" 1 "Critical" 0 "Normal" ;
+VAL_ 2166359556 Security_Level 3 "Emergency" 2 "Critical" 1 "Alert" 0 "Normal" ;
+VAL_ 2216953090 Brake_Light_Command 2 "Blink" 1 "On" 0 "Off" ;
+VAL_ 2216887553 Display_Mode 4 "Auto" 3 "Level3" 2 "Level2" 1 "Level1" 0 "Level0" ;
+VAL_ 2200109570 Failure_Reason 3 "System_Fault" 2 "Battery" 1 "Safety" 0 "None" ;
+VAL_ 2200109570 Active_Profile 1 "Comfort" 0 "Efficiency" ;
+VAL_ 2200109570 Mode_Change_Status 2 "In_Progress" 1 "Failed" 0 "Success" ;
+VAL_ 2200109570 Current_Mode 4 "Auto" 3 "Level3" 2 "Level2" 1 "Level1" 0 "Level0" ;
+VAL_ 2152728065 Fault_Code 2 "Warning" 1 "Critical" 0 "Normal" ;
+VAL_ 2166620419 Brake_Request_Type 3 "Regen_Fallback" 2 "ABS_Assist" 1 "Emergency" 0 "Normal" ;
+VAL_ 2166620417 Regen_Mode 4 "Auto" 3 "Level3" 2 "Level2" 1 "Level1" 0 "Level0" ;
 VAL_ 2165571841 Regen_Mode 4 "Auto" 3 "Level3" 2 "Level2" 1 "Level1" 0 "Level0" ;
 VAL_ 2165571843 Brake_Request_Type 3 "Regen_Fallback" 2 "ABS_Assist" 1 "Emergency" 0 "Normal" ;
 VAL_ 2148533761 Fault_Code 2 "Warning" 1 "Critical" 0 "Normal" ;
+VAL_ 2149582337 Fault_Code 2 "Warning" 1 "Critical" 0 "Normal" ;
+VAL_ 2150630913 Fault_Code 2 "Warning" 1 "Critical" 0 "Normal" ;
+VAL_ 2151679489 Fault_Code 2 "Warning" 1 "Critical" 0 "Normal" ;
 VAL_ 2201027073 Profile_Type 1 "Comfort" 0 "Efficiency" ;
 VAL_ 2201027073 Request_Source 2 "Auto_Logic" 1 "Voice" 0 "Button" ;
 VAL_ 2201027073 Requested_Mode 4 "Auto" 3 "Level3" 2 "Level2" 1 "Level1" 0 "Level0" ;

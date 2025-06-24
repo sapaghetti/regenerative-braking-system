@@ -11,4 +11,51 @@
    <LibraryPath arch="Windows-x64" moduleType="CAPL-DLL">MCU_cn_mingw_rtw/Release64/MCU.dll</LibraryPath>
    <SysvarPath>MCU_cn_mingw_rtw/release/MCU.vsysvar</SysvarPath>
    <AdditionalFile moduleType="Matlab-Specific">MCU_cn_mingw_rtw/release/MCU.ini</AdditionalFile>
+   <CAPL-DLL minAppVersion="16.3.0">
+      <CDLL_VERSION>2</CDLL_VERSION>
+      <CallingConvention>CDECL</CallingConvention>
+      <ExportTable>
+         <Function>
+            <FunctionName>MCU_init</FunctionName>
+            <CategoryName>Matlab Integration</CategoryName>
+            <HintText>Initializes the CANoe runtime environment for the generated MODEL DLL</HintText>
+            <Parameter>
+               <Name>enableTimer</Name>
+               <Type>dword</Type>
+            </Parameter>
+            <Parameter>
+               <Name>enableEvents</Name>
+               <Type>dword</Type>
+            </Parameter>
+            <Result>
+               <Type>long</Type>
+            </Result>
+         </Function>
+         <Function>
+            <FunctionName>MCU_step</FunctionName>
+            <CategoryName>Matlab Integration</CategoryName>
+            <HintText>The step function is used to execute a simulation step</HintText>
+            <Result>
+               <Type>long</Type>
+            </Result>
+         </Function>
+         <Function>
+            <FunctionName>GetSimulinkModelName</FunctionName>
+            <CategoryName>Matlab Integration</CategoryName>
+            <HintText>Get the name of the Simulink model</HintText>
+            <Parameter>
+               <Name>buffer</Name>
+               <Type rank="1">char</Type>
+            </Parameter>
+            <Parameter>
+               <Name>bufferSize</Name>
+               <Type>dword</Type>
+            </Parameter>
+            <Result>
+               <Type>long</Type>
+            </Result>
+         </Function>
+      </ExportTable>
+      <CallbackTable/>
+   </CAPL-DLL>
 </Module>

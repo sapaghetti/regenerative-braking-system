@@ -1,0 +1,63 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  #include "HPC2_Functions.cin"
+  #include "HPC2_Config.cin"
+  //#include "HPC_OTA.cin"
+  //#include "EDT.cin"
+}
+
+on start
+{
+  HandleStartEvent();
+}
+
+on stopMeasurement
+{
+  HandleStopEvent();
+}
+
+on timer timerMainTask
+{
+  HandleMainTaskTimer();
+}
+
+on timer timerWatchdog
+{
+  HandleWatchdogTimeout();
+}
+
+on message M008_Mode_Change_Req
+{
+  HandleModeChangeReqMessage(this);
+}
+
+on message M006_Battery_Basic
+{
+  HandleBatteryBasicMessage(this);
+}
+
+on message M002_Regen_Torque_Feedback
+{
+  HandleRegenTorqueFeedbackMessage(this);
+}
+
+on message M004_FailSafe_Status_2
+{
+  HandleFailSafeStatusMessage(this.Fault_Code);
+}
+
+on message M004_FailSafe_Status_3
+{
+  HandleFailSafeStatusMessage(this.Fault_Code);
+}
+
+on message M005_Vehicle_Dynamics
+{
+  HandleVehicleDynamicsMessage(this);
+}
+
+on message M005_EXT_Brake_Pedal
+{
+  HandleBrakePedalMessage(this);
+}

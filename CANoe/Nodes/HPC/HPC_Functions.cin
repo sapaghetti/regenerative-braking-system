@@ -59,9 +59,9 @@ void TransitionToState(enum SystemState newState)
     write("HPC: 상태 전이 %d -> %d", previousState, currentState);
     switch (newState)
     {
-      case STATE_FAIL_SAFE: OnEnterFailSafe(); break;
-      case STATE_BATTERY_PROTECTION: OnEnterBatteryProtection(); break;
-      case STATE_NORMAL: OnEnterNormal(); break;
+      case STATE_FAIL_SAFE: OnEnterFailSafe(); @sysvar::HPC::g_isHpcFaulty = 1; break;
+      case STATE_BATTERY_PROTECTION: OnEnterBatteryProtection(); @sysvar::HPC::g_isHpcFaulty = 1; break;
+      case STATE_NORMAL: OnEnterNormal(); @sysvar::HPC::g_isHpcFaulty = 0; break;
       default: break;
     }
   }
