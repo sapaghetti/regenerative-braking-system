@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=19.0.155.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="Cluster">
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xeeca519dec9dce43a0eb46be85792b7ce19e" ControlName="Battery_Alert">
+      <Property Name="Name">Xeeca519dec9dce43a0eb46be85792b7ce19e</Property>
+      <Property Name="Size">56, 35</Property>
+      <Property Name="Location">295, 25</Property>
+      <Property Name="SymbolConfiguration">8;16;ZCU_Center;;;Cluster_Warning_Status;1;;;-1;;;Value;;;0</Property>
+      <Property Name="ImageFile">Icons\Battery_Alert.jpg</Property>
+      <Property Name="TabIndex">2</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;2;0/Lower/0;1/Lower/1</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="SwitchValuesRx">1;2;0;1</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xb1138124e4b07e4148e9b5ae05be7877a8d9" ControlName="Regen_Mode">
+      <Property Name="Name">Xb1138124e4b07e4148e9b5ae05be7877a8d9</Property>
+      <Property Name="Size">56, 35</Property>
+      <Property Name="Location">220, 25</Property>
+      <Property Name="SymbolConfiguration">8;16;ZCU_Center;;;Cluster_Display_Mode;1;;;-1;;;Value;;;0</Property>
+      <Property Name="ImageFile">Icons\Regen_Mode.jpg</Property>
+      <Property Name="TabIndex">1</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="StateCnt">5</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;5&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;&lt;RxValue&gt;2&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;2&lt;/TxValue&gt;&lt;RxValue&gt;3&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;3&lt;/TxValue&gt;&lt;RxValue&gt;4&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;4&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;5;0/Lower/0;1/Lower/1;2/Lower/2;3/Lower/3;4/Lower/4</Property>
+      <Property Name="SwitchValues">1;5;0;1;2;3;4</Property>
+      <Property Name="SwitchValuesRx">1;5;0;1;2;3;4</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ProgressBarControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X21e7c29be9d48e49b2eb020e346f485b3526" ControlName="Progress Bar 3">
+      <Property Name="Name">X21e7c29be9d48e49b2eb020e346f485b3526</Property>
+      <Property Name="Size">80, 5</Property>
+      <Property Name="Location">250, 183</Property>
+      <Property Name="IsVisibleByLoad">False</Property>
+      <Property Name="UseWindowsStyle">False</Property>
+      <Property Name="WithFrame">False</Property>
+      <Property Name="BarBackColor">255, 126, 124, 113</Property>
+      <Property Name="BarForeColor">255, 247, 150, 70</Property>
+      <Property Name="ValueSize">40, 12</Property>
+      <Property Name="OriginValue">0</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ProgressBarControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X5c494582e6b80e495deb43beb8012ac19162" ControlName="Battery_SOC">
+      <Property Name="Name">X5c494582e6b80e495deb43beb8012ac19162</Property>
+      <Property Name="Size">60, 20</Property>
+      <Property Name="Location">257, 206</Property>
+      <Property Name="UseWindowsStyle">False</Property>
+      <Property Name="WithFrame">False</Property>
+      <Property Name="BarBackColor">255, 126, 124, 113</Property>
+      <Property Name="BarForeColor">255, 146, 178, 80</Property>
+      <Property Name="ValueSize">40, 12</Property>
+      <Property Name="OriginValue">0</Property>
+      <Property Name="SymbolConfiguration">8;16;ZCU_Center;;;Cluster_Battery_SOC;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ProgressBarControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X76b99d70e97abe4389eaefbe7808ec90e0ef" ControlName="Progress Bar 1">
+      <Property Name="Name">X76b99d70e97abe4389eaefbe7808ec90e0ef</Property>
+      <Property Name="Size">80, 5</Property>
+      <Property Name="Location">250, 158</Property>
+      <Property Name="IsVisibleByLoad">False</Property>
+      <Property Name="UseWindowsStyle">False</Property>
+      <Property Name="WithFrame">False</Property>
+      <Property Name="DecimalPlaces">0</Property>
+      <Property Name="BarBackColor">255, 126, 124, 113</Property>
+      <Property Name="BarForeColor">255, 154, 204, 255</Property>
+      <Property Name="ValueBackColor">Black</Property>
+      <Property Name="ValueForeColor">255, 238, 236, 225</Property>
+      <Property Name="ValueFont">Ebrima, 8.25pt</Property>
+      <Property Name="ValueSize">24, 15</Property>
+      <Property Name="OriginValue">0</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.AnalogGaugeControl, Vector.CANalyzer.Panels.AnalogGauge, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X400af207e5a25e4b9ceae0de4d458293f2de" ControlName="Motor_Speed">
+      <Property Name="Name">X400af207e5a25e4b9ceae0de4d458293f2de</Property>
+      <Property Name="Size">250, 250</Property>
+      <Property Name="Location">325, 5</Property>
+      <Property Name="ScaleMin">0</Property>
+      <Property Name="ScaleMax">8</Property>
+      <Property Name="LowerRangeLimit">0</Property>
+      <Property Name="UpperRangeLimit">8</Property>
+      <Property Name="IsMinRange">False</Property>
+      <Property Name="IsMidRange">False</Property>
+      <Property Name="IsMaxRange">False</Property>
+      <Property Name="ScaleAngle">270</Property>
+      <Property Name="BackgroundColor">Black</Property>
+      <Property Name="ArrowColor">255, 216, 214, 203</Property>
+      <Property Name="CenterColor">255, 216, 214, 203</Property>
+      <Property Name="LegendText">rpm</Property>
+      <Property Name="LegendTextColor">255, 238, 236, 225</Property>
+      <Property Name="LegendTextFont">Ebrima, 8.25pt</Property>
+      <Property Name="LegendColor">255, 238, 141, 61</Property>
+      <Property Name="GaugeFont">Ebrima, 10pt</Property>
+      <Property Name="IsTicksAdjustment">False</Property>
+      <Property Name="MainTicksNumber">8</Property>
+      <Property Name="TicksColor">255, 216, 214, 203</Property>
+      <Property Name="CurrentPosition">0</Property>
+      <Property Name="LengthMainTicks">14</Property>
+      <Property Name="IsFrame">False</Property>
+      <Property Name="IsMargin">False</Property>
+      <Property Name="ScaleMargin">0</Property>
+      <Property Name="SymbolConfiguration">8;16;ZCU_Center;;;Cluster_Motor_Speed;1;;;-1;;;Value;;;0</Property>
+      <Property Name="CriticalProps" Member="AAEAAAD/////AQAAAAAAAAAEAQAAAC9TeXN0ZW0uUmVmbGVjdGlvbi5NZW1iZXJJbmZvU2VyaWFsaXphdGlvbkhvbGRlcgcAAAAETmFtZQxBc3NlbWJseU5hbWUJQ2xhc3NOYW1lCVNpZ25hdHVyZQpTaWduYXR1cmUyCk1lbWJlclR5cGUQR2VuZXJpY0FyZ3VtZW50cwEBAQEBAAMIDVN5c3RlbS5UeXBlW10GAgAAAAUuY3RvcgYDAAAAXFZlY3Rvci5DQU5hbHl6ZXIuUGFuZWxzLkFuYWxvZ0dhdWdlLCBWZXJzaW9uPTE3LjMuOTEuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBgQAAAA2VmVjdG9yLkNBTmFseXplci5QYW5lbHMuRGVzaWduLkdhdWdlQ3JpdGljYWxQcm9wZXJ0aWVzBgUAAAAyVm9pZCAuY3RvcihEb3VibGUsIERvdWJsZSwgRG91YmxlLCBEb3VibGUsIERvdWJsZSkGBgAAAFAuY3RvcihTeXN0ZW0uRG91YmxlLCBTeXN0ZW0uRG91YmxlLCBTeXN0ZW0uRG91YmxlLCBTeXN0ZW0uRG91YmxlLCBTeXN0ZW0uRG91YmxlKQEAAAAKCw==">
+        <Argument>0</Argument>
+        <Argument>8</Argument>
+        <Argument>0</Argument>
+        <Argument>0</Argument>
+        <Argument>8</Argument>
+      </Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.AnalogGaugeControl, Vector.CANalyzer.Panels.AnalogGauge, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X907a5bc6e0aabe4219e9c98e9304d7280c9d" ControlName="Vehicle_Speed">
+      <Property Name="Name">X907a5bc6e0aabe4219e9c98e9304d7280c9d</Property>
+      <Property Name="Size">250, 250</Property>
+      <Property Name="Location">5, 5</Property>
+      <Property Name="ScaleMin">0</Property>
+      <Property Name="ScaleMax">260</Property>
+      <Property Name="LowerRangeLimit">0</Property>
+      <Property Name="UpperRangeLimit">260</Property>
+      <Property Name="IsMinRange">False</Property>
+      <Property Name="IsMidRange">False</Property>
+      <Property Name="IsMaxRange">False</Property>
+      <Property Name="ScaleAngle">270</Property>
+      <Property Name="BackgroundColor">Black</Property>
+      <Property Name="ArrowWidth">2</Property>
+      <Property Name="ArrowColor">255, 171, 169, 158</Property>
+      <Property Name="CenterRadius">6</Property>
+      <Property Name="CenterColor">255, 126, 124, 113</Property>
+      <Property Name="LegendText">km/h</Property>
+      <Property Name="LegendTextColor">255, 229, 227, 216</Property>
+      <Property Name="LegendTextFont">Ebrima, 8.25pt</Property>
+      <Property Name="LegendColor">255, 154, 204, 255</Property>
+      <Property Name="GaugeFont">Ebrima, 8.25pt</Property>
+      <Property Name="IsTicksAdjustment">False</Property>
+      <Property Name="MainTicksNumber">13</Property>
+      <Property Name="TicksColor">255, 216, 214, 203</Property>
+      <Property Name="CurrentPosition">0</Property>
+      <Property Name="LengthMainTicks">14</Property>
+      <Property Name="IsFrame">False</Property>
+      <Property Name="IsMargin">False</Property>
+      <Property Name="ScaleMargin">0</Property>
+      <Property Name="SymbolConfiguration">8;16;ZCU_Center;;;Cluster_Vehicle_Speed;1;;;-1;;;Value;;;0</Property>
+      <Property Name="CriticalProps" Member="AAEAAAD/////AQAAAAAAAAAEAQAAAC9TeXN0ZW0uUmVmbGVjdGlvbi5NZW1iZXJJbmZvU2VyaWFsaXphdGlvbkhvbGRlcgcAAAAETmFtZQxBc3NlbWJseU5hbWUJQ2xhc3NOYW1lCVNpZ25hdHVyZQpTaWduYXR1cmUyCk1lbWJlclR5cGUQR2VuZXJpY0FyZ3VtZW50cwEBAQEBAAMIDVN5c3RlbS5UeXBlW10GAgAAAAUuY3RvcgYDAAAAXFZlY3Rvci5DQU5hbHl6ZXIuUGFuZWxzLkFuYWxvZ0dhdWdlLCBWZXJzaW9uPTE3LjMuOTEuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBgQAAAA2VmVjdG9yLkNBTmFseXplci5QYW5lbHMuRGVzaWduLkdhdWdlQ3JpdGljYWxQcm9wZXJ0aWVzBgUAAAAyVm9pZCAuY3RvcihEb3VibGUsIERvdWJsZSwgRG91YmxlLCBEb3VibGUsIERvdWJsZSkGBgAAAFAuY3RvcihTeXN0ZW0uRG91YmxlLCBTeXN0ZW0uRG91YmxlLCBTeXN0ZW0uRG91YmxlLCBTeXN0ZW0uRG91YmxlLCBTeXN0ZW0uRG91YmxlKQEAAAAKCw==">
+        <Argument>0</Argument>
+        <Argument>260</Argument>
+        <Argument>0</Argument>
+        <Argument>0</Argument>
+        <Argument>260</Argument>
+      </Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">580, 270</Property>
+    <Property Name="Location">0, 0</Property>
+    <Property Name="BackColor">Black</Property>
+  </Object>
+</Panel>
