@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <systemvariables version="4">
+<!-- PLEASE DO NOT MODIFY. THIS FILE IS AUTO-GENERATED - MANUAL MODIFICATION MIGHT CAUSE UNINTENDED BEHAVIOR. -->
 <namespace name="" comment="" interface="">
   <namespace name="MCU" comment="" interface="">
     <namespace name="Parameters" comment="" interface="">
@@ -396,6 +397,9 @@
             <namespace name="Saturation" comment="" interface="">
               <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Voltage__V_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
             </namespace>
+            <namespace name="SoC" comment="" interface="">
+              <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Saturation_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
+            </namespace>
             <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Add_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
             <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Current_Filter_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
             <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Data_Type_Conversion2_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
@@ -424,7 +428,7 @@
         <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="S_Function_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
       </namespace>
       <namespace name="Subsystem1" comment="" interface="">
-        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="In1_" comment="" bitcount="32" isSigned="true" encoding="65001" type="int"/>
+        <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="In1_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
       </namespace>
       <namespace name="Subsystem2" comment="" interface="">
         <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="In1_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
@@ -465,7 +469,7 @@
       </namespace>
       <namespace name="powergui" comment="" interface="">
         <namespace name="EquivalentModel1" comment="" interface="">
-          <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="State_Space_" comment="" bitcount="64" isSigned="true" encoding="65001" type="floatarray" arrayLength="6"/>
+          <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="State_Space_" comment="" bitcount="64" isSigned="true" encoding="65001" type="floatarray" arrayLength="9"/>
           <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Sum_" comment="" bitcount="256" isSigned="false" encoding="65001" type="genericarray" arrayLength="4"/>
             <elementPrototype name="[0]" comment="" bitcount="64" isSigned="false" encoding="65001" type="genericarray" arrayLength="1" definedBinaryLayout="True">
               <elementPrototype name="[0]" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" />
@@ -481,9 +485,8 @@
           </namespace>
         </namespace>
       </namespace>
-      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Data_Type_Conversion_" comment="" bitcount="32" isSigned="true" encoding="65001" type="int"/>
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Gain2_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
-      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Subsystem1_" comment="" bitcount="32" isSigned="true" encoding="65001" type="int"/>
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Subsystem1_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Subsystem2_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Subsystem3_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>
       <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name ="Subsystem_" comment="" bitcount="64" isSigned="true" encoding="65001" type="float"/>

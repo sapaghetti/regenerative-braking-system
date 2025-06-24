@@ -1,4 +1,4 @@
 
 MCU
-D:/can/CANoe/Simulink/MCU_cn_mingw_rtw/MCU_capi.c
-D:/can/CANoe/Simulink/MCU_cn_mingw_rtw/MCU.c
+C:/Users/USER/OneDrive/Desktop/Proj3/can/CANoe/Simulink/MCU_cn_mingw_rtw/MCU_capi.c
+C:/Users/USER/OneDrive/Desktop/Proj3/can/CANoe/Simulink/MCU_cn_mingw_rtw/MCU.c

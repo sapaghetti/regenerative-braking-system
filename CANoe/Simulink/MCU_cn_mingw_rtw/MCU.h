@@ -8,7 +8,7 @@
  *
  * Model version              : 14.55
  * Simulink Coder version : 24.2 (R2024b) 21-Jun-2024
- * C source code generated on : Tue Jun 24 19:10:09 2025
+ * C source code generated on : Tue Jun 24 20:25:27 2025
  *
  * Target selection: cn_mingw.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -907,6 +907,7 @@ typedef struct {
   real_T Gain2_i;                      /* '<S34>/Gain2' */
   real_T donotdeletethisgain;          /* '<S20>/do not delete this gain' */
   real_T DataTypeConversion2;          /* '<S23>/Data Type Conversion2' */
+  real_T Saturation;                   /* '<S28>/Saturation' */
   real_T CurrentFilter;                /* '<S23>/Current Filter' */
   real_T Add_c;                        /* '<S23>/Add' */
   real_T Add1;                         /* '<S26>/Add1' */
@@ -915,13 +916,12 @@ typedef struct {
   real_T DataTypeConversion1;          /* '<S16>/Data Type Conversion1' */
   real_T DataTypeConversion3;          /* '<S16>/Data Type Conversion3' */
   real_T DataTypeConversion5;          /* '<S16>/Data Type Conversion5' */
-  uint8_T DataTypeConversion;          /* '<Root>/Data Type Conversion' */
-  uint8_T In1;                         /* '<S6>/In1' */
   B_CustomRelay_MCU_T CustomRelay2;    /* '<S16>/Custom Relay2' */
   B_CustomRelay_MCU_T CustomRelay1;    /* '<S16>/Custom Relay1' */
   B_CustomRelay_MCU_T CustomRelay;     /* '<S16>/Custom Relay' */
   B_Subsystem_MCU_T Subsystem3;        /* '<Root>/Subsystem3' */
   B_Subsystem_MCU_T Subsystem2;        /* '<Root>/Subsystem2' */
+  B_Subsystem_MCU_T Subsystem1;        /* '<Root>/Subsystem1' */
   B_Subsystem_MCU_T Subsystem;         /* '<Root>/Subsystem' */
 } B_MCU_T;
 

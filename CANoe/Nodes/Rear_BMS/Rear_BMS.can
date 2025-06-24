@@ -18,7 +18,7 @@ on start
 on timer bms_msg_Timer
 {
   message L007_BMS_Detail_Status bms_msg;
-  bms_msg.Battery_SoC = @BMS::SoC;
+  bms_msg.Battery_SoC = (int)(@BMS::SoC);
   bms_msg.Battery_Current.phys = @BMS::Current;
   bms_msg.Battery_Voltage.phys = @BMS::Voltage;
   output(bms_msg);

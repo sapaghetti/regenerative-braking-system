@@ -29,7 +29,7 @@
 # do not print a warning when seeing legacy tokens
 # NO_WARN_LEGACY_TOKENS
 
-MAKECMD              = "C:\Program Files\R2024b\bin/win64/gmake"
+MAKECMD              = "C:\Program Files\MATLAB\R2024b\bin/win64/gmake"
 HOST                 = PC
 BUILD                = yes
 SYS_TARGET_FILE      = cn_mingw.tlc
@@ -69,20 +69,23 @@ SHELL                = cmd
 #  PERFORMANCE_SYSVARS      - yes (1) or no (0): Are performance sysvars generated
 #  CANOEMATLABIF_VER        - CANoe Matlab Interface version information
 #  Matlab_VER_GREATER_R2018b - yes (1) or no (0): Matlab Version >R2018b
+#  MIP_CONFIG_DISABLE_SYSVAR_WRITE_OPTIMIZATION - yes (on) or no (off): Is the optimization disabled?
 #  SUPPRESS_CREATE_SVS      - yes (1) or no (0): Are SVs not defined by CANoe created by the DLL?
 #  DEBUG_BUILD              - yes (1) or no (0): Is the DLL built with debug information
 #  BUILD_ERT                - yes (1) or no (0): Is the DLL built for Extended Real Time (ERT)
 #  TASK_OVERRUN_STRATEGY    - 0: stop simulation; 1: queue tasks; 2: ignore
 #  MAX_QUEUED_TASKS         - Max queued task instances before simulation is stopped if overrun strategy is "queue tasks"
 #  MIP_CONFIG_IGNORE_NAN_UPDATES - yes (on) or no (off): Ignore consecutive NaN system variable updates
+#  MIP_CONFIG_SYSVAR_UPDATE_INTERVAL - Update interval of system variables. Default: -1
+#  MIP_CONFIG_IS_APPLICATION_MODEL      - yes (1) or no (0): Is the DLL built for to run without configured canoe networks
 
 MODEL                    = MCU
 MODULES                  = rt_matrx.c rt_printf.c rt_logging.c MCU_capi.c MCU_data.c rtGetNaN.c rt_nonfinite.c rt_logging_mmi.c rtw_modelmap_utils.c anorsimstepinitshmem.c sfun_spssw_discc_DSS.c DSS_Utils.c
 MAKEFILE                 = MCU.mk
-MATLAB_ROOT              = C:\Program Files\R2024b
-ALT_MATLAB_ROOT          = C:\PROGRA~1\R2024b
-MATLAB_BIN               = C:\Program Files\R2024b\bin
-ALT_MATLAB_BIN           = C:\PROGRA~1\R2024b\bin
+MATLAB_ROOT              = C:\Program Files\MATLAB\R2024b
+ALT_MATLAB_ROOT          = C:\PROGRA~1\MATLAB\R2024b
+MATLAB_BIN               = C:\Program Files\MATLAB\R2024b\bin
+ALT_MATLAB_BIN           = C:\PROGRA~1\MATLAB\R2024b\bin
 MATLAB_ARCH_BIN          = $(MATLAB_BIN)/win64
 S_FUNCTIONS              = 
 S_FUNCTIONS_LIB          = 
@@ -110,9 +113,10 @@ SHARED_LIB               =
 PERFORMANCE_SYSVARS      = 1
 SUPPRESS_CREATE_SVS      = 1
 VISUAL_VER               = 
-CANOEMATLABIF_VER        = 9.2.2
+CANOEMATLABIF_VER        = 9.3.4
 Matlab_VER_GREATER_R2018b = 1
 XCP_ENABLE_TIMESTAMP     = 0
+MIP_CONFIG_DISABLE_SYSVAR_WRITE_OPTIMIZATION = off
 CANOE_SRC                = C:/PROGRA~1/VECTOR~1.2/rtw/c/canoe
 CANOE_BIN                = C:/PROGRA~1/VECTOR~1.2/rtw/bin/canoe
 SAMPLE_TIMES             = [0.001,0,0]
@@ -120,6 +124,8 @@ TASK_OVERRUN_STRATEGY    = 2
 MAX_QUEUED_TASKS         = 5
 ENABLE_PARAMETERIZATION_EXCLUSION = 0
 MIP_CONFIG_IGNORE_NAN_UPDATES = off
+MIP_CONFIG_SYSVAR_UPDATE_INTERVAL = -1
+MIP_CONFIG_IS_APPLICATION_MODEL      = 0
 
 #--------------------------- Model and reference models -----------------------
 MODELREFS                 = 
@@ -171,7 +177,7 @@ AR = ar
 
 ARFLAGS                 = -crus
 CFLAGS                  = -c -O0 -msse2
-CPPFLAGS                = -c -O0 -std=c++11 -Wno-conversion-null #Wno-conversion-null: mdlparams.cpp
+CPPFLAGS                = -c -O0 -std=c++14 -Wno-conversion-null #Wno-conversion-null: mdlparams.cpp
 LDFLAGS                 = -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -shared
 SHAREDLIB_LDFLAGS       = -shared -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -Wl,--no-undefined #-g
 MAKE_FLAGS              = -f $(MAKEFILE)
@@ -184,7 +190,11 @@ USER_INCLUDES   = -I$(CANOE_SRC)\devices -I$(CANOE_SRC)\private -I$(CANOE_SRC)\p
 PERL = $(MATLAB_ROOT)/sys/perl/win32/bin/perl
 
 ifeq ($(TARGET_ARCH), "x86")
+ ifeq ($(MIP_CONFIG_IS_APPLICATION_MODEL), 1)
+  DEF = $(CANOE_SRC)/private/VViaApplication.def
+ else 
   DEF  = $(CANOE_SRC)/private/nlapml_mingw_x86.def
+ endif
 endif
 
 # Set the build tool chain
@@ -230,14 +240,10 @@ endif
 
 ifeq ($(strip $(OUTPUT_DIR)),)
   ifeq ($(TARGET_ARCH), "x86")
-    PRODUCT_OUTPUT_DIR = release
-    FINAL_OUTPUT_DIR = release
+    OUTPUT_DIR = release
   else
-    PRODUCT_OUTPUT_DIR = Release64
-    FINAL_OUTPUT_DIR = Release64
+    OUTPUT_DIR = Release64
   endif
-else
-  FINAL_OUTPUT_DIR = $(OUTPUT_DIR)
 endif
 
 ifneq ($(MODELREF_TARGET_TYPE), "NONE")
@@ -299,12 +305,26 @@ ifeq ($(XCP_ENABLE_TIMESTAMP), 1)
   DEFINES += -DXCP_ENABLE_TIMESTAMP
 endif
 
+ifeq ($(MIP_CONFIG_DISABLE_SYSVAR_WRITE_OPTIMIZATION), on)
+  DEFINES += -DMIP_CONFIG_DISABLE_SYSVAR_WRITE_OPTIMIZATION
+endif
+
 ifeq ($(RTT_PE), 1)
   DEFINES += -DRTT_PE
 endif
 
 ifeq ($(MIP_CONFIG_IGNORE_NAN_UPDATES), on)
   DEFINES += -DIGNORE_NAN_UPDATES
+endif
+
+ifneq ($(MIP_CONFIG_SYSVAR_UPDATE_INTERVAL), -1)
+ifneq ($(MIP_CONFIG_SYSVAR_UPDATE_INTERVAL), 0)
+  DEFINES += -DSYSVAR_UPDATE_INTERVAL=$(MIP_CONFIG_SYSVAR_UPDATE_INTERVAL)
+endif
+endif
+
+ifeq ($(MIP_CONFIG_IS_APPLICATION_MODEL), 1)
+  DEFINES += -DIS_APPLICATION_MODEL
 endif
 
 ifeq ($(MODELREF_TARGET_TYPE), NONE)
@@ -326,7 +346,7 @@ ifeq ($(ENABLE_PARAMETERIZATION), 1)
     else
       PARFILES_EXE = $(CANOE_SRC)/ParFiles64.exe
     endif
-    CMD_PARAMETER = "$(PARFILES_EXE)" "$(FINAL_OUTPUT_DIR)\$(FILENAME).dll" "$(CURDIR)" "$(FINAL_OUTPUT_DIR)"
+    CMD_PARAMETER = "$(PARFILES_EXE)" "$(OUTPUT_DIR)\$(FILENAME).dll" "$(CURDIR)" "$(OUTPUT_DIR)"
   endif
   DEFINES += -DENABLE_PARAMETERIZATION
 else
@@ -350,8 +370,8 @@ MATLAB_INCLUDES += -I$(CANOE_SRC)
 
 # Additional file include paths
 
-MATLAB_INCLUDES +=-I"D:\can\CANoe\Simulink"
-MATLAB_INCLUDES +=-I"D:\can\CANoe\Simulink\MCU_cn_mingw_rtw"
+MATLAB_INCLUDES +=-I"C:\Users\USER\OneDrive\Desktop\Proj3\can\CANoe\Simulink"
+MATLAB_INCLUDES +=-I"C:\Users\USER\OneDrive\Desktop\Proj3\can\CANoe\Simulink\MCU_cn_mingw_rtw"
 MATLAB_INCLUDES +=-I"$(MATLAB_ROOT)\extern\include"
 MATLAB_INCLUDES +=-I"$(MATLAB_ROOT)\simulink\include"
 MATLAB_INCLUDES +=-I"$(MATLAB_ROOT)\rtw\c\src"
@@ -360,7 +380,6 @@ MATLAB_INCLUDES +=-I"$(MATLAB_ROOT)\toolbox\physmod\powersys\facts\facts"
 MATLAB_INCLUDES +=-I"$(MATLAB_ROOT)\toolbox\physmod\powersys\DR\DR"
 
 INCLUDE = -I. -I$(RELATIVE_PATH_TO_ANCHOR) $(MATLAB_INCLUDES)
-#------------------------------ WEC Libs --------------------------------------
 
 #------------------------ External mode ---------------------------------------
 EXT_SRC     =
@@ -420,8 +439,9 @@ MODULES += rt_printf.c rt_matrx.c
 MODULES := $(sort $(MODULES)) 
 
 ifeq ($(MODELREF_TARGET_TYPE),NONE)
-  PRODUCT = "$(PRODUCT_OUTPUT_DIR)\$(MODEL).dll"
-
+  PRODUCT_ = $(OUTPUT_DIR)\$(MODEL).dll
+  PRODUCT = $(subst :,\:,$(PRODUCT_))
+  
   REQ_SRCS  = $(MODEL).c $(MODULES) cn_main.c rt_sim.c \
               $(SOLVER) $(EXT_SRC) \
 
@@ -462,12 +482,22 @@ CPP_SRC = cncomm.cpp cncommextrablocks.cpp  cn_sfunction_utils.c
           
 
 ifeq ($(MULTITASKING), 1)
-  CPP_SRC += cncommfb.cpp vttapml.cpp CANoeEmu_DllMain.cpp FunctionBusServiceVTT.cpp SysvarServiceVTT.cpp ServiceProvider.cpp
+  CPP_SRC += cncommfb.cpp vttapml.cpp CANoeEmu_DllMain.cpp FunctionBusServiceVTT.cpp SignalServiceVTT.cpp SysvarServiceVTT.cpp TimerServiceVTT.cpp ServiceProvider.cpp BasicControlServiceVTT.cpp
 else
   ifeq ($(RTT_PE), 0)
-    CPP_SRC += cncommfb.cpp cncommdo.cpp nlapml.cpp nlapml_common.cpp FunctionBusServiceVIA.cpp SysvarServiceVIA.cpp ServiceProvider.cpp BusServiceVIA.cpp
+    CPP_SRC += BasicControlServiceVIA.cpp VIACommonExports.cpp TimerServiceVIA.cpp cncommfb.cpp cncommdo.cpp nlapml_common.cpp FunctionBusServiceVIA.cpp SignalServiceVIA.cpp SysvarServiceVIA.cpp ServiceProvider.cpp BusServiceVIA.cpp
+    ifeq ($(MIP_CONFIG_IS_APPLICATION_MODEL), 1) 
+      CPP_SRC += VViaApplication.cpp
+    else
+      CPP_SRC += nlapml.cpp 
+    endif
   else
-    CPP_SRC += cncommfb.cpp cncommdo.cpp nlapml_common.cpp FunctionBusServiceVIA.cpp SysvarServiceVIA.cpp cncommsharedmem.cpp ServiceProvider.cpp VIANodelayerApi_RTT_PE.cpp BusServiceVIA.cpp SimulationThread.cpp ValueCreatorVIA.cpp cncommfb_common.cpp BusService.cpp
+    CPP_SRC += BasicControlServiceVIA.cpp VIACommonExports.cpp TimerServiceVIA.cpp cncommfb.cpp cncommdo.cpp nlapml_common.cpp FunctionBusServiceVIA.cpp SignalServiceVIA.cpp SysvarServiceVIA.cpp cncommsharedmem.cpp ServiceProvider.cpp BusServiceVIA.cpp SimulationThread.cpp ValueCreatorVIA.cpp cncommfb_common.cpp BusService.cpp
+    ifeq ($(MIP_CONFIG_IS_APPLICATION_MODEL), 1) 
+      CPP_SRC += VViaApplication.cpp
+    else
+      CPP_SRC += VIANodelayerApi_RTT_PE.cpp 
+    endif
   endif
 endif
 
@@ -541,13 +571,10 @@ else
 	$(PERL) $(CANOE_SRC)\copyrefmodellibs.pl $(MODELREF_LINK_LIBS)
 endif
 	@echo ### Creating $@ ...
-	@if not exist "$(FINAL_OUTPUT_DIR)/$(NULL)" mkdir "$(FINAL_OUTPUT_DIR)"
+	@if not exist "$(OUTPUT_DIR)/$(NULL)" mkdir "$(OUTPUT_DIR)"
 	@$(LD) $(LDFLAGS) -o$@  $(OBJS) $(SHARED_LIB) $(notdir $(MODELREF_LINK_LIBS)) $(LIBS) $(MAT_LIBS) $(SYSTEM_LIBS) $(S_FUNCTIONS_LIB)
 	@echo ***Created $@
-ifneq ($(strip $(OUTPUT_DIR)),)
-	@echo ### Moving  $@ to  "$(OUTPUT_DIR)"
-	move /Y "$(PRODUCT)" "$(FINAL_OUTPUT_DIR)\$(MODEL).dll"
-endif
+
 	$(CMD_PARAMETER)
 else
 # Model Reference Target

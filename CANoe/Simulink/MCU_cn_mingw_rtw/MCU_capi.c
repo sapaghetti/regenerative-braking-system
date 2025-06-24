@@ -8,7 +8,7 @@
  *
  * Model version              : 14.55
  * Simulink Coder version : 24.2 (R2024b) 21-Jun-2024
- * C source code generated on : Tue Jun 24 19:10:09 2025
+ * C source code generated on : Tue Jun 24 20:25:27 2025
  *
  * Target selection: cn_mingw.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -48,7 +48,7 @@ static const rtwCAPI_Signals rtBlockSignals[] = {
     TARGET_STRING(""), 0, 0, 0, 0, 0 },
 
   { 1, 5, TARGET_STRING("MCU/Subsystem1"),
-    TARGET_STRING(""), 0, 1, 0, 0, 0 },
+    TARGET_STRING(""), 0, 0, 0, 0, 0 },
 
   { 2, 6, TARGET_STRING("MCU/Subsystem2"),
     TARGET_STRING(""), 0, 0, 0, 0, 0 },
@@ -74,122 +74,122 @@ static const rtwCAPI_Signals rtBlockSignals[] = {
   { 9, 21, TARGET_STRING("MCU/current controller"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 10, 0, TARGET_STRING("MCU/Data Type Conversion"),
-    TARGET_STRING(""), 0, 1, 0, 0, 1 },
-
-  { 11, 0, TARGET_STRING("MCU/Gain2"),
+  { 10, 0, TARGET_STRING("MCU/Gain2"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 12, 0, TARGET_STRING("MCU/Simulation Step/S-Function"),
+  { 11, 0, TARGET_STRING("MCU/Simulation Step/S-Function"),
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
+
+  { 12, 0, TARGET_STRING("MCU/Simulation Step/S-Function1"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 13, 0, TARGET_STRING("MCU/Simulation Step/S-Function1"),
-    TARGET_STRING(""), 0, 0, 0, 0, 1 },
-
-  { 14, 0, TARGET_STRING("MCU/Simulation Step/S-Function1"),
     TARGET_STRING(""), 1, 0, 0, 0, 2 },
 
-  { 15, 4, TARGET_STRING("MCU/Subsystem/In1"),
+  { 14, 4, TARGET_STRING("MCU/Subsystem/In1"),
     TARGET_STRING(""), 0, 0, 0, 0, 0 },
 
-  { 16, 5, TARGET_STRING("MCU/Subsystem1/In1"),
-    TARGET_STRING(""), 0, 1, 0, 0, 0 },
-
-  { 17, 6, TARGET_STRING("MCU/Subsystem2/In1"),
+  { 15, 5, TARGET_STRING("MCU/Subsystem1/In1"),
     TARGET_STRING(""), 0, 0, 0, 0, 0 },
 
-  { 18, 7, TARGET_STRING("MCU/Subsystem3/In1"),
+  { 16, 6, TARGET_STRING("MCU/Subsystem2/In1"),
     TARGET_STRING(""), 0, 0, 0, 0, 0 },
 
-  { 19, 0, TARGET_STRING("MCU/System Variable Input/S-Function"),
+  { 17, 7, TARGET_STRING("MCU/Subsystem3/In1"),
+    TARGET_STRING(""), 0, 0, 0, 0, 0 },
+
+  { 18, 0, TARGET_STRING("MCU/System Variable Input/S-Function"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 20, 0, TARGET_STRING("MCU/System Variable Input1/S-Function"),
+  { 19, 0, TARGET_STRING("MCU/System Variable Input1/S-Function"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 21, 14, TARGET_STRING("MCU/current controller/Custom Relay"),
+  { 20, 14, TARGET_STRING("MCU/current controller/Custom Relay"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 22, 17, TARGET_STRING("MCU/current controller/Custom Relay1"),
+  { 21, 17, TARGET_STRING("MCU/current controller/Custom Relay1"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 23, 20, TARGET_STRING("MCU/current controller/Custom Relay2"),
+  { 22, 20, TARGET_STRING("MCU/current controller/Custom Relay2"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 24, 21, TARGET_STRING("MCU/current controller/Data Type Conversion1"),
+  { 23, 21, TARGET_STRING("MCU/current controller/Data Type Conversion1"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 25, 21, TARGET_STRING("MCU/current controller/Data Type Conversion3"),
+  { 24, 21, TARGET_STRING("MCU/current controller/Data Type Conversion3"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 26, 21, TARGET_STRING("MCU/current controller/Data Type Conversion5"),
+  { 25, 21, TARGET_STRING("MCU/current controller/Data Type Conversion5"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 27, 0, TARGET_STRING(
+  { 26, 0, TARGET_STRING(
     "MCU/Battery/Current Measurement/do not delete this gain"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 28, 0, TARGET_STRING(
+  { 27, 0, TARGET_STRING(
     "MCU/Permanent Magnet Synchronous Machine/Electrical model/first 2 columns of D"),
     TARGET_STRING(""), 0, 0, 1, 0, 1 },
 
-  { 29, 0, TARGET_STRING(
+  { 28, 0, TARGET_STRING(
     "MCU/Permanent Magnet Synchronous Machine/Mechanical model/Gain"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 30, 0, TARGET_STRING(
+  { 29, 0, TARGET_STRING(
     "MCU/Permanent Magnet Synchronous Machine/Mechanical model/Gain2"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 31, 0, TARGET_STRING("MCU/Universal Bridge1/Model/Constant"),
+  { 30, 0, TARGET_STRING("MCU/Universal Bridge1/Model/Constant"),
     TARGET_STRING(""), 0, 0, 2, 0, 1 },
 
-  { 32, 14, TARGET_STRING("MCU/current controller/Custom Relay/Index Vector"),
+  { 31, 14, TARGET_STRING("MCU/current controller/Custom Relay/Index Vector"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 33, 17, TARGET_STRING("MCU/current controller/Custom Relay1/Index Vector"),
+  { 32, 17, TARGET_STRING("MCU/current controller/Custom Relay1/Index Vector"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 34, 20, TARGET_STRING("MCU/current controller/Custom Relay2/Index Vector"),
+  { 33, 20, TARGET_STRING("MCU/current controller/Custom Relay2/Index Vector"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 35, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
+  { 34, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
     TARGET_STRING(""), 0, 0, 3, 0, 1 },
 
-  { 36, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
+  { 35, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
     TARGET_STRING(""), 1, 0, 2, 0, 1 },
 
-  { 37, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
+  { 36, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/State-Space"),
     TARGET_STRING(""), 2, 0, 0, 0, 1 },
 
-  { 38, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/Sum"),
+  { 37, 0, TARGET_STRING("MCU/powergui/EquivalentModel1/Sum"),
     TARGET_STRING(""), 0, 0, 4, 0, 1 },
 
-  { 39, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Data Type Conversion2"),
+  { 38, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Data Type Conversion2"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 40, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Gain2"),
+  { 39, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Gain2"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 41, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Saturation"),
+  { 40, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Saturation"),
     TARGET_STRING("Voltage (V)"), 0, 0, 0, 0, 1 },
 
-  { 42, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Add"),
+  { 41, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Add"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 43, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Current Filter"),
+  { 42, 0, TARGET_STRING("MCU/Battery/Model/Discrete/Current Filter"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
-  { 44, 0, TARGET_STRING(
+  { 43, 0, TARGET_STRING(
     "MCU/Permanent Magnet Synchronous Machine/Electrical model/Ihistory_States/Add"),
     TARGET_STRING(""), 0, 0, 5, 0, 1 },
 
-  { 45, 0, TARGET_STRING(
+  { 44, 0, TARGET_STRING(
     "MCU/Permanent Magnet Synchronous Machine/Electrical model/Ihistory_States/Add2"),
     TARGET_STRING(""), 0, 0, 5, 0, 1 },
 
-  { 46, 0, TARGET_STRING(
+  { 45, 0, TARGET_STRING(
     "MCU/Battery/Model/Discrete/Exponential Zone Voltage/Add1"),
+    TARGET_STRING(""), 0, 0, 0, 0, 1 },
+
+  { 46, 0, TARGET_STRING("MCU/Battery/Model/Discrete/SoC/Saturation"),
     TARGET_STRING(""), 0, 0, 0, 0, 1 },
 
   { 47, 22, TARGET_STRING(
@@ -455,7 +455,7 @@ static const rtwCAPI_BlockParameters rtBlockParameters[] = {
     TARGET_STRING("InitialCondition"), 0, 0, 0 },
 
   { 131, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Discretize  TBE or Tustin/u1"),
-    TARGET_STRING("Value"), 2, 0, 0 },
+    TARGET_STRING("Value"), 1, 0, 0 },
 
   { 132, TARGET_STRING("MCU/Permanent Magnet Synchronous Machine/Electrical model/Discretize  TBE or Tustin/u5"),
     TARGET_STRING("Value"), 0, 1, 0 },
@@ -569,7 +569,7 @@ static const rtwCAPI_ModelParameters rtModelParameters[] = {
 /* Declare Data Addresses statically */
 static void* rtDataAddrMap[] = {
   &MCU_B.Subsystem.In1,                /* 0: Signal */
-  &MCU_B.In1,                          /* 1: Signal */
+  &MCU_B.Subsystem1.In1,               /* 1: Signal */
   &MCU_B.Subsystem2.In1,               /* 2: Signal */
   &MCU_B.Subsystem3.In1,               /* 3: Signal */
   &MCU_B.CustomRelay.IndexVector,      /* 4: Signal */
@@ -578,43 +578,43 @@ static void* rtDataAddrMap[] = {
   &MCU_B.DataTypeConversion3,          /* 7: Signal */
   &MCU_B.CustomRelay2.IndexVector,     /* 8: Signal */
   &MCU_B.DataTypeConversion5,          /* 9: Signal */
-  &MCU_B.DataTypeConversion,           /* 10: Signal */
-  &MCU_B.Gain2,                        /* 11: Signal */
-  &MCU_B.SFunction,                    /* 12: Signal */
-  &MCU_B.SFunction1_o1,                /* 13: Signal */
-  (void *) &MCU_ConstB.SFunction1_o2,  /* 14: Signal */
-  &MCU_B.Subsystem.In1,                /* 15: Signal */
-  &MCU_B.In1,                          /* 16: Signal */
-  &MCU_B.Subsystem2.In1,               /* 17: Signal */
-  &MCU_B.Subsystem3.In1,               /* 18: Signal */
-  &MCU_B.SFunction_j,                  /* 19: Signal */
-  &MCU_B.SFunction_m,                  /* 20: Signal */
-  &MCU_B.CustomRelay.IndexVector,      /* 21: Signal */
-  &MCU_B.CustomRelay1.IndexVector,     /* 22: Signal */
-  &MCU_B.CustomRelay2.IndexVector,     /* 23: Signal */
-  &MCU_B.DataTypeConversion1,          /* 24: Signal */
-  &MCU_B.DataTypeConversion3,          /* 25: Signal */
-  &MCU_B.DataTypeConversion5,          /* 26: Signal */
-  &MCU_B.donotdeletethisgain,          /* 27: Signal */
-  &MCU_B.first2columnsofD[0],          /* 28: Signal */
-  &MCU_B.Gain,                         /* 29: Signal */
-  &MCU_B.Gain2_i,                      /* 30: Signal */
-  &MCU_B.Constant[0],                  /* 31: Signal */
-  &MCU_B.CustomRelay.IndexVector,      /* 32: Signal */
-  &MCU_B.CustomRelay1.IndexVector,     /* 33: Signal */
-  &MCU_B.CustomRelay2.IndexVector,     /* 34: Signal */
-  &MCU_B.StateSpace_o1[0],             /* 35: Signal */
-  &MCU_B.StateSpace_o2[0],             /* 36: Signal */
-  &MCU_B.StateSpace_o3,                /* 37: Signal */
-  &MCU_B.Sum[0],                       /* 38: Signal */
-  &MCU_B.DataTypeConversion2,          /* 39: Signal */
-  &MCU_B.Gain2_a,                      /* 40: Signal */
-  &MCU_B.VoltageV,                     /* 41: Signal */
-  &MCU_B.Add_c,                        /* 42: Signal */
-  &MCU_B.CurrentFilter,                /* 43: Signal */
-  &MCU_B.Add[0],                       /* 44: Signal */
-  &MCU_B.Add2[0],                      /* 45: Signal */
-  &MCU_B.Add1,                         /* 46: Signal */
+  &MCU_B.Gain2,                        /* 10: Signal */
+  &MCU_B.SFunction,                    /* 11: Signal */
+  &MCU_B.SFunction1_o1,                /* 12: Signal */
+  (void *) &MCU_ConstB.SFunction1_o2,  /* 13: Signal */
+  &MCU_B.Subsystem.In1,                /* 14: Signal */
+  &MCU_B.Subsystem1.In1,               /* 15: Signal */
+  &MCU_B.Subsystem2.In1,               /* 16: Signal */
+  &MCU_B.Subsystem3.In1,               /* 17: Signal */
+  &MCU_B.SFunction_j,                  /* 18: Signal */
+  &MCU_B.SFunction_m,                  /* 19: Signal */
+  &MCU_B.CustomRelay.IndexVector,      /* 20: Signal */
+  &MCU_B.CustomRelay1.IndexVector,     /* 21: Signal */
+  &MCU_B.CustomRelay2.IndexVector,     /* 22: Signal */
+  &MCU_B.DataTypeConversion1,          /* 23: Signal */
+  &MCU_B.DataTypeConversion3,          /* 24: Signal */
+  &MCU_B.DataTypeConversion5,          /* 25: Signal */
+  &MCU_B.donotdeletethisgain,          /* 26: Signal */
+  &MCU_B.first2columnsofD[0],          /* 27: Signal */
+  &MCU_B.Gain,                         /* 28: Signal */
+  &MCU_B.Gain2_i,                      /* 29: Signal */
+  &MCU_B.Constant[0],                  /* 30: Signal */
+  &MCU_B.CustomRelay.IndexVector,      /* 31: Signal */
+  &MCU_B.CustomRelay1.IndexVector,     /* 32: Signal */
+  &MCU_B.CustomRelay2.IndexVector,     /* 33: Signal */
+  &MCU_B.StateSpace_o1[0],             /* 34: Signal */
+  &MCU_B.StateSpace_o2[0],             /* 35: Signal */
+  &MCU_B.StateSpace_o3,                /* 36: Signal */
+  &MCU_B.Sum[0],                       /* 37: Signal */
+  &MCU_B.DataTypeConversion2,          /* 38: Signal */
+  &MCU_B.Gain2_a,                      /* 39: Signal */
+  &MCU_B.VoltageV,                     /* 40: Signal */
+  &MCU_B.Add_c,                        /* 41: Signal */
+  &MCU_B.CurrentFilter,                /* 42: Signal */
+  &MCU_B.Add[0],                       /* 43: Signal */
+  &MCU_B.Add2[0],                      /* 44: Signal */
+  &MCU_B.Add1,                         /* 45: Signal */
+  &MCU_B.Saturation,                   /* 46: Signal */
   &MCU_B.IntegralGain,                 /* 47: Signal */
   &MCU_P.Battery_SOC,                  /* 48: Mask Parameter */
   &MCU_P.AUTO_Value,                   /* 49: Block Parameter */
@@ -747,9 +747,6 @@ static TARGET_CONST rtwCAPI_DataTypeMap rtDataTypeMap[] = {
    * isComplex, isPointer, enumStorageType */
   { "double", "real_T", 0, 0, sizeof(real_T), (uint8_T)SS_DOUBLE, 0, 0, 0 },
 
-  { "unsigned char", "uint8_T", 0, 0, sizeof(uint8_T), (uint8_T)SS_UINT8, 0, 0,
-    0 },
-
   { "unsigned char", "boolean_T", 0, 0, sizeof(boolean_T), (uint8_T)SS_BOOLEAN,
     0, 0, 0 }
 };
@@ -873,10 +870,10 @@ static rtwCAPI_ModelMappingStaticInfo mmiStatic = {
     rtElementMap, rtSampleTimeMap, rtDimensionArray },
   "float",
 
-  { 3942387753U,
-    3650243760U,
-    670352702U,
-    545980781U },
+  { 37153827U,
+    3246461242U,
+    1861360640U,
+    1016282112U },
   (NULL), 0,
   (boolean_T)0
 };

@@ -8,7 +8,7 @@
  *
  * Model version              : 14.55
  * Simulink Coder version : 24.2 (R2024b) 21-Jun-2024
- * C source code generated on : Tue Jun 24 19:10:09 2025
+ * C source code generated on : Tue Jun 24 20:25:27 2025
  *
  * Target selection: cn_mingw.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -61,6 +61,7 @@ static void rate_scheduler(void)
 /*
  * Output and update for atomic system:
  *    '<Root>/Subsystem'
+ *    '<Root>/Subsystem1'
  *    '<Root>/Subsystem2'
  *    '<Root>/Subsystem3'
  */
@@ -996,40 +997,26 @@ static void MCU_output(void)
 
   /* Saturate: '<S28>/Saturation' */
   if (rtb_Gain4_g > MCU_P.Saturation_UpperSat_d) {
-    rtb_Gain4_g = MCU_P.Saturation_UpperSat_d;
+    /* Saturate: '<S28>/Saturation' */
+    MCU_B.Saturation = MCU_P.Saturation_UpperSat_d;
   } else if (rtb_Gain4_g < MCU_P.Saturation_LowerSat_e) {
-    rtb_Gain4_g = MCU_P.Saturation_LowerSat_e;
-  }
-
-  /* DataTypeConversion: '<Root>/Data Type Conversion' incorporates:
-   *  Saturate: '<S28>/Saturation'
-   */
-  rtb_CastToDouble = floor(rtb_Gain4_g);
-  if (rtIsNaN(rtb_CastToDouble) || rtIsInf(rtb_CastToDouble)) {
-    rtb_CastToDouble = 0.0;
+    /* Saturate: '<S28>/Saturation' */
+    MCU_B.Saturation = MCU_P.Saturation_LowerSat_e;
   } else {
-    rtb_CastToDouble = fmod(rtb_CastToDouble, 256.0);
+    /* Saturate: '<S28>/Saturation' */
+    MCU_B.Saturation = rtb_Gain4_g;
   }
 
-  if (rtb_CastToDouble < 0.0) {
-    /* DataTypeConversion: '<Root>/Data Type Conversion' */
-    MCU_B.DataTypeConversion = (uint8_T)-(int8_T)(uint8_T)-rtb_CastToDouble;
-  } else {
-    /* DataTypeConversion: '<Root>/Data Type Conversion' */
-    MCU_B.DataTypeConversion = (uint8_T)rtb_CastToDouble;
-  }
-
-  /* End of DataTypeConversion: '<Root>/Data Type Conversion' */
+  /* End of Saturate: '<S28>/Saturation' */
   if (tmp) {
     /* Outputs for Atomic SubSystem: '<Root>/Subsystem1' */
-    /* SignalConversion generated from: '<S6>/In1' */
-    MCU_B.In1 = MCU_B.DataTypeConversion;
+    MCU_Subsystem(MCU_B.Saturation, &MCU_B.Subsystem1);
 
     /* End of Outputs for SubSystem: '<Root>/Subsystem1' */
 
     /* S-Function (sysvarout): '<S11>/S-Function' */
-    if (cnSetSystemVariableValues(MCU_DW.SFunction_SysVar_f, 1, &MCU_B.In1, 3)
-        != 0) {
+    if (cnSetSystemVariableValues(MCU_DW.SFunction_SysVar_f, 1,
+         &MCU_B.Subsystem1.In1, 0) != 0) {
       rtmSetErrorStatus(MCU_M, cnGetErrorMessage());
     }
 
@@ -2037,7 +2024,7 @@ RT_MODEL_MCU_T *MCU(void)
   MCU_M->Sizes.numU = (0);             /* Number of model inputs */
   MCU_M->Sizes.sysDirFeedThru = (0);   /* The model is not direct feedthrough */
   MCU_M->Sizes.numSampTimes = (2);     /* Number of sample times */
-  MCU_M->Sizes.numBlocks = (227);      /* Number of blocks */
+  MCU_M->Sizes.numBlocks = (225);      /* Number of blocks */
   MCU_M->Sizes.numBlockIO = (35);      /* Number of block outputs */
   MCU_M->Sizes.numBlockPrms = (310);   /* Sum of parameter "widths" */
   return MCU_M;
@@ -2050,7 +2037,7 @@ RT_MODEL_MCU_T *MCU(void)
 
 void CallRateMonotonicScheduler(void)
 {
-//rate_monotonic_scheduler();
+  rate_monotonic_scheduler();
 }
 
 #endif
