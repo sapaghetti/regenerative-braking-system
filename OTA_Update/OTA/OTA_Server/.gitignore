@@ -1,5 +1,0 @@
-# .gitignore 파일 내용
-venv/
-audit.log
-upload/
-versions.json
