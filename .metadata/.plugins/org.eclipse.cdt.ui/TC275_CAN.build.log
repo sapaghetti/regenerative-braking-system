@@ -1,0 +1,8 @@
+10:26:20 **** Incremental Build of configuration Debug for project TC275_CAN ****
+amk -j12 all 
+TASKING VX-toolset for AURIX Development Studio (non-commercial): program builder v1.1r8 Build 22011964
+amk F126: [".metadata/.plugins/org.eclipse.cdt.make.core/subdir.mk" 31/0] duplicate action for ".metadata/.plugins/org.eclipse.cdt.make.core/specs.src"
+"amk -j12 all" terminated with exit code 2. Build might be incomplete.
+
+10:26:20 Build Failed. 1 errors, 0 warnings. (took 167ms)
+

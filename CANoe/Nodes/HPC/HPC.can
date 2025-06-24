@@ -1,10 +1,10 @@
-/*@!Encoding:65001*/
+﻿/*@!Encoding:65001*/
 includes
 {
   #include "HPC_Config.cin"
   #include "HPC_Functions.cin"
-  #include "HPC_OTA.cin"
-  #include "EDT.cin"
+  //#include "HPC_OTA.cin"
+  //#include "EDT.cin"
 }
 
 on start

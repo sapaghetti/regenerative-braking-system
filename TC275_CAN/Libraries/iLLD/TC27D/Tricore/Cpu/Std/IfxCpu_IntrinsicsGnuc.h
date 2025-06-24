@@ -1,7 +1,7 @@
 /**
  * \file IfxCpu_IntrinsicsGnuc.h
  *
- * \version iLLD_1_0_1_12_0
+ * \version iLLD_1_0_1_17_0
  * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
  *
  *
@@ -62,6 +62,10 @@
 /******************************************************************************/
 /* *INDENT-OFF* */
 #define STRINGIFY(x)    #x
+
+/** Weak Function
+*/
+#define IFX_WEAK        _attribute_((weak))
 
 /** Function call without return
  */

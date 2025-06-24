@@ -3,8 +3,9 @@
  * \brief MULTICAN  basic functionality
  * \ingroup IfxLld_Multican
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
+ *
  *
  *
  *                                 IMPORTANT NOTICE
@@ -37,6 +38,7 @@
  * FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
  *
  * \defgroup IfxLld_Multican_Std_Enum Enumerations
  * \ingroup IfxLld_Multican_Std
@@ -240,10 +242,10 @@ typedef enum
  */
 typedef struct
 {
-    uint32                     id;                /**< \brief CAN message ID 4byte */
-    IfxMultican_DataLengthCode lengthCode;        /**< \brief CAN message data length code 4byte */
-    uint32                     data[2];           /**< \brief CAN message data 8byte */
-    boolean                    fastBitRate;       /**< \brief CAN FD fast bit rate enable/disable 1byte */
+    uint32                     id;                /**< \brief CAN message ID */
+    IfxMultican_DataLengthCode lengthCode;        /**< \brief CAN message data length code */
+    uint32                     data[2];           /**< \brief CAN message data */
+    boolean                    fastBitRate;       /**< \brief CAN FD fast bit rate enable/disable */
 } IfxMultican_Message;
 
 /** \brief Message object status bit-fields

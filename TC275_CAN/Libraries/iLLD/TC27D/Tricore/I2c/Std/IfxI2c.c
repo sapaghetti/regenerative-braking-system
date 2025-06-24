@@ -2,8 +2,8 @@
  * \file IfxI2c.c
  * \brief I2C  basic functionality
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -247,13 +247,7 @@ void IfxI2c_releaseBus(Ifx_I2C *i2c)
 void IfxI2c_resetFifo(Ifx_I2C *i2c)
 {
     /* reset FIFO */
-    i2c->FIFOCFG.U      = 0x0;
-    i2c->FIFOCFG.B.TXFC = 0U;
-    i2c->FIFOCFG.B.RXFC = 0U;
-    i2c->FIFOCFG.B.TXBS = 0U;
-    i2c->FIFOCFG.B.RXBS = 0U;
-    i2c->FIFOCFG.B.TXFA = 0U;
-    i2c->FIFOCFG.B.RXFA = 0U;
+    i2c->FIFOCFG.U = 0x0;
 }
 
 
@@ -298,11 +292,37 @@ void IfxI2c_setBaudrate(Ifx_I2C *i2c, float32 baudrate)
     IfxScuWdt_clearCpuEndinit(pwd);
     /* Baudrate configuration */
     i2c->FDIVCFG.B.INC           = 1;
-    i2c->FDIVCFG.B.DEC           = (uint16)(dec + 0.5);
+    i2c->FDIVCFG.B.DEC           = (uint16)(dec + 0.5f);
     i2c->TIMCFG.B.SDA_DEL_HD_DAT = 0x3F;
     i2c->TIMCFG.B.FS_SCL_LOW     = 1;
     i2c->TIMCFG.B.EN_SCL_LOW_LEN = 1;
     i2c->TIMCFG.B.SCL_LOW_LEN    = 0x20;
 
     IfxScuWdt_setCpuEndinit(pwd);
+}
+
+
+void IfxI2c_configureAsSlave(Ifx_I2C *i2c)
+{
+    i2c->ADDRCFG.B.MnS = 1; // master mode
+}
+
+
+void IfxI2c_configureAddrFifo(Ifx_I2C *i2c, const IfxI2c_Config *config)
+{
+    // Note: I2C should not be running. Use IfxI2c_stop() before calling this api.
+
+    i2c->ADDRCFG.B.ADR  = config->addressConfig.slaveAddress;
+    i2c->ADDRCFG.B.GCE  = config->addressConfig.generalCallEnable;
+    i2c->ADDRCFG.B.MCE  = config->addressConfig.masterCodeEnable;
+    i2c->ADDRCFG.B.SONA = config->addressConfig.stopOnNotAcknowledge;
+    i2c->ADDRCFG.B.SOPE = config->addressConfig.stopOnPacketEnd;
+    i2c->ADDRCFG.B.TBAM = config->addressConfig.addressMode;
+
+    i2c->FIFOCFG.B.TXFC = config->fifoConfig.txFifoFlowControl;
+    i2c->FIFOCFG.B.RXFC = config->fifoConfig.rxFifoFlowControl;
+    i2c->FIFOCFG.B.TXBS = config->fifoConfig.txBurstSize;
+    i2c->FIFOCFG.B.RXBS = config->fifoConfig.rxBurstSize;
+    i2c->FIFOCFG.B.TXFA = config->fifoConfig.txFifoAlignment;
+    i2c->FIFOCFG.B.RXFA = config->fifoConfig.rxFifoAlignment;
 }

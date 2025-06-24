@@ -2,8 +2,8 @@
  * \file IfxI2c_I2c.c
  * \brief I2C I2C details
  *
- * \version iLLD_1_0_1_12_0
- * \copyright Copyright (c) 2019 Infineon Technologies AG. All rights reserved.
+ * \version iLLD_1_0_1_17_0
+ * \copyright Copyright (c) 2023 Infineon Technologies AG. All rights reserved.
  *
  *
  *
@@ -53,9 +53,25 @@
 
 void IfxI2c_I2c_initConfig(IfxI2c_I2c_Config *config, Ifx_I2C *i2c)
 {
-    config->i2c      = i2c;
-    config->baudrate = 400000;
-    config->pins     = NULL_PTR;
+    config->i2c                                            = i2c;
+    config->baudrate                                       = 400000;
+    config->pins                                           = NULL_PTR;
+
+    config->peripheralMode                                 = IfxI2c_MasterNotSlave_master;
+
+    config->addrFifoCfg.addressConfig.slaveAddress         = 0;
+    config->addrFifoCfg.addressConfig.addressMode          = IfxI2c_AddressMode_7Bit;
+    config->addrFifoCfg.addressConfig.generalCallEnable    = 0;
+    config->addrFifoCfg.addressConfig.masterCodeEnable     = 0;
+    config->addrFifoCfg.addressConfig.stopOnNotAcknowledge = 0;
+    config->addrFifoCfg.addressConfig.stopOnPacketEnd      = 0;
+
+    config->addrFifoCfg.fifoConfig.rxBurstSize             = IfxI2c_RxBurstSize_1Word;
+    config->addrFifoCfg.fifoConfig.txBurstSize             = IfxI2c_TxBurstSize_1Word;
+    config->addrFifoCfg.fifoConfig.rxFifoAlignment         = IfxI2c_RxFifoAlignment_byte;
+    config->addrFifoCfg.fifoConfig.txFifoAlignment         = IfxI2c_TxFifoAlignment_byte;
+    config->addrFifoCfg.fifoConfig.rxFifoFlowControl       = IfxI2c_RxFifoFlowControl_enable;
+    config->addrFifoCfg.fifoConfig.txFifoFlowControl       = IfxI2c_TxFifoFlowControl_enable;
 }
 
 
@@ -81,7 +97,15 @@ void IfxI2c_I2c_initModule(IfxI2c_I2c *i2c, const IfxI2c_I2c_Config *config)
     IfxI2c_enableModule(i2cSFR);
     IfxI2c_stop(i2cSFR);                                                                   // enter config Mode
     IfxI2c_configureAsMaster(i2cSFR);
-    IfxI2c_setBaudrate(i2cSFR, config->baudrate);
+
+    if (config->peripheralMode == IfxI2c_MasterNotSlave_slave)
+    {
+        IfxI2c_configureAsSlave(i2cSFR);
+    }
+
+    IfxI2c_configureAddrFifo(i2cSFR, &config->addrFifoCfg);
+
+    IfxI2c_setBaudrate(i2cSFR, config->baudrate);  /*In high speed mode the baud rate must be higher then 400kHz */
 
     if (config->pins != NULL_PTR)
     {
@@ -89,6 +113,7 @@ void IfxI2c_I2c_initModule(IfxI2c_I2c *i2c, const IfxI2c_I2c_Config *config)
     }
 
     IfxI2c_run(i2cSFR);
+
     i2c->baudrate  = IfxI2c_getBaudrate(i2cSFR);
     i2c->busStatus = IfxI2c_getBusStatus(i2cSFR);
     i2c->status    = IfxI2c_I2c_Status_ok;
@@ -130,14 +155,12 @@ IfxI2c_I2c_Status IfxI2c_I2c_read(IfxI2c_I2c_Device *i2cDevice, volatile uint8 *
     IfxI2c_setTransmitPacketSize(i2c, 1);   // send slave address packet with RnW = 1
     IfxI2c_setReceivePacketSize(i2c, size); // set number of bytes to reveive
     IfxI2c_writeFifo(i2c, packet);
-    IfxI2c_clearLastSingleRequestInterruptSource(i2c);
-    IfxI2c_clearSingleRequestInterruptSource(i2c);
-    IfxI2c_clearLastBurstRequestInterruptSource(i2c);
-    IfxI2c_clearBurstRequestInterruptSource(i2c);
 
-    /* Poll until aribtration lost, nack, or rx mode flag is reset, or the error is gone*/
-    while ((i2c->PIRQSS.U & ((1 << IFX_I2C_PIRQSS_AL_OFF) | (1 << IFX_I2C_PIRQSS_NACK_OFF) | (1 << IFX_I2C_PIRQSS_RX_OFF))) || i2c->ERRIRQSS.U)
+    /* Poll until aribtration lost, nack, or rx mode flag is reset */
+    while ((i2c->PIRQSS.U & ((1 << IFX_I2C_PIRQSS_AL_OFF) | (1 << IFX_I2C_PIRQSM_TX_END_OFF) | (1 << IFX_I2C_PIRQSS_RX_OFF))) == FALSE)
     {}
+
+    IfxI2c_clearAllDtrInterruptSources(i2c);
 
     /* check status*/
     if (i2c->ERRIRQSS.U)
@@ -180,7 +203,7 @@ IfxI2c_I2c_Status IfxI2c_I2c_read(IfxI2c_I2c_Device *i2cDevice, volatile uint8 *
                     bytesToReceive = 0;
                 }
 
-                uint32 ris;
+                uint32 ris = 0;
 
                 while (!(ris = i2c->RIS.U)) // wait for fifo request or error
 
@@ -331,7 +354,6 @@ IfxI2c_I2c_Status IfxI2c_I2c_read(IfxI2c_I2c_Device *i2cDevice, volatile uint8 *
 
     IfxI2c_clearAllErrorInterruptSources(i2c);
     IfxI2c_clearAllProtocolInterruptSources(i2c);
-
     IfxI2c_releaseBus(i2c);
     i2cDevice->i2c->busStatus = IfxI2c_getBusStatus(i2c);
     i2cDevice->i2c->status    = status;
@@ -391,7 +413,7 @@ IfxI2c_I2c_Status IfxI2c_I2c_write(IfxI2c_I2c_Device *i2cDevice, volatile uint8 
         IfxI2c_clearProtocolInterruptSource(i2c, IfxI2c_ProtocolInterruptSource_notAcknowledgeReceived);
         status = IfxI2c_I2c_Status_nak;
     }
-    else if (size > 0) // write i2c device
+    else if (size > 0)   // write i2c device
 
     {
         uint32  i, j = 0;
@@ -453,6 +475,11 @@ IfxI2c_I2c_Status IfxI2c_I2c_write(IfxI2c_I2c_Device *i2cDevice, volatile uint8 
             }
 
             IfxI2c_writeFifo(i2c, txdata.packet);
+
+            /* our write to FIFO will trigger any of the request source, we wait for it */
+            while (!(i2c->RIS.U)) // wait for fifo request or error
+            {}
+
             IfxI2c_clearLastSingleRequestInterruptSource(i2c);
             IfxI2c_clearSingleRequestInterruptSource(i2c);
             IfxI2c_clearLastBurstRequestInterruptSource(i2c);
