@@ -113,7 +113,7 @@ void InitializeGlobals()
 {
   currentState = STATE_INIT;
   previousState = STATE_INIT;
-  currentRegenMode = REGEN_OFF;
+  currentRegenMode = REGEN_AUTO;
   
   currentVehicleSpeed = 0.0;
   currentMotorSpeed = 0.0;
