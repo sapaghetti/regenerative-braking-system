@@ -311,3 +311,24 @@ on message EDT_TMU_E_VER_INFO
 {
   @OTA::Cur_version[(this.byte(0) & 0xF0) >> 4] = this.byte(0) & 0x0F;
 }
+
+on key 'r'
+{
+  @TMU::TrafficLightRed = 1;
+  @TMU::TrafficLightYellow = 0;
+  @TMU::TrafficLightGreen = 0;
+}
+
+on key 'y'
+{
+  @TMU::TrafficLightRed = 0;
+  @TMU::TrafficLightYellow = 1;
+  @TMU::TrafficLightGreen = 0;
+}
+
+on key 'g'
+{
+  @TMU::TrafficLightRed = 0;
+  @TMU::TrafficLightYellow = 0;
+  @TMU::TrafficLightGreen = 1;
+}

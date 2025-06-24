@@ -172,7 +172,7 @@ float CalculateOptimalTorque()
       case REGEN_LEVEL3: baseTorque = 150.0; break;
       case REGEN_AUTO:
         baseTorque = gAutoRegenBaseTorque; // 자동 모드에서는 최적화된 기본 토크 값 사용
-        if (v2xData.trafficLightStatus == 1) baseTorque *= 1.5; // 신호등 상태에 따라 가중치
+        if (@TMU::TrafficLightRed) baseTorque *= 1.5; // 신호등 상태에 따라 가중치
         if (v2xData.roadGrade > 5) baseTorque *= 1.3; // 도로 경사도에 따라 가중치
         break;
       default: baseTorque = 0.0; break;
