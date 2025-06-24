@@ -2,9 +2,6 @@
 /**
  * @file ZCU_Front.can
  * @brief ZCU_Front의 메인 CAPL 스크립트
- * @author jjongs2
- * @version 1.00
- * @date 2025-06-15
  */
 
 includes

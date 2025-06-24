@@ -2,9 +2,6 @@
 /**
  * @file ZCU_Center_Config.cin
  * @brief ZCU_Center CAPL 스크립트의 모든 설정, 상수 및 전역 변수 정의
- * @author jjongs2
- * @version 1.00
- * @date 2025-06-16
  */
 
 variables

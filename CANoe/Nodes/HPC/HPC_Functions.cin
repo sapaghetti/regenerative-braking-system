@@ -1,11 +1,16 @@
 ﻿/*@!Encoding:65001*/
-// =================================================================
-// 상태 전이 함수
-// =================================================================
+/**
+ * @file HPC_Functions.cin
+ * @brief HPC의 모든 함수 정의
+ */
 
-/*
+/*******************************************************************************
+ * 상태 전이 함수
+ ******************************************************************************/
+
+/**
  * @brief Fail-Safe 상태 진입 시 호출되는 함수
- * @details 모든 토크 명령을 비활성화하고, 안전 상태임을 알립니다.
+ * @note 모든 토크 명령을 비활성화하고, 안전 상태임을 알림
  */
 void OnEnterFailSafe()
 {
@@ -26,9 +31,9 @@ void OnEnterFailSafe()
   output(failSafeMsg);
 }
 
-/*
+/**
  * @brief 배터리 보호 상태 진입 시 호출되는 함수
- * @details 회생 제동 토크가 제한됨을 알리고 관련 폴트를 설정합니다.
+ * @note 회생 제동 토크가 제한됨을 알리고 관련 폴트를 설정
  */
 void OnEnterBatteryProtection()
 {
@@ -36,9 +41,9 @@ void OnEnterBatteryProtection()
   SetFault(FAULT_BATTERY_PROTECTION);
 }
 
-/*
+/**
  * @brief 정상 상태 진입 시 호출되는 함수
- * @details 정상 작동 상태로 복귀했음을 알립니다.
+ * @note 정상 작동 상태로 복귀했음을 알림
  */
 void OnEnterNormal()
 {
@@ -46,9 +51,10 @@ void OnEnterNormal()
   ClearFault(FAULT_BATTERY_PROTECTION);
 }
 
-/*
+/**
  * @brief 시스템 상태를 새로운 상태로 전환하는 함수
  * @param newState 새로운 시스템 상태
+ * @note 상태 변경 시 해당 상태의 진입 함수를 호출하고 시스템 변수를 업데이트
  */
 void TransitionToState(enum SystemState newState)
 {
@@ -67,13 +73,14 @@ void TransitionToState(enum SystemState newState)
   }
 }
 
-// =================================================================
-// 폴트 관리 함수
-// =================================================================
+/*******************************************************************************
+ * 폴트 관리 함수
+ ******************************************************************************/
 
-/*
+/**
  * @brief 폴트 레지스터에 특정 폴트 비트를 설정하는 함수
  * @param faultBit 설정할 폴트 비트
+ * @note 이미 설정된 폴트는 중복 설정하지 않음
  */
 void SetFault(dword faultBit)
 {
@@ -84,7 +91,7 @@ void SetFault(dword faultBit)
   }
 }
 
-/*
+/**
  * @brief 폴트 레지스터에서 특정 폴트 비트를 해제하는 함수
  * @param faultBit 해제할 폴트 비트
  */
@@ -94,12 +101,13 @@ void ClearFault(dword faultBit)
   diagnostics.errorFlags = faultRegister;
 }
 
-// =================================================================
-// 초기화 함수
-// =================================================================
+/*******************************************************************************
+ * 초기화 함수
+ ******************************************************************************/
 
-/*
- * @brief 전역 변수들을 초기화하는 함수
+/**
+ * @brief 시작 시 모든 전역 변수를 기본 상태로 초기화
+ * @note 시스템 시작 시 모든 데이터 구조체와 변수를 안전한 초기값으로 설정
  */
 void InitializeGlobals()
 {
@@ -132,13 +140,18 @@ void InitializeGlobals()
   gPrevTime_VD = 0;
 }
 
-// =================================================================
-// 핵심 로직: 최적 토크 계산
-// =================================================================
+/*******************************************************************************
+ * 핵심 로직: 최적 토크 계산
+ ******************************************************************************/
 
-/*
+/**
  * @brief 운전자 입력과 차량 상태를 기반으로 최적의 모터 토크를 계산하는 함수
  * @return 계산된 최종 모터 토크 (구동: 양수, 제동: 음수)
+ * @note 다음 우선순위로 토크를 계산:
+ *       1. 브레이크 오버라이드 시스템(BOS) - 브레이크 페달 우선
+ *       2. 가속 의도 처리 - 가속 페달 입력
+ *       3. 페달 Off 회생 제동 - 원페달 드라이빙
+ *       4. 시스템 제약 조건 적용 - 배터리 보호, 속도별 보정
  */
 float CalculateOptimalTorque()
 {
@@ -201,8 +214,10 @@ float CalculateOptimalTorque()
   return finalTorque;
 }
 
-/*
+/**
  * @brief 토크 값을 기반으로 차량의 RPM과 속도를 업데이트하는 물리 시뮬레이션 함수
+ * @note 뉴턴의 회전 운동 법칙을 사용하여 각가속도를 계산하고,
+ *       기어비와 바퀴 반경을 고려하여 차량 속도를 결정
  */
 void UpdateVehiclePhysics()
 {
@@ -234,12 +249,13 @@ void UpdateVehiclePhysics()
   currentVehicleSpeed = (wheel_rpm / 60.0) * (2 * PI * WHEEL_RADIUS) * 3.6;
 }
 
-// =================================================================
-// 주기적 태스크 함수
-// =================================================================
+/*******************************************************************************
+ * 주기적 태스크 함수
+ ******************************************************************************/
 
-/*
+/**
  * @brief 주기적으로 모터 토크 제어 명령을 전송하는 태스크
+ * @note FAIL_SAFE 상태에서는 실행하지 않으며, CRC를 포함한 E2E 보호 적용
  */
 void ExecuteTorqueControlTask()
 {
@@ -272,8 +288,12 @@ void ExecuteTorqueControlTask()
   setTimer(timerWatchdog, WATCHDOG_TIMEOUT); // 와치독 타이머 리셋
 }
 
-/*
- * @brief 자동 모드 최적화 태스크. 주기적으로 자동 회생 제동 강도를 조절합니다.
+/**
+ * @brief 자동 모드 최적화 태스크
+ * @note 주기적으로 자동 회생 제동 강도를 교통 상황과 도로 조건에 맞게 조절
+ *       - 교통 정체 시: 강한 회생 제동으로 가다서다 상황 대응
+ *       - 고속 주행 시: 부드러운 Coasting을 위해 회생 제동 감소
+ *       - 일반 상황: 기본값(100Nm)으로 복귀
  */
 void ExecuteAutoModeOptimizationTask()
 {
@@ -317,8 +337,9 @@ void ExecuteAutoModeOptimizationTask()
   write("HPC: 자동 모드 최적화 실행. 현재 기본 토크: %.1f Nm", gAutoRegenBaseTorque);
 }
 
-/*
+/**
  * @brief 클러스터에 표시할 정보를 주기적으로 전송하는 태스크
+ * @note 회생 제동 모드, 배터리 SOC, 누적 회생 에너지, 경고 상태, 차량/모터 속도 정보 전송
  */
 void ExecuteClusterDisplayTask()
 {
@@ -357,8 +378,10 @@ void ExecuteClusterDisplayTask()
   output(display);
 }
 
-/*
+/**
  * @brief 에너지 효율 계산(누적 회생 에너지)을 주기적으로 수행하는 태스크
+ * @note 회생 제동 시에만 순간 전력과 누적 에너지를 계산
+ *       전력(W) = 토크(Nm) × 각속도(rad/s)
  */
 void ExecuteEnergyEfficiencyTask()
 {
@@ -373,12 +396,17 @@ void ExecuteEnergyEfficiencyTask()
     }
 }
 
-// =================================================================
-// 메인 타이머 핸들러
-// =================================================================
+/*******************************************************************************
+ * 이벤트 핸들러 추상화 함수
+ ******************************************************************************/
 
-/*
+/**
  * @brief 메인 태스크 타이머 이벤트 발생 시 주기적으로 호출되는 함수
+ * @note 다양한 주기로 태스크를 스케줄링:
+ *       - 매 주기(10ms): 토크 제어, 물리 시뮬레이션
+ *       - 100ms 주기: 클러스터 디스플레이
+ *       - 200ms 주기: 에너지 효율 계산
+ *       - 500ms 주기: 자동 모드 최적화
  */
 void HandleMainTaskTimer()
 {
@@ -403,12 +431,9 @@ void HandleMainTaskTimer()
   gTaskCounter++;
 }
 
-// =================================================================
-// 이벤트 핸들러 (시스템 시작/정지, 와치독)
-// =================================================================
-
-/*
- * @brief 시뮬레이션 시작 시 호출되는 이벤트 핸들러
+/**
+ * @brief 'on start' 이벤트 핸들러 로직을 처리
+ * @note 전역 변수 초기화, 메인 태스크 및 워치독 타이머 시작, NORMAL 상태로 전이
  */
 void HandleStartEvent()
 {
@@ -421,8 +446,8 @@ void HandleStartEvent()
   TransitionToState(STATE_NORMAL); // 정상 상태로 전이
 }
 
-/*
- * @brief 시뮬레이션 정지 시 호출되는 이벤트 핸들러
+/**
+ * @brief 'on stopMeasurement' 이벤트 핸들러 로직을 처리
  */
 void HandleStopEvent()
 {
@@ -430,23 +455,25 @@ void HandleStopEvent()
   write("HPC: 시스템 종료 완료");
 }
 
-/*
- * @brief 와치독 타임아웃 발생 시 호출되는 이벤트 핸들러
+/**
+ * @brief 워치독 타임아웃 발생 시 호출되는 이벤트 핸들러
+ * @note 워치독 폴트를 설정하고 FAIL_SAFE 상태로 전환
  */
 void HandleWatchdogTimeout()
 {
-  write("HPC: 와치독 타임아웃 - FailSafe 모드로 전환");
+  write("HPC: 워치독 타임아웃 - FailSafe 모드로 전환");
   SetFault(FAULT_WATCHDOG_TIMEOUT);
   TransitionToState(STATE_FAIL_SAFE);
 }
 
-// =================================================================
-// CAN 메시지 응답 함수
-// =================================================================
+/*******************************************************************************
+ * CAN 메시지 응답 함수
+ ******************************************************************************/
 
-/*
+/**
  * @brief 회생제동 모드 변경 요청에 대한 응답 메시지를 전송하는 함수
  * @param request 수신된 모드 변경 요청 메시지
+ * @note 정상 또는 배터리 보호 상태에서만 모드 변경 허용
  */
 void SendModeChangeResponse(message M008_Mode_Change_Req request)
 {
@@ -491,13 +518,14 @@ void SendModeChangeResponse(message M008_Mode_Change_Req request)
     output(response);
 }
 
-// =================================================================
-// CAN 메시지 수신 핸들러
-// =================================================================
+/*******************************************************************************
+ * CAN 메시지 수신 핸들러
+ ******************************************************************************/
 
-/*
- * @brief 회생 제동 모드 변경 요청 메시지(M008) 수신 시 호출되는 핸들러
+/**
+ * @brief 'on message M008_Mode_Change_Req' 이벤트 핸들러 로직을 처리
  * @param msg 수신된 메시지
+ * @note 회생 제동 모드 변경 요청을 처리하고 응답 메시지 전송
  */
 void HandleModeChangeReqMessage(message M008_Mode_Change_Req msg)
 {
@@ -505,9 +533,10 @@ void HandleModeChangeReqMessage(message M008_Mode_Change_Req msg)
   SendModeChangeResponse(msg);
 }
 
-/*
- * @brief 배터리 기본 상태 메시지(M006) 수신 시 호출되는 핸들러
+/**
+ * @brief 'on message M006_Battery_Basic' 이벤트 핸들러 로직을 처리
  * @param msg 수신된 메시지
+ * @note 배터리 SOC 및 온도 정보를 수신하여 배터리 보호 상태를 결정
  */
 void HandleBatteryBasicMessage(message M006_Battery_Basic msg)
 {
@@ -525,10 +554,10 @@ void HandleBatteryBasicMessage(message M006_Battery_Basic msg)
   }
 }
 
-/*
- * @brief 회생 제동 토크 피드백 메시지(M002) 수신 시 호출되는 핸들러
- * @details 목표 회생 제동량 대비 실제 회생 제동량이 부족할 경우, 마찰 제동으로 보상 요청
+/**
+ * @brief 'on message M002_Regen_Torque_Feedback' 이벤트 핸들러 로직을 처리
  * @param msg 수신된 메시지
+ * @note 목표 회생 제동량 대비 실제 회생 제동량이 부족할 경우, 마찰 제동으로 보상 요청
  */
 void HandleRegenTorqueFeedbackMessage(message M002_Regen_Torque_Feedback msg)
 {
@@ -567,9 +596,10 @@ void HandleRegenTorqueFeedbackMessage(message M002_Regen_Torque_Feedback msg)
   }
 }
 
-/*
- * @brief Fail-Safe 상태 메시지(M004) 수신 시 호출되는 핸들러
+/**
+ * @brief Fail-Safe 상태 메시지 수신 이벤트 핸들러 로직을 처리
  * @param faultCode 수신된 폴트 코드
+ * @note 다른 ECU로부터 Critical Fault 수신 시 FAIL_SAFE 상태로 전환
  */
 void HandleFailSafeStatusMessage(dword faultCode)
 {
@@ -581,10 +611,10 @@ void HandleFailSafeStatusMessage(dword faultCode)
   }
 }
 
-/*
- * @brief 차량 동역학 메시지(M005) 수신 시 호출되는 핸들러
- * @details 가속 페달 위치, 차량 속도, 조향각 등의 정보를 갱신하고, 감속도를 계산하여 제동등을 제어
+/**
+ * @brief 'on message M005_Vehicle_Dynamics' 이벤트 핸들러 로직을 처리
  * @param msg 수신된 메시지
+ * @note 가속 페달 위치, 차량 속도, 조향각 등의 정보를 갱신하고, 감속도를 계산하여 제동등을 제어
  */
 void HandleVehicleDynamicsMessage(message M005_Vehicle_Dynamics msg)
 {
@@ -626,9 +656,10 @@ void HandleVehicleDynamicsMessage(message M005_Vehicle_Dynamics msg)
   gPrevTime_VD = currentTime;
 }
 
-/*
- * @brief 브레이크 페달 상태 메시지(M005_EXT) 수신 시 호출되는 핸들러
+/**
+ * @brief 'on message M005_EXT_Brake_Pedal' 이벤트 핸들러 로직을 처리
  * @param msg 수신된 메시지
+ * @note 브레이크 페달 위치 정보를 수신하여 제동 의도를 파악
  */
 void HandleBrakePedalMessage(message M005_EXT_Brake_Pedal msg)
 {
