@@ -1,0 +1,7 @@
+<map id="DetermineRequestedModeFromVoice" name="DetermineRequestedModeFromVoice">
+<area shape="rect" id="Node000001" title="음성 입력을 기반으로 모드 변경 요청을 생성" alt="" coords="478,5,684,48"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#afeb35a6cbc7536f113abaa2a0e7831a6" title="&#39;on message L003_Voice_Command&#39; 이벤트 핸들러 로직을 처리" alt="" coords="223,13,430,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="463,29,430,29,430,24,463,24"/>
+<area shape="rect" id="Node000003" href="$d8/d1a/_z_c_u___center_8can.html#a60681a91e13e0350940216c9fb745a2a" title="음성 명령 메시지 수신 이벤트 핸들러" alt="" coords="5,5,175,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="207,29,175,29,175,24,207,24"/>
+</map>

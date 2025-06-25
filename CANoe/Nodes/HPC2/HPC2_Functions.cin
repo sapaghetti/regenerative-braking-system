@@ -1,0 +1,649 @@
+﻿/*@!Encoding:65001*/
+/**
+ * @file HPC2_Functions.cin
+ * @brief HPC ECU의 회생 제동 제어, 상태 관리 및 주요 기능 로직 구현
+ */
+
+// =================================================================
+// 상태 전이 함수
+// =================================================================
+
+/*
+ * @brief Fail-Safe 상태 진입 시 호출되는 함수
+ * @details 모든 토크 명령을 비활성화하고, 안전 상태임을 알립니다.
+ */
+void OnEnterFailSafe()
+{
+  message M001_Regen_Torque_Cmd_2 emergencyCmd;
+  message M004_FailSafe_Status_5 failSafeMsg;
+
+  write("HPC: FAIL-SAFE 모드 활성화. 모든 토크 명령 비활성화됨.");
+  currentRegenMode = REGEN_OFF;
+  targetMotorTorque = 0.0;
+
+  // 토크를 0으로 만드는 명령 전송
+  emergencyCmd.Target_Regen_Torque.phys = 0;
+  emergencyCmd.Regen_Mode = 0;
+  emergencyCmd.Torque_Rate_Limit = 255; // 즉각적인 변경
+  output(emergencyCmd);
+
+  // Fail-Safe 상태 메시지 전송
+  output(failSafeMsg);
+}
+
+/*
+ * @brief 배터리 보호 상태 진입 시 호출되는 함수
+ * @details 회생 제동 토크가 제한됨을 알리고 관련 폴트를 설정합니다.
+ */
+void OnEnterBatteryProtection()
+{
+  write("HPC: 배터리 보호 모드 활성화. 회생 제동 토크 제한됨.");
+  SetFault(FAULT_BATTERY_PROTECTION);
+}
+
+/*
+ * @brief 정상 상태 진입 시 호출되는 함수
+ * @details 정상 작동 상태로 복귀했음을 알립니다.
+ */
+void OnEnterNormal()
+{
+  write("HPC: 정상 작동 모드로 복귀.");
+  ClearFault(FAULT_BATTERY_PROTECTION);
+}
+
+/*
+ * @brief 시스템 상태를 새로운 상태로 전환하는 함수
+ * @param newState 새로운 시스템 상태
+ */
+void TransitionToState(enum SystemState newState)
+{
+  if (newState != currentState)
+  {
+    previousState = currentState;
+    currentState = newState;
+    write("HPC: 상태 전이 %d -> %d", previousState, currentState);
+    switch (newState)
+    {
+      case STATE_FAIL_SAFE: OnEnterFailSafe(); @sysvar::HPC::g_isHpcFaulty = 1; break;
+      case STATE_BATTERY_PROTECTION: OnEnterBatteryProtection(); @sysvar::HPC::g_isHpcFaulty = 1; break;
+      case STATE_NORMAL: OnEnterNormal(); @sysvar::HPC::g_isHpcFaulty = 0; break;
+      default: break;
+    }
+  }
+}
+
+// =================================================================
+// 폴트 관리 함수
+// =================================================================
+
+/*
+ * @brief 폴트 레지스터에 특정 폴트 비트를 설정하는 함수
+ * @param faultBit 설정할 폴트 비트
+ */
+void SetFault(dword faultBit)
+{
+  if((faultRegister & faultBit) == 0) // 아직 설정되지 않은 폴트인 경우에만 설정
+  {
+    faultRegister |= faultBit;
+    diagnostics.errorFlags = faultRegister;
+  }
+}
+
+/*
+ * @brief 폴트 레지스터에서 특정 폴트 비트를 해제하는 함수
+ * @param faultBit 해제할 폴트 비트
+ */
+void ClearFault(dword faultBit)
+{
+  faultRegister &= ~faultBit;
+  diagnostics.errorFlags = faultRegister;
+}
+
+// =================================================================
+// 초기화 함수
+// =================================================================
+
+/*
+ * @brief 전역 변수들을 초기화하는 함수
+ */
+void InitializeGlobals()
+{
+  currentState = STATE_INIT;
+  previousState = STATE_INIT;
+  currentRegenMode = REGEN_OFF;
+  
+  currentVehicleSpeed = 0.0;
+  currentMotorSpeed = 0.0;
+  currentRegenTorque = 0.0;
+  targetMotorTorque = 0.0;
+  maxRegenPower = 0.0;
+  cumulativeRegenEnergy = 0.0;
+  instantRegenPower = 0.0;
+  
+  batterySOC = 0;
+  batteryTemp = 0;
+  steeringAngle = 0.0;
+  apsPosition = 0;
+  bppsPosition = 0;
+  
+  faultRegister = 0;
+  diagnostics.errorFlags = 0;
+  watchdogCounter = 0;
+  gTaskCounter = 0;
+
+  gAutoRegenBaseTorque = 100.0;
+
+  gPrevVehicleSpeed_VD = 0;
+  gPrevTime_VD = 0;
+}
+
+// =================================================================
+// 핵심 로직: 최적 토크 계산
+// =================================================================
+
+/*
+ * @brief 운전자 입력과 차량 상태를 기반으로 최적의 모터 토크를 계산하는 함수
+ * @return 계산된 최종 모터 토크 (구동: 양수, 제동: 음수)
+ */
+float CalculateOptimalTorque()
+{
+  float propulsionTorque = 0.0;
+  float regenTorque = 0.0;
+  float finalTorque = 0.0;
+
+  // --- 로직 1: 브레이크 오버라이드 시스템(BOS) 및 제동 의도 처리 ---
+  // 브레이크 페달이 데드존 이상으로 눌리면, 가속 페달 입력은 무시하고 제동 토크만 계산합니다.
+  if (bppsPosition > BPPS_DEADZONE)
+  {
+    regenTorque = MAX_REGEN_TORQUE_AT_PEDAL * ((bppsPosition - BPPS_DEADZONE) / (100.0 - BPPS_DEADZONE));
+    finalTorque = -regenTorque; // 제동 토크는 음수 값입니다.
+  }
+  // --- 로직 2: 가속 의도 처리 ---
+  // 브레이크 페달이 눌리지 않고, 가속 페달이 데드존 이상으로 눌렸을 경우 구동 토크를 계산합니다.
+  else if (apsPosition > APS_DEADZONE)
+  {
+    propulsionTorque = MAX_PROPULSION_TORQUE * ((apsPosition - APS_DEADZONE) / (100.0 - APS_DEADZONE));
+    finalTorque = propulsionTorque; // 구동 토크는 양수 값입니다.
+  }
+  // --- 로직 3: 페달 Off 회생 제동 (원페달 드라이빙) ---
+  // 가속과 브레이크 페달이 모두 눌리지 않았을 경우, 설정된 회생 제동 레벨에 따라 토크를 계산합니다.
+  else
+  {
+    float baseTorque = 0.0;
+    switch (currentRegenMode)
+    {
+      case REGEN_LEVEL1: baseTorque = 50.0; break;
+      case REGEN_LEVEL2: baseTorque = 100.0; break;
+      case REGEN_LEVEL3: baseTorque = 150.0; break;
+      case REGEN_AUTO:
+        baseTorque = gAutoRegenBaseTorque; // 자동 모드에서는 최적화된 기본 토크 값 사용
+        if (@TMU::TrafficLightRed) baseTorque *= 1.5; // 신호등 상태에 따라 가중치
+        if (v2xData.roadGrade > 5) baseTorque *= 1.3; // 도로 경사도에 따라 가중치
+        break;
+      default: baseTorque = 0.0; break;
+    }
+    regenTorque = baseTorque;
+    finalTorque = -regenTorque; // 제동 토크는 음수 값입니다.
+  }
+
+  // --- 로직 4: 시스템 제약 조건 적용 ---
+  // 배터리 보호 상태에서는 회생 제동(음수 토크)을 제한합니다.
+  if (currentState == STATE_BATTERY_PROTECTION)
+  {
+    if (finalTorque < 0)
+    {
+      finalTorque *= 0.5; // 회생 제동 토크를 50%로 제한
+      write("HPC: 배터리 보호 모드로 인해 회생 제동 토크 제한됨. 토크: %.2f", finalTorque);
+    }
+  }
+
+  // 저속/고속 구간에서 회생 제동 토크를 보정합니다. (제동 시에만 적용)
+  if (finalTorque < 0) {
+    if (currentVehicleSpeed < 10.0) finalTorque *= 0.3; // 저속에서 회생 제동 감소
+    else if (currentVehicleSpeed > 80.0) finalTorque *= 1.2; // 고속에서 회생 제동 증가
+  }
+
+  return finalTorque;
+}
+
+/*
+ * @brief 토크 값을 기반으로 차량의 RPM과 속도를 업데이트하는 물리 시뮬레이션 함수
+ */
+void UpdateVehiclePhysics()
+{
+  float angular_acceleration; // rad/s^2, 각가속도
+  float delta_rpm;            // RPM 변화량
+  float wheel_rpm;            // 바퀴 RPM
+  
+  // 1. 각가속도 계산 (α = τ / I)
+  angular_acceleration = targetMotorTorque / VEHICLE_INERTIA;
+  
+  // 2. RPM 변화량 계산 (rad/s를 rpm으로 변환)
+  // 변화량(rpm) = 변화량(rev/s) * 60 = 변화량(rad/s) / (2*PI) * 60
+  delta_rpm = (angular_acceleration / (2 * pi)) * 60.0;
+  
+  // 3. 현재 모터 속도(RPM) 업데이트
+  currentMotorSpeed += delta_rpm * (MAIN_CYCLE / 1000.0); // 시간 변화량 적용
+  
+  // 모터가 역회전하지 않도록 방지
+  if (currentMotorSpeed < 0)
+  {
+    currentMotorSpeed = 0;
+  }
+
+  // 4. 차량 속도(km/h) 업데이트
+  // 바퀴 RPM = 모터 RPM / 기어비
+  wheel_rpm = currentMotorSpeed / GEAR_RATIO;
+  // 차량 속도(m/s) = 바퀴 RPS * 바퀴 둘레 = (바퀴 RPM / 60) * (2 * PI * R)
+  // 차량 속도(km/h) = 차량 속도(m/s) * 3.6
+  currentVehicleSpeed = (wheel_rpm / 60.0) * (2 * PI * WHEEL_RADIUS) * 3.6;
+}
+
+// =================================================================
+// 주기적 태스크 함수
+// =================================================================
+
+/*
+ * @brief 주기적으로 모터 토크 제어 명령을 전송하는 태스크
+ */
+void ExecuteTorqueControlTask()
+{
+  message M001_Regen_Torque_Cmd_2 cmd;
+
+  if(currentState == STATE_FAIL_SAFE) return; // Fail-Safe 상태에서는 실행하지 않음
+
+  targetMotorTorque = CalculateOptimalTorque();
+  
+  // CAN 메시지의 'Target_Regen_Torque' 시그널은 구동(양수)과 제동(음수) 토크 모두를 위해 사용됩니다.
+  // 범위는 -3200 ~ +3200 Nm 이며, 오프셋이 적용됩니다.
+  cmd.Target_Regen_Torque.phys = targetMotorTorque;
+  cmd.Regen_Mode = (byte)currentRegenMode;
+  cmd.Torque_Rate_Limit.phys = 250;
+  cmd.E2E_Counter = ++watchdogCounter;
+  cmd.Max_Regen_Power.phys = maxRegenPower;
+
+  // E2E CRC 계산
+  gCrcData[0] = (byte)(cmd.Target_Regen_Torque & 0xFF);
+  gCrcData[1] = (byte)((cmd.Target_Regen_Torque >> 8) & 0xFF);
+  gCrcData[2] = cmd.Regen_Mode;
+  gCrcData[3] = cmd.Torque_Rate_Limit;
+  gCrcData[4] = cmd.E2E_Counter;
+  gCrcData[5] = cmd.Max_Regen_Power;
+  gCrcRetval = Crc_CalculateCRC16(gCrcData, 6, 0, 6, 0, 1, gCrcValue);
+  if (gCrcRetval == 0) cmd.E2E_CRC16 = (word)gCrcValue;
+  else cmd.E2E_CRC16 = 0x0000;
+  
+  output(cmd);
+  setTimer(timerWatchdog, WATCHDOG_TIMEOUT); // 와치독 타이머 리셋
+}
+
+/*
+ * @brief 자동 모드 최적화 태스크. 주기적으로 자동 회생 제동 강도를 조절합니다.
+ */
+void ExecuteAutoModeOptimizationTask()
+{
+  // 자동 모드 및 정상 상태가 아니면 로직을 실행하지 않음
+  if (currentRegenMode != REGEN_AUTO || currentState != STATE_NORMAL)
+  {
+    return;
+  }
+
+  // 로직 1: 교통 정체 수준에 따른 최적화 (가다 서다 반복 상황)
+  // v2xData.congestionLevel은 0~5 범위로 가정
+  if (v2xData.congestionLevel > 3)
+  {
+    // 정체가 심하면 더 강한 회생 제동을 위해 기본 토크를 점진적으로 증가
+    if (gAutoRegenBaseTorque < 140.0)
+    {
+      gAutoRegenBaseTorque += 2.0; // 최대 140Nm까지
+    }
+  }
+  // 로직 2: 고속 주행 시 최적화 (고속도로 항속 상황)
+  else if (currentVehicleSpeed > 80.0 && v2xData.congestionLevel < 2)
+  {
+    // 고속 주행 시 부드러운 주행감(Coasting)을 위해 기본 토크를 점진적으로 감소
+    if (gAutoRegenBaseTorque > 60.0)
+    {
+      gAutoRegenBaseTorque -= 2.0; // 최소 60Nm까지
+    }
+  }
+  // 로직 3: 일반적인 상황에서는 기본값으로 복귀
+  else
+  {
+    if (gAutoRegenBaseTorque > 100.0)
+    {
+      gAutoRegenBaseTorque -= 1.0;
+    }
+    else if (gAutoRegenBaseTorque < 100.0)
+    {
+      gAutoRegenBaseTorque += 1.0;
+    }
+  }
+  write("HPC: 자동 모드 최적화 실행. 현재 기본 토크: %.1f Nm", gAutoRegenBaseTorque);
+}
+
+/*
+ * @brief 클러스터에 표시할 정보를 주기적으로 전송하는 태스크
+ */
+void ExecuteClusterDisplayTask()
+{
+  message M012_Cluster_Display_2 display;
+  
+  display.Display_Mode = (byte)currentRegenMode;
+  display.Battery_SOC = batterySOC;
+  display.Cumulative_Regen_Energy.phys = cumulativeRegenEnergy;
+  display.Warning_Status = (currentState == STATE_BATTERY_PROTECTION) ? 0x01 : 0x00;
+  display.Vehicle_Speed.phys = currentVehicleSpeed;
+  display.Motor_Speed = (dword)currentMotorSpeed;
+
+  // CRC 계산
+  gCrcData[0] = display.Display_Mode;
+  gCrcData[1] = display.Battery_SOC;
+  gCrcData[2] = 0;
+  gCrcData[3] = (byte)(display.Cumulative_Regen_Energy & 0xFF);
+  gCrcData[4] = (byte)((display.Cumulative_Regen_Energy >> 8) & 0xFF);
+  gCrcData[5] = display.Warning_Status;
+  gCrcData[6] = (byte)(display.Vehicle_Speed & 0xFF);
+  gCrcData[7] = (byte)((display.Vehicle_Speed >> 8) & 0xFF);
+  gCrcData[8] = (byte)(display.Motor_Speed & 0xFF);
+  gCrcData[9] = (byte)((display.Motor_Speed >> 8) & 0xFF);
+
+  gCrcRetval = Crc_CalculateCRC16(gCrcData, 10, 0, 10, 0, 1, gCrcValue);
+  if (gCrcRetval == 0)
+  {
+      display.CRC16_Checksum = (word)gCrcValue;
+  }
+  else
+  {
+      write("HPC: M012_Cluster_Display CRC 계산 실패, 오류 코드: %d", gCrcRetval);
+      display.CRC16_Checksum = 0x0000;
+  }
+  
+  output(display);
+}
+
+/*
+ * @brief 에너지 효율 계산(누적 회생 에너지)을 주기적으로 수행하는 태스크
+ */
+void ExecuteEnergyEfficiencyTask()
+{
+    // 회생 제동(음수 토크) 시에만 누적 에너지를 계산합니다.
+    if (targetMotorTorque < 0)
+    {
+      // 전력(W) = 토크(Nm) * 각속도(rad/s)
+      // 각속도(rad/s) = RPM * 2 * PI / 60 ~= RPM / 9.55
+      // 차량 속도를 기반으로 계산 (단위 변환 계수 0.1047 적용)
+      instantRegenPower = -targetMotorTorque * currentVehicleSpeed * 0.1047; // 순간 회생 전력 (W)
+      cumulativeRegenEnergy += instantRegenPower * (MAIN_CYCLE / 3600000.0); // 누적 회생 에너지 (Wh)
+    }
+}
+
+// =================================================================
+// 메인 타이머 핸들러
+// =================================================================
+
+/*
+ * @brief 메인 태스크 타이머 이벤트 발생 시 주기적으로 호출되는 함수
+ */
+void HandleMainTaskTimer()
+{
+  ExecuteTorqueControlTask();
+  UpdateVehiclePhysics();
+
+  if ((gTaskCounter % 10) == 0)
+  {
+    ExecuteClusterDisplayTask();
+  }
+
+  if ((gTaskCounter % 20) == 0)
+  {
+    ExecuteEnergyEfficiencyTask();
+  }
+
+  if ((gTaskCounter % 50) == 0)
+  {
+    ExecuteAutoModeOptimizationTask();
+  }
+
+  gTaskCounter++;
+}
+
+// =================================================================
+// 이벤트 핸들러 (시스템 시작/정지, 와치독)
+// =================================================================
+
+/*
+ * @brief 시뮬레이션 시작 시 호출되는 이벤트 핸들러
+ */
+void HandleStartEvent()
+{
+  write("HPC: 최적 토크 제어 시스템 시작 - 버전 %d.%02d", (SYSTEM_VERSION >> 8), (SYSTEM_VERSION & 0xFF));
+  InitializeGlobals(); // 전역 변수 초기화
+  
+  setTimerCyclic(timerMainTask, MAIN_CYCLE); // 메인 태스크 타이머 시작
+  setTimer(timerWatchdog, WATCHDOG_TIMEOUT); // 와치독 타이머 시작
+  
+  TransitionToState(STATE_NORMAL); // 정상 상태로 전이
+}
+
+/*
+ * @brief 시뮬레이션 정지 시 호출되는 이벤트 핸들러
+ */
+void HandleStopEvent()
+{
+  write("HPC: 시스템 종료 중...");
+  write("HPC: 시스템 종료 완료");
+}
+
+/*
+ * @brief 와치독 타임아웃 발생 시 호출되는 이벤트 핸들러
+ */
+void HandleWatchdogTimeout()
+{
+  write("HPC: 와치독 타임아웃 - FailSafe 모드로 전환");
+  SetFault(FAULT_WATCHDOG_TIMEOUT);
+  TransitionToState(STATE_FAIL_SAFE);
+}
+
+// =================================================================
+// CAN 메시지 응답 함수
+// =================================================================
+
+/*
+ * @brief 회생제동 모드 변경 요청에 대한 응답 메시지를 전송하는 함수
+ * @param request 수신된 모드 변경 요청 메시지
+ */
+void SendModeChangeResponse(message M008_Mode_Change_Req request)
+{
+    message M009_Mode_Change_Resp_2 response;
+
+    // 정상 또는 배터리 보호 상태에서만 모드 변경 허용
+    if (currentState == STATE_NORMAL || currentState == STATE_BATTERY_PROTECTION)
+    {
+        currentRegenMode = (enum RegenState)request.Requested_Mode;
+        response.Mode_Change_Status = 0; // 성공
+        response.Failure_Reason = 0; // 실패 사유 없음
+    }
+    else // 그 외 상태에서는 변경 불가
+    {
+        response.Mode_Change_Status = 1; // 실패
+        response.Failure_Reason = 3; // 시스템 폴트
+    }
+
+    response.Current_Mode = (byte)currentRegenMode;
+    response.Active_Profile = request.Profile_Type;
+    response.Response_Timestamp = (word)timeNow();
+
+    // CRC 계산
+    gCrcData[0] = response.Current_Mode;
+    gCrcData[1] = response.Mode_Change_Status;
+    gCrcData[2] = response.Active_Profile;
+    gCrcData[3] = response.Failure_Reason;
+    gCrcData[4] = (byte)(response.Response_Timestamp & 0xFF);
+    gCrcData[5] = (byte)((response.Response_Timestamp >> 8) & 0xFF);
+
+    gCrcRetval = Crc_CalculateCRC16(gCrcData, 6, 0, 6, 0, 1, gCrcValue);
+    if (gCrcRetval == 0)
+    {
+        response.CRC16_Checksum = (word)gCrcValue;
+    }
+    else
+    {
+        write("HPC: M009_Mode_Change_Resp CRC 계산 실패, 오류 코드: %d", gCrcRetval);
+        response.CRC16_Checksum = 0x0000;
+    }
+
+    output(response);
+}
+
+// =================================================================
+// CAN 메시지 수신 핸들러
+// =================================================================
+
+/*
+ * @brief 회생 제동 모드 변경 요청 메시지(M008) 수신 시 호출되는 핸들러
+ * @param msg 수신된 메시지
+ */
+void HandleModeChangeReqMessage(message M008_Mode_Change_Req msg)
+{
+  write("HPC: 모드 변경 요청 수신: %d -> %d", currentRegenMode, (enum RegenState)msg.Requested_Mode);
+  SendModeChangeResponse(msg);
+}
+
+/*
+ * @brief 배터리 기본 상태 메시지(M006) 수신 시 호출되는 핸들러
+ * @param msg 수신된 메시지
+ */
+void HandleBatteryBasicMessage(message M006_Battery_Basic msg)
+{
+  batterySOC = msg.Battery_SOC;
+  batteryTemp = msg.Battery_Temp;
+
+  // 배터리 상태에 따라 시스템 상태를 '배터리 보호' 또는 '정상'으로 전환
+  if ((batterySOC >= BATTERY_SOC_LIMIT || batteryTemp < BATTERY_TEMP_MIN || batteryTemp > BATTERY_TEMP_MAX))
+  {
+      if(currentState == STATE_NORMAL) TransitionToState(STATE_BATTERY_PROTECTION);
+  }
+  else
+  {
+      if(currentState == STATE_BATTERY_PROTECTION) TransitionToState(STATE_NORMAL);
+  }
+}
+
+/*
+ * @brief 회생 제동 토크 피드백 메시지(M002) 수신 시 호출되는 핸들러
+ * @details 목표 회생 제동량 대비 실제 회생 제동량이 부족할 경우, 마찰 제동으로 보상 요청
+ * @param msg 수신된 메시지
+ */
+void HandleRegenTorqueFeedbackMessage(message M002_Regen_Torque_Feedback msg)
+{
+  float actualRegen;
+  float torqueDifference;
+  message M003_Friction_Brake_Req_2 frictionReq;
+    
+  actualRegen = msg.Actual_Regen_Torque.phys;
+
+  if (targetMotorTorque < 0) // 제동 상황일 때만
+  {
+    torqueDifference = (-targetMotorTorque) + actualRegen; // 목표 토크(절대값)와 실제 토크(음수)의 차이
+    if (torqueDifference > 50.0 && currentState == STATE_NORMAL)
+    {
+      // 부족한 토크만큼 마찰 제동을 요청
+      frictionReq.Required_Friction_Torque = (word)(torqueDifference / 0.1);
+      frictionReq.Brake_Request_Type = 3; // 회생제동 보상
+      frictionReq.Brake_Force_Distribution = 50; // 전후 50:50 배분
+      frictionReq.Control_Flags = 0x01;
+      frictionReq.E2E_Counter = ++watchdogCounter;
+
+      // CRC 계산
+      gCrcData[0] = (byte)(frictionReq.Required_Friction_Torque & 0xFF);
+      gCrcData[1] = (byte)((frictionReq.Required_Friction_Torque >> 8) & 0xFF);
+      gCrcData[2] = frictionReq.Brake_Request_Type;
+      gCrcData[3] = frictionReq.Brake_Force_Distribution;
+      gCrcData[4] = frictionReq.Control_Flags;
+      gCrcData[5] = frictionReq.E2E_Counter;
+      gCrcRetval = Crc_CalculateCRC16(gCrcData, 6, 0, 6, 0, 1, gCrcValue);
+      if(gCrcRetval == 0) frictionReq.E2E_CRC16 = (word)gCrcValue;
+      else frictionReq.E2E_CRC16 = 0x0000;
+
+      output(frictionReq);
+      write("HPC: 마찰 제동 보상 요청: %.2f Nm", torqueDifference);
+    }
+  }
+}
+
+/*
+ * @brief Fail-Safe 상태 메시지(M004) 수신 시 호출되는 핸들러
+ * @param faultCode 수신된 폴트 코드
+ */
+void HandleFailSafeStatusMessage(dword faultCode)
+{
+  if (faultCode == 1) // 다른 ECU로부터 Critical Fault 수신
+  {
+    write("HPC: 다른 ECU로부터 심각한 폴트 감지 - FailSafe 모드로 전환");
+    SetFault(FAULT_CRITICAL_EXTERNAL);
+    TransitionToState(STATE_FAIL_SAFE);
+  }
+}
+
+/*
+ * @brief 차량 동역학 메시지(M005) 수신 시 호출되는 핸들러
+ * @details 가속 페달 위치, 차량 속도, 조향각 등의 정보를 갱신하고, 감속도를 계산하여 제동등을 제어
+ * @param msg 수신된 메시지
+ */
+void HandleVehicleDynamicsMessage(message M005_Vehicle_Dynamics msg)
+{
+  dword currentTime;
+  float deltaTime;
+  float deceleration;
+  message M013_Brake_Light_Ctrl_2 brakeLight;
+  
+  currentTime = timeNow();
+  
+  steeringAngle = msg.Steering_Angle.phys;
+
+  if ((msg.Sensor_Status & 0x80) == 0x80) {
+    apsPosition = msg.APS_Position.phys;
+  } else {
+    apsPosition = 0; // 센서 오류 시 0으로 처리
+  }
+  
+  // 감속도 기반 제동등 점등 로직
+  brakeLight.Brake_Light_Command = 0;
+  if (gPrevTime_VD > 0)
+  {
+    deltaTime = (currentTime - gPrevTime_VD) / 1000000.0; // us to s
+    if(deltaTime > 0)
+    {
+      // 감속도(m/s^2) = (속도 변화량 m/s) / (시간 변화량 s)
+      deceleration = ((gPrevVehicleSpeed_VD - currentVehicleSpeed) / 3.6) / deltaTime;
+      if (deceleration > MAX_DECEL_FOR_BRAKE_LIGHT)
+      {
+        brakeLight.Brake_Light_Command = 1; // 제동등 On
+        brakeLight.Deceleration_Level = (byte)(deceleration / 0.1);
+        write("HPC: 제동등 활성화 - 감속도: %.2f m/s^2", deceleration);
+      }
+    }
+  }
+  output(brakeLight);
+
+  gPrevVehicleSpeed_VD = currentVehicleSpeed;
+  gPrevTime_VD = currentTime;
+}
+
+/*
+ * @brief 브레이크 페달 상태 메시지(M005_EXT) 수신 시 호출되는 핸들러
+ * @param msg 수신된 메시지
+ */
+void HandleBrakePedalMessage(message M005_EXT_Brake_Pedal msg)
+{
+  if ((msg.Sensor_Status & 0x40) == 0x40)
+  {
+    bppsPosition = msg.BPPS_Position.phys;
+  }
+  else
+  {
+    bppsPosition = 0; // 센서 오류 시 0으로 처리
+    write("HPC: 경고 - 유효하지 않은 BPPS 신호 수신.");
+  }
+}

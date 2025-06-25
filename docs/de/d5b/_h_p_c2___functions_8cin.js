@@ -1,0 +1,27 @@
+var _h_p_c2___functions_8cin =
+[
+    [ "CalculateOptimalTorque", "de/d5b/_h_p_c2___functions_8cin.html#a5bf912ec486886c058c6ce71d003510e", null ],
+    [ "ClearFault", "de/d5b/_h_p_c2___functions_8cin.html#a1366b73e3db319850ae23722e5460d22", null ],
+    [ "ExecuteAutoModeOptimizationTask", "de/d5b/_h_p_c2___functions_8cin.html#ab502db67314641abf278f07f6e1ed0b4", null ],
+    [ "ExecuteClusterDisplayTask", "de/d5b/_h_p_c2___functions_8cin.html#aa2b8d001ec88445e343041ae94222b0e", null ],
+    [ "ExecuteEnergyEfficiencyTask", "de/d5b/_h_p_c2___functions_8cin.html#a1782d17ad4bf194142b8f2e4d8606ae7", null ],
+    [ "ExecuteTorqueControlTask", "de/d5b/_h_p_c2___functions_8cin.html#a423ebeea655dbb5e55334903ea57f2f4", null ],
+    [ "HandleBatteryBasicMessage", "de/d5b/_h_p_c2___functions_8cin.html#a73d85badd86c2a7c8e87392ca5853774", null ],
+    [ "HandleBrakePedalMessage", "de/d5b/_h_p_c2___functions_8cin.html#a657682219bd24756ee6a173e8b4b73ee", null ],
+    [ "HandleFailSafeStatusMessage", "de/d5b/_h_p_c2___functions_8cin.html#a9da26348776e72e8c944d25ca103d523", null ],
+    [ "HandleMainTaskTimer", "de/d5b/_h_p_c2___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede", null ],
+    [ "HandleModeChangeReqMessage", "de/d5b/_h_p_c2___functions_8cin.html#ac66c8f49082857f2dc040501bb308c29", null ],
+    [ "HandleRegenTorqueFeedbackMessage", "de/d5b/_h_p_c2___functions_8cin.html#a53da730e3423fce16ab918e06a569285", null ],
+    [ "HandleStartEvent", "de/d5b/_h_p_c2___functions_8cin.html#a7cd5f0a479fccce095a8e8c84f187c57", null ],
+    [ "HandleStopEvent", "de/d5b/_h_p_c2___functions_8cin.html#a31eb42e7dd5ed8642efb93b2a9c6b713", null ],
+    [ "HandleVehicleDynamicsMessage", "de/d5b/_h_p_c2___functions_8cin.html#aa71ffa0c99278810cc55706c1263e220", null ],
+    [ "HandleWatchdogTimeout", "de/d5b/_h_p_c2___functions_8cin.html#a26008801b33e04dffd66ca83462ba0d0", null ],
+    [ "InitializeGlobals", "de/d5b/_h_p_c2___functions_8cin.html#a9bcdcb765a42512f7ff98bf5feafcdc5", null ],
+    [ "OnEnterBatteryProtection", "de/d5b/_h_p_c2___functions_8cin.html#abdb69cf2fc071a91146925ae09a0e165", null ],
+    [ "OnEnterFailSafe", "de/d5b/_h_p_c2___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6", null ],
+    [ "OnEnterNormal", "de/d5b/_h_p_c2___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568", null ],
+    [ "SendModeChangeResponse", "de/d5b/_h_p_c2___functions_8cin.html#af450e04a807128db83074ca849355192", null ],
+    [ "SetFault", "de/d5b/_h_p_c2___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e", null ],
+    [ "TransitionToState", "de/d5b/_h_p_c2___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681", null ],
+    [ "UpdateVehiclePhysics", "de/d5b/_h_p_c2___functions_8cin.html#a0a7b3c1a46493465c903a60e4734324d", null ]
+];

@@ -1,0 +1,7 @@
+<map id="OnEnterFailSafe" name="OnEnterFailSafe">
+<area shape="rect" id="Node000001" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="5,31,123,57"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="177,5,314,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,33,161,28,162,33,123,38"/>
+<area shape="rect" id="Node000003" href="$d6/d09/_z_c_u___center___functions_8cin.html#a8b9a584cbd1346ca9fc94f4857a5aaaa" title="클러스터 디스플레이를 업데이트" alt="" coords="171,56,320,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="123,50,156,54,155,59,122,55"/>
+</map>

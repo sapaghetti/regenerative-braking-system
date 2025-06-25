@@ -1,0 +1,46 @@
+<map id="TransitionToState" name="TransitionToState">
+<area shape="rect" id="Node000001" title="시스템 상태 간의 전환을 관리" alt="" coords="1075,31,1198,57"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#a881f7319dd66e135c91ec8cafa7e0b16" title="&#39;on key &#39;c&#39;&#39; 이벤트 핸들러 로직을 처리" alt="" coords="875,5,1027,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1059,36,1027,32,1028,26,1060,31"/>
+<area shape="rect" id="Node000004" href="$d6/d09/_z_c_u___center___functions_8cin.html#a92e4ed6722de9556e15267afb3bcd408" title="현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트" alt="" coords="881,56,1020,83"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="1060,57,1021,62,1021,57,1059,52"/>
+<area shape="rect" id="Node000003" href="$d8/d1a/_z_c_u___center_8can.html#aa9cb08678cc52d4bea23b4a68272844b" title="키보드 &#39;c&#39; 키 입력 이벤트 핸들러" alt="" coords="749,5,827,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="859,21,827,21,827,16,859,16"/>
+<area shape="rect" id="Node000005" href="$d6/d09/_z_c_u___center___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title="&#39;on timer timerMainTask&#39; 이벤트 핸들러 로직을 처리" alt="" coords="251,132,402,159"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="866,70,687,74,582,82,479,97,416,114,361,134,359,129,414,109,477,92,581,77,686,68,866,64"/>
+<area shape="rect" id="Node000006" href="$d6/d09/_z_c_u___center___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거" alt="" coords="753,259,823,285"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="932,96,802,260,798,257,927,93"/>
+<area shape="rect" id="Node000007" href="$d6/d09/_z_c_u___center___functions_8cin.html#a7ad551283e601822ef0f4a49a33e46fb" title="&#39;on key &#39;f&#39;&#39; 이벤트 핸들러 로직을 처리" alt="" coords="508,259,671,285"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="737,275,672,275,672,269,737,269"/>
+<area shape="rect" id="Node000009" href="$d6/d09/_z_c_u___center___functions_8cin.html#a0b986b10951b10e8fe82eb6a244e2829" title="&#39;on message M009_Mode_Change_Resp&#39; 이벤트 핸들러 로직을 처리" alt="" coords="478,309,701,336"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="739,290,702,300,655,311,654,306,701,295,737,285"/>
+<area shape="rect" id="Node000011" href="$d6/d09/_z_c_u___center___functions_8cin.html#abdbb2429806df56a1580b844f5e916a8" title="HPC와의 통신 타임아웃을 모니터링" alt="" coords="512,107,667,133"/>
+<area shape="poly" id="edge10_Node000006_Node000011" title=" " alt="" coords="773,245,745,194,724,169,700,148,667,132,669,127,703,143,728,165,749,191,778,243"/>
+<area shape="rect" id="Node000012" href="$d6/d09/_z_c_u___center___functions_8cin.html#ac0b0b920be9f6fe59864cfaf2f7c8e97" title="주기적인 진단 검사를 수행" alt="" coords="522,157,658,184"/>
+<area shape="poly" id="edge12_Node000006_Node000012" title=" " alt="" coords="763,249,735,222,700,198,657,183,659,178,703,194,738,218,767,245"/>
+<area shape="rect" id="Node000013" href="$d6/d09/_z_c_u___center___functions_8cin.html#a32ff2c90c1bb0fbaef04b6ac79221cf7" title="시작 시 HMI 시스템에 대한 자체 테스트를 수행" alt="" coords="516,360,663,387"/>
+<area shape="poly" id="edge14_Node000006_Node000013" title=" " alt="" coords="767,299,738,326,703,350,664,365,663,360,700,346,735,322,763,295"/>
+<area shape="rect" id="Node000015" href="$d6/d09/_z_c_u___center___functions_8cin.html#a3c58ebf1d48b20c1b2cce5c6a999983d" title="메인 루프가 실행 중인지 확인하기 위해 워치독 검사를 수행" alt="" coords="527,208,652,235"/>
+<area shape="poly" id="edge16_Node000006_Node000015" title=" " alt="" coords="737,259,701,249,652,237,653,232,702,244,739,254"/>
+<area shape="rect" id="Node000016" href="$d6/d09/_z_c_u___center___functions_8cin.html#a5eedc910c4474a4304fd312e0a5defed" title="버튼 입력의 유효성을 검증" alt="" coords="522,411,657,437"/>
+<area shape="poly" id="edge18_Node000006_Node000016" title=" " alt="" coords="778,301,749,353,728,379,703,401,681,412,658,420,657,415,679,407,700,396,724,375,745,350,773,299"/>
+<area shape="rect" id="Node000019" href="$d6/d09/_z_c_u___center___functions_8cin.html#ad9e72a9e666b7ac9f0bcd13051e0e154" title="음성 입력의 유효성을 검증" alt="" coords="526,461,654,488"/>
+<area shape="poly" id="edge21_Node000006_Node000019" title=" " alt="" coords="784,301,774,336,758,377,735,417,703,451,680,465,655,473,654,468,678,460,700,447,730,414,753,374,769,334,778,300"/>
+<area shape="rect" id="Node000008" href="$d8/d1a/_z_c_u___center_8can.html#a14502ae856c6e44d8a6c3e10e7a083ab" title="키보드 &#39;f&#39; 키 입력 이벤트 핸들러" alt="" coords="289,243,364,269"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="493,269,364,261,364,256,493,263"/>
+<area shape="rect" id="Node000010" href="$d8/d1a/_z_c_u___center_8can.html#a80c50fc98f3e20714d2e7aec41c52f8e" title="모드 변경 응답 메시지 수신 이벤트 핸들러" alt="" coords="240,293,413,336"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="462,321,414,320,414,315,462,316"/>
+<area shape="poly" id="edge11_Node000011_Node000005" title=" " alt="" coords="497,132,403,141,402,135,496,126"/>
+<area shape="poly" id="edge13_Node000012_Node000005" title=" " alt="" coords="506,165,402,155,403,150,506,160"/>
+<area shape="rect" id="Node000014" href="$d6/d09/_z_c_u___center___functions_8cin.html#a7cd5f0a479fccce095a8e8c84f187c57" title="&#39;on start&#39; 이벤트 핸들러 로직을 처리" alt="" coords="264,360,388,387"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="501,376,389,376,389,371,501,371"/>
+<area shape="poly" id="edge17_Node000015_Node000005" title=" " alt="" coords="511,207,477,199,365,162,366,157,479,193,513,202"/>
+<area shape="rect" id="Node000017" href="$d6/d09/_z_c_u___center___functions_8cin.html#a47730f4911cc48000c6c00372ebeea03" title="&#39;on message L004_SW_Button_Input&#39; 이벤트 핸들러 로직을 처리" alt="" coords="226,411,427,437"/>
+<area shape="poly" id="edge19_Node000016_Node000017" title=" " alt="" coords="507,427,427,427,427,421,507,421"/>
+<area shape="rect" id="Node000018" href="$d8/d1a/_z_c_u___center_8can.html#a94aa8c12c778744941b6132cd8d0220b" title="스티어링 휠 버튼 입력 메시지 수신 이벤트 핸들러" alt="" coords="10,399,170,441"/>
+<area shape="poly" id="edge20_Node000017_Node000018" title=" " alt="" coords="210,425,170,424,170,419,210,419"/>
+<area shape="rect" id="Node000020" href="$d6/d09/_z_c_u___center___functions_8cin.html#afeb35a6cbc7536f113abaa2a0e7831a6" title="&#39;on message L003_Voice_Command&#39; 이벤트 핸들러 로직을 처리" alt="" coords="223,465,430,492"/>
+<area shape="poly" id="edge22_Node000019_Node000020" title=" " alt="" coords="510,479,431,480,431,474,510,473"/>
+<area shape="rect" id="Node000021" href="$d8/d1a/_z_c_u___center_8can.html#a60681a91e13e0350940216c9fb745a2a" title="음성 명령 메시지 수신 이벤트 핸들러" alt="" coords="5,465,175,508"/>
+<area shape="poly" id="edge23_Node000020_Node000021" title=" " alt="" coords="207,485,175,486,175,481,207,480"/>
+</map>

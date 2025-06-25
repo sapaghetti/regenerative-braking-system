@@ -1,0 +1,5 @@
+<map id="PerformInitialSelfTest" name="PerformInitialSelfTest">
+<area shape="rect" id="Node000001" title="시작 시 중요한 센서에 대한 자체 테스트를 수행" alt="" coords="178,5,324,32"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#a7cd5f0a479fccce095a8e8c84f187c57" title="&#39;on start&#39; 이벤트 핸들러 로직을 처리" alt="" coords="5,5,130,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,21,130,21,130,16,162,16"/>
+</map>

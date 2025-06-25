@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Vector Test Table Editor-->
+<ttroot version="33" xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">
+  <tt>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_101</name>
+      <tcid>f0d85f12-c4ab-4cd3-b97c-2e6bc7dd958a</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_102</name>
+      <tcid>3d637420-6a99-4f2e-844f-70cc46ec9b7d</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_103</name>
+      <tcid>9c045850-1c10-4bfb-9984-3fe7dd6f0b5d</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_104</name>
+      <tcid>c3b6d90c-098b-46a9-920b-55e9abd4e281</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_105</name>
+      <tcid>41d2da86-0e7b-4c8f-ae35-35524d2a4985</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_106</name>
+      <tcid>7355b5a2-1bf0-413c-89ae-de228b0fd303</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_107</name>
+      <tcid>168aa3f8-f299-4201-98ed-3f59e1030a12</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_108</name>
+      <tcid>3a8f91b4-c2dc-47d0-87c1-ce5c9eae72a7</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_109</name>
+      <tcid>bb0af8d5-51f4-400e-b880-89cb71e6cd0d</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_110</name>
+      <tcid>f63cb5e7-b01e-40f3-945e-74a09c652c39</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_111</name>
+      <tcid>9f951804-e2f8-4c24-ae33-197fbda30657</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_101</name>
+      <tcid>96023094-84a9-485e-b393-d1f7b66d07ff</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_102</name>
+      <tcid>19abea98-f722-4ff2-8de9-cd205bc39ff4</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_103</name>
+      <tcid>5b695363-423e-4076-8015-0411a3e69ce1</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_104</name>
+      <tcid>1fdeb485-5a2e-4491-ace1-0253288c6456</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_105</name>
+      <tcid>f348d437-5949-4abb-a6db-974e85238110</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_101</name>
+      <tcid>764492a1-1785-42a9-92dd-2b1686086da9</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_102</name>
+      <tcid>e4913ef0-b855-409e-a33a-7408ffff5c5e</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_103</name>
+      <tcid>9d2e69d8-3210-49b7-9061-dbe004f39a34</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_104</name>
+      <tcid>0990979c-e92a-48f0-8ec5-ec5a5e422f84</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_105</name>
+      <tcid>23d91bc9-b513-4295-b0be-24ad95ca152f</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_106</name>
+      <tcid>26bd07c6-23c8-4af8-b920-350a25141f18</tcid>
+    </capltestcase>
+  </tt>
+  <ttlib>
+    <ts_definitions />
+    <tc_definitions />
+    <function_definitions />
+  </ttlib>
+</ttroot>

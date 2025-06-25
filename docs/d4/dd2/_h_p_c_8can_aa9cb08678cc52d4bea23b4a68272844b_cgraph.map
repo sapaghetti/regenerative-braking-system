@@ -1,0 +1,15 @@
+<map id="on_key_c" name="on_key_c">
+<area shape="rect" id="Node000001" title="키보드 &#39;c&#39; 키 입력 이벤트 핸들러" alt="" coords="5,56,83,83"/>
+<area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태를 새로운 상태로 전환하는 함수" alt="" coords="131,56,254,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,67,115,67,115,72,83,72"/>
+<area shape="rect" id="Node000003" href="$df/dc0/_h_p_c___functions_8cin.html#abdb69cf2fc071a91146925ae09a0e165" title="배터리 보호 상태 진입 시 호출되는 함수" alt="" coords="302,5,472,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="246,53,318,34,319,39,247,58"/>
+<area shape="rect" id="Node000005" href="$df/dc0/_h_p_c___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="Fail&#45;Safe 상태 진입 시 호출되는 함수" alt="" coords="328,56,446,83"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="254,67,313,67,313,72,254,72"/>
+<area shape="rect" id="Node000006" href="$df/dc0/_h_p_c___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="정상 상태 진입 시 호출되는 함수" alt="" coords="332,107,443,133"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="247,81,319,100,318,105,246,86"/>
+<area shape="rect" id="Node000004" href="$df/dc0/_h_p_c___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하는 함수" alt="" coords="526,5,596,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="473,16,510,16,510,21,473,21"/>
+<area shape="rect" id="Node000007" href="$df/dc0/_h_p_c___functions_8cin.html#a1366b73e3db319850ae23722e5460d22" title="폴트 레지스터에서 특정 폴트 비트를 해제하는 함수" alt="" coords="520,107,602,133"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="443,117,505,117,505,123,443,123"/>
+</map>

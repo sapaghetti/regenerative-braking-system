@@ -1,0 +1,21 @@
+<map id="HandleEpasMessage" name="HandleEpasMessage">
+<area shape="rect" id="Node000001" title="&#39;on message L001_EPAS_Data&#39; 이벤트 핸들러 로직을 처리" alt="" coords="5,56,151,83"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#a1366b73e3db319850ae23722e5460d22" title="폴트 레지스터에서 특정 폴트 비트를 지움" alt="" coords="231,5,312,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="131,53,215,31,217,36,133,58"/>
+<area shape="rect" id="Node000003" href="$d6/db8/_z_c_u___front___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거" alt="" coords="237,56,307,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="151,67,222,67,222,72,151,72"/>
+<area shape="rect" id="Node000010" href="$d6/db8/_z_c_u___front___functions_8cin.html#aa04c8f60ae0bb1869842b1e3b97e0c3e" title="센서 값이 정의된 최소/최대 범위 내에 있는지 확인" alt="" coords="199,107,345,133"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="133,81,204,100,203,105,131,86"/>
+<area shape="rect" id="Node000004" href="$d6/db8/_z_c_u___front___functions_8cin.html#a92e4ed6722de9556e15267afb3bcd408" title="현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트" alt="" coords="393,56,532,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="307,67,377,67,377,72,307,72"/>
+<area shape="rect" id="Node000005" href="$d6/db8/_z_c_u___front___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태 간의 전환을 관리" alt="" coords="580,56,704,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="533,67,565,67,565,72,533,72"/>
+<area shape="rect" id="Node000006" href="$d6/db8/_z_c_u___front___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="752,5,877,32"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="689,53,751,34,753,39,691,58"/>
+<area shape="rect" id="Node000007" href="$d6/db8/_z_c_u___front___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="756,56,873,83"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="704,67,740,67,740,72,704,72"/>
+<area shape="rect" id="Node000009" href="$d6/db8/_z_c_u___front___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="759,107,870,133"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="691,81,753,99,751,104,689,86"/>
+<area shape="rect" id="Node000008" href="$d6/db8/_z_c_u___front___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="925,56,1062,83"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="874,67,909,67,909,72,874,72"/>
+</map>

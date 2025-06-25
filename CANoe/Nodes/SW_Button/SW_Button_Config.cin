@@ -1,0 +1,26 @@
+/*@!Encoding:65001*/
+/**
+ * @file HPC_Button_Config.cin
+ * @brief 스위치 입력 메시지 처리를 위한 버튼 상수 및 상태 변수 정의
+ */
+
+variables
+{
+  message L004_SW_Button_Input gMsg_L004;
+
+  const byte BUTTON_ID_MODE_UP        = 0;
+  const byte BUTTON_ID_MODE_DOWN      = 1;
+  const byte BUTTON_ID_PROFILE_CHANGE = 2;
+  const byte BUTTON_ID_AUTO_TOGGLE    = 3;
+
+  const byte BUTTON_ACTION_PRESS        = 0;
+  const byte BUTTON_ACTION_RELEASE      = 1;
+  const byte BUTTON_ACTION_LONG_PRESS   = 2;
+  
+  byte gEventCounter;
+
+  dword gPressStartTime_ModeUp;
+  dword gPressStartTime_ModeDown;
+  dword gPressStartTime_ProfileChange;
+  dword gPressStartTime_AutoToggle;
+}

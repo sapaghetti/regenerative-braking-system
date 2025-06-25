@@ -1,0 +1,7 @@
+<map id="ExecuteAutoModeOptimizationTask" name="ExecuteAutoModeOptimizationTask">
+<area shape="rect" id="Node000001" title="자동 모드 최적화 태스크" alt="" coords="416,5,645,32"/>
+<area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title="메인 태스크 타이머 이벤트 발생 시 주기적으로 호출되는 함수" alt="" coords="217,5,368,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="401,21,368,21,368,16,401,16"/>
+<area shape="rect" id="Node000003" href="$d4/dd2/_h_p_c_8can.html#af38b2fb7010733e753efee1f3cf09a51" title="메인 태스크 타이머 이벤트 핸들러" alt="" coords="5,5,169,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="201,21,169,21,169,16,201,16"/>
+</map>

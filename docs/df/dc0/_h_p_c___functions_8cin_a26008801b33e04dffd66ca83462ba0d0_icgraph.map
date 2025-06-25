@@ -1,0 +1,7 @@
+<map id="HandleWatchdogTimeout" name="HandleWatchdogTimeout">
+<area shape="rect" id="Node000001" title="워치독 타임아웃 발생 시 호출되는 이벤트 핸들러" alt="" coords="219,31,386,57"/>
+<area shape="rect" id="Node000002" href="$d4/dd2/_h_p_c_8can.html#a14502ae856c6e44d8a6c3e10e7a083ab" title="키보드 &#39;f&#39; 키 입력 이벤트 핸들러" alt="" coords="51,5,125,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,35,125,26,126,20,204,30"/>
+<area shape="rect" id="Node000003" href="$d4/dd2/_h_p_c_8can.html#ae181936c7e33201c9a1f628d920511df" title="워치독 타임아웃 이벤트 핸들러" alt="" coords="5,56,171,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,58,172,62,171,57,203,53"/>
+</map>

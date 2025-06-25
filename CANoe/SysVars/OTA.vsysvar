@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="OTA" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Cur_version" comment="" bitcount="32" isSigned="true" encoding="65001" type="intarray" arrayLength="16" startValue="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ECU_id" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ECU_ver" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="File_size" comment="" bitcount="32" isSigned="false" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Next_version" comment="" bitcount="32" isSigned="true" encoding="65001" type="intarray" arrayLength="16" startValue="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Ota_flag" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="OTA_UserSelect" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="2" maxValuePhys="2">
+        <valuetable name="On_Off" definesMinMax="true">
+          <valuetableentry value="0" lowerBound="0" upperBound="0" description="Default" displayString="Default" />
+          <valuetableentry value="1" lowerBound="1" upperBound="1" description="ON" displayString="ON" />
+          <valuetableentry value="2" lowerBound="2" upperBound="2" description="OFF" displayString="OFF" />
+        </valuetable>
+      </variable>
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Progress" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" minValue="0" maxValue="1000" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Version_num" comment="" bitcount="32" isSigned="true" encoding="65001" type="intarray" arrayLength="11" startValue="0;1;2;3;4;5;6;7;8;9;10" />
+    </namespace>
+  </namespace>
+</systemvariables>

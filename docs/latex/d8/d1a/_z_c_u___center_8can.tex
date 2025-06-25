@@ -1,0 +1,299 @@
+\doxysection{ZCU\+\_\+\+Center.\+can File Reference}
+\hypertarget{_z_c_u___center_8can}{}\label{_z_c_u___center_8can}\index{ZCU\_Center.can@{ZCU\_Center.can}}
+
+
+ZCU\+\_\+\+Center의 메인 CAPL 스크립트  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_z_c_u___center_8can_a8048a45bb4a5c1e5a546050aaabbed26}{on\+\_\+start}} ()
+\begin{DoxyCompactList}\small\item\em 시뮬레이션 시작 시 호출되는 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_a2c8eccd93af8ee50c193b6ac98ad58cf}{on\+\_\+stop\+Measurement}} ()
+\begin{DoxyCompactList}\small\item\em 시뮬레이션 중지 시 호출되는 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_af38b2fb7010733e753efee1f3cf09a51}{on\+\_\+timer\+\_\+timer\+Main\+Task}} ()
+\begin{DoxyCompactList}\small\item\em 주기적인 메인 태스크 타이머 이벤트 핸들러 (10ms 주기) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_a60681a91e13e0350940216c9fb745a2a}{on\+\_\+message\+\_\+\+L003\+\_\+\+Voice\+\_\+\+Command}} ()
+\begin{DoxyCompactList}\small\item\em 음성 명령 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_a94aa8c12c778744941b6132cd8d0220b}{on\+\_\+message\+\_\+\+L004\+\_\+\+SW\+\_\+\+Button\+\_\+\+Input}} ()
+\begin{DoxyCompactList}\small\item\em 스티어링 휠 버튼 입력 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_a80c50fc98f3e20714d2e7aec41c52f8e}{on\+\_\+message\+\_\+\+M009\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Resp}} ()
+\begin{DoxyCompactList}\small\item\em 모드 변경 응답 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_a4f8bb7706f83855fc948532a22b80e65}{on\+\_\+message\+\_\+\+M012\+\_\+\+Cluster\+\_\+\+Display}} ()
+\begin{DoxyCompactList}\small\item\em 클러스터 표시 데이터 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_a14502ae856c6e44d8a6c3e10e7a083ab}{on\+\_\+key\+\_\+f}} ()
+\begin{DoxyCompactList}\small\item\em 키보드 \textquotesingle{}f\textquotesingle{} 키 입력 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_a9e1d5a38599fca270e04258c4b290f15}{on\+\_\+key\+\_\+v}} ()
+\begin{DoxyCompactList}\small\item\em 키보드 \textquotesingle{}v\textquotesingle{} 키 입력 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_aa9cb08678cc52d4bea23b4a68272844b}{on\+\_\+key\+\_\+c}} ()
+\begin{DoxyCompactList}\small\item\em 키보드 \textquotesingle{}c\textquotesingle{} 키 입력 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_af7fc68410f49daa3a1050a5182f07bda}{on\+\_\+key\+\_\+s}} ()
+\begin{DoxyCompactList}\small\item\em 키보드 \textquotesingle{}s\textquotesingle{} 키 입력 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___center_8can_ac28a2c6d4f7e49388a9fa68d6299d617}{on\+\_\+key\+\_\+t}} ()
+\begin{DoxyCompactList}\small\item\em 키보드 \textquotesingle{}t\textquotesingle{} 키 입력 이벤트 핸들러 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+ZCU\+\_\+\+Center의 메인 CAPL 스크립트 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_z_c_u___center_8can_aa9cb08678cc52d4bea23b4a68272844b}\label{_z_c_u___center_8can_aa9cb08678cc52d4bea23b4a68272844b} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_key\_c@{on\_key\_c}}
+\index{on\_key\_c@{on\_key\_c}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_key\_c()}{on\_key\_c()}}
+{\footnotesize\ttfamily on\+\_\+key\+\_\+c (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+키보드 \textquotesingle{}c\textquotesingle{} 키 입력 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+모든 폴트를 지우고 상태를 초기화 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d1a/_z_c_u___center_8can_aa9cb08678cc52d4bea23b4a68272844b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_a14502ae856c6e44d8a6c3e10e7a083ab}\label{_z_c_u___center_8can_a14502ae856c6e44d8a6c3e10e7a083ab} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_key\_f@{on\_key\_f}}
+\index{on\_key\_f@{on\_key\_f}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_key\_f()}{on\_key\_f()}}
+{\footnotesize\ttfamily on\+\_\+key\+\_\+f (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+키보드 \textquotesingle{}f\textquotesingle{} 키 입력 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+수동으로 HPC 통신 폴트를 주입하여 테스트 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d1a/_z_c_u___center_8can_a14502ae856c6e44d8a6c3e10e7a083ab_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_af7fc68410f49daa3a1050a5182f07bda}\label{_z_c_u___center_8can_af7fc68410f49daa3a1050a5182f07bda} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_key\_s@{on\_key\_s}}
+\index{on\_key\_s@{on\_key\_s}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_key\_s()}{on\_key\_s()}}
+{\footnotesize\ttfamily on\+\_\+key\+\_\+s (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+키보드 \textquotesingle{}s\textquotesingle{} 키 입력 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+현재 ZCU\+\_\+\+Center의 모든 주요 상태 정보를 콘솔에 출력 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{d8/d1a/_z_c_u___center_8can_af7fc68410f49daa3a1050a5182f07bda_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_ac28a2c6d4f7e49388a9fa68d6299d617}\label{_z_c_u___center_8can_ac28a2c6d4f7e49388a9fa68d6299d617} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_key\_t@{on\_key\_t}}
+\index{on\_key\_t@{on\_key\_t}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_key\_t()}{on\_key\_t()}}
+{\footnotesize\ttfamily on\+\_\+key\+\_\+t (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+키보드 \textquotesingle{}t\textquotesingle{} 키 입력 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+클러스터 표시 테스트용 데이터를 시뮬레이션 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d1a/_z_c_u___center_8can_ac28a2c6d4f7e49388a9fa68d6299d617_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_a9e1d5a38599fca270e04258c4b290f15}\label{_z_c_u___center_8can_a9e1d5a38599fca270e04258c4b290f15} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_key\_v@{on\_key\_v}}
+\index{on\_key\_v@{on\_key\_v}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_key\_v()}{on\_key\_v()}}
+{\footnotesize\ttfamily on\+\_\+key\+\_\+v (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+키보드 \textquotesingle{}v\textquotesingle{} 키 입력 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+수동으로 음성 명령을 시뮬레이션 (테스트용) 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d1a/_z_c_u___center_8can_a9e1d5a38599fca270e04258c4b290f15_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_a60681a91e13e0350940216c9fb745a2a}\label{_z_c_u___center_8can_a60681a91e13e0350940216c9fb745a2a} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_message\_L003\_Voice\_Command@{on\_message\_L003\_Voice\_Command}}
+\index{on\_message\_L003\_Voice\_Command@{on\_message\_L003\_Voice\_Command}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_message\_L003\_Voice\_Command()}{on\_message\_L003\_Voice\_Command()}}
+{\footnotesize\ttfamily on\+\_\+message\+\_\+\+L003\+\_\+\+Voice\+\_\+\+Command (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+음성 명령 메시지 수신 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+음성인식 ECU로부터 음성 명령을 수신하고 처리 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d1a/_z_c_u___center_8can_a60681a91e13e0350940216c9fb745a2a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_a94aa8c12c778744941b6132cd8d0220b}\label{_z_c_u___center_8can_a94aa8c12c778744941b6132cd8d0220b} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_message\_L004\_SW\_Button\_Input@{on\_message\_L004\_SW\_Button\_Input}}
+\index{on\_message\_L004\_SW\_Button\_Input@{on\_message\_L004\_SW\_Button\_Input}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_message\_L004\_SW\_Button\_Input()}{on\_message\_L004\_SW\_Button\_Input()}}
+{\footnotesize\ttfamily on\+\_\+message\+\_\+\+L004\+\_\+\+SW\+\_\+\+Button\+\_\+\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+스티어링 휠 버튼 입력 메시지 수신 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+스티어링 휠 버튼 입력을 수신하고 처리 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d1a/_z_c_u___center_8can_a94aa8c12c778744941b6132cd8d0220b_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_a80c50fc98f3e20714d2e7aec41c52f8e}\label{_z_c_u___center_8can_a80c50fc98f3e20714d2e7aec41c52f8e} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_message\_M009\_Mode\_Change\_Resp@{on\_message\_M009\_Mode\_Change\_Resp}}
+\index{on\_message\_M009\_Mode\_Change\_Resp@{on\_message\_M009\_Mode\_Change\_Resp}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_message\_M009\_Mode\_Change\_Resp()}{on\_message\_M009\_Mode\_Change\_Resp()}}
+{\footnotesize\ttfamily on\+\_\+message\+\_\+\+M009\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Resp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+모드 변경 응답 메시지 수신 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+HPC로부터 모드 변경 응답을 수신하고 처리 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d1a/_z_c_u___center_8can_a80c50fc98f3e20714d2e7aec41c52f8e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_a4f8bb7706f83855fc948532a22b80e65}\label{_z_c_u___center_8can_a4f8bb7706f83855fc948532a22b80e65} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_message\_M012\_Cluster\_Display@{on\_message\_M012\_Cluster\_Display}}
+\index{on\_message\_M012\_Cluster\_Display@{on\_message\_M012\_Cluster\_Display}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_message\_M012\_Cluster\_Display()}{on\_message\_M012\_Cluster\_Display()}}
+{\footnotesize\ttfamily on\+\_\+message\+\_\+\+M012\+\_\+\+Cluster\+\_\+\+Display (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+클러스터 표시 데이터 메시지 수신 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+HPC로부터 클러스터 표시 정보를 수신하고 클러스터를 업데이트 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d1a/_z_c_u___center_8can_a4f8bb7706f83855fc948532a22b80e65_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_a8048a45bb4a5c1e5a546050aaabbed26}\label{_z_c_u___center_8can_a8048a45bb4a5c1e5a546050aaabbed26} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_start@{on\_start}}
+\index{on\_start@{on\_start}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_start()}{on\_start()}}
+{\footnotesize\ttfamily on\+\_\+start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+시뮬레이션 시작 시 호출되는 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+전역 변수 초기화, 보안 부팅, 자체 테스트 수행 및 주기적 타이머 설정 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d1a/_z_c_u___center_8can_a8048a45bb4a5c1e5a546050aaabbed26_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_a2c8eccd93af8ee50c193b6ac98ad58cf}\label{_z_c_u___center_8can_a2c8eccd93af8ee50c193b6ac98ad58cf} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_stopMeasurement@{on\_stopMeasurement}}
+\index{on\_stopMeasurement@{on\_stopMeasurement}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_stopMeasurement()}{on\_stopMeasurement()}}
+{\footnotesize\ttfamily on\+\_\+stop\+Measurement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+시뮬레이션 중지 시 호출되는 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+시스템 종료 작업을 수행 
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{d8/d1a/_z_c_u___center_8can_a2c8eccd93af8ee50c193b6ac98ad58cf_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___center_8can_af38b2fb7010733e753efee1f3cf09a51}\label{_z_c_u___center_8can_af38b2fb7010733e753efee1f3cf09a51} 
+\index{ZCU\_Center.can@{ZCU\_Center.can}!on\_timer\_timerMainTask@{on\_timer\_timerMainTask}}
+\index{on\_timer\_timerMainTask@{on\_timer\_timerMainTask}!ZCU\_Center.can@{ZCU\_Center.can}}
+\doxysubsubsection{\texorpdfstring{on\_timer\_timerMainTask()}{on\_timer\_timerMainTask()}}
+{\footnotesize\ttfamily on\+\_\+timer\+\_\+timer\+Main\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+주기적인 메인 태스크 타이머 이벤트 핸들러 (10ms 주기) 
+
+\begin{DoxyNote}{Note}
+시스템 상태에 따라 다양한 주기로 작업을 예약하고 실행
+\begin{DoxyItemize}
+\item 50ms\+: 워치독 검사
+\item 100ms\+: 통신 모니터링, 상태 업데이트
+\item 1000ms\+: 진단 수행, 진단 데이터 전송 
+\end{DoxyItemize}
+\end{DoxyNote}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d1a/_z_c_u___center_8can_af38b2fb7010733e753efee1f3cf09a51_cgraph}
+\end{center}
+\end{figure}

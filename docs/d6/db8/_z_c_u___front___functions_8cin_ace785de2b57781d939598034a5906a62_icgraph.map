@@ -1,0 +1,11 @@
+<map id="ReadBPPS" name="ReadBPPS">
+<area shape="rect" id="Node000001" title="시뮬레이션 환경에서 브레이크 페달 위치를 읽음" alt="" coords="443,31,531,57"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#a32ff2c90c1bb0fbaef04b6ac79221cf7" title="시작 시 중요한 센서에 대한 자체 테스트를 수행" alt="" coords="227,5,373,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="427,39,373,31,374,26,428,33"/>
+<area shape="rect" id="Node000004" href="$d6/db8/_z_c_u___front___functions_8cin.html#a2fa94deff1b4486956e4b212babca7c8" title="브레이크 페달 위치 메시지(M005_EXT)를 전송" alt="" coords="205,56,395,83"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="428,55,396,59,395,54,427,49"/>
+<area shape="rect" id="Node000003" href="$d6/db8/_z_c_u___front___functions_8cin.html#a7cd5f0a479fccce095a8e8c84f187c57" title="&#39;on start&#39; 이벤트 핸들러 로직을 처리" alt="" coords="19,5,143,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="212,21,144,21,144,16,212,16"/>
+<area shape="rect" id="Node000005" href="$d6/db8/_z_c_u___front___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title="&#39;on timer timerMainTask&#39; 이벤트 핸들러 로직을 처리" alt="" coords="5,56,157,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="189,72,157,72,157,67,189,67"/>
+</map>

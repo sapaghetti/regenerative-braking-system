@@ -1,0 +1,7 @@
+<map id="HandleFailSafeStatusMessage" name="HandleFailSafeStatusMessage">
+<area shape="rect" id="Node000001" title="Fail&#45;Safe 상태 메시지 수신 이벤트 핸들러 로직을 처리" alt="" coords="243,47,444,73"/>
+<area shape="rect" id="Node000002" href="$d4/dd2/_h_p_c_8can.html#a519ae36aae5b1c9bf0c6c024962e0b56" title="Fail&#45;Safe 상태 메시지 수신 이벤트 핸들러 (Type 2)" alt="" coords="5,5,195,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,47,195,42,196,37,227,41"/>
+<area shape="rect" id="Node000003" href="$d4/dd2/_h_p_c_8can.html#ae3a3ec74b0f018f66bdad277095b04b4" title="Fail&#45;Safe 상태 메시지 수신 이벤트 핸들러 (Type 3)" alt="" coords="5,72,195,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,79,196,83,195,78,227,73"/>
+</map>

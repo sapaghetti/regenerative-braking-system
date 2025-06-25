@@ -1,0 +1,202 @@
+/*@!Encoding:65001*/
+/**
+ * @file ZCU_Front_Config.cin
+ * @brief ZCU_Front CAPL 스크립트의 모든 설정, 상수 및 전역 변수 정의
+ */
+
+variables
+{
+  /*******************************************************************************
+   * 시스템 설정 상수
+   ******************************************************************************/
+
+  /** @brief ZCU_Front ECU 식별자 */
+  const int ECU_ID = 0x02;
+  /** @brief 시스템 버전 (Major.Minor) */
+  const int SYSTEM_VERSION = 0x0100;
+  /** @brief 메인 태스크 주기 (ms) */
+  const int MAIN_CYCLE = 10;
+
+  /*******************************************************************************
+   * 통신 타임아웃 임계값
+   ******************************************************************************/
+
+  /** @brief EPAS 통신 타임아웃 (ms) - 3 * 20ms 주기 */
+  const int TIMEOUT_EPAS = 60;
+  /** @brief ADAS 통신 타임아웃 (ms) - 3 * 50ms 주기 */
+  const int TIMEOUT_ADAS = 150;
+  /** @brief 최대 통신 실패 횟수 */
+  const int MAX_COMM_FAILURES = 3;
+
+  /*******************************************************************************
+   * 센서 검증 임계값
+   ******************************************************************************/
+
+  /** @brief APS 최소값 (%) */
+  const float APS_MIN = 0.0;
+  /** @brief APS 최대값 (%) */
+  const float APS_MAX = 100.0;
+  /** @brief BPPS 최소값 (%) */
+  const float BPPS_MIN = 0.0;
+  /** @brief BPPS 최대값 (%) */
+  const float BPPS_MAX = 100.0;
+  /** @brief 최대 차량 속도 (km/h) */
+  const float SPEED_MAX = 300.0;
+  /** @brief 최대 조향각 (deg) */
+  const float STEERING_MAX = 1800.0;
+
+  /*******************************************************************************
+   * 폴트 관리 비트 마스크
+   ******************************************************************************/
+
+  /** @brief APS 센서 폴트 */
+  const dword FAULT_APS_SENSOR = 0x00000001;
+  /** @brief BPPS 센서 폴트 */
+  const dword FAULT_BPPS_SENSOR = 0x00000002;
+  /** @brief EPAS 통신 폴트 */
+  const dword FAULT_EPAS_COMM = 0x00000004;
+  /** @brief ADAS 통신 폴트 */
+  const dword FAULT_ADAS_COMM = 0x00000008;
+  /** @brief 센서 범위 폴트 */
+  const dword FAULT_SENSOR_RANGE = 0x00000010;
+  /** @brief 교차 검증 폴트 */
+  const dword FAULT_CROSS_CHECK = 0x00000020;
+  /** @brief 시스템 과부하 폴트 */
+  const dword FAULT_SYSTEM_OVERLOAD = 0x00000040;
+
+  /*******************************************************************************
+   * 시스템 상태 열거형
+   ******************************************************************************/
+
+  /**
+   * @brief 시스템의 현재 운영 상태를 나타내는 열거형
+   */
+  enum SystemState
+  {
+    STATE_INIT = 0,      /**< 초기화 상태 */
+    STATE_NORMAL = 1,    /**< 정상 작동 상태 */
+    STATE_DEGRADED = 2,  /**< 기능 저하 상태 */
+    STATE_FAIL_SAFE = 3  /**< 안전 상태 */
+  };
+
+  /** @brief 현재 시스템 상태 */
+  enum SystemState currentState;
+  /** @brief 이전 시스템 상태 */
+  enum SystemState previousState;
+
+  /*******************************************************************************
+   * 센서 데이터 구조체
+   ******************************************************************************/
+
+  /**
+   * @brief 모든 관련 센서 데이터를 저장하는 구조체
+   */
+  struct SensorData
+  {
+    /** @brief 가속 페달 위치 (%) */
+    float apsPosition;
+    /** @brief 브레이크 페달 위치 (%) */
+    float bppsPosition;
+    /** @brief 조향각 (deg) */
+    float steeringAngle;
+    /** @brief 조향 토크 (Nm) */
+    float steeringTorque;
+    /** @brief 조향 각속도 (deg/s) */
+    float angularVelocity;
+    /** @brief 전방 차량 거리 (m) */
+    float frontVehicleDistance;
+    /** @brief 전방 차량 속도 (km/h) */
+    float frontVehicleSpeed;
+    /** @brief 차량 속도 (km/h) */
+    float vehicleSpeed;
+    /** @brief APS 상태 */
+    byte apsStatus;
+    /** @brief BPPS 상태 */
+    byte bppsStatus;
+    /** @brief EPAS 상태 */
+    byte epasStatus;
+    /** @brief 차선 변경 지시자 */
+    byte laneChangeIndicator;
+    /** @brief 도로 상태 */
+    byte roadCondition;
+    /** @brief 센서 유효성 비트 마스크 */
+    byte sensorsValid;
+  };
+  /** @brief 센서 데이터 인스턴스 */
+  struct SensorData sensors;
+
+  /*******************************************************************************
+   * 통신 모니터링 구조체
+   ******************************************************************************/
+
+  /**
+   * @brief 통신 상태 및 오류를 모니터링하기 위한 데이터를 저장하는 구조체
+   */
+  struct CommMonitor
+  {
+    /** @brief EPAS 마지막 수신 시간 (ms) */
+    dword lastRxTime_EPAS;
+    /** @brief ADAS 마지막 수신 시간 (ms) */
+    dword lastRxTime_ADAS;
+    /** @brief EPAS 실패 횟수 */
+    int failureCount_EPAS;
+    /** @brief ADAS 실패 횟수 */
+    int failureCount_ADAS;
+    /** @brief 통신 상태 비트 마스크 */
+    byte commStatus;
+    /** @brief EPAS 첫 메시지 수신 플래그 */
+    byte firstMsgReceived_EPAS;
+    /** @brief ADAS 첫 메시지 수신 플래그 */
+    byte firstMsgReceived_ADAS;
+  };
+  /** @brief 통신 모니터링 인스턴스 */
+  struct CommMonitor commMon;
+
+  /*******************************************************************************
+   * 진단 데이터 구조체
+   ******************************************************************************/
+
+  /**
+   * @brief 진단 정보를 저장하는 구조체
+   */
+  struct DiagnosticData
+  {
+    /** @brief CPU 사용률 (%) */
+    byte cpuUsage;
+    /** @brief 메모리 사용률 (%) */
+    byte memoryUsage;
+    /** @brief ECU 온도 (°C) */
+    byte temperature;
+    /** @brief 동작 시간 (hours) */
+    word operatingHours;
+    /** @brief 오류 플래그 */
+    dword errorFlags;
+  };
+  /** @brief 진단 데이터 인스턴스 */
+  struct DiagnosticData diagnostics;
+
+  /*******************************************************************************
+   * 전역 변수
+   ******************************************************************************/
+
+  /** @brief M005 메시지 카운터 */
+  byte counter_M005;
+  /** @brief M005_EXT 메시지 카운터 */
+  byte counter_M005_EXT;
+  /** @brief M004 메시지 카운터 */
+  byte counter_M004;
+  /** @brief EPAS 마지막 카운터 */
+  byte gLastEpasCounter;
+  /** @brief 폴트 레지스터 */
+  dword faultRegister;
+  /** @brief 메인 태스크 타이머 */
+  msTimer timerMainTask;
+  /** @brief 태스크 카운터 */
+  dword gTaskCounter;
+  /** @brief 시간 카운터 */
+  int gHourCounter;
+  /** @brief 워치독 카운터 */
+  byte gWatchdogCounter;
+  /** @brief 마지막 워치독 시간 */
+  dword gLastWatchdogTime;
+}

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=19.0.155.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="HPC_Fault_Status">
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X2332506fea196e4d7eeb300e0a03074f45ee" ControlName="Static Text 1">
+      <Property Name="Name">X2332506fea196e4d7eeb300e0a03074f45ee</Property>
+      <Property Name="Size">135, 15</Property>
+      <Property Name="Location">15, 97</Property>
+      <Property Name="Text">HPC Fault: Backup Active</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.LEDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xdc7d991ce230de4f98eb2d2e786c45fd73bf" ControlName="LED Control 1">
+      <Property Name="Name">Xdc7d991ce230de4f98eb2d2e786c45fd73bf</Property>
+      <Property Name="Size">72, 72</Property>
+      <Property Name="Location">45, 19</Property>
+      <Property Name="ReadOnlyControl">True</Property>
+      <Property Name="TabIndex">1</Property>
+      <Property Name="TabStopActive">False</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;Color&gt;255, 152, 152, 152&lt;/Color&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;&lt;Color&gt;Red&lt;/Color&gt;</Property>
+      <Property Name="SymbolConfiguration">8;16;HPC;;;g_isHpcFaulty;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">165, 128</Property>
+    <Property Name="Location">0, 0</Property>
+    <Property Name="BackColor">White</Property>
+  </Object>
+</Panel>

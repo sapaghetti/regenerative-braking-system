@@ -1,0 +1,175 @@
+\doxysection{Cluster\+Display\+Data Struct Reference}
+\hypertarget{struct_cluster_display_data}{}\label{struct_cluster_display_data}\index{ClusterDisplayData@{ClusterDisplayData}}
+
+
+클러스터 표시 관련 데이터를 저장하는 구조체  
+
+
+
+
+Collaboration diagram for Cluster\+Display\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{df/d89/struct_cluster_display_data__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_cluster_display_data_a1965835565fdce126399daf5d856db23}{current\+Display\+Mode}}
+\begin{DoxyCompactList}\small\item\em 현재 표시 모드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_cluster_display_data_ae67cb51a805e4321e26055a69e23abee}{previous\+Display\+Mode}}
+\begin{DoxyCompactList}\small\item\em 이전 표시 모드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_cluster_display_data_a732fffd12292d3e6a25ab1a20cfa0f74}{battery\+SOC}}
+\begin{DoxyCompactList}\small\item\em 배터리 충전량 (\%) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{struct_cluster_display_data_a6df35295f2c7c026bd36930a4105642f}{cumulative\+Regen\+Energy}}
+\begin{DoxyCompactList}\small\item\em 누적 회생 에너지 (Wh) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{word}} \mbox{\hyperlink{struct_cluster_display_data_a4e7010ebdf85fe7ea456a5229c209ce2}{vehicle\+Speed}}
+\begin{DoxyCompactList}\small\item\em 차량 속도 (분해능\+: 0.\+01 km/h) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{word}} \mbox{\hyperlink{struct_cluster_display_data_a8fa03646e041e4eb9eb05fcf522cfc86}{motor\+Speed}}
+\begin{DoxyCompactList}\small\item\em 모터 속도 (rpm) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_cluster_display_data_ad8e1441b084b01e80e8e9d5b635fc83f}{warning\+Status}}
+\begin{DoxyCompactList}\small\item\em 경고 상태 비트마스크 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_cluster_display_data_a4f0a62ccae6ebca5443c3a356d6600f3}{active\+Profile}}
+\begin{DoxyCompactList}\small\item\em 활성 프로파일 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_cluster_display_data_a21fa356ae01ddde51b520020821276d8}{cluster\+Connected}}
+\begin{DoxyCompactList}\small\item\em 클러스터 연결 상태 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{struct_cluster_display_data_ad5f512c3a7bc1f494cc4f467e04d4bec}{last\+Update\+Time}}
+\begin{DoxyCompactList}\small\item\em 마지막 업데이트 시간 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_cluster_display_data_aa533014119b7e3d93df35469b7ca6bbc}{display\+Data\+Valid}}
+\begin{DoxyCompactList}\small\item\em 표시 데이터 유효성 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_cluster_display_data_a190a6966682ed3ea25f7fa85c16ec5f2}{comfort\+Mode\+Enabled}}
+\begin{DoxyCompactList}\small\item\em OTA 편안한 모드 활성화 여부 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+클러스터 표시 관련 데이터를 저장하는 구조체 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_cluster_display_data_a4f0a62ccae6ebca5443c3a356d6600f3}\label{struct_cluster_display_data_a4f0a62ccae6ebca5443c3a356d6600f3} 
+\index{ClusterDisplayData@{ClusterDisplayData}!activeProfile@{activeProfile}}
+\index{activeProfile@{activeProfile}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{activeProfile}{activeProfile}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Cluster\+Display\+Data\+::active\+Profile}
+
+
+
+활성 프로파일 
+
+\Hypertarget{struct_cluster_display_data_a732fffd12292d3e6a25ab1a20cfa0f74}\label{struct_cluster_display_data_a732fffd12292d3e6a25ab1a20cfa0f74} 
+\index{ClusterDisplayData@{ClusterDisplayData}!batterySOC@{batterySOC}}
+\index{batterySOC@{batterySOC}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{batterySOC}{batterySOC}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Cluster\+Display\+Data\+::battery\+SOC}
+
+
+
+배터리 충전량 (\%) 
+
+\Hypertarget{struct_cluster_display_data_a21fa356ae01ddde51b520020821276d8}\label{struct_cluster_display_data_a21fa356ae01ddde51b520020821276d8} 
+\index{ClusterDisplayData@{ClusterDisplayData}!clusterConnected@{clusterConnected}}
+\index{clusterConnected@{clusterConnected}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{clusterConnected}{clusterConnected}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Cluster\+Display\+Data\+::cluster\+Connected}
+
+
+
+클러스터 연결 상태 
+
+\Hypertarget{struct_cluster_display_data_a190a6966682ed3ea25f7fa85c16ec5f2}\label{struct_cluster_display_data_a190a6966682ed3ea25f7fa85c16ec5f2} 
+\index{ClusterDisplayData@{ClusterDisplayData}!comfortModeEnabled@{comfortModeEnabled}}
+\index{comfortModeEnabled@{comfortModeEnabled}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{comfortModeEnabled}{comfortModeEnabled}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Cluster\+Display\+Data\+::comfort\+Mode\+Enabled}
+
+
+
+OTA 편안한 모드 활성화 여부 
+
+\Hypertarget{struct_cluster_display_data_a6df35295f2c7c026bd36930a4105642f}\label{struct_cluster_display_data_a6df35295f2c7c026bd36930a4105642f} 
+\index{ClusterDisplayData@{ClusterDisplayData}!cumulativeRegenEnergy@{cumulativeRegenEnergy}}
+\index{cumulativeRegenEnergy@{cumulativeRegenEnergy}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{cumulativeRegenEnergy}{cumulativeRegenEnergy}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} Cluster\+Display\+Data\+::cumulative\+Regen\+Energy}
+
+
+
+누적 회생 에너지 (Wh) 
+
+\Hypertarget{struct_cluster_display_data_a1965835565fdce126399daf5d856db23}\label{struct_cluster_display_data_a1965835565fdce126399daf5d856db23} 
+\index{ClusterDisplayData@{ClusterDisplayData}!currentDisplayMode@{currentDisplayMode}}
+\index{currentDisplayMode@{currentDisplayMode}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{currentDisplayMode}{currentDisplayMode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Cluster\+Display\+Data\+::current\+Display\+Mode}
+
+
+
+현재 표시 모드 
+
+\Hypertarget{struct_cluster_display_data_aa533014119b7e3d93df35469b7ca6bbc}\label{struct_cluster_display_data_aa533014119b7e3d93df35469b7ca6bbc} 
+\index{ClusterDisplayData@{ClusterDisplayData}!displayDataValid@{displayDataValid}}
+\index{displayDataValid@{displayDataValid}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{displayDataValid}{displayDataValid}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Cluster\+Display\+Data\+::display\+Data\+Valid}
+
+
+
+표시 데이터 유효성 
+
+\Hypertarget{struct_cluster_display_data_ad5f512c3a7bc1f494cc4f467e04d4bec}\label{struct_cluster_display_data_ad5f512c3a7bc1f494cc4f467e04d4bec} 
+\index{ClusterDisplayData@{ClusterDisplayData}!lastUpdateTime@{lastUpdateTime}}
+\index{lastUpdateTime@{lastUpdateTime}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{lastUpdateTime}{lastUpdateTime}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} Cluster\+Display\+Data\+::last\+Update\+Time}
+
+
+
+마지막 업데이트 시간 
+
+\Hypertarget{struct_cluster_display_data_a8fa03646e041e4eb9eb05fcf522cfc86}\label{struct_cluster_display_data_a8fa03646e041e4eb9eb05fcf522cfc86} 
+\index{ClusterDisplayData@{ClusterDisplayData}!motorSpeed@{motorSpeed}}
+\index{motorSpeed@{motorSpeed}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{motorSpeed}{motorSpeed}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{word}} Cluster\+Display\+Data\+::motor\+Speed}
+
+
+
+모터 속도 (rpm) 
+
+\Hypertarget{struct_cluster_display_data_ae67cb51a805e4321e26055a69e23abee}\label{struct_cluster_display_data_ae67cb51a805e4321e26055a69e23abee} 
+\index{ClusterDisplayData@{ClusterDisplayData}!previousDisplayMode@{previousDisplayMode}}
+\index{previousDisplayMode@{previousDisplayMode}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{previousDisplayMode}{previousDisplayMode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Cluster\+Display\+Data\+::previous\+Display\+Mode}
+
+
+
+이전 표시 모드 
+
+\Hypertarget{struct_cluster_display_data_a4e7010ebdf85fe7ea456a5229c209ce2}\label{struct_cluster_display_data_a4e7010ebdf85fe7ea456a5229c209ce2} 
+\index{ClusterDisplayData@{ClusterDisplayData}!vehicleSpeed@{vehicleSpeed}}
+\index{vehicleSpeed@{vehicleSpeed}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{vehicleSpeed}{vehicleSpeed}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{word}} Cluster\+Display\+Data\+::vehicle\+Speed}
+
+
+
+차량 속도 (분해능\+: 0.\+01 km/h) 
+
+\Hypertarget{struct_cluster_display_data_ad8e1441b084b01e80e8e9d5b635fc83f}\label{struct_cluster_display_data_ad8e1441b084b01e80e8e9d5b635fc83f} 
+\index{ClusterDisplayData@{ClusterDisplayData}!warningStatus@{warningStatus}}
+\index{warningStatus@{warningStatus}!ClusterDisplayData@{ClusterDisplayData}}
+\doxysubsubsection{\texorpdfstring{warningStatus}{warningStatus}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Cluster\+Display\+Data\+::warning\+Status}
+
+
+
+경고 상태 비트마스크 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_z_c_u___center___config_8cin}{ZCU\+\_\+\+Center\+\_\+\+Config.\+cin}}\end{DoxyCompactItemize}

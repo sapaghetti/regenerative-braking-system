@@ -1,0 +1,51 @@
+﻿/*@!Encoding:65001*/
+/**
+ * @file HPC_MCU_Spoofer.cin
+ * @brief MCU 제어 및 상태 메시지 시뮬레이션 및 처리용 CAPL 스크립트
+ */
+includes
+{
+  
+}
+
+variables
+{
+  msTimer act_msg_Timer;
+  const dword ACT_MSG_TIMEOUT = 100;
+  msTimer mcu_msg_Timer;
+  const dword MCU_MSG_TIMEOUT = 100;
+}
+
+on start
+{
+  settimer(mcu_msg_Timer, MCU_MSG_TIMEOUT);
+  settimer(act_msg_Timer, ACT_MSG_TIMEOUT);
+}
+
+on timer mcu_msg_Timer
+{
+  message L005_MCU_Detail_Status mcu_msg;
+  
+  mcu_msg.Motor_Torque.phys = @MCU::Motor_Torque;
+  output(mcu_msg);
+  
+  cancelTimer(mcu_msg_Timer);
+  settimer(mcu_msg_Timer, MCU_MSG_TIMEOUT);
+}
+
+on timer act_msg_Timer
+{
+  message L010_Motor_Control act_msg;
+  
+  act_msg.Target_Torque.phys = @MCU::Target_Torque;
+  output(act_msg);
+  
+  cancelTimer(act_msg_Timer);
+  settimer(act_msg_Timer, ACT_MSG_TIMEOUT);
+}
+
+on message L008_MCU_Control
+{
+  @MCU::Target_Torque = this.Target_Torque.phys;
+  @MCU::Regen_Mode = this.Regen_Mode;
+}

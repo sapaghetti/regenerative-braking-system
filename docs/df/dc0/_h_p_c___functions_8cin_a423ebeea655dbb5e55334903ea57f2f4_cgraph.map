@@ -1,0 +1,5 @@
+<map id="ExecuteTorqueControlTask" name="ExecuteTorqueControlTask">
+<area shape="rect" id="Node000001" title="주기적으로 모터 토크 제어 명령을 전송하는 태스크" alt="" coords="5,5,184,32"/>
+<area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#a5bf912ec486886c058c6ce71d003510e" title="운전자 입력과 차량 상태를 기반으로 최적의 모터 토크를 계산하는 함수" alt="" coords="232,5,392,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,16,216,16,216,21,184,21"/>
+</map>

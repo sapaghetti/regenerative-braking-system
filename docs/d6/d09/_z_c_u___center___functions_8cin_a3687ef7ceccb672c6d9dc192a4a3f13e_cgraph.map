@@ -1,0 +1,17 @@
+<map id="SetFault" name="SetFault">
+<area shape="rect" id="Node000001" title="폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거" alt="" coords="5,56,76,83"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#a92e4ed6722de9556e15267afb3bcd408" title="현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트" alt="" coords="124,56,263,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,67,108,67,108,72,76,72"/>
+<area shape="rect" id="Node000003" href="$d6/d09/_z_c_u___center___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태 간의 전환을 관리" alt="" coords="311,56,434,83"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="263,67,295,67,295,72,263,72"/>
+<area shape="rect" id="Node000004" href="$d6/d09/_z_c_u___center___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="482,5,608,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="420,53,482,34,483,39,422,58"/>
+<area shape="rect" id="Node000005" href="$d6/d09/_z_c_u___center___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="486,56,604,83"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="435,67,471,67,471,72,435,72"/>
+<area shape="rect" id="Node000008" href="$d6/d09/_z_c_u___center___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="489,107,601,133"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="422,81,483,99,482,104,420,86"/>
+<area shape="rect" id="Node000006" href="$d6/d09/_z_c_u___center___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="662,31,799,57"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="604,59,646,53,647,58,604,64"/>
+<area shape="rect" id="Node000007" href="$d6/d09/_z_c_u___center___functions_8cin.html#a8b9a584cbd1346ca9fc94f4857a5aaaa" title="클러스터 디스플레이를 업데이트" alt="" coords="656,81,805,108"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="604,75,641,80,640,85,604,80"/>
+</map>

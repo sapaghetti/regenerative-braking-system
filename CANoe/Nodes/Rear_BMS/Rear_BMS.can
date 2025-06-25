@@ -1,0 +1,32 @@
+﻿/*@!Encoding:65001*/
+/**
+ * @file HPC_BMS_Spoofer.cin
+ * @brief BMS 상태 정보를 주기적으로 생성하여 송신하는 테스트용 CAPL 스크립트
+ */
+
+includes
+{
+  
+}
+
+variables
+{
+  msTimer bms_msg_Timer;
+  const dword BMS_MSG_TIMEOUT = 100;
+}
+
+on start
+{
+  settimer(bms_msg_Timer, BMS_MSG_TIMEOUT);
+}
+
+on timer bms_msg_Timer
+{
+  message L007_BMS_Detail_Status bms_msg;
+  bms_msg.Battery_SoC = (int)(@BMS::SoC);
+  bms_msg.Battery_Current.phys = @BMS::Current;
+  bms_msg.Battery_Voltage.phys = @BMS::Voltage;
+  output(bms_msg);
+  cancelTimer(bms_msg_Timer);
+  settimer(bms_msg_Timer, BMS_MSG_TIMEOUT);
+}

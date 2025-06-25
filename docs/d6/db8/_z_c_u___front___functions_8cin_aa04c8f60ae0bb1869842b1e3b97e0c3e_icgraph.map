@@ -1,0 +1,18 @@
+<map id="ValidateSensorRange" name="ValidateSensorRange">
+<area shape="rect" id="Node000001" title="센서 값이 정의된 최소/최대 범위 내에 있는지 확인" alt="" coords="500,81,646,108"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#a1ba29d06e65650de5e70b426c7baa6cc" title="&#39;on message L001_EPAS_Data&#39; 이벤트 핸들러 로직을 처리" alt="" coords="284,5,429,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="527,77,451,47,414,35,415,30,453,41,529,72"/>
+<area shape="rect" id="Node000004" href="$d6/db8/_z_c_u___front___functions_8cin.html#a32ff2c90c1bb0fbaef04b6ac79221cf7" title="시작 시 중요한 센서에 대한 자체 테스트를 수행" alt="" coords="283,56,430,83"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="485,87,430,81,430,75,485,82"/>
+<area shape="rect" id="Node000006" href="$d6/db8/_z_c_u___front___functions_8cin.html#a2fa94deff1b4486956e4b212babca7c8" title="브레이크 페달 위치 메시지(M005_EXT)를 전송" alt="" coords="261,107,452,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="485,108,452,112,452,106,484,102"/>
+<area shape="rect" id="Node000008" href="$d6/db8/_z_c_u___front___functions_8cin.html#a3f5efbb2e2e91840c315279713af0603" title="주요 차량 동역학 메시지(M005)를 전송" alt="" coords="261,157,452,184"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="529,117,453,148,415,159,414,154,451,143,527,112"/>
+<area shape="rect" id="Node000003" href="$df/d93/_z_c_u___front_8can.html#a9b8f1cb6cc7058ed6be0f7008f6bd0c5" title="EPAS 데이터 메시지 수신 이벤트 핸들러" alt="" coords="5,5,213,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="268,21,213,21,213,16,268,16"/>
+<area shape="rect" id="Node000005" href="$d6/db8/_z_c_u___front___functions_8cin.html#a7cd5f0a479fccce095a8e8c84f187c57" title="&#39;on start&#39; 이벤트 핸들러 로직을 처리" alt="" coords="47,56,171,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="268,72,172,72,172,67,268,67"/>
+<area shape="rect" id="Node000007" href="$d6/db8/_z_c_u___front___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title="&#39;on timer timerMainTask&#39; 이벤트 핸들러 로직을 처리" alt="" coords="33,132,185,159"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="246,134,185,140,185,135,246,129"/>
+<area shape="poly" id="edge8_Node000008_Node000007" title=" " alt="" coords="245,162,185,156,185,150,246,157"/>
+</map>

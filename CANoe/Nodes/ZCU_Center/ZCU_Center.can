@@ -1,0 +1,113 @@
+/*@!Encoding:65001*/
+/**
+ * @file ZCU_Center.can
+ * @brief ZCU_Center의 메인 CAPL 스크립트
+ */
+
+includes
+{
+  #include "ZCU_Center_Config.cin"
+  #include "ZCU_Center_Functions.cin"
+}
+
+/**
+ * @brief 시뮬레이션 시작 시 호출되는 이벤트 핸들러
+ * @note 전역 변수 초기화, 보안 부팅, 자체 테스트 수행 및 주기적 타이머 설정
+ */
+on start
+{
+  HandleStartEvent();
+}
+
+/**
+ * @brief 시뮬레이션 중지 시 호출되는 이벤트 핸들러
+ * @note 시스템 종료 작업을 수행
+ */
+on stopMeasurement
+{
+  HandleStopEvent();
+}
+
+/**
+ * @brief 주기적인 메인 태스크 타이머 이벤트 핸들러 (10ms 주기)
+ * @note 시스템 상태에 따라 다양한 주기로 작업을 예약하고 실행
+ *       - 50ms: 워치독 검사
+ *       - 100ms: 통신 모니터링, 상태 업데이트
+ *       - 1000ms: 진단 수행, 진단 데이터 전송
+ */
+on timer timerMainTask
+{
+  HandleMainTaskTimer();
+}
+
+/**
+ * @brief 음성 명령 메시지 수신 이벤트 핸들러
+ * @note 음성인식 ECU로부터 음성 명령을 수신하고 처리
+ */
+on message L003_Voice_Command
+{
+  HandleVoiceCommandMessage(this);
+}
+
+/**
+ * @brief 스티어링 휠 버튼 입력 메시지 수신 이벤트 핸들러
+ * @note 스티어링 휠 버튼 입력을 수신하고 처리
+ */
+on message L004_SW_Button_Input
+{
+  HandleSwButtonInputMessage(this);
+}
+
+/**
+ * @brief 모드 변경 응답 메시지 수신 이벤트 핸들러
+ * @note HPC로부터 모드 변경 응답을 수신하고 처리
+ */
+on message M009_Mode_Change_Resp
+{
+  HandleModeChangeRespMessage(this);
+}
+
+/**
+ * @brief 클러스터 표시 데이터 메시지 수신 이벤트 핸들러
+ * @note HPC로부터 클러스터 표시 정보를 수신하고 클러스터를 업데이트
+ */
+on message M012_Cluster_Display
+{
+  HandleClusterDisplayMessage(this);
+}
+
+/**
+ * @brief 키보드 'f' 키 입력 이벤트 핸들러
+ * @note 수동으로 HPC 통신 폴트를 주입하여 테스트
+ */
+on key 'f'
+{
+  HandleFaultInjectionKey();
+}
+
+/**
+ * @brief 키보드 'v' 키 입력 이벤트 핸들러
+ * @note 수동으로 음성 명령을 시뮬레이션 (테스트용)
+ */
+on key 'v'
+{
+  HandleSimulateVoiceKey();
+}
+
+/**
+ * @brief 키보드 's' 키 입력 이벤트 핸들러
+ * @note 현재 ZCU_Center의 모든 주요 상태 정보를 콘솔에 출력
+ */
+on key 's'
+{
+  HandleStatusDisplayKey();
+}
+
+/**
+ * @brief 키보드 't' 키 입력 이벤트 핸들러
+ * @note 클러스터 표시 테스트용 데이터를 시뮬레이션
+ */
+on key 't'
+{
+  HandleClusterTestKey();
+}

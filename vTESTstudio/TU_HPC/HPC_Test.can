@@ -1,0 +1,696 @@
+/*@!Encoding:65001*/
+includes
+{
+  #include "../../CANoe/Nodes/HPC/HPC_Config.cin"
+  #include "../../CANoe/Nodes/HPC/HPC_Functions.cin"
+}
+
+on timer timerMainTask
+{
+  HandleMainTaskTimer();
+}
+
+on timer timerWatchdog
+{
+  HandleWatchdogTimeout();
+}
+
+on message M008_Mode_Change_Req
+{
+  HandleModeChangeReqMessage(this);
+}
+
+on message M006_Battery_Basic
+{
+  HandleBatteryBasicMessage(this);
+}
+
+on message M002_Regen_Torque_Feedback
+{
+  HandleRegenTorqueFeedbackMessage(this);
+}
+
+on message M004_FailSafe_Status_2
+{
+  HandleFailSafeStatusMessage(this.Fault_Code);
+}
+
+on message M004_FailSafe_Status_3
+{
+  HandleFailSafeStatusMessage(this.Fault_Code);
+}
+
+on message M005_Vehicle_Dynamics
+{
+  HandleVehicleDynamicsMessage(this);
+}
+
+on message M005_EXT_Brake_Pedal
+{
+  HandleBrakePedalMessage(this);
+}
+
+export testcase TC_UNIT_101()
+{
+  float returnValue;
+
+  TestStep("준비", "APS/BPPS 값을 0으로 설정하고, 회생제동 모드를 Level 2로 설정합니다.");
+  InitializeGlobals();
+  apsPosition = 0;
+  bppsPosition = 0;
+  currentRegenMode = REGEN_LEVEL2;
+  currentVehicleSpeed = 10.0;
+
+  TestStep("실행", "CalculateOptimalTorque() 함수를 호출합니다.");
+  returnValue = CalculateOptimalTorque();
+
+  TestStep("검증", "반환 값이 -100.0 (Level 2 제동 토크)인지 확인합니다.");
+  if (returnValue == -100.0)
+  {
+    TestStepPass("결과", "페달 Off 및 Level 2 모드에서 예상 제동 토크(-100.0)를 정확히 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "반환 값이 %.1f 입니다. 예상 값: -100.0", returnValue);
+  }
+}
+
+export testcase TC_UNIT_102()
+{
+  float returnValue;
+
+  TestStep("준비", "APS/BPPS 값을 0, 모드를 Level 2, 차량 속도를 9.0km/h로 설정합니다.");
+  InitializeGlobals();
+  apsPosition = 0;
+  bppsPosition = 0;
+  currentRegenMode = REGEN_LEVEL2;
+  currentVehicleSpeed = 9.0;
+
+  TestStep("실행", "CalculateOptimalTorque() 함수를 호출합니다.");
+  returnValue = CalculateOptimalTorque();
+
+  TestStep("검증", "반환 값이 -30.0 (-100.0 * 0.3)인지 확인합니다.");
+  if (returnValue == -30.0)
+  {
+    TestStepPass("결과", "저속(<10km/h)에서 제동 토크가 30%%로 제한된 값(-30.0)을 정확히 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "반환 값이 %.1f 입니다. 예상 값: -30.0", returnValue);
+  }
+}
+
+export testcase TC_UNIT_103()
+{
+  float returnValue;
+
+  TestStep("준비", "전역 변수를 초기화하고 배터리 보호 모드(STATE_BATTERY_PROTECTION)로 상태를 설정합니다.");
+  InitializeGlobals();
+  apsPosition = 0;
+  bppsPosition = 0;
+  currentRegenMode = REGEN_LEVEL2;
+  currentVehicleSpeed = 10.0;
+  TransitionToState(STATE_BATTERY_PROTECTION);
+
+  TestStep("실행", "CalculateOptimalTorque() 함수를 호출합니다.");
+  returnValue = CalculateOptimalTorque();
+
+  TestStep("검증", "반환 값이 -50.0 (-100.0 * 0.5)인지 확인합니다.");
+  if (returnValue == -50.0)
+  {
+    TestStepPass("결과", "배터리 보호 모드에서 제동 토크가 50%%로 제한된 값(-50.0)을 정확히 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "반환 값이 %.1f 입니다. 예상 값: -50.0", returnValue);
+  }
+  
+  InitializeGlobals();
+}
+
+export testcase TC_UNIT_104()
+{
+  float returnValue;
+  
+  TestStep("준비", "자동 모드 기본 토크를 100Nm로 설정하고, V2X 데이터를 설정합니다 (신호등 상태=1, 도로 경사=6).");
+  InitializeGlobals();
+  apsPosition = 0;
+  bppsPosition = 0;
+  currentRegenMode = REGEN_AUTO;
+  currentVehicleSpeed = 10.0;
+  gAutoRegenBaseTorque = 100.0;
+  @TMU::TrafficLightRed = 1;
+  v2xData.roadGrade = 6;
+
+  TestStep("실행", "CalculateOptimalTorque() 함수를 호출합니다.");
+  returnValue = CalculateOptimalTorque();
+  
+  TestStep("검증", "반환 값이 -195.0 (-(100.0 * 1.5 * 1.3))인지 확인합니다.");
+  if (abs(returnValue - (-195.0)) < 0.01)
+  {
+    TestStepPass("결과", "자동 모드에서 V2X 데이터(신호등, 경사도)가 적용된 가중 제동 토크(-195.0)를 정확히 반환했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "반환 값이 %.1f 입니다. 예상 값: -195.0", returnValue);
+  }
+  
+  InitializeGlobals();
+}
+
+export testcase TC_UNIT_105()
+{
+  TestStep("준비", "전역 변수를 초기화합니다.");
+  InitializeGlobals();
+
+  TestStep("실행 1", "SetFault(FAULT_BATTERY_PROTECTION)를 호출합니다.");
+  SetFault(FAULT_BATTERY_PROTECTION);
+
+  TestStep("검증 1", "faultRegister와 diagnostics.errorFlags에 폴트 비트가 설정되었는지 확인합니다.");
+  if ((faultRegister & FAULT_BATTERY_PROTECTION) && (diagnostics.errorFlags & FAULT_BATTERY_PROTECTION))
+  {
+    TestStepPass("SetFault 검증", "SetFault 호출 후 faultRegister와 diagnostics.errorFlags에 폴트가 정상 설정되었습니다.");
+  }
+  else
+  {
+    TestStepFail("SetFault 검증", "SetFault 호출 후 폴트가 설정되지 않았습니다. (faultRegister: 0x%08X, errorFlags: 0x%08X)", faultRegister, diagnostics.errorFlags);
+  }
+
+  TestStep("실행 2", "ClearFault(FAULT_BATTERY_PROTECTION)를 호출합니다.");
+  ClearFault(FAULT_BATTERY_PROTECTION);
+
+  TestStep("검증 2", "faultRegister와 diagnostics.errorFlags에서 폴트 비트가 해제되었는지 확인합니다.");
+  if ((faultRegister & FAULT_BATTERY_PROTECTION) == 0 && (diagnostics.errorFlags & FAULT_BATTERY_PROTECTION) == 0)
+  {
+    TestStepPass("ClearFault 검증", "ClearFault 호출 후 faultRegister와 diagnostics.errorFlags에서 폴트가 정상 해제되었습니다.");
+  }
+  else
+  {
+    TestStepFail("ClearFault 검증", "ClearFault 호출 후 폴트가 해제되지 않았습니다. (faultRegister: 0x%08X, errorFlags: 0x%08X)", faultRegister, diagnostics.errorFlags);
+  }
+  
+  InitializeGlobals();
+}
+
+export testcase TC_UNIT_106()
+{
+  TestStep("준비", "전역 변수를 초기화하고 상태를 NORMAL로 설정합니다.");
+  InitializeGlobals();
+  TransitionToState(STATE_NORMAL);
+  
+  TestStep("실행", "TransitionToState(STATE_FAIL_SAFE)를 호출합니다.");
+  TransitionToState(STATE_FAIL_SAFE);
+  TestWaitForTimeout(5);
+  
+  TestStep("검증", "currentState와 previousState가 올바르게 변경되었는지 확인합니다.");
+  if(currentState == STATE_FAIL_SAFE && previousState == STATE_NORMAL)
+  {
+    TestStepPass("결과", "상태 전이가 정상적으로 수행되었습니다 (NORMAL -> FAIL_SAFE). currentState=%d, previousState=%d", currentState, previousState);
+  }
+  else
+  {
+    TestStepFail("결과", "상태 전이 실패. currentState=%d (예상:3), previousState=%d (예상:1)", currentState, previousState);
+  }
+  
+  InitializeGlobals();
+}
+
+export testcase TC_UNIT_107()
+{
+  message M008_Mode_Change_Req request;
+
+  TestStep("준비", "정상 상태에서 모드 변경(Level 2)을 요청하는 메시지를 준비합니다.");
+  InitializeGlobals();
+  TransitionToState(STATE_NORMAL);
+  request.Requested_Mode = REGEN_LEVEL2;
+  request.Profile_Type = 0;
+  
+  TestStep("실행", "SendModeChangeResponse(request) 함수를 호출합니다.");
+  SendModeChangeResponse(request);
+  
+  TestStep("검증", "10ms 내에 M009_Mode_Change_Resp 메시지를 수신하고, 상태와 CRC를 확인합니다.");
+  if(TestWaitForMessage(M009_Mode_Change_Resp, 10) == 1)
+  {
+    if($M009_Mode_Change_Resp::Mode_Change_Status == 0 && $M009_Mode_Change_Resp::CRC16_Checksum != 0)
+    {
+      TestStepPass("결과", "정상 응답 메시지가 유효한 CRC(0x%04X)와 함께 전송되었습니다.", $M009_Mode_Change_Resp::CRC16_Checksum);
+    }
+    else
+    {
+      TestStepFail("결과", "응답 메시지의 내용이 올바르지 않습니다. Status=%d (예상:0), CRC=0x%04X (예상:!=0)", $M009_Mode_Change_Resp::Mode_Change_Status, $M009_Mode_Change_Resp::CRC16_Checksum);
+    }
+  }
+  else
+  {
+    TestStepFail("결과", "10ms 내에 M009_Mode_Change_Resp 메시지를 수신하지 못했습니다.");
+  }
+  
+  InitializeGlobals();
+}
+
+export testcase TC_UNIT_108()
+{
+  float returnValue, expectedValue;
+
+  TestStep("준비", "APS 위치를 60%로 설정합니다.");
+  InitializeGlobals();
+  apsPosition = 60;
+  bppsPosition = 0;
+
+  TestStep("실행", "CalculateOptimalTorque() 함수를 호출합니다.");
+  returnValue = CalculateOptimalTorque();
+
+  expectedValue = MAX_PROPULSION_TORQUE * (60.0 - APS_DEADZONE) / (100.0 - APS_DEADZONE);
+
+  TestStep("검증", "반환 값이 예상 구동 토크(약 202.63 Nm)인지 확인합니다.");
+  if (abs(returnValue - expectedValue) < 0.01)
+  {
+    TestStepPass("결과", "APS 60%% 입력에 대해 예상 구동 토크(%.2f Nm)를 정확히 반환했습니다.", expectedValue);
+  }
+  else
+  {
+    TestStepFail("결과", "반환 값이 %.2f 입니다. 예상 값: %.2f", returnValue, expectedValue);
+  }
+}
+
+export testcase TC_UNIT_109()
+{
+  float returnValue, expectedValue;
+
+  TestStep("준비", "APS 100%, BPPS 40%로 동시 입력을 설정합니다.");
+  InitializeGlobals();
+  apsPosition = 100;
+  bppsPosition = 40;
+  currentVehicleSpeed = 10.0;
+
+  TestStep("실행", "CalculateOptimalTorque() 함수를 호출합니다.");
+  returnValue = CalculateOptimalTorque();
+
+  expectedValue = -MAX_REGEN_TORQUE_AT_PEDAL * (40.0 - BPPS_DEADZONE) / (100.0 - BPPS_DEADZONE);
+
+  TestStep("검증", "반환 값이 BPPS 입력에 의한 제동 토크(약 -73.68 Nm)인지 확인합니다.");
+  if (abs(returnValue - expectedValue) < 0.01)
+  {
+    TestStepPass("결과", "APS와 BPPS 동시 입력 시, BPPS 입력을 우선하여 제동 토크(%.2f Nm)를 정확히 반환했습니다.", expectedValue);
+  }
+  else
+  {
+    TestStepFail("결과", "반환 값이 %.2f 입니다. 예상 값: %.2f", returnValue, expectedValue);
+  }
+}
+
+export testcase TC_UNIT_110()
+{
+  TestStep("준비", "자동 모드, 정상 상태로 설정하고 교통 정체 수준을 4로 설정합니다.");
+  InitializeGlobals();
+  currentRegenMode = REGEN_AUTO;
+  currentState = STATE_NORMAL;
+  v2xData.congestionLevel = 4;
+  gAutoRegenBaseTorque = 100.0;
+  
+  TestStep("실행", "ExecuteAutoModeOptimizationTask() 함수를 호출합니다.");
+  ExecuteAutoModeOptimizationTask();
+
+  TestStep("검증", "gAutoRegenBaseTorque 값이 102.0으로 증가했는지 확인합니다.");
+  if (gAutoRegenBaseTorque == 102.0)
+  {
+    TestStepPass("결과", "교통 정체 상황에서 자동 모드 기본 토크가 102.0으로 정상 증가했습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "자동 모드 기본 토크 값이 %.1f 입니다. 예상 값: 102.0", gAutoRegenBaseTorque);
+  }
+
+  InitializeGlobals();
+}
+
+export testcase TC_UNIT_111()
+{
+  message M005_EXT_Brake_Pedal msg;
+
+  TestStep("준비", "전역 변수를 초기화하고 BPPS를 50으로 설정합니다.");
+  InitializeGlobals();
+  bppsPosition = 50;
+
+  TestStep("실행", "유효하지 않은 센서 상태(Sensor_Status 비트 6이 0)를 가진 M005_EXT_Brake_Pedal 메시지를 전송합니다.");
+  msg.Sensor_Status = 0;
+  msg.BPPS_Position.phys = 100;
+  output(msg);
+  TestWaitForTimeout(10);
+
+  TestStep("검증", "bppsPosition이 0으로 초기화되었는지 확인합니다.");
+  if (bppsPosition == 0)
+  {
+    TestStepPass("결과", "유효하지 않은 BPPS 센서 신호 수신 시 bppsPosition이 0으로 정상 처리되었습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "bppsPosition 값이 %d 입니다. 예상 값: 0", bppsPosition);
+  }
+
+  InitializeGlobals();
+}
+
+
+export testcase TC_INT_101()
+{
+  message M006_Battery_Basic msg;
+  
+  TestStep("준비", "ECU를 시작하고 상태를 NORMAL로 만듭니다.");
+  HandleStartEvent();
+  TestWaitForTimeout(10);
+  
+  TestStep("실행", "배터리 SOC 상한을 초과하는 M006 메시지 (SOC=96)를 전송합니다.");
+  msg.Battery_SOC = 96;
+  msg.Battery_Temp = 25;
+  output(msg);
+  TestWaitForTimeout(10);
+  
+  TestStep("검증", "currentState가 STATE_BATTERY_PROTECTION(2)으로 변경되었는지 확인합니다.");
+  if(currentState == STATE_BATTERY_PROTECTION)
+  {
+    TestStepPass("결과", "배터리 SOC 상한 초과 시 배터리 보호 모드로 정상 전환되었습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "상태가 변경되지 않았습니다. currentState=%d (예상: 2)", currentState);
+  }
+
+  HandleStopEvent();
+}
+
+export testcase TC_INT_102()
+{
+  message M006_Battery_Basic msg;
+
+  TestStep("준비", "ECU를 시작하고 수동으로 배터리 보호 모드로 전환합니다.");
+  HandleStartEvent();
+  TestWaitForTimeout(10);
+  TransitionToState(STATE_BATTERY_PROTECTION);
+  
+  TestStep("실행", "정상 범위의 배터리 상태를 알리는 M006 메시지 (SOC=80)를 전송합니다.");
+  msg.Battery_SOC = 80;
+  msg.Battery_Temp = 25;
+  output(msg);
+  TestWaitForTimeout(10);
+
+  TestStep("검증", "currentState가 STATE_NORMAL(1)으로 복귀했는지 확인합니다.");
+  if(currentState == STATE_NORMAL)
+  {
+    TestStepPass("결과", "배터리 상태 정상 복귀 시 Normal 모드로 정상 전환되었습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "상태가 복귀되지 않았습니다. currentState=%d (예상: 1)", currentState);
+  }
+
+  HandleStopEvent();
+}
+
+export testcase TC_INT_103()
+{
+  TestStep("준비", "ECU를 시작합니다. 와치독 타이머가 자동으로 설정됩니다.");
+  HandleStartEvent();
+  cancelTimer(timerMainTask);
+  
+  TestStep("실행", "와치독 타임아웃 시간(20ms)보다 길게 대기합니다.");
+  TestWaitForTimeout(WATCHDOG_TIMEOUT + 5);
+  
+  TestStep("검증", "currentState가 STATE_FAIL_SAFE로, faultRegister에 와치독 타임아웃 폴트가 설정되었는지 확인합니다.");
+  if(currentState == STATE_FAIL_SAFE && (faultRegister & FAULT_WATCHDOG_TIMEOUT))
+  {
+    TestStepPass("결과", "와치독 타임아웃 발생 시 Fail-Safe 모드로 정상 전환되고 폴트가 기록되었습니다.");
+  }
+  else
+  {
+    TestStepFail("결과", "Fail-Safe 전환 또는 폴트 기록 실패. currentState=%d (예상:3), faultRegister=0x%08X", currentState, faultRegister);
+  }
+
+  HandleStopEvent();
+}
+
+export testcase TC_INT_104()
+{
+  message M002_Regen_Torque_Feedback feedbackMsg;
+
+  TestStep("준비", "ECU를 시작하고, 페달 Off, Level 3 모드로 -150Nm 토크를 목표로 설정합니다.");
+  HandleStartEvent();
+  cancelTimer(timerMainTask);
+  currentRegenMode = REGEN_LEVEL3;
+  apsPosition = 0;
+  bppsPosition = 0;
+  currentVehicleSpeed = 10.0;
+  targetMotorTorque = CalculateOptimalTorque();
+  
+  TestStep("실행", "실제 토크가 -50Nm임을 알리는 M002 피드백 메시지를 전송합니다.");
+  feedbackMsg.Actual_Regen_Torque.phys = -50.0;
+  output(feedbackMsg);
+
+  TestStep("검증", "10ms 내에 마찰제동 요청 메시지(M003)를 수신하고, 요청 토크가 100Nm인지 확인합니다.");
+  if(TestWaitForMessage(M003_Friction_Brake_Req, 10) == 1)
+  {
+    if($M003_Friction_Brake_Req::Required_Friction_Torque.phys == 100.0)
+    {
+      TestStepPass("결과", "부족한 토크(100Nm)를 보상하기 위한 마찰제동 요청 메시지를 정상적으로 전송했습니다.");
+    }
+    else
+    {
+      TestStepFail("결과", "마찰제동 요청 토크 값이 %.1f 입니다. 예상 값: 100.0", $M003_Friction_Brake_Req::Required_Friction_Torque.phys);
+    }
+  }
+  else
+  {
+    TestStepFail("결과", "10ms 내에 M003_Friction_Brake_Req 메시지를 수신하지 못했습니다.");
+  }
+  
+  HandleStopEvent();
+}
+
+export testcase TC_INT_105()
+{
+  TestStep("준비", "ECU를 시작하고, 에너지 계산이 발생할 조건을 설정합니다 (Level 1, 차량 속도 50km/h).");
+  HandleStartEvent();
+  currentRegenMode = REGEN_LEVEL1;
+  currentVehicleSpeed = 50;
+  currentMotorSpeed = currentVehicleSpeed * GEAR_RATIO * 60 / (2 * PI * WHEEL_RADIUS * 3.6);
+  apsPosition = 0;
+  bppsPosition = 0;
+  
+  TestStep("실행", "주기적 태스크들이 모두 실행될 충분한 시간(505ms)을 대기합니다.");
+  TestWaitForTimeout(MAIN_CYCLE * 50 + 5);
+
+  TestStep("검증", "누적 에너지와 태스크 카운터가 0 이상인지 확인합니다.");
+  if(cumulativeRegenEnergy > 0 && gTaskCounter >= 50)
+  {
+    TestStepPass("결과", "주기적 태스크들이 통합 호출되어 누적 에너지(%.2f)와 태스크 카운터(%d)가 정상적으로 증가했습니다.", cumulativeRegenEnergy, gTaskCounter);
+  }
+  else
+  {
+    TestStepFail("결과", "주기적 태스크 통합 호출 실패. cumulativeRegenEnergy=%.2f, gTaskCounter=%d", cumulativeRegenEnergy, gTaskCounter);
+  }
+
+  HandleStopEvent();
+}
+
+export testcase TC_SW_101()
+{
+  message M008_Mode_Change_Req requestMsg;
+
+  TestStep("준비", "ECU를 시작합니다.");
+  HandleStartEvent();
+  
+  TestStep("실행", "회생제동 3단계로 모드 변경을 요청하는 M008 메시지를 전송합니다.");
+  requestMsg.Requested_Mode = REGEN_LEVEL3;
+  output(requestMsg);
+
+  TestStep("검증", "200ms 내에 M009 응답 메시지를 수신하고, 상태와 현재 모드를 확인합니다.");
+  if(TestWaitForMessage(M009_Mode_Change_Resp, 200) == 1)
+  {
+    if($M009_Mode_Change_Resp::Mode_Change_Status == 0 && $M009_Mode_Change_Resp::Current_Mode == REGEN_LEVEL3)
+    {
+      TestStepPass("결과", "모드 변경 요청에 대해 성공(0) 응답 및 변경된 모드(3)를 정상 회신했습니다.");
+    }
+    else
+    {
+      TestStepFail("결과", "응답 메시지 내용 오류. Status=%d (예상:0), CurrentMode=%d (예상:3)", $M009_Mode_Change_Resp::Mode_Change_Status, $M009_Mode_Change_Resp::Current_Mode);
+    }
+  }
+  else
+  {
+    TestStepFail("결과", "200ms 내에 M009_Mode_Change_Resp 메시지를 수신하지 못했습니다.");
+  }
+  
+  HandleStopEvent();
+}
+
+export testcase TC_SW_102()
+{
+  message M006_Battery_Basic batteryMsg;
+
+  TestStep("준비", "ECU를 시작합니다.");
+  HandleStartEvent();
+
+  TestStep("실행", "배터리 SOC 상한을 초과하는 M006 메시지(SOC=96)를 전송하고, 상태 전이 및 클러스터 태스크 실행을 위해 120ms 대기합니다.");
+  batteryMsg.Battery_SOC = 96;
+  batteryMsg.Battery_Temp = 25;
+  output(batteryMsg);
+
+  TestStep("검증", "M012_Cluster_Display 메시지를 수신하고, 경고 상태 신호가 0x01인지 확인합니다.");
+  if(TestWaitForMessage(M012_Cluster_Display, MAIN_CYCLE * 10 + 5) == 1)
+  {
+    if($M012_Cluster_Display::Warning_Status == 0x01)
+    {
+      TestStepPass("결과", "배터리 보호 상태에서 클러스터 경고등 점등(0x01)을 정상 요청했습니다.");
+    }
+    else
+    {
+      TestStepFail("결과", "Warning_Status 값이 %d 입니다. 예상 값: 1", $M012_Cluster_Display::Warning_Status);
+    }
+  }
+  else
+  {
+    TestStepFail("결과", "M012_Cluster_Display 메시지를 수신하지 못했습니다.");
+  }
+  
+  HandleStopEvent();
+}
+
+export testcase TC_SW_103()
+{
+  message M008_Mode_Change_Req requestMsg;
+
+  TestStep("준비", "ECU를 시작하고 수동으로 Fail-Safe 상태로 전환합니다.");
+  HandleStartEvent();
+  TransitionToState(STATE_FAIL_SAFE);
+
+  TestStep("실행", "모드 변경을 요청하는 M008 메시지를 전송합니다.");
+  requestMsg.Requested_Mode = REGEN_LEVEL1;
+  output(requestMsg);
+
+  TestStep("검증", "200ms 내에 M009 응답 메시지를 수신하고, 실패 상태와 사유를 확인합니다.");
+  if(TestWaitForMessage(M009_Mode_Change_Resp, 200) == 1)
+  {
+    if($M009_Mode_Change_Resp::Mode_Change_Status == 1 && $M009_Mode_Change_Resp::Failure_Reason == 3)
+    {
+      TestStepPass("결과", "Fail-Safe 상태에서 모드 변경 요청을 정상적으로 거부(Status:1, Reason:3)했습니다.");
+    }
+    else
+    {
+      TestStepFail("결과", "응답 메시지 내용 오류. Status=%d (예상:1), Reason=%d (예상:3)", $M009_Mode_Change_Resp::Mode_Change_Status, $M009_Mode_Change_Resp::Failure_Reason);
+    }
+  }
+  else
+  {
+    TestStepFail("결과", "200ms 내에 M009_Mode_Change_Resp 메시지를 수신하지 못했습니다.");
+  }
+
+  HandleStopEvent();
+}
+
+export testcase TC_SW_104()
+{
+  message M005_Vehicle_Dynamics dynamicsMsg;
+  
+  TestStep("준비", "ECU를 시작하고, 0.5초 전 차량 속도가 60km/h였다고 설정합니다.");
+  HandleStartEvent();
+  gPrevVehicleSpeed_VD = 60;
+  gPrevTime_VD = timeNow();
+  
+  TestStep("실행", "0.5초 대기 후, 현재 속도가 50km/h임을 알리는 M005 메시지를 전송합니다.");
+  TestWaitForTimeout(500);
+  dynamicsMsg.Vehicle_Speed.phys = 50.0;
+  dynamicsMsg.Sensor_Status = 0x80;
+  output(dynamicsMsg);
+  
+  TestStep("검증", "10ms 내에 제동등 점등 요청(M013) 메시지를 수신하고, 명령 신호가 1인지 확인합니다.");
+  if(TestWaitForMessage(M013_Brake_Light_Ctrl, 10) == 1)
+  {
+    if($M013_Brake_Light_Ctrl::Brake_Light_Command == 1)
+    {
+      TestStepPass("결과", "기준치를 초과하는 감속도 발생 시 제동등 점등을 정상 요청했습니다.");
+    }
+    else
+    {
+      TestStepFail("결과", "Brake_Light_Command 값이 %d 입니다. 예상 값: 1", $M013_Brake_Light_Ctrl::Brake_Light_Command);
+    }
+  }
+  else
+  {
+    TestStepFail("결과", "10ms 내에 M013_Brake_Light_Ctrl 메시지를 수신하지 못했습니다.");
+  }
+  
+  HandleStopEvent();
+}
+
+export testcase TC_SW_105()
+{
+  message M004_FailSafe_Status_2 faultMsg;
+
+  TestStep("준비", "ECU를 시작합니다.");
+  HandleStartEvent();
+
+  TestStep("실행", "외부 ECU의 치명적 고장을 알리는 M004 메시지를 전송합니다.");
+  faultMsg.Fault_Code = 1;
+  output(faultMsg);
+
+  TestStep("검증", "회생제동 중단 명령(M001)이 전송되고, HPC 내부 상태가 Fail-Safe로 전환되었는지 확인합니다.");
+  if(TestWaitForMessage(M001_Regen_Torque_Cmd, 10) == 1)
+  {
+    if($M001_Regen_Torque_Cmd::Regen_Mode == REGEN_OFF && currentState == STATE_FAIL_SAFE)
+    {
+      TestStepPass("결과", "외부 고장 수신 후 회생제동을 중단하고 Fail-Safe 상태로 정상 전환했습니다.");
+    }
+    else
+    {
+      TestStepFail("결과", "회생제동 중단 또는 상태 전환 실패. RegenMode=%d (예상:0), currentState=%d (예상:3)", $M001_Regen_Torque_Cmd::Regen_Mode, currentState);
+    }
+  }
+  else
+  {
+    TestStepFail("결과", "10ms 내에 M001_Regen_Torque_Cmd 메시지를 수신하지 못했습니다.");
+  }
+
+  HandleStopEvent();
+}
+
+export testcase TC_SW_106()
+{
+  TestStep("준비", "ECU를 시작합니다.");
+  HandleStartEvent();
+
+  TestStep("실행 및 검증 1", "첫 번째 M001 메시지를 수신하고 카운터가 1인지 확인합니다.");
+  if(TestWaitForMessage(M001_Regen_Torque_Cmd, 15) == 1)
+  {
+    if($M001_Regen_Torque_Cmd::E2E_Counter == 1)
+    {
+      TestStepPass("1차 검증", "첫 번째 메시지의 롤링 카운터 값이 1로 정상입니다.");
+    }
+    else
+    {
+      TestStepFail("1차 검증", "첫 번째 메시지의 롤링 카운터가 %d 입니다. 예상 값: 1", $M001_Regen_Torque_Cmd::E2E_Counter);
+    }
+  }
+  else
+  {
+    TestStepFail("1차 검증", "15ms 내에 첫 M001 메시지를 수신하지 못했습니다.");
+  }
+
+  TestStep("실행 및 검증 2", "두 번째 M001 메시지를 수신하고 카운터가 2인지 확인합니다.");
+  if(TestWaitForMessage(M001_Regen_Torque_Cmd, 15) == 1)
+  {
+    if($M001_Regen_Torque_Cmd::E2E_Counter == 2)
+    {
+      TestStepPass("2차 검증", "두 번째 메시지의 롤링 카운터 값이 2로 순차적으로 증가했습니다.");
+    }
+    else
+    {
+      TestStepFail("2차 검증", "두 번째 메시지의 롤링 카운터가 %d 입니다. 예상 값: 2", $M001_Regen_Torque_Cmd::E2E_Counter);
+    }
+  }
+  else
+  {
+    TestStepFail("2차 검증", "15ms 내에 두 번째 M001 메시지를 수신하지 못했습니다.");
+  }
+  
+  HandleStopEvent();
+}
