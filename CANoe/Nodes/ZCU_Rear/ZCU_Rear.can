@@ -119,5 +119,5 @@ on message M001_Regen_Torque_Cmd
  */
 on message M013_Brake_Light_Ctrl
 {
-  @ZCU_Rear::Back_Light = this.Brake_Light_Command;
+  @ZCU_Rear::Brake_Light = this.Brake_Light_Command;
 }
