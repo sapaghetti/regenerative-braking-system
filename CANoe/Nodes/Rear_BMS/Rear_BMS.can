@@ -6,7 +6,7 @@ includes
 
 variables
 {
-  Timer bms_msg_Timer;
+  msTimer bms_msg_Timer;
   const dword BMS_MSG_TIMEOUT = 100;
 }
 
