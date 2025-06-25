@@ -1,7 +1,7 @@
 /*@!Encoding:65001*/
 /**
  * @file SW_Button.can
- * @brief 패널 버튼 입력을 감지하고 L004 메시지를 생성·전송하는 메인 CAPL 스크립트
+ * @brief 스티어링 휠 버튼 입력 처리 CAPL 스크립트
  */
 
 includes
@@ -10,12 +10,22 @@ includes
   #include "SW_Button_Functions.cin"
 }
 
+/**
+ * @brief 시뮬레이션 시작 시 초기화 함수
+ * @details 이벤트 카운터 초기화 및 패널 입력 대기 메시지 출력
+ */
 on start
 {
   gEventCounter = 0;
   write("SW_Button Node: Started and waiting for panel inputs.");
 }
 
+/**
+ * @brief 모드 증가 버튼 시스템 변수 변경 이벤트 핸들러
+ * @details 모드 증가 버튼의 눌림/놓임 이벤트를 처리하여 CAN 메시지 전송
+ *          - 버튼 눌림: 누르기 시작 시간 기록
+ *          - 버튼 놓임: 눌림 지속 시간 계산 후 메시지 전송
+ */
 on sysvar SysVar::SW_Button::ModeUp
 {
   if(@this == 1)
@@ -31,6 +41,12 @@ on sysvar SysVar::SW_Button::ModeUp
   }
 }
 
+/**
+ * @brief 모드 감소 버튼 시스템 변수 변경 이벤트 핸들러
+ * @details 모드 감소 버튼의 눌림/놓림 이벤트를 처리하여 CAN 메시지 전송
+ *          - 버튼 눌림: 누르기 시작 시간 기록
+ *          - 버튼 놓림: 눌림 지속 시간 계산 후 메시지 전송
+ */
 on sysvar SysVar::SW_Button::ModeDown
 {
   if(@this == 1)
@@ -46,6 +62,12 @@ on sysvar SysVar::SW_Button::ModeDown
   }
 }
 
+/**
+ * @brief 프로파일 변경 버튼 시스템 변수 변경 이벤트 핸들러
+ * @details 프로파일 변경 버튼의 눌림/놓림 이벤트를 처리하여 CAN 메시지 전송
+ *          - 버튼 눌림: 누르기 시작 시간 기록
+ *          - 버튼 놓림: 눌림 지속 시간 계산 후 메시지 전송
+ */
 on sysvar SysVar::SW_Button::ProfileChange
 {
   if(@this == 1)
@@ -61,6 +83,12 @@ on sysvar SysVar::SW_Button::ProfileChange
   }
 }
 
+/**
+ * @brief 자동 모드 토글 버튼 시스템 변수 변경 이벤트 핸들러
+ * @details 자동 모드 토글 버튼의 눌림/놓림 이벤트를 처리하여 CAN 메시지 전송
+ *          - 버튼 눌림: 누르기 시작 시간 기록
+ *          - 버튼 놓림: 눌림 지속 시간 계산 후 메시지 전송
+ */
 on sysvar SysVar::SW_Button::AutoToggle
 {
   if(@this == 1)

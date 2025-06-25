@@ -1,6 +1,5 @@
 var _z_c_u___center_8can =
 [
-    [ "on_key_c", "d8/d1a/_z_c_u___center_8can.html#aa9cb08678cc52d4bea23b4a68272844b", null ],
     [ "on_key_f", "d8/d1a/_z_c_u___center_8can.html#a14502ae856c6e44d8a6c3e10e7a083ab", null ],
     [ "on_key_s", "d8/d1a/_z_c_u___center_8can.html#af7fc68410f49daa3a1050a5182f07bda", null ],
     [ "on_key_t", "d8/d1a/_z_c_u___center_8can.html#ac28a2c6d4f7e49388a9fa68d6299d617", null ],

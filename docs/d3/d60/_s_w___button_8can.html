@@ -102,21 +102,31 @@ $(function(){initNavTree('d3/d60/_s_w___button_8can.html','../../'); initResizab
   <div class="headertitle"><div class="title">SW_Button.can File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>스티어링 휠 버튼 입력 처리 CAPL 스크립트  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a8048a45bb4a5c1e5a546050aaabbed26" id="r_a8048a45bb4a5c1e5a546050aaabbed26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8048a45bb4a5c1e5a546050aaabbed26">on_start</a> ()</td></tr>
+<tr class="memdesc:a8048a45bb4a5c1e5a546050aaabbed26"><td class="mdescLeft">&#160;</td><td class="mdescRight">시뮬레이션 시작 시 초기화 함수  <br /></td></tr>
 <tr class="separator:a8048a45bb4a5c1e5a546050aaabbed26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ae8bbdabff7342dd384fb467246d349" id="r_a2ae8bbdabff7342dd384fb467246d349"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ae8bbdabff7342dd384fb467246d349">on_sysvar_SysVar_SW_Button_ModeUp</a> ()</td></tr>
+<tr class="memdesc:a2ae8bbdabff7342dd384fb467246d349"><td class="mdescLeft">&#160;</td><td class="mdescRight">모드 증가 버튼 시스템 변수 변경 이벤트 핸들러  <br /></td></tr>
 <tr class="separator:a2ae8bbdabff7342dd384fb467246d349"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88d5f798282471bf8cca4d9de5f333f9" id="r_a88d5f798282471bf8cca4d9de5f333f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88d5f798282471bf8cca4d9de5f333f9">on_sysvar_SysVar_SW_Button_ModeDown</a> ()</td></tr>
+<tr class="memdesc:a88d5f798282471bf8cca4d9de5f333f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">모드 감소 버튼 시스템 변수 변경 이벤트 핸들러  <br /></td></tr>
 <tr class="separator:a88d5f798282471bf8cca4d9de5f333f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b0fee438182b54752f593bb00f69bb9" id="r_a1b0fee438182b54752f593bb00f69bb9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b0fee438182b54752f593bb00f69bb9">on_sysvar_SysVar_SW_Button_ProfileChange</a> ()</td></tr>
+<tr class="memdesc:a1b0fee438182b54752f593bb00f69bb9"><td class="mdescLeft">&#160;</td><td class="mdescRight">프로파일 변경 버튼 시스템 변수 변경 이벤트 핸들러  <br /></td></tr>
 <tr class="separator:a1b0fee438182b54752f593bb00f69bb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8abe93216f22c303e0c163472b767708" id="r_a8abe93216f22c303e0c163472b767708"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8abe93216f22c303e0c163472b767708">on_sysvar_SysVar_SW_Button_AutoToggle</a> ()</td></tr>
+<tr class="memdesc:a8abe93216f22c303e0c163472b767708"><td class="mdescLeft">&#160;</td><td class="mdescRight">자동 모드 토글 버튼 시스템 변수 변경 이벤트 핸들러  <br /></td></tr>
 <tr class="separator:a8abe93216f22c303e0c163472b767708"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>스티어링 휠 버튼 입력 처리 CAPL 스크립트 </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a8048a45bb4a5c1e5a546050aaabbed26" name="a8048a45bb4a5c1e5a546050aaabbed26"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8048a45bb4a5c1e5a546050aaabbed26">&#9670;&#160;</a></span>on_start()</h2>
 
@@ -131,6 +141,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>시뮬레이션 시작 시 초기화 함수 </p>
+<p>이벤트 카운터 초기화 및 패널 입력 대기 메시지 출력 </p>
 
 </div>
 </div>
@@ -148,13 +161,19 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>자동 모드 토글 버튼 시스템 변수 변경 이벤트 핸들러 </p>
+<p>자동 모드 토글 버튼의 눌림/놓림 이벤트를 처리하여 CAN 메시지 전송</p><ul>
+<li>버튼 눌림: 누르기 시작 시간 기록</li>
+<li>버튼 놓림: 눌림 지속 시간 계산 후 메시지 전송 </li>
+</ul>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d60/_s_w___button_8can_a8abe93216f22c303e0c163472b767708_cgraph.png" border="0" usemap="#ad3/d60/_s_w___button_8can_a8abe93216f22c303e0c163472b767708_cgraph" alt=""/></div>
 <map name="ad3/d60/_s_w___button_8can_a8abe93216f22c303e0c163472b767708_cgraph" id="ad3/d60/_s_w___button_8can_a8abe93216f22c303e0c163472b767708_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,165,48"/>
-<area shape="rect" href="../../dd/dd7/_s_w___button___functions_8cin.html#a2d4bc1bd7211b978f1de98ba25be293b" title=" " alt="" coords="213,13,355,40"/>
+<area shape="rect" title="자동 모드 토글 버튼 시스템 변수 변경 이벤트 핸들러" alt="" coords="5,5,165,48"/>
+<area shape="rect" href="../../dd/dd7/_s_w___button___functions_8cin.html#a2d4bc1bd7211b978f1de98ba25be293b" title="스티어링 휠 버튼 입력 메시지를 전송하는 함수" alt="" coords="213,13,355,40"/>
 <area shape="poly" title=" " alt="" coords="165,24,197,24,197,29,165,29"/>
 </map>
 </div>
@@ -175,13 +194,19 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>모드 감소 버튼 시스템 변수 변경 이벤트 핸들러 </p>
+<p>모드 감소 버튼의 눌림/놓림 이벤트를 처리하여 CAN 메시지 전송</p><ul>
+<li>버튼 눌림: 누르기 시작 시간 기록</li>
+<li>버튼 놓림: 눌림 지속 시간 계산 후 메시지 전송 </li>
+</ul>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d60/_s_w___button_8can_a88d5f798282471bf8cca4d9de5f333f9_cgraph.png" border="0" usemap="#ad3/d60/_s_w___button_8can_a88d5f798282471bf8cca4d9de5f333f9_cgraph" alt=""/></div>
 <map name="ad3/d60/_s_w___button_8can_a88d5f798282471bf8cca4d9de5f333f9_cgraph" id="ad3/d60/_s_w___button_8can_a88d5f798282471bf8cca4d9de5f333f9_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,165,48"/>
-<area shape="rect" href="../../dd/dd7/_s_w___button___functions_8cin.html#a2d4bc1bd7211b978f1de98ba25be293b" title=" " alt="" coords="213,13,355,40"/>
+<area shape="rect" title="모드 감소 버튼 시스템 변수 변경 이벤트 핸들러" alt="" coords="5,5,165,48"/>
+<area shape="rect" href="../../dd/dd7/_s_w___button___functions_8cin.html#a2d4bc1bd7211b978f1de98ba25be293b" title="스티어링 휠 버튼 입력 메시지를 전송하는 함수" alt="" coords="213,13,355,40"/>
 <area shape="poly" title=" " alt="" coords="165,24,197,24,197,29,165,29"/>
 </map>
 </div>
@@ -202,13 +227,19 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>모드 증가 버튼 시스템 변수 변경 이벤트 핸들러 </p>
+<p>모드 증가 버튼의 눌림/놓임 이벤트를 처리하여 CAN 메시지 전송</p><ul>
+<li>버튼 눌림: 누르기 시작 시간 기록</li>
+<li>버튼 놓임: 눌림 지속 시간 계산 후 메시지 전송 </li>
+</ul>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d60/_s_w___button_8can_a2ae8bbdabff7342dd384fb467246d349_cgraph.png" border="0" usemap="#ad3/d60/_s_w___button_8can_a2ae8bbdabff7342dd384fb467246d349_cgraph" alt=""/></div>
 <map name="ad3/d60/_s_w___button_8can_a2ae8bbdabff7342dd384fb467246d349_cgraph" id="ad3/d60/_s_w___button_8can_a2ae8bbdabff7342dd384fb467246d349_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,165,48"/>
-<area shape="rect" href="../../dd/dd7/_s_w___button___functions_8cin.html#a2d4bc1bd7211b978f1de98ba25be293b" title=" " alt="" coords="213,13,355,40"/>
+<area shape="rect" title="모드 증가 버튼 시스템 변수 변경 이벤트 핸들러" alt="" coords="5,5,165,48"/>
+<area shape="rect" href="../../dd/dd7/_s_w___button___functions_8cin.html#a2d4bc1bd7211b978f1de98ba25be293b" title="스티어링 휠 버튼 입력 메시지를 전송하는 함수" alt="" coords="213,13,355,40"/>
 <area shape="poly" title=" " alt="" coords="165,24,197,24,197,29,165,29"/>
 </map>
 </div>
@@ -229,13 +260,19 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>프로파일 변경 버튼 시스템 변수 변경 이벤트 핸들러 </p>
+<p>프로파일 변경 버튼의 눌림/놓림 이벤트를 처리하여 CAN 메시지 전송</p><ul>
+<li>버튼 눌림: 누르기 시작 시간 기록</li>
+<li>버튼 놓림: 눌림 지속 시간 계산 후 메시지 전송 </li>
+</ul>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d3/d60/_s_w___button_8can_a1b0fee438182b54752f593bb00f69bb9_cgraph.png" border="0" usemap="#ad3/d60/_s_w___button_8can_a1b0fee438182b54752f593bb00f69bb9_cgraph" alt=""/></div>
 <map name="ad3/d60/_s_w___button_8can_a1b0fee438182b54752f593bb00f69bb9_cgraph" id="ad3/d60/_s_w___button_8can_a1b0fee438182b54752f593bb00f69bb9_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,165,48"/>
-<area shape="rect" href="../../dd/dd7/_s_w___button___functions_8cin.html#a2d4bc1bd7211b978f1de98ba25be293b" title=" " alt="" coords="213,13,355,40"/>
+<area shape="rect" title="프로파일 변경 버튼 시스템 변수 변경 이벤트 핸들러" alt="" coords="5,5,165,48"/>
+<area shape="rect" href="../../dd/dd7/_s_w___button___functions_8cin.html#a2d4bc1bd7211b978f1de98ba25be293b" title="스티어링 휠 버튼 입력 메시지를 전송하는 함수" alt="" coords="213,13,355,40"/>
 <area shape="poly" title=" " alt="" coords="165,24,197,24,197,29,165,29"/>
 </map>
 </div>

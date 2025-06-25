@@ -1,19 +1,29 @@
 \doxysection{Rear\+\_\+\+BMS.\+can File Reference}
 \hypertarget{_rear___b_m_s_8can}{}\label{_rear___b_m_s_8can}\index{Rear\_BMS.can@{Rear\_BMS.can}}
+
+
+후방 배터리 관리 \doxylink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{시스템(\+BMS)} CAPL 스크립트  
+
+
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{_rear___b_m_s_8can_a8048a45bb4a5c1e5a546050aaabbed26}{on\+\_\+start}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 시뮬레이션 시작 시 초기화 함수 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_rear___b_m_s_8can_a55c14b062e488d877b93a9f904aaae14}{on\+\_\+timer\+\_\+bms\+\_\+msg\+\_\+\+Timer}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em BMS 메시지 전송 타이머 이벤트 핸들러 \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{Timer}} \mbox{\hyperlink{_rear___b_m_s_8can_a4b137b51a5a08b116a9b65a5f5779384}{bms\+\_\+msg\+\_\+\+Timer}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_rear___b_m_s_8can_aba0a7186135222d5e9018846cfd5b693}{BMS\+\_\+\+MSG\+\_\+\+TIMEOUT}} = 100
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} \mbox{\hyperlink{_rear___b_m_s_8can_a1b157423a947cdb6972cb6b756c25582}{bms\+\_\+msg\+\_\+\+Timer}}
+\begin{DoxyCompactList}\small\item\em BMS 메시지 전송을 위한 타이머 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_rear___b_m_s_8can_aba0a7186135222d5e9018846cfd5b693}{BMS\+\_\+\+MSG\+\_\+\+TIMEOUT}} = 100
+\begin{DoxyCompactList}\small\item\em BMS 메시지 전송 주기 (ms) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+후방 배터리 관리 \doxylink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{시스템(\+BMS)} CAPL 스크립트 
+
 
 
 \doxysubsection{Function Documentation}
@@ -23,7 +33,11 @@
 \doxysubsubsection{\texorpdfstring{on\_start()}{on\_start()}}
 {\footnotesize\ttfamily on\+\_\+start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_rear___b_m_s_8can_a55c14b062e488d877b93a9f904aaae14}\label{_rear___b_m_s_8can_a55c14b062e488d877b93a9f904aaae14} 
+
+
+시뮬레이션 시작 시 초기화 함수 
+
+BMS 메시지 전송 타이머를 100ms 주기로 설정 \Hypertarget{_rear___b_m_s_8can_a55c14b062e488d877b93a9f904aaae14}\label{_rear___b_m_s_8can_a55c14b062e488d877b93a9f904aaae14} 
 \index{Rear\_BMS.can@{Rear\_BMS.can}!on\_timer\_bms\_msg\_Timer@{on\_timer\_bms\_msg\_Timer}}
 \index{on\_timer\_bms\_msg\_Timer@{on\_timer\_bms\_msg\_Timer}!Rear\_BMS.can@{Rear\_BMS.can}}
 \doxysubsubsection{\texorpdfstring{on\_timer\_bms\_msg\_Timer()}{on\_timer\_bms\_msg\_Timer()}}
@@ -31,16 +45,36 @@
 
 
 
+BMS 메시지 전송 타이머 이벤트 핸들러 
+
+100ms 주기로 배터리 상세 상태 정보를 전송\+:
+\begin{DoxyItemize}
+\item 배터리 SOC (State of Charge)
+\item 배터리 전류 (A)
+\item 배터리 전압 (V) \begin{DoxyNote}{Note}
+타이머 재설정으로 지속적인 주기 전송을 보장 
+\end{DoxyNote}
+
+\end{DoxyItemize}
+
 \doxysubsection{Variable Documentation}
 \Hypertarget{_rear___b_m_s_8can_aba0a7186135222d5e9018846cfd5b693}\label{_rear___b_m_s_8can_aba0a7186135222d5e9018846cfd5b693} 
 \index{Rear\_BMS.can@{Rear\_BMS.can}!BMS\_MSG\_TIMEOUT@{BMS\_MSG\_TIMEOUT}}
 \index{BMS\_MSG\_TIMEOUT@{BMS\_MSG\_TIMEOUT}!Rear\_BMS.can@{Rear\_BMS.can}}
 \doxysubsubsection{\texorpdfstring{BMS\_MSG\_TIMEOUT}{BMS\_MSG\_TIMEOUT}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} BMS\+\_\+\+MSG\+\_\+\+TIMEOUT = 100}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} BMS\+\_\+\+MSG\+\_\+\+TIMEOUT = 100}
 
-\Hypertarget{_rear___b_m_s_8can_a4b137b51a5a08b116a9b65a5f5779384}\label{_rear___b_m_s_8can_a4b137b51a5a08b116a9b65a5f5779384} 
+
+
+BMS 메시지 전송 주기 (ms) 
+
+\Hypertarget{_rear___b_m_s_8can_a1b157423a947cdb6972cb6b756c25582}\label{_rear___b_m_s_8can_a1b157423a947cdb6972cb6b756c25582} 
 \index{Rear\_BMS.can@{Rear\_BMS.can}!bms\_msg\_Timer@{bms\_msg\_Timer}}
 \index{bms\_msg\_Timer@{bms\_msg\_Timer}!Rear\_BMS.can@{Rear\_BMS.can}}
 \doxysubsubsection{\texorpdfstring{bms\_msg\_Timer}{bms\_msg\_Timer}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{Timer}} bms\+\_\+msg\+\_\+\+Timer}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} bms\+\_\+msg\+\_\+\+Timer}
+
+
+
+BMS 메시지 전송을 위한 타이머 
 

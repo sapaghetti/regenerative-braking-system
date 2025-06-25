@@ -104,6 +104,9 @@ $(function(){initNavTree('d5/dc0/_h_p_c___o_t_a_8cin.html','../../'); initResiza
   <div class="headertitle"><div class="title">HPC_OTA.cin File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>HPC의 OTA 시스템 및 CGW 중계 기능 구현  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -111,59 +114,83 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d">BOOTLOADER_MODE</a>
 , <a class="el" href="#a275a67132f10277ada3a0ee3d616b647ac80670b006ba50b1c5aafa8fea18ed90">OTA_COMPLETE</a>
  }</td></tr>
+<tr class="memdesc:a275a67132f10277ada3a0ee3d616b647"><td class="mdescLeft">&#160;</td><td class="mdescRight">CGW 시스템 상태를 나타내는 열거형  <a href="#a275a67132f10277ada3a0ee3d616b647">More...</a><br /></td></tr>
 <tr class="separator:a275a67132f10277ada3a0ee3d616b647"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3494f6389f7ea38e13e4e9e07bb997f0" id="r_a3494f6389f7ea38e13e4e9e07bb997f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3494f6389f7ea38e13e4e9e07bb997f0">readBootloader</a> ()</td></tr>
+<tr class="memitem:a3494f6389f7ea38e13e4e9e07bb997f0" id="r_a3494f6389f7ea38e13e4e9e07bb997f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3494f6389f7ea38e13e4e9e07bb997f0">readBootloader</a> ()</td></tr>
+<tr class="memdesc:a3494f6389f7ea38e13e4e9e07bb997f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">부트로더에서 CGW 버전을 읽어오는 함수  <br /></td></tr>
 <tr class="separator:a3494f6389f7ea38e13e4e9e07bb997f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76694d3cc988c74c52c37fdfb319311e" id="r_a76694d3cc988c74c52c37fdfb319311e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76694d3cc988c74c52c37fdfb319311e">sendCgwVersion</a> ()</td></tr>
+<tr class="memitem:a76694d3cc988c74c52c37fdfb319311e" id="r_a76694d3cc988c74c52c37fdfb319311e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">void</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a76694d3cc988c74c52c37fdfb319311e">sendCgwVersion</a> ()</td></tr>
+<tr class="memdesc:a76694d3cc988c74c52c37fdfb319311e"><td class="mdescLeft">&#160;</td><td class="mdescRight">CGW 버전 정보를 TMU에 전송하는 함수  <br /></td></tr>
 <tr class="separator:a76694d3cc988c74c52c37fdfb319311e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8048a45bb4a5c1e5a546050aaabbed26" id="r_a8048a45bb4a5c1e5a546050aaabbed26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8048a45bb4a5c1e5a546050aaabbed26">on_start</a> ()</td></tr>
+<tr class="memdesc:a8048a45bb4a5c1e5a546050aaabbed26"><td class="mdescLeft">&#160;</td><td class="mdescRight">시뮬레이션 시작 시 초기화 함수  <br /></td></tr>
 <tr class="separator:a8048a45bb4a5c1e5a546050aaabbed26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1823995c799f322d93b5722d7577390" id="r_af1823995c799f322d93b5722d7577390"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1823995c799f322d93b5722d7577390">on_timer_speedTimer</a> ()</td></tr>
+<tr class="memdesc:af1823995c799f322d93b5722d7577390"><td class="mdescLeft">&#160;</td><td class="mdescRight">주기적 타이머 이벤트 핸들러 (100ms)  <br /></td></tr>
 <tr class="separator:af1823995c799f322d93b5722d7577390"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98038af44720c622dfbbbe61791b2065" id="r_a98038af44720c622dfbbbe61791b2065"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98038af44720c622dfbbbe61791b2065">on_message_TMU_CGW_E_OTA_START</a> ()</td></tr>
+<tr class="memdesc:a98038af44720c622dfbbbe61791b2065"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMU에서 EDT OTA 시작 메시지 수신 이벤트 핸들러  <br /></td></tr>
 <tr class="separator:a98038af44720c622dfbbbe61791b2065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba14fefc0787e5ef9432a90f4770ee89" id="r_aba14fefc0787e5ef9432a90f4770ee89"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba14fefc0787e5ef9432a90f4770ee89">on_message_TMU_CGW_E_OTA_REQ</a> ()</td></tr>
+<tr class="memdesc:aba14fefc0787e5ef9432a90f4770ee89"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMU에서 OTA 요청 메시지 수신 이벤트 핸들러  <br /></td></tr>
 <tr class="separator:aba14fefc0787e5ef9432a90f4770ee89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a008660a9ef14ef7aff3726b78ad84d7b" id="r_a008660a9ef14ef7aff3726b78ad84d7b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a008660a9ef14ef7aff3726b78ad84d7b">on_message_TMU_CGW_PE_OTA_DATA</a> ()</td></tr>
+<tr class="memdesc:a008660a9ef14ef7aff3726b78ad84d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMU에서 OTA 데이터 메시지 수신 이벤트 핸들러  <br /></td></tr>
 <tr class="separator:a008660a9ef14ef7aff3726b78ad84d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19569dfa88879a84cf20fe51353c3deb" id="r_a19569dfa88879a84cf20fe51353c3deb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19569dfa88879a84cf20fe51353c3deb">on_message_EDT_CGW_E_OTA_RESULT</a> ()</td></tr>
+<tr class="memdesc:a19569dfa88879a84cf20fe51353c3deb"><td class="mdescLeft">&#160;</td><td class="mdescRight">EDT에서 OTA 결과 메시지 수신 이벤트 핸들러  <br /></td></tr>
 <tr class="separator:a19569dfa88879a84cf20fe51353c3deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a781f2e16db5789f63e42b5509cf13fff" id="r_a781f2e16db5789f63e42b5509cf13fff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a781f2e16db5789f63e42b5509cf13fff">on_sysvar_OTA_OTA_UserSelect</a> ()</td></tr>
+<tr class="memdesc:a781f2e16db5789f63e42b5509cf13fff"><td class="mdescLeft">&#160;</td><td class="mdescRight">사용자 OTA 선택 시스템 변수 변경 이벤트 핸들러  <br /></td></tr>
 <tr class="separator:a781f2e16db5789f63e42b5509cf13fff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a355257f9174cf4b305b0659d4c19471f" id="r_a355257f9174cf4b305b0659d4c19471f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">msTimer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a355257f9174cf4b305b0659d4c19471f">speedTimer</a></td></tr>
+<tr class="memitem:a355257f9174cf4b305b0659d4c19471f" id="r_a355257f9174cf4b305b0659d4c19471f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">msTimer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a355257f9174cf4b305b0659d4c19471f">speedTimer</a></td></tr>
+<tr class="memdesc:a355257f9174cf4b305b0659d4c19471f"><td class="mdescLeft">&#160;</td><td class="mdescRight">주기적 속도 업데이트를 위한 타이머  <br /></td></tr>
 <tr class="separator:a355257f9174cf4b305b0659d4c19471f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa696b3e42042aba6c0ab3cb99ab54c4e" id="r_aa696b3e42042aba6c0ab3cb99ab54c4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_PE_OTA_DATA</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa696b3e42042aba6c0ab3cb99ab54c4e">otaDataMsg</a></td></tr>
+<tr class="memitem:aa696b3e42042aba6c0ab3cb99ab54c4e" id="r_aa696b3e42042aba6c0ab3cb99ab54c4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_PE_OTA_DATA</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa696b3e42042aba6c0ab3cb99ab54c4e">otaDataMsg</a></td></tr>
+<tr class="memdesc:aa696b3e42042aba6c0ab3cb99ab54c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">EDT에 OTA 데이터를 전송하는 메시지  <br /></td></tr>
 <tr class="separator:aa696b3e42042aba6c0ab3cb99ab54c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afec717b797d5a4492f4e2422d6812c50" id="r_afec717b797d5a4492f4e2422d6812c50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_OTA_REQ</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afec717b797d5a4492f4e2422d6812c50">userReqMsg</a></td></tr>
+<tr class="memitem:afec717b797d5a4492f4e2422d6812c50" id="r_afec717b797d5a4492f4e2422d6812c50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_OTA_REQ</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afec717b797d5a4492f4e2422d6812c50">userReqMsg</a></td></tr>
+<tr class="memdesc:afec717b797d5a4492f4e2422d6812c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMU에 사용자 승인 요청을 전송하는 메시지  <br /></td></tr>
 <tr class="separator:afec717b797d5a4492f4e2422d6812c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42c7132699a74f8f6bcebabf7718bf4c" id="r_a42c7132699a74f8f6bcebabf7718bf4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_OTA_RESULT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42c7132699a74f8f6bcebabf7718bf4c">otaResMsg</a></td></tr>
+<tr class="memitem:a42c7132699a74f8f6bcebabf7718bf4c" id="r_a42c7132699a74f8f6bcebabf7718bf4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_OTA_RESULT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42c7132699a74f8f6bcebabf7718bf4c">otaResMsg</a></td></tr>
+<tr class="memdesc:a42c7132699a74f8f6bcebabf7718bf4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMU에 OTA 결과를 전송하는 메시지  <br /></td></tr>
 <tr class="separator:a42c7132699a74f8f6bcebabf7718bf4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c0b8fe54cedc358ce43f3a9aff4c00c" id="r_a4c0b8fe54cedc358ce43f3a9aff4c00c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_VER_INFO</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c0b8fe54cedc358ce43f3a9aff4c00c">cgwVerMsg</a></td></tr>
+<tr class="memitem:a4c0b8fe54cedc358ce43f3a9aff4c00c" id="r_a4c0b8fe54cedc358ce43f3a9aff4c00c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_VER_INFO</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c0b8fe54cedc358ce43f3a9aff4c00c">cgwVerMsg</a></td></tr>
+<tr class="memdesc:a4c0b8fe54cedc358ce43f3a9aff4c00c"><td class="mdescLeft">&#160;</td><td class="mdescRight">TMU에 CGW 버전 정보를 전송하는 메시지  <br /></td></tr>
 <tr class="separator:a4c0b8fe54cedc358ce43f3a9aff4c00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04e1bddfea109af6c16b49f38a94ea0a" id="r_a04e1bddfea109af6c16b49f38a94ea0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_E_OTA_START</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04e1bddfea109af6c16b49f38a94ea0a">otaStartMsg</a></td></tr>
+<tr class="memitem:a04e1bddfea109af6c16b49f38a94ea0a" id="r_a04e1bddfea109af6c16b49f38a94ea0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_E_OTA_START</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a04e1bddfea109af6c16b49f38a94ea0a">otaStartMsg</a></td></tr>
+<tr class="memdesc:a04e1bddfea109af6c16b49f38a94ea0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">EDT에 OTA 시작 명령을 전송하는 메시지  <br /></td></tr>
 <tr class="separator:a04e1bddfea109af6c16b49f38a94ea0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaef5ec2822be18c9f8c38c464d9836f" id="r_aaaef5ec2822be18c9f8c38c464d9836f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_E_OTA_ROLLBACK</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaaef5ec2822be18c9f8c38c464d9836f">otaRollback</a></td></tr>
+<tr class="memitem:aaaef5ec2822be18c9f8c38c464d9836f" id="r_aaaef5ec2822be18c9f8c38c464d9836f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_E_OTA_ROLLBACK</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaaef5ec2822be18c9f8c38c464d9836f">otaRollback</a></td></tr>
+<tr class="memdesc:aaaef5ec2822be18c9f8c38c464d9836f"><td class="mdescLeft">&#160;</td><td class="mdescRight">EDT에 롤백 명령을 전송하는 메시지  <br /></td></tr>
 <tr class="separator:aaaef5ec2822be18c9f8c38c464d9836f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7d2a7ff3b256ec854d2e6f04c7db128" id="r_ab7d2a7ff3b256ec854d2e6f04c7db128"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">enum</a> <a class="el" href="#a275a67132f10277ada3a0ee3d616b647">STATE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7d2a7ff3b256ec854d2e6f04c7db128">cgwState</a> = <a class="el" href="#a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d">BOOTLOADER_MODE</a></td></tr>
+<tr class="memitem:ab7d2a7ff3b256ec854d2e6f04c7db128" id="r_ab7d2a7ff3b256ec854d2e6f04c7db128"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">enum</a> <a class="el" href="#a275a67132f10277ada3a0ee3d616b647">STATE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7d2a7ff3b256ec854d2e6f04c7db128">cgwState</a> = <a class="el" href="#a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d">BOOTLOADER_MODE</a></td></tr>
 <tr class="separator:ab7d2a7ff3b256ec854d2e6f04c7db128"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80f1cb7afa4ce5783ea24221704bc0b1" id="r_a80f1cb7afa4ce5783ea24221704bc0b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80f1cb7afa4ce5783ea24221704bc0b1">otaRequestReceived</a> = 0</td></tr>
+<tr class="memitem:a80f1cb7afa4ce5783ea24221704bc0b1" id="r_a80f1cb7afa4ce5783ea24221704bc0b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80f1cb7afa4ce5783ea24221704bc0b1">otaRequestReceived</a> = 0</td></tr>
+<tr class="memdesc:a80f1cb7afa4ce5783ea24221704bc0b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">OTA 요청 수신 상태 플래그  <br /></td></tr>
 <tr class="separator:a80f1cb7afa4ce5783ea24221704bc0b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8943c99137a229bd5058f8fd89170486" id="r_a8943c99137a229bd5058f8fd89170486"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">dword</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8943c99137a229bd5058f8fd89170486">versionFile</a></td></tr>
+<tr class="memitem:a8943c99137a229bd5058f8fd89170486" id="r_a8943c99137a229bd5058f8fd89170486"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">dword</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8943c99137a229bd5058f8fd89170486">versionFile</a></td></tr>
+<tr class="memdesc:a8943c99137a229bd5058f8fd89170486"><td class="mdescLeft">&#160;</td><td class="mdescRight">버전 파일 핸들러  <br /></td></tr>
 <tr class="separator:a8943c99137a229bd5058f8fd89170486"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f323549ec79979404dd7450b131aae2" id="r_a7f323549ec79979404dd7450b131aae2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">char</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f323549ec79979404dd7450b131aae2">cur_ver</a> [2]</td></tr>
+<tr class="memitem:a7f323549ec79979404dd7450b131aae2" id="r_a7f323549ec79979404dd7450b131aae2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">char</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f323549ec79979404dd7450b131aae2">cur_ver</a> [2]</td></tr>
+<tr class="memdesc:a7f323549ec79979404dd7450b131aae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">현재 버전 정보 저장 배열  <br /></td></tr>
 <tr class="separator:a7f323549ec79979404dd7450b131aae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa578e4e1726eecd6709423a4438642f0" id="r_aa578e4e1726eecd6709423a4438642f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa578e4e1726eecd6709423a4438642f0">cgw_num</a> = 1</td></tr>
+<tr class="memitem:aa578e4e1726eecd6709423a4438642f0" id="r_aa578e4e1726eecd6709423a4438642f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa578e4e1726eecd6709423a4438642f0">cgw_num</a> = 1</td></tr>
+<tr class="memdesc:aa578e4e1726eecd6709423a4438642f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">CGW ECU 번호  <br /></td></tr>
 <tr class="separator:aa578e4e1726eecd6709423a4438642f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a542ad311c865a980e814cb7038e0b858" id="r_a542ad311c865a980e814cb7038e0b858"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a542ad311c865a980e814cb7038e0b858">cur_cgw_version</a> = 0</td></tr>
+<tr class="memitem:a542ad311c865a980e814cb7038e0b858" id="r_a542ad311c865a980e814cb7038e0b858"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a542ad311c865a980e814cb7038e0b858">cur_cgw_version</a> = 0</td></tr>
+<tr class="memdesc:a542ad311c865a980e814cb7038e0b858"><td class="mdescLeft">&#160;</td><td class="mdescRight">현재 CGW 버전  <br /></td></tr>
 <tr class="separator:a542ad311c865a980e814cb7038e0b858"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>HPC의 OTA 시스템 및 CGW 중계 기능 구현 </p>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a275a67132f10277ada3a0ee3d616b647" name="a275a67132f10277ada3a0ee3d616b647"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a275a67132f10277ada3a0ee3d616b647">&#9670;&#160;</a></span>STATE</h2>
 
@@ -171,14 +198,19 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">enum</a> <a class="el" href="#a275a67132f10277ada3a0ee3d616b647">STATE</a></td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">enum</a> <a class="el" href="#a275a67132f10277ada3a0ee3d616b647">STATE</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>CGW 시스템 상태를 나타내는 열거형 </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a275a67132f10277ada3a0ee3d616b647a24dad0b2a0790d6081ac80acf97686f8" name="a275a67132f10277ada3a0ee3d616b647a24dad0b2a0790d6081ac80acf97686f8"></a>NOMAR_MODE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d" name="a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d"></a>BOOTLOADER_MODE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a275a67132f10277ada3a0ee3d616b647ac80670b006ba50b1c5aafa8fea18ed90" name="a275a67132f10277ada3a0ee3d616b647ac80670b006ba50b1c5aafa8fea18ed90"></a>OTA_COMPLETE&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a275a67132f10277ada3a0ee3d616b647a24dad0b2a0790d6081ac80acf97686f8" name="a275a67132f10277ada3a0ee3d616b647a24dad0b2a0790d6081ac80acf97686f8"></a>NOMAR_MODE&#160;</td><td class="fielddoc"><p>정상 작동 모드 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d" name="a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d"></a>BOOTLOADER_MODE&#160;</td><td class="fielddoc"><p>부트로더 모드 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a275a67132f10277ada3a0ee3d616b647ac80670b006ba50b1c5aafa8fea18ed90" name="a275a67132f10277ada3a0ee3d616b647ac80670b006ba50b1c5aafa8fea18ed90"></a>OTA_COMPLETE&#160;</td><td class="fielddoc"><p>OTA 완료 상태 </p>
+</td></tr>
 </table>
 
 </div>
@@ -199,6 +231,13 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>EDT에서 OTA 결과 메시지 수신 이벤트 핸들러 </p>
+<p>EDT로부터 받은 OTA 결과를 TMU에 중계하여 전달</p><ul>
+<li>0x05: OTA 성공</li>
+<li>0xAA: 롤백 완료</li>
+<li>0xFF: OTA 실패 </li>
+</ul>
+
 </div>
 </div>
 <a id="aba14fefc0787e5ef9432a90f4770ee89" name="aba14fefc0787e5ef9432a90f4770ee89"></a>
@@ -215,6 +254,12 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>TMU에서 OTA 요청 메시지 수신 이벤트 핸들러 </p>
+<p>TMU로부터 OTA 승인 요청 또는 롤백 신호를 수신하여 처리</p><ul>
+<li>0x01: OTA 승인 요청 처리</li>
+<li>0x06: 롤백 신호를 EDT에 전달 </li>
+</ul>
 
 </div>
 </div>
@@ -233,6 +278,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>TMU에서 EDT OTA 시작 메시지 수신 이벤트 핸들러 </p>
+<p>TMU로부터 받은 OTA 시작 명령을 EDT에 중계 </p>
+
 </div>
 </div>
 <a id="a008660a9ef14ef7aff3726b78ad84d7b" name="a008660a9ef14ef7aff3726b78ad84d7b"></a>
@@ -249,6 +297,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>TMU에서 OTA 데이터 메시지 수신 이벤트 핸들러 </p>
+<p>TMU로부터 받은 펌웨어 데이터를 EDT에 중계 전송 </p>
 
 </div>
 </div>
@@ -267,6 +318,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>시뮬레이션 시작 시 초기화 함수 </p>
+<p>프로그램 시작 메시지 출력 및 주기적 타이머 설정 </p>
+
 </div>
 </div>
 <a id="a781f2e16db5789f63e42b5509cf13fff" name="a781f2e16db5789f63e42b5509cf13fff"></a>
@@ -284,6 +338,12 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>사용자 OTA 선택 시스템 변수 변경 이벤트 핸들러 </p>
+<p>사용자의 OTA 승인/거부 선택을 처리하여 TMU에 전송</p><ul>
+<li>1: 사용자 승인</li>
+<li>2: 사용자 거부 </li>
+</ul>
+
 </div>
 </div>
 <a id="af1823995c799f322d93b5722d7577390" name="af1823995c799f322d93b5722d7577390"></a>
@@ -300,15 +360,22 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>주기적 타이머 이벤트 핸들러 (100ms) </p>
+<p>CGW 상태에 따라 다른 동작을 수행:</p><ul>
+<li>NORMAL_MODE: 버전별 기능 수행</li>
+<li>BOOTLOADER_MODE: 부트로더에서 버전 읽기 및 전송</li>
+<li>OTA_COMPLETE: OTA 완료 처리 </li>
+</ul>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/dc0/_h_p_c___o_t_a_8cin_af1823995c799f322d93b5722d7577390_cgraph.png" border="0" usemap="#ad5/dc0/_h_p_c___o_t_a_8cin_af1823995c799f322d93b5722d7577390_cgraph" alt=""/></div>
 <map name="ad5/dc0/_h_p_c___o_t_a_8cin_af1823995c799f322d93b5722d7577390_cgraph" id="ad5/dc0/_h_p_c___o_t_a_8cin_af1823995c799f322d93b5722d7577390_cgraph">
-<area shape="rect" title=" " alt="" coords="5,31,152,57"/>
-<area shape="rect" href="../../d5/dc0/_h_p_c___o_t_a_8cin.html#a3494f6389f7ea38e13e4e9e07bb997f0" title=" " alt="" coords="205,5,314,32"/>
+<area shape="rect" title="주기적 타이머 이벤트 핸들러 (100ms)" alt="" coords="5,31,152,57"/>
+<area shape="rect" href="../../d5/dc0/_h_p_c___o_t_a_8cin.html#a3494f6389f7ea38e13e4e9e07bb997f0" title="부트로더에서 CGW 버전을 읽어오는 함수" alt="" coords="205,5,314,32"/>
 <area shape="poly" title=" " alt="" coords="152,31,189,26,190,31,153,36"/>
-<area shape="rect" href="../../d5/dc0/_h_p_c___o_t_a_8cin.html#a76694d3cc988c74c52c37fdfb319311e" title=" " alt="" coords="200,56,319,83"/>
+<area shape="rect" href="../../d5/dc0/_h_p_c___o_t_a_8cin.html#a76694d3cc988c74c52c37fdfb319311e" title="CGW 버전 정보를 TMU에 전송하는 함수" alt="" coords="200,56,319,83"/>
 <area shape="poly" title=" " alt="" coords="153,52,184,56,184,61,152,57"/>
 </map>
 </div>
@@ -322,22 +389,25 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">void</a> readBootloader </td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">void</a> readBootloader </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>부트로더에서 CGW 버전을 읽어오는 함수 </p>
+<p>CGW_version.txt 파일에서 현재 버전 정보를 읽어와 전역 변수에 저장 </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/dc0/_h_p_c___o_t_a_8cin_a3494f6389f7ea38e13e4e9e07bb997f0_icgraph.png" border="0" usemap="#ad5/dc0/_h_p_c___o_t_a_8cin_a3494f6389f7ea38e13e4e9e07bb997f0_icgraph" alt=""/></div>
 <map name="ad5/dc0/_h_p_c___o_t_a_8cin_a3494f6389f7ea38e13e4e9e07bb997f0_icgraph" id="ad5/dc0/_h_p_c___o_t_a_8cin_a3494f6389f7ea38e13e4e9e07bb997f0_icgraph">
-<area shape="rect" title=" " alt="" coords="200,31,308,57"/>
-<area shape="rect" href="../../da/da4/_e_d_t_8cin.html#acc405dcc507b0da8b0fafe7ada30d258" title=" " alt="" coords="14,5,143,32"/>
+<area shape="rect" title="부트로더에서 CGW 버전을 읽어오는 함수" alt="" coords="200,31,308,57"/>
+<area shape="rect" href="../../da/da4/_e_d_t_8cin.html#acc405dcc507b0da8b0fafe7ada30d258" title="OTA 타이머 이벤트 핸들러" alt="" coords="14,5,143,32"/>
 <area shape="poly" title=" " alt="" coords="184,37,143,31,144,25,185,31"/>
-<area shape="rect" href="../../d5/dc0/_h_p_c___o_t_a_8cin.html#af1823995c799f322d93b5722d7577390" title=" " alt="" coords="5,56,152,83"/>
+<area shape="rect" href="../../d5/dc0/_h_p_c___o_t_a_8cin.html#af1823995c799f322d93b5722d7577390" title="주기적 타이머 이벤트 핸들러 (100ms)" alt="" coords="5,56,152,83"/>
 <area shape="poly" title=" " alt="" coords="185,57,153,61,152,56,184,51"/>
 </map>
 </div>
@@ -351,20 +421,23 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">void</a> sendCgwVersion </td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">void</a> sendCgwVersion </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>CGW 버전 정보를 TMU에 전송하는 함수 </p>
+<p>ECU 번호와 현재 버전을 포함한 메시지를 TMU에 전송 </p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d5/dc0/_h_p_c___o_t_a_8cin_a76694d3cc988c74c52c37fdfb319311e_icgraph.png" border="0" usemap="#ad5/dc0/_h_p_c___o_t_a_8cin_a76694d3cc988c74c52c37fdfb319311e_icgraph" alt=""/></div>
 <map name="ad5/dc0/_h_p_c___o_t_a_8cin_a76694d3cc988c74c52c37fdfb319311e_icgraph" id="ad5/dc0/_h_p_c___o_t_a_8cin_a76694d3cc988c74c52c37fdfb319311e_icgraph">
-<area shape="rect" title=" " alt="" coords="200,5,319,32"/>
-<area shape="rect" href="../../d5/dc0/_h_p_c___o_t_a_8cin.html#af1823995c799f322d93b5722d7577390" title=" " alt="" coords="5,5,152,32"/>
+<area shape="rect" title="CGW 버전 정보를 TMU에 전송하는 함수" alt="" coords="200,5,319,32"/>
+<area shape="rect" href="../../d5/dc0/_h_p_c___o_t_a_8cin.html#af1823995c799f322d93b5722d7577390" title="주기적 타이머 이벤트 핸들러 (100ms)" alt="" coords="5,5,152,32"/>
 <area shape="poly" title=" " alt="" coords="184,21,152,21,152,16,184,16"/>
 </map>
 </div>
@@ -379,10 +452,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a> cgw_num = 1</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a> cgw_num = 1</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>CGW ECU 번호 </p>
 
 </div>
 </div>
@@ -393,7 +468,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">enum</a> <a class="el" href="#a275a67132f10277ada3a0ee3d616b647">STATE</a> cgwState = <a class="el" href="#a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d">BOOTLOADER_MODE</a></td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">enum</a> <a class="el" href="#a275a67132f10277ada3a0ee3d616b647">STATE</a> cgwState = <a class="el" href="#a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d">BOOTLOADER_MODE</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -407,10 +482,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_VER_INFO</a> cgwVerMsg</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_VER_INFO</a> cgwVerMsg</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>TMU에 CGW 버전 정보를 전송하는 메시지 </p>
 
 </div>
 </div>
@@ -421,10 +498,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a> cur_cgw_version = 0</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a> cur_cgw_version = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>현재 CGW 버전 </p>
 
 </div>
 </div>
@@ -435,10 +514,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">char</a> cur_ver[2]</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">char</a> cur_ver[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>현재 버전 정보 저장 배열 </p>
 
 </div>
 </div>
@@ -449,10 +530,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_PE_OTA_DATA</a> otaDataMsg</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_PE_OTA_DATA</a> otaDataMsg</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>EDT에 OTA 데이터를 전송하는 메시지 </p>
 
 </div>
 </div>
@@ -463,10 +546,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a> otaRequestReceived = 0</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">int</a> otaRequestReceived = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>OTA 요청 수신 상태 플래그 </p>
 
 </div>
 </div>
@@ -477,10 +562,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_OTA_RESULT</a> otaResMsg</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_OTA_RESULT</a> otaResMsg</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>TMU에 OTA 결과를 전송하는 메시지 </p>
 
 </div>
 </div>
@@ -491,10 +578,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_E_OTA_ROLLBACK</a> otaRollback</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_E_OTA_ROLLBACK</a> otaRollback</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>EDT에 롤백 명령을 전송하는 메시지 </p>
 
 </div>
 </div>
@@ -505,10 +594,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_E_OTA_START</a> otaStartMsg</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_EDT_E_OTA_START</a> otaStartMsg</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>EDT에 OTA 시작 명령을 전송하는 메시지 </p>
 
 </div>
 </div>
@@ -519,10 +610,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">msTimer</a> speedTimer</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">msTimer</a> speedTimer</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>주기적 속도 업데이트를 위한 타이머 </p>
 
 </div>
 </div>
@@ -533,10 +626,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_OTA_REQ</a> userReqMsg</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">message</a> <a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">CGW_TMU_E_OTA_REQ</a> userReqMsg</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>TMU에 사용자 승인 요청을 전송하는 메시지 </p>
 
 </div>
 </div>
@@ -547,10 +642,12 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d0/d12/_h_p_c_2_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">dword</a> versionFile</td>
+          <td class="memname"><a class="el" href="../../d2/d3c/_h_p_c___config_8cin.html#a3ad9b57a24fa3048c75cdd7f9c3a34a5">dword</a> versionFile</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>버전 파일 핸들러 </p>
 
 </div>
 </div>

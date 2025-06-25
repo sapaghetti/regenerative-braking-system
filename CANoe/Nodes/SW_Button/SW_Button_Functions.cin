@@ -1,9 +1,18 @@
 /*@!Encoding:65001*/
 /**
- * @file HPC_Button_Functions.cin
- * @brief 스위치 입력 메시지(L004) 생성을 위한 버튼 처리 함수 정의
+ * @file SW_Button_Functions.cin
+ * @brief 스티어링 휠 버튼 입력 메시지 전송 함수 구현
  */
 
+/**
+ * @brief 스티어링 휠 버튼 입력 메시지를 전송하는 함수
+ * @param buttonId 버튼 식별자 (0~15)
+ * @param buttonAction 버튼 액션 (0: 눌림, 1: 놓임, 2: 길게 눌림)
+ * @param pressDuration 버튼 눌림 지속 시간 (ms)
+ * @details 버튼 입력 정보를 L004_SW_Button_Input 메시지로 전송하며,
+ *          E2E 보호를 위한 CRC16 체크섬을 계산하여 포함
+ * @note 전역 이벤트 카운터를 자동으로 증가시켜 메시지 시퀀스를 관리
+ */
 void SendButtonMessage(byte buttonId, byte buttonAction, word pressDuration)
 {
   byte dataArray[6];

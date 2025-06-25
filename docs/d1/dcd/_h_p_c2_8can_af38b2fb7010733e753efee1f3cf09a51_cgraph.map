@@ -1,5 +1,5 @@
 <map id="on_timer_timerMainTask" name="on_timer_timerMainTask">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,107,169,133"/>
+<area shape="rect" id="Node000001" title="메인 태스크 타이머 이벤트 핸들러" alt="" coords="5,107,169,133"/>
 <area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title="메인 태스크 타이머 이벤트 발생 시 주기적으로 호출되는 함수" alt="" coords="217,107,368,133"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,117,201,117,201,123,169,123"/>
 <area shape="rect" id="Node000003" href="$df/dc0/_h_p_c___functions_8cin.html#ab502db67314641abf278f07f6e1ed0b4" title="자동 모드 최적화 태스크" alt="" coords="416,5,645,32"/>

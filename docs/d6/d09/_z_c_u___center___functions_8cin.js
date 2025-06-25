@@ -3,7 +3,6 @@ var _z_c_u___center___functions_8cin =
     [ "ClearFault", "d6/d09/_z_c_u___center___functions_8cin.html#a1366b73e3db319850ae23722e5460d22", null ],
     [ "DetermineRequestedModeFromButton", "d6/d09/_z_c_u___center___functions_8cin.html#a6bc7ad0eb6bdd0d521a10d96484f31fb", null ],
     [ "DetermineRequestedModeFromVoice", "d6/d09/_z_c_u___center___functions_8cin.html#a776a833c371218d728b4a27e2f6dfca5", null ],
-    [ "HandleClearFaultsKey", "d6/d09/_z_c_u___center___functions_8cin.html#a881f7319dd66e135c91ec8cafa7e0b16", null ],
     [ "HandleClusterDisplayMessage", "d6/d09/_z_c_u___center___functions_8cin.html#a661e5acce29451790b2e7ef1d70eeec4", null ],
     [ "HandleClusterTestKey", "d6/d09/_z_c_u___center___functions_8cin.html#a935043ac074668558a91dec4220d367a", null ],
     [ "HandleFaultInjectionKey", "d6/d09/_z_c_u___center___functions_8cin.html#a7ad551283e601822ef0f4a49a33e46fb", null ],

@@ -1,5 +1,10 @@
 \doxysection{HPC\+\_\+\+OTA.\+cin File Reference}
 \hypertarget{_h_p_c___o_t_a_8cin}{}\label{_h_p_c___o_t_a_8cin}\index{HPC\_OTA.cin@{HPC\_OTA.cin}}
+
+
+HPC의 OTA 시스템 및 CGW 중계 기능 구현  
+
+
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
@@ -7,57 +12,62 @@ enum \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647}{STA
 , \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d}{BOOTLOADER\+\_\+\+MODE}}
 , \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647ac80670b006ba50b1c5aafa8fea18ed90}{OTA\+\_\+\+COMPLETE}}
  \}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em CGW 시스템 상태를 나타내는 열거형 \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a3494f6389f7ea38e13e4e9e07bb997f0}{read\+Bootloader}} ()
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a76694d3cc988c74c52c37fdfb319311e}{send\+Cgw\+Version}} ()
-\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a3494f6389f7ea38e13e4e9e07bb997f0}{read\+Bootloader}} ()
+\begin{DoxyCompactList}\small\item\em 부트로더에서 CGW 버전을 읽어오는 함수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a76694d3cc988c74c52c37fdfb319311e}{send\+Cgw\+Version}} ()
+\begin{DoxyCompactList}\small\item\em CGW 버전 정보를 TMU에 전송하는 함수 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a8048a45bb4a5c1e5a546050aaabbed26}{on\+\_\+start}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 시뮬레이션 시작 시 초기화 함수 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c___o_t_a_8cin_af1823995c799f322d93b5722d7577390}{on\+\_\+timer\+\_\+speed\+Timer}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 주기적 타이머 이벤트 핸들러 (100ms) \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a98038af44720c622dfbbbe61791b2065}{on\+\_\+message\+\_\+\+TMU\+\_\+\+CGW\+\_\+\+E\+\_\+\+OTA\+\_\+\+START}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em TMU에서 EDT OTA 시작 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c___o_t_a_8cin_aba14fefc0787e5ef9432a90f4770ee89}{on\+\_\+message\+\_\+\+TMU\+\_\+\+CGW\+\_\+\+E\+\_\+\+OTA\+\_\+\+REQ}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em TMU에서 OTA 요청 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a008660a9ef14ef7aff3726b78ad84d7b}{on\+\_\+message\+\_\+\+TMU\+\_\+\+CGW\+\_\+\+PE\+\_\+\+OTA\+\_\+\+DATA}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em TMU에서 OTA 데이터 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a19569dfa88879a84cf20fe51353c3deb}{on\+\_\+message\+\_\+\+EDT\+\_\+\+CGW\+\_\+\+E\+\_\+\+OTA\+\_\+\+RESULT}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em EDT에서 OTA 결과 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a781f2e16db5789f63e42b5509cf13fff}{on\+\_\+sysvar\+\_\+\+OTA\+\_\+\+OTA\+\_\+\+User\+Select}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em 사용자 OTA 선택 시스템 변수 변경 이벤트 핸들러 \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a355257f9174cf4b305b0659d4c19471f}{speed\+Timer}}
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a355257f9174cf4b305b0659d4c19471f}{speed\+Timer}}
+\begin{DoxyCompactList}\small\item\em 주기적 속도 업데이트를 위한 타이머 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+PE\+\_\+\+OTA\+\_\+\+DATA}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_aa696b3e42042aba6c0ab3cb99ab54c4e}{ota\+Data\+Msg}}
+\begin{DoxyCompactList}\small\item\em EDT에 OTA 데이터를 전송하는 메시지 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+OTA\+\_\+\+REQ}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_afec717b797d5a4492f4e2422d6812c50}{user\+Req\+Msg}}
+\begin{DoxyCompactList}\small\item\em TMU에 사용자 승인 요청을 전송하는 메시지 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+OTA\+\_\+\+RESULT}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a42c7132699a74f8f6bcebabf7718bf4c}{ota\+Res\+Msg}}
+\begin{DoxyCompactList}\small\item\em TMU에 OTA 결과를 전송하는 메시지 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+VER\+\_\+\+INFO}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a4c0b8fe54cedc358ce43f3a9aff4c00c}{cgw\+Ver\+Msg}}
+\begin{DoxyCompactList}\small\item\em TMU에 CGW 버전 정보를 전송하는 메시지 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+E\+\_\+\+OTA\+\_\+\+START}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a04e1bddfea109af6c16b49f38a94ea0a}{ota\+Start\+Msg}}
+\begin{DoxyCompactList}\small\item\em EDT에 OTA 시작 명령을 전송하는 메시지 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+E\+\_\+\+OTA\+\_\+\+ROLLBACK}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_aaaef5ec2822be18c9f8c38c464d9836f}{ota\+Rollback}}
+\begin{DoxyCompactList}\small\item\em EDT에 롤백 명령을 전송하는 메시지 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647}{STATE}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_ab7d2a7ff3b256ec854d2e6f04c7db128}{cgw\+State}} = \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d}{BOOTLOADER\+\_\+\+MODE}}
 \item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+PE\+\_\+\+OTA\+\_\+\+DATA}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_aa696b3e42042aba6c0ab3cb99ab54c4e}{ota\+Data\+Msg}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+OTA\+\_\+\+REQ}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_afec717b797d5a4492f4e2422d6812c50}{user\+Req\+Msg}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+OTA\+\_\+\+RESULT}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a42c7132699a74f8f6bcebabf7718bf4c}{ota\+Res\+Msg}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+VER\+\_\+\+INFO}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a4c0b8fe54cedc358ce43f3a9aff4c00c}{cgw\+Ver\+Msg}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+E\+\_\+\+OTA\+\_\+\+START}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a04e1bddfea109af6c16b49f38a94ea0a}{ota\+Start\+Msg}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+E\+\_\+\+OTA\+\_\+\+ROLLBACK}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_aaaef5ec2822be18c9f8c38c464d9836f}{ota\+Rollback}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647}{STATE}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_ab7d2a7ff3b256ec854d2e6f04c7db128}{cgw\+State}} = \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d}{BOOTLOADER\+\_\+\+MODE}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a80f1cb7afa4ce5783ea24221704bc0b1}{ota\+Request\+Received}} = 0
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a8943c99137a229bd5058f8fd89170486}{version\+File}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{char}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a7f323549ec79979404dd7450b131aae2}{cur\+\_\+ver}} \mbox{[}2\mbox{]}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_aa578e4e1726eecd6709423a4438642f0}{cgw\+\_\+num}} = 1
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a542ad311c865a980e814cb7038e0b858}{cur\+\_\+cgw\+\_\+version}} = 0
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a80f1cb7afa4ce5783ea24221704bc0b1}{ota\+Request\+Received}} = 0
+\begin{DoxyCompactList}\small\item\em OTA 요청 수신 상태 플래그 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a8943c99137a229bd5058f8fd89170486}{version\+File}}
+\begin{DoxyCompactList}\small\item\em 버전 파일 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{char}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a7f323549ec79979404dd7450b131aae2}{cur\+\_\+ver}} \mbox{[}2\mbox{]}
+\begin{DoxyCompactList}\small\item\em 현재 버전 정보 저장 배열 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_aa578e4e1726eecd6709423a4438642f0}{cgw\+\_\+num}} = 1
+\begin{DoxyCompactList}\small\item\em CGW ECU 번호 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a542ad311c865a980e814cb7038e0b858}{cur\+\_\+cgw\+\_\+version}} = 0
+\begin{DoxyCompactList}\small\item\em 현재 CGW 버전 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+HPC의 OTA 시스템 및 CGW 중계 기능 구현 
+
 
 
 \doxysubsection{Enumeration Type Documentation}
@@ -65,19 +75,23 @@ enum \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647}{STA
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!STATE@{STATE}}
 \index{STATE@{STATE}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{STATE}{STATE}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647}{STATE}}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647}{STATE}}}
+
+
+
+CGW 시스템 상태를 나타내는 열거형 
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NOMAR\_MODE@{NOMAR\_MODE}!HPC\_OTA.cin@{HPC\_OTA.cin}}\index{HPC\_OTA.cin@{HPC\_OTA.cin}!NOMAR\_MODE@{NOMAR\_MODE}}}\Hypertarget{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647a24dad0b2a0790d6081ac80acf97686f8}\label{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647a24dad0b2a0790d6081ac80acf97686f8} 
-NOMAR\+\_\+\+MODE&\\
+NOMAR\+\_\+\+MODE&정상 작동 모드 \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{BOOTLOADER\_MODE@{BOOTLOADER\_MODE}!HPC\_OTA.cin@{HPC\_OTA.cin}}\index{HPC\_OTA.cin@{HPC\_OTA.cin}!BOOTLOADER\_MODE@{BOOTLOADER\_MODE}}}\Hypertarget{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d}\label{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d} 
-BOOTLOADER\+\_\+\+MODE&\\
+BOOTLOADER\+\_\+\+MODE&부트로더 모드 \\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{OTA\_COMPLETE@{OTA\_COMPLETE}!HPC\_OTA.cin@{HPC\_OTA.cin}}\index{HPC\_OTA.cin@{HPC\_OTA.cin}!OTA\_COMPLETE@{OTA\_COMPLETE}}}\Hypertarget{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647ac80670b006ba50b1c5aafa8fea18ed90}\label{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647ac80670b006ba50b1c5aafa8fea18ed90} 
-OTA\+\_\+\+COMPLETE&\\
+OTA\+\_\+\+COMPLETE&OTA 완료 상태 \\
 \hline
 
 \end{DoxyEnumFields}
@@ -90,44 +104,89 @@ OTA\+\_\+\+COMPLETE&\\
 \doxysubsubsection{\texorpdfstring{on\_message\_EDT\_CGW\_E\_OTA\_RESULT()}{on\_message\_EDT\_CGW\_E\_OTA\_RESULT()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+EDT\+\_\+\+CGW\+\_\+\+E\+\_\+\+OTA\+\_\+\+RESULT (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_h_p_c___o_t_a_8cin_aba14fefc0787e5ef9432a90f4770ee89}\label{_h_p_c___o_t_a_8cin_aba14fefc0787e5ef9432a90f4770ee89} 
+
+
+EDT에서 OTA 결과 메시지 수신 이벤트 핸들러 
+
+EDT로부터 받은 OTA 결과를 TMU에 중계하여 전달
+\begin{DoxyItemize}
+\item 0x05\+: OTA 성공
+\item 0x\+AA\+: 롤백 완료
+\item 0x\+FF\+: OTA 실패 
+\end{DoxyItemize}\Hypertarget{_h_p_c___o_t_a_8cin_aba14fefc0787e5ef9432a90f4770ee89}\label{_h_p_c___o_t_a_8cin_aba14fefc0787e5ef9432a90f4770ee89} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!on\_message\_TMU\_CGW\_E\_OTA\_REQ@{on\_message\_TMU\_CGW\_E\_OTA\_REQ}}
 \index{on\_message\_TMU\_CGW\_E\_OTA\_REQ@{on\_message\_TMU\_CGW\_E\_OTA\_REQ}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{on\_message\_TMU\_CGW\_E\_OTA\_REQ()}{on\_message\_TMU\_CGW\_E\_OTA\_REQ()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+TMU\+\_\+\+CGW\+\_\+\+E\+\_\+\+OTA\+\_\+\+REQ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_h_p_c___o_t_a_8cin_a98038af44720c622dfbbbe61791b2065}\label{_h_p_c___o_t_a_8cin_a98038af44720c622dfbbbe61791b2065} 
+
+
+TMU에서 OTA 요청 메시지 수신 이벤트 핸들러 
+
+TMU로부터 OTA 승인 요청 또는 롤백 신호를 수신하여 처리
+\begin{DoxyItemize}
+\item 0x01\+: OTA 승인 요청 처리
+\item 0x06\+: 롤백 신호를 EDT에 전달 
+\end{DoxyItemize}\Hypertarget{_h_p_c___o_t_a_8cin_a98038af44720c622dfbbbe61791b2065}\label{_h_p_c___o_t_a_8cin_a98038af44720c622dfbbbe61791b2065} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!on\_message\_TMU\_CGW\_E\_OTA\_START@{on\_message\_TMU\_CGW\_E\_OTA\_START}}
 \index{on\_message\_TMU\_CGW\_E\_OTA\_START@{on\_message\_TMU\_CGW\_E\_OTA\_START}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{on\_message\_TMU\_CGW\_E\_OTA\_START()}{on\_message\_TMU\_CGW\_E\_OTA\_START()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+TMU\+\_\+\+CGW\+\_\+\+E\+\_\+\+OTA\+\_\+\+START (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_h_p_c___o_t_a_8cin_a008660a9ef14ef7aff3726b78ad84d7b}\label{_h_p_c___o_t_a_8cin_a008660a9ef14ef7aff3726b78ad84d7b} 
+
+
+TMU에서 EDT OTA 시작 메시지 수신 이벤트 핸들러 
+
+TMU로부터 받은 OTA 시작 명령을 EDT에 중계 \Hypertarget{_h_p_c___o_t_a_8cin_a008660a9ef14ef7aff3726b78ad84d7b}\label{_h_p_c___o_t_a_8cin_a008660a9ef14ef7aff3726b78ad84d7b} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!on\_message\_TMU\_CGW\_PE\_OTA\_DATA@{on\_message\_TMU\_CGW\_PE\_OTA\_DATA}}
 \index{on\_message\_TMU\_CGW\_PE\_OTA\_DATA@{on\_message\_TMU\_CGW\_PE\_OTA\_DATA}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{on\_message\_TMU\_CGW\_PE\_OTA\_DATA()}{on\_message\_TMU\_CGW\_PE\_OTA\_DATA()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+TMU\+\_\+\+CGW\+\_\+\+PE\+\_\+\+OTA\+\_\+\+DATA (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_h_p_c___o_t_a_8cin_a8048a45bb4a5c1e5a546050aaabbed26}\label{_h_p_c___o_t_a_8cin_a8048a45bb4a5c1e5a546050aaabbed26} 
+
+
+TMU에서 OTA 데이터 메시지 수신 이벤트 핸들러 
+
+TMU로부터 받은 펌웨어 데이터를 EDT에 중계 전송 \Hypertarget{_h_p_c___o_t_a_8cin_a8048a45bb4a5c1e5a546050aaabbed26}\label{_h_p_c___o_t_a_8cin_a8048a45bb4a5c1e5a546050aaabbed26} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!on\_start@{on\_start}}
 \index{on\_start@{on\_start}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{on\_start()}{on\_start()}}
 {\footnotesize\ttfamily on\+\_\+start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_h_p_c___o_t_a_8cin_a781f2e16db5789f63e42b5509cf13fff}\label{_h_p_c___o_t_a_8cin_a781f2e16db5789f63e42b5509cf13fff} 
+
+
+시뮬레이션 시작 시 초기화 함수 
+
+프로그램 시작 메시지 출력 및 주기적 타이머 설정 \Hypertarget{_h_p_c___o_t_a_8cin_a781f2e16db5789f63e42b5509cf13fff}\label{_h_p_c___o_t_a_8cin_a781f2e16db5789f63e42b5509cf13fff} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!on\_sysvar\_OTA\_OTA\_UserSelect@{on\_sysvar\_OTA\_OTA\_UserSelect}}
 \index{on\_sysvar\_OTA\_OTA\_UserSelect@{on\_sysvar\_OTA\_OTA\_UserSelect}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{on\_sysvar\_OTA\_OTA\_UserSelect()}{on\_sysvar\_OTA\_OTA\_UserSelect()}}
 {\footnotesize\ttfamily on\+\_\+sysvar\+\_\+\+OTA\+\_\+\+OTA\+\_\+\+User\+Select (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_h_p_c___o_t_a_8cin_af1823995c799f322d93b5722d7577390}\label{_h_p_c___o_t_a_8cin_af1823995c799f322d93b5722d7577390} 
+
+
+사용자 OTA 선택 시스템 변수 변경 이벤트 핸들러 
+
+사용자의 OTA 승인/거부 선택을 처리하여 TMU에 전송
+\begin{DoxyItemize}
+\item 1\+: 사용자 승인
+\item 2\+: 사용자 거부 
+\end{DoxyItemize}\Hypertarget{_h_p_c___o_t_a_8cin_af1823995c799f322d93b5722d7577390}\label{_h_p_c___o_t_a_8cin_af1823995c799f322d93b5722d7577390} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!on\_timer\_speedTimer@{on\_timer\_speedTimer}}
 \index{on\_timer\_speedTimer@{on\_timer\_speedTimer}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{on\_timer\_speedTimer()}{on\_timer\_speedTimer()}}
 {\footnotesize\ttfamily on\+\_\+timer\+\_\+speed\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+주기적 타이머 이벤트 핸들러 (100ms) 
+
+CGW 상태에 따라 다른 동작을 수행\+:
+\begin{DoxyItemize}
+\item NORMAL\+\_\+\+MODE\+: 버전별 기능 수행
+\item BOOTLOADER\+\_\+\+MODE\+: 부트로더에서 버전 읽기 및 전송
+\item OTA\+\_\+\+COMPLETE\+: OTA 완료 처리 
+\end{DoxyItemize}Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -138,10 +197,13 @@ Here is the call graph for this function\+:
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!readBootloader@{readBootloader}}
 \index{readBootloader@{readBootloader}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{readBootloader()}{readBootloader()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} read\+Bootloader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} read\+Bootloader (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+부트로더에서 CGW 버전을 읽어오는 함수 
+
+CGW\+\_\+version.\+txt 파일에서 현재 버전 정보를 읽어와 전역 변수에 저장 Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -152,10 +214,13 @@ Here is the caller graph for this function\+:
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!sendCgwVersion@{sendCgwVersion}}
 \index{sendCgwVersion@{sendCgwVersion}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{sendCgwVersion()}{sendCgwVersion()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} send\+Cgw\+Version (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{void}} send\+Cgw\+Version (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the caller graph for this function\+:
-\nopagebreak
+
+
+CGW 버전 정보를 TMU에 전송하는 함수 
+
+ECU 번호와 현재 버전을 포함한 메시지를 TMU에 전송 Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -169,77 +234,125 @@ Here is the caller graph for this function\+:
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!cgw\_num@{cgw\_num}}
 \index{cgw\_num@{cgw\_num}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{cgw\_num}{cgw\_num}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} cgw\+\_\+num = 1}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} cgw\+\_\+num = 1}
+
+
+
+CGW ECU 번호 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_ab7d2a7ff3b256ec854d2e6f04c7db128}\label{_h_p_c___o_t_a_8cin_ab7d2a7ff3b256ec854d2e6f04c7db128} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!cgwState@{cgwState}}
 \index{cgwState@{cgwState}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{cgwState}{cgwState}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647}{STATE}} cgw\+State = \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d}{BOOTLOADER\+\_\+\+MODE}}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647}{STATE}} cgw\+State = \mbox{\hyperlink{_h_p_c___o_t_a_8cin_a275a67132f10277ada3a0ee3d616b647aa71eabb1e0f2bccf3e1668bbeee4a56d}{BOOTLOADER\+\_\+\+MODE}}}
 
 \Hypertarget{_h_p_c___o_t_a_8cin_a4c0b8fe54cedc358ce43f3a9aff4c00c}\label{_h_p_c___o_t_a_8cin_a4c0b8fe54cedc358ce43f3a9aff4c00c} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!cgwVerMsg@{cgwVerMsg}}
 \index{cgwVerMsg@{cgwVerMsg}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{cgwVerMsg}{cgwVerMsg}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+VER\+\_\+\+INFO}} cgw\+Ver\+Msg}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+VER\+\_\+\+INFO}} cgw\+Ver\+Msg}
+
+
+
+TMU에 CGW 버전 정보를 전송하는 메시지 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_a542ad311c865a980e814cb7038e0b858}\label{_h_p_c___o_t_a_8cin_a542ad311c865a980e814cb7038e0b858} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!cur\_cgw\_version@{cur\_cgw\_version}}
 \index{cur\_cgw\_version@{cur\_cgw\_version}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{cur\_cgw\_version}{cur\_cgw\_version}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} cur\+\_\+cgw\+\_\+version = 0}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} cur\+\_\+cgw\+\_\+version = 0}
+
+
+
+현재 CGW 버전 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_a7f323549ec79979404dd7450b131aae2}\label{_h_p_c___o_t_a_8cin_a7f323549ec79979404dd7450b131aae2} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!cur\_ver@{cur\_ver}}
 \index{cur\_ver@{cur\_ver}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{cur\_ver}{cur\_ver}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{char}} cur\+\_\+ver\mbox{[}2\mbox{]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{char}} cur\+\_\+ver\mbox{[}2\mbox{]}}
+
+
+
+현재 버전 정보 저장 배열 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_aa696b3e42042aba6c0ab3cb99ab54c4e}\label{_h_p_c___o_t_a_8cin_aa696b3e42042aba6c0ab3cb99ab54c4e} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!otaDataMsg@{otaDataMsg}}
 \index{otaDataMsg@{otaDataMsg}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{otaDataMsg}{otaDataMsg}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+PE\+\_\+\+OTA\+\_\+\+DATA}} ota\+Data\+Msg}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+PE\+\_\+\+OTA\+\_\+\+DATA}} ota\+Data\+Msg}
+
+
+
+EDT에 OTA 데이터를 전송하는 메시지 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_a80f1cb7afa4ce5783ea24221704bc0b1}\label{_h_p_c___o_t_a_8cin_a80f1cb7afa4ce5783ea24221704bc0b1} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!otaRequestReceived@{otaRequestReceived}}
 \index{otaRequestReceived@{otaRequestReceived}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{otaRequestReceived}{otaRequestReceived}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} ota\+Request\+Received = 0}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} ota\+Request\+Received = 0}
+
+
+
+OTA 요청 수신 상태 플래그 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_a42c7132699a74f8f6bcebabf7718bf4c}\label{_h_p_c___o_t_a_8cin_a42c7132699a74f8f6bcebabf7718bf4c} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!otaResMsg@{otaResMsg}}
 \index{otaResMsg@{otaResMsg}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{otaResMsg}{otaResMsg}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+OTA\+\_\+\+RESULT}} ota\+Res\+Msg}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+OTA\+\_\+\+RESULT}} ota\+Res\+Msg}
+
+
+
+TMU에 OTA 결과를 전송하는 메시지 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_aaaef5ec2822be18c9f8c38c464d9836f}\label{_h_p_c___o_t_a_8cin_aaaef5ec2822be18c9f8c38c464d9836f} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!otaRollback@{otaRollback}}
 \index{otaRollback@{otaRollback}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{otaRollback}{otaRollback}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+E\+\_\+\+OTA\+\_\+\+ROLLBACK}} ota\+Rollback}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+E\+\_\+\+OTA\+\_\+\+ROLLBACK}} ota\+Rollback}
+
+
+
+EDT에 롤백 명령을 전송하는 메시지 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_a04e1bddfea109af6c16b49f38a94ea0a}\label{_h_p_c___o_t_a_8cin_a04e1bddfea109af6c16b49f38a94ea0a} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!otaStartMsg@{otaStartMsg}}
 \index{otaStartMsg@{otaStartMsg}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{otaStartMsg}{otaStartMsg}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+E\+\_\+\+OTA\+\_\+\+START}} ota\+Start\+Msg}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+EDT\+\_\+\+E\+\_\+\+OTA\+\_\+\+START}} ota\+Start\+Msg}
+
+
+
+EDT에 OTA 시작 명령을 전송하는 메시지 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_a355257f9174cf4b305b0659d4c19471f}\label{_h_p_c___o_t_a_8cin_a355257f9174cf4b305b0659d4c19471f} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!speedTimer@{speedTimer}}
 \index{speedTimer@{speedTimer}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{speedTimer}{speedTimer}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} speed\+Timer}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} speed\+Timer}
+
+
+
+주기적 속도 업데이트를 위한 타이머 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_afec717b797d5a4492f4e2422d6812c50}\label{_h_p_c___o_t_a_8cin_afec717b797d5a4492f4e2422d6812c50} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!userReqMsg@{userReqMsg}}
 \index{userReqMsg@{userReqMsg}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{userReqMsg}{userReqMsg}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+OTA\+\_\+\+REQ}} user\+Req\+Msg}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{message}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{CGW\+\_\+\+TMU\+\_\+\+E\+\_\+\+OTA\+\_\+\+REQ}} user\+Req\+Msg}
+
+
+
+TMU에 사용자 승인 요청을 전송하는 메시지 
 
 \Hypertarget{_h_p_c___o_t_a_8cin_a8943c99137a229bd5058f8fd89170486}\label{_h_p_c___o_t_a_8cin_a8943c99137a229bd5058f8fd89170486} 
 \index{HPC\_OTA.cin@{HPC\_OTA.cin}!versionFile@{versionFile}}
 \index{versionFile@{versionFile}!HPC\_OTA.cin@{HPC\_OTA.cin}}
 \doxysubsubsection{\texorpdfstring{versionFile}{versionFile}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} version\+File}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} version\+File}
+
+
+
+버전 파일 핸들러 
 

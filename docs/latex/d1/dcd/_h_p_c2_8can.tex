@@ -1,30 +1,40 @@
 \doxysection{HPC2.\+can File Reference}
 \hypertarget{_h_p_c2_8can}{}\label{_h_p_c2_8can}\index{HPC2.can@{HPC2.can}}
+
+
+HPC ECU의 이벤트 기반 메인 CAPL 스크립트  
+
+
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{_h_p_c2_8can_a8048a45bb4a5c1e5a546050aaabbed26}{on\+\_\+start}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 시뮬레이션 시작 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c2_8can_a2c8eccd93af8ee50c193b6ac98ad58cf}{on\+\_\+stop\+Measurement}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 시뮬레이션 정지 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c2_8can_af38b2fb7010733e753efee1f3cf09a51}{on\+\_\+timer\+\_\+timer\+Main\+Task}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 메인 태스크 타이머 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c2_8can_ae181936c7e33201c9a1f628d920511df}{on\+\_\+timer\+\_\+timer\+Watchdog}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 워치독 타이머 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c2_8can_aa6a6bab8f6d67a6db796ec0e47deef80}{on\+\_\+message\+\_\+\+M008\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Req}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 회생 제동 모드 변경 요청 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c2_8can_ab43ed77bc88e4d8b301e07a7f319be0d}{on\+\_\+message\+\_\+\+M006\+\_\+\+Battery\+\_\+\+Basic}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 배터리 기본 상태 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c2_8can_ae2a939d9365c912200d2e4c8e67e178a}{on\+\_\+message\+\_\+\+M002\+\_\+\+Regen\+\_\+\+Torque\+\_\+\+Feedback}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 회생 토크 피드백 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c2_8can_a519ae36aae5b1c9bf0c6c024962e0b56}{on\+\_\+message\+\_\+\+M004\+\_\+\+Fail\+Safe\+\_\+\+Status\+\_\+2}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Fail-\/\+Safe 상태 메시지 수신 이벤트 핸들러 (Type 2) \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c2_8can_ae3a3ec74b0f018f66bdad277095b04b4}{on\+\_\+message\+\_\+\+M004\+\_\+\+Fail\+Safe\+\_\+\+Status\+\_\+3}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Fail-\/\+Safe 상태 메시지 수신 이벤트 핸들러 (Type 3) \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c2_8can_a99c34318105bc4f36e7eafc5fdeddc67}{on\+\_\+message\+\_\+\+M005\+\_\+\+Vehicle\+\_\+\+Dynamics}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 차량 동역학 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_h_p_c2_8can_ab6d55c14e3e060248ab998d47cb57246}{on\+\_\+message\+\_\+\+M005\+\_\+\+EXT\+\_\+\+Brake\+\_\+\+Pedal}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em 브레이크 페달 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+HPC ECU의 이벤트 기반 메인 CAPL 스크립트 
+
 
 
 \doxysubsection{Function Documentation}
@@ -34,7 +44,11 @@
 \doxysubsubsection{\texorpdfstring{on\_message\_M002\_Regen\_Torque\_Feedback()}{on\_message\_M002\_Regen\_Torque\_Feedback()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+M002\+\_\+\+Regen\+\_\+\+Torque\+\_\+\+Feedback (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+회생 토크 피드백 메시지 수신 이벤트 핸들러 
+
+실제 회생 토크와 목표 토크 차이를 기반으로 마찰 제동 보상 요청 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -48,7 +62,11 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_message\_M004\_FailSafe\_Status\_2()}{on\_message\_M004\_FailSafe\_Status\_2()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+M004\+\_\+\+Fail\+Safe\+\_\+\+Status\+\_\+2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+Fail-\/\+Safe 상태 메시지 수신 이벤트 핸들러 (Type 2) 
+
+다른 ECU로부터 심각한 폴트 정보를 수신하여 FAIL\+\_\+\+SAFE 상태로 전환 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -62,7 +80,11 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_message\_M004\_FailSafe\_Status\_3()}{on\_message\_M004\_FailSafe\_Status\_3()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+M004\+\_\+\+Fail\+Safe\+\_\+\+Status\+\_\+3 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+Fail-\/\+Safe 상태 메시지 수신 이벤트 핸들러 (Type 3) 
+
+다른 ECU로부터 심각한 폴트 정보를 수신하여 FAIL\+\_\+\+SAFE 상태로 전환 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -76,7 +98,11 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_message\_M005\_EXT\_Brake\_Pedal()}{on\_message\_M005\_EXT\_Brake\_Pedal()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+M005\+\_\+\+EXT\+\_\+\+Brake\+\_\+\+Pedal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+브레이크 페달 메시지 수신 이벤트 핸들러 
+
+BPPS 위치 정보를 수신하여 제동 의도 파악 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -90,7 +116,11 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_message\_M005\_Vehicle\_Dynamics()}{on\_message\_M005\_Vehicle\_Dynamics()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+M005\+\_\+\+Vehicle\+\_\+\+Dynamics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+차량 동역학 메시지 수신 이벤트 핸들러 
+
+APS 위치, 차량 속도, 조향각 정보를 수신하여 감속도 기반 제동등 제어 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -104,7 +134,11 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_message\_M006\_Battery\_Basic()}{on\_message\_M006\_Battery\_Basic()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+M006\+\_\+\+Battery\+\_\+\+Basic (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+배터리 기본 상태 메시지 수신 이벤트 핸들러 
+
+배터리 SOC, 온도 정보를 수신하여 배터리 보호 상태 결정 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -118,7 +152,11 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_message\_M008\_Mode\_Change\_Req()}{on\_message\_M008\_Mode\_Change\_Req()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+M008\+\_\+\+Mode\+\_\+\+Change\+\_\+\+Req (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+회생 제동 모드 변경 요청 메시지 수신 이벤트 핸들러 
+
+운전자 또는 다른 ECU로부터의 모드 변경 요청을 처리하고 응답 전송 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -132,7 +170,11 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_start()}{on\_start()}}
 {\footnotesize\ttfamily on\+\_\+start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+시뮬레이션 시작 이벤트 핸들러 
+
+시스템 초기화, 전역 변수 설정, 타이머 시작 등을 수행 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -146,7 +188,11 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_stopMeasurement()}{on\_stopMeasurement()}}
 {\footnotesize\ttfamily on\+\_\+stop\+Measurement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+시뮬레이션 정지 이벤트 핸들러 
+
+시스템 종료 작업을 수행하고 리소스를 정리 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -160,7 +206,18 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_timer\_timerMainTask()}{on\_timer\_timerMainTask()}}
 {\footnotesize\ttfamily on\+\_\+timer\+\_\+timer\+Main\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+메인 태스크 타이머 이벤트 핸들러 
+
+10ms 주기로 실행되어 다음 작업을 수행\+:
+\begin{DoxyItemize}
+\item 토크 제어 명령 전송
+\item 차량 물리 시뮬레이션 업데이트
+\item 클러스터 디스플레이 업데이트 (100ms 주기)
+\item 에너지 효율 계산 (200ms 주기)
+\item 자동 모드 최적화 (500ms 주기) 
+\end{DoxyItemize}Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -174,7 +231,11 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_timer\_timerWatchdog()}{on\_timer\_timerWatchdog()}}
 {\footnotesize\ttfamily on\+\_\+timer\+\_\+timer\+Watchdog (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
+
+
+워치독 타이머 이벤트 핸들러 
+
+워치독 타임아웃 발생 시 FAIL\+\_\+\+SAFE 상태로 전환 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}

@@ -1,5 +1,5 @@
 <map id="on_start" name="on_start">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,74,57"/>
+<area shape="rect" id="Node000001" title="시뮬레이션 시작 이벤트 핸들러" alt="" coords="5,31,74,57"/>
 <area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#a7cd5f0a479fccce095a8e8c84f187c57" title="&#39;on start&#39; 이벤트 핸들러 로직을 처리" alt="" coords="122,31,246,57"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,41,106,41,106,47,74,47"/>
 <area shape="rect" id="Node000003" href="$df/dc0/_h_p_c___functions_8cin.html#a9bcdcb765a42512f7ff98bf5feafcdc5" title="시작 시 모든 전역 변수를 기본 상태로 초기화" alt="" coords="299,5,412,32"/>

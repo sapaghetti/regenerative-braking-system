@@ -1,8 +1,9 @@
 ﻿/*@!Encoding:65001*/
 /**
- * @file HPC_MCU_Spoofer.cin
- * @brief MCU 제어 및 상태 메시지 시뮬레이션 및 처리용 CAPL 스크립트
+ * @file Rear_MCU.can
+ * @brief 후방 모터 제어 유닛(MCU) CAPL 스크립트
  */
+
 includes
 {
   
@@ -10,18 +11,35 @@ includes
 
 variables
 {
+  /** @brief 액추에이터 메시지 전송을 위한 타이머 */
   msTimer act_msg_Timer;
+  
+  /** @brief 액추에이터 메시지 전송 주기 (ms) */
   const dword ACT_MSG_TIMEOUT = 100;
+  
+  /** @brief MCU 메시지 전송을 위한 타이머 */
   msTimer mcu_msg_Timer;
+  
+  /** @brief MCU 메시지 전송 주기 (ms) */
   const dword MCU_MSG_TIMEOUT = 100;
 }
 
+/**
+ * @brief 시뮬레이션 시작 시 초기화 함수
+ * @details MCU 상태 전송 및 액추에이터 제어 타이머를 100ms 주기로 설정
+ */
 on start
 {
   settimer(mcu_msg_Timer, MCU_MSG_TIMEOUT);
   settimer(act_msg_Timer, ACT_MSG_TIMEOUT);
 }
 
+/**
+ * @brief MCU 상태 메시지 전송 타이머 이벤트 핸들러
+ * @details 100ms 주기로 MCU 상세 상태 정보를 전송:
+ *          - 모터 토크 상태 (Nm)
+ * @note 타이머 재설정으로 지속적인 주기 전송을 보장
+ */
 on timer mcu_msg_Timer
 {
   message L005_MCU_Detail_Status mcu_msg;
@@ -33,6 +51,12 @@ on timer mcu_msg_Timer
   settimer(mcu_msg_Timer, MCU_MSG_TIMEOUT);
 }
 
+/**
+ * @brief 액추에이터 제어 메시지 전송 타이머 이벤트 핸들러
+ * @details 100ms 주기로 모터 제어 상태를 전송:
+ *          - 목표 토크 값 (Nm)
+ * @note 타이머 재설정으로 지속적인 주기 전송을 보장
+ */
 on timer act_msg_Timer
 {
   message L010_Motor_Control act_msg;
@@ -44,6 +68,12 @@ on timer act_msg_Timer
   settimer(act_msg_Timer, ACT_MSG_TIMEOUT);
 }
 
+/**
+ * @brief MCU 제어 메시지 수신 이벤트 핸들러
+ * @details 상위 시스템으로부터 MCU 제어 명령을 수신하여 처리:
+ *          - 목표 토크 설정
+ *          - 회생 모드 설정
+ */
 on message L008_MCU_Control
 {
   @MCU::Target_Torque = this.Target_Torque.phys;

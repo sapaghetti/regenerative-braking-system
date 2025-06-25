@@ -1,18 +1,28 @@
 \doxysection{SW\+\_\+\+Button.\+can File Reference}
 \hypertarget{_s_w___button_8can}{}\label{_s_w___button_8can}\index{SW\_Button.can@{SW\_Button.can}}
+
+
+스티어링 휠 버튼 입력 처리 CAPL 스크립트  
+
+
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{_s_w___button_8can_a8048a45bb4a5c1e5a546050aaabbed26}{on\+\_\+start}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 시뮬레이션 시작 시 초기화 함수 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_s_w___button_8can_a2ae8bbdabff7342dd384fb467246d349}{on\+\_\+sysvar\+\_\+\+Sys\+Var\+\_\+\+SW\+\_\+\+Button\+\_\+\+Mode\+Up}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 모드 증가 버튼 시스템 변수 변경 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_s_w___button_8can_a88d5f798282471bf8cca4d9de5f333f9}{on\+\_\+sysvar\+\_\+\+Sys\+Var\+\_\+\+SW\+\_\+\+Button\+\_\+\+Mode\+Down}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 모드 감소 버튼 시스템 변수 변경 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_s_w___button_8can_a1b0fee438182b54752f593bb00f69bb9}{on\+\_\+sysvar\+\_\+\+Sys\+Var\+\_\+\+SW\+\_\+\+Button\+\_\+\+Profile\+Change}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 프로파일 변경 버튼 시스템 변수 변경 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_s_w___button_8can_a8abe93216f22c303e0c163472b767708}{on\+\_\+sysvar\+\_\+\+Sys\+Var\+\_\+\+SW\+\_\+\+Button\+\_\+\+Auto\+Toggle}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em 자동 모드 토글 버튼 시스템 변수 변경 이벤트 핸들러 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+스티어링 휠 버튼 입력 처리 CAPL 스크립트 
+
 
 
 \doxysubsection{Function Documentation}
@@ -22,14 +32,25 @@
 \doxysubsubsection{\texorpdfstring{on\_start()}{on\_start()}}
 {\footnotesize\ttfamily on\+\_\+start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_s_w___button_8can_a8abe93216f22c303e0c163472b767708}\label{_s_w___button_8can_a8abe93216f22c303e0c163472b767708} 
+
+
+시뮬레이션 시작 시 초기화 함수 
+
+이벤트 카운터 초기화 및 패널 입력 대기 메시지 출력 \Hypertarget{_s_w___button_8can_a8abe93216f22c303e0c163472b767708}\label{_s_w___button_8can_a8abe93216f22c303e0c163472b767708} 
 \index{SW\_Button.can@{SW\_Button.can}!on\_sysvar\_SysVar\_SW\_Button\_AutoToggle@{on\_sysvar\_SysVar\_SW\_Button\_AutoToggle}}
 \index{on\_sysvar\_SysVar\_SW\_Button\_AutoToggle@{on\_sysvar\_SysVar\_SW\_Button\_AutoToggle}!SW\_Button.can@{SW\_Button.can}}
 \doxysubsubsection{\texorpdfstring{on\_sysvar\_SysVar\_SW\_Button\_AutoToggle()}{on\_sysvar\_SysVar\_SW\_Button\_AutoToggle()}}
 {\footnotesize\ttfamily on\+\_\+sysvar\+\_\+\+Sys\+Var\+\_\+\+SW\+\_\+\+Button\+\_\+\+Auto\+Toggle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+자동 모드 토글 버튼 시스템 변수 변경 이벤트 핸들러 
+
+자동 모드 토글 버튼의 눌림/놓림 이벤트를 처리하여 CAN 메시지 전송
+\begin{DoxyItemize}
+\item 버튼 눌림\+: 누르기 시작 시간 기록
+\item 버튼 놓림\+: 눌림 지속 시간 계산 후 메시지 전송 
+\end{DoxyItemize}Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -42,8 +63,15 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_sysvar\_SysVar\_SW\_Button\_ModeDown()}{on\_sysvar\_SysVar\_SW\_Button\_ModeDown()}}
 {\footnotesize\ttfamily on\+\_\+sysvar\+\_\+\+Sys\+Var\+\_\+\+SW\+\_\+\+Button\+\_\+\+Mode\+Down (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+모드 감소 버튼 시스템 변수 변경 이벤트 핸들러 
+
+모드 감소 버튼의 눌림/놓림 이벤트를 처리하여 CAN 메시지 전송
+\begin{DoxyItemize}
+\item 버튼 눌림\+: 누르기 시작 시간 기록
+\item 버튼 놓림\+: 눌림 지속 시간 계산 후 메시지 전송 
+\end{DoxyItemize}Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -56,8 +84,15 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_sysvar\_SysVar\_SW\_Button\_ModeUp()}{on\_sysvar\_SysVar\_SW\_Button\_ModeUp()}}
 {\footnotesize\ttfamily on\+\_\+sysvar\+\_\+\+Sys\+Var\+\_\+\+SW\+\_\+\+Button\+\_\+\+Mode\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+모드 증가 버튼 시스템 변수 변경 이벤트 핸들러 
+
+모드 증가 버튼의 눌림/놓임 이벤트를 처리하여 CAN 메시지 전송
+\begin{DoxyItemize}
+\item 버튼 눌림\+: 누르기 시작 시간 기록
+\item 버튼 놓임\+: 눌림 지속 시간 계산 후 메시지 전송 
+\end{DoxyItemize}Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -70,8 +105,15 @@ Here is the call graph for this function\+:
 \doxysubsubsection{\texorpdfstring{on\_sysvar\_SysVar\_SW\_Button\_ProfileChange()}{on\_sysvar\_SysVar\_SW\_Button\_ProfileChange()}}
 {\footnotesize\ttfamily on\+\_\+sysvar\+\_\+\+Sys\+Var\+\_\+\+SW\+\_\+\+Button\+\_\+\+Profile\+Change (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-Here is the call graph for this function\+:
-\nopagebreak
+
+
+프로파일 변경 버튼 시스템 변수 변경 이벤트 핸들러 
+
+프로파일 변경 버튼의 눌림/놓림 이벤트를 처리하여 CAN 메시지 전송
+\begin{DoxyItemize}
+\item 버튼 눌림\+: 누르기 시작 시간 기록
+\item 버튼 놓림\+: 눌림 지속 시간 계산 후 메시지 전송 
+\end{DoxyItemize}Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

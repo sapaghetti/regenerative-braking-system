@@ -1,5 +1,5 @@
 <map id="on_timer_timerWatchdog" name="on_timer_timerWatchdog">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,171,57"/>
+<area shape="rect" id="Node000001" title="워치독 타이머 이벤트 핸들러" alt="" coords="5,31,171,57"/>
 <area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#a26008801b33e04dffd66ca83462ba0d0" title="워치독 타임아웃 발생 시 호출되는 이벤트 핸들러" alt="" coords="219,31,386,57"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,41,203,41,203,47,171,47"/>
 <area shape="rect" id="Node000003" href="$df/dc0/_h_p_c___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하는 함수" alt="" coords="829,5,900,32"/>

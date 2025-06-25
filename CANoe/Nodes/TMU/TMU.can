@@ -1,54 +1,121 @@
 ﻿/*@!Encoding:65001*/
 /**
- * @file TMU_OTA.can
- * @brief TMU에서 OTA 승인 요청 및 펌웨어 파일 전송을 수행하는 메인 CAPL 스크립트
+ * @file TMU.can
+ * @brief 텔레매틱스 관리 유닛(TMU) CAPL 스크립트
  */
 
 variables
 {
+  /** @brief 주기적 작업을 위한 체크 타이머 */
   msTimer checkTimer;
+  
+  /** @brief 파일 핸들러 */
   dword hFile;
+  
+  /** @brief ECU 정보 배열 (Init, CGW, TMU, EDT) */
   char ecu_info[4][10] = {"Init", "CGW", "TMU", "EDT"};
+  
+  /** @brief OTA 결과 상태 */
   char ota_result;
+  
+  /** @brief 현재 버전 정보 저장 배열 */
   char cur_ver[2];
+  
+  /** @brief 펌웨어 파일명 저장 배열 */
   char filename[128];
-  int otaReady = 0;    // -1: 업데이트 실패, 0: 준비 안됨, 1: 사용자 승인 대기, 2: 승인됨, 3: 거부됨 4: 업데이트 완료
+  
+  /** @brief OTA 준비 상태 (-1: 실패, 0: 준비안됨, 1: 대기, 2: 승인됨, 3: 거부됨, 4: 완료) */
+  int otaReady = 0;
+  
+  /** @brief 틱 카운터 */
   int tickCount = 0;
+  
+  /** @brief 대기 카운터 */
   int waitCount = 0;
+  
+  /** @brief 요청 카운터 */
   int reqCount = 0;
+  
+  /** @brief 현재 TMU 버전 */
   int cur_tmu_version = 0;
+  
+  /** @brief TMU ECU 번호 */
   int tmu_num = 2;
+  
+  /** @brief 부트로더 모드 */
   int mode = 0;
+  
+  /**
+   * @brief TMU 시스템 상태 열거형
+   */
   enum STATE
   {
-    NOMAR_MODE,
-    BOOTLOADER_MODE,
-    OTA_COMPLETE
+    NOMAR_MODE,      /**< 정상 작동 모드 */
+    BOOTLOADER_MODE, /**< 부트로더 모드 */
+    OTA_COMPLETE     /**< OTA 완료 상태 */
   }tmuState = BOOTLOADER_MODE;
   
+  /** @brief 펌웨어 헤더 정보 (8바이트) */
   byte header[8];
-  byte magic_bytes[4];
-  byte block[61];
-  int started = 0;
-  int ecu_id = 0;
-  int version = 0;
-  int code_len = 0;
-  int totalSent = 0;
-  long readBytes = 0;
-  int frameIndex = 0;
-  int frame_payload_size= 61;
-  long magic;
-  message TMU_CGW_E_OTA_REQ otaReqMsg;
-  message TMU_CGW_PE_OTA_DATA otaDataMsg;
-  message TMU_CGW_E_OTA_START otaStartMsg;
   
+  /** @brief 매직 바이트 배열 (4바이트) */
+  byte magic_bytes[4];
+  
+  /** @brief 데이터 블록 배열 (61바이트) */
+  byte block[61];
+  
+  /** @brief OTA 시작 플래그 */
+  int started = 0;
+  
+  /** @brief ECU ID */
+  int ecu_id = 0;
+  
+  /** @brief 펌웨어 버전 */
+  int version = 0;
+  
+  /** @brief 코드 길이 */
+  int code_len = 0;
+  
+  /** @brief 총 전송 바이트 수 */
+  int totalSent = 0;
+  
+  /** @brief 읽은 바이트 수 */
+  long readBytes = 0;
+  
+  /** @brief 프레임 인덱스 */
+  int frameIndex = 0;
+  
+  /** @brief 프레임 페이로드 크기 */
+  int frame_payload_size= 61;
+  
+  /** @brief 매직 넘버 */
+  long magic;
+  
+  /** @brief CGW에 OTA 요청을 전송하는 메시지 */
+  message TMU_CGW_E_OTA_REQ otaReqMsg;
+  
+  /** @brief CGW에 OTA 데이터를 전송하는 메시지 */
+  message TMU_CGW_PE_OTA_DATA otaDataMsg;
+  
+  /** @brief CGW에 OTA 시작 명령을 전송하는 메시지 */
+  message TMU_CGW_E_OTA_START otaStartMsg;
 }
+
+/**
+ * @brief OTA 상태를 초기화하는 함수
+ * @details OTA 관련 모든 변수를 초기 상태로 리셋
+ */
 void resetOtaState()
 {
   started = 0;
   otaReady = 0;
   @OTA::Ota_flag = -1;
 }
+
+/**
+ * @brief 부트로더에서 TMU 버전을 읽어오는 함수
+ * @details TMU_version.txt 파일에서 현재 버전 정보를 읽어와 시스템 변수에 저장
+ */
 void readBootloader()
 {
   hFile = openFileRead("TMU\\TMU_version.txt", 0);
@@ -57,11 +124,23 @@ void readBootloader()
   @OTA::Cur_version[tmu_num] = cur_tmu_version;
   fileClose(hFile);
 }
+
+/**
+ * @brief 시뮬레이션 시작 시 초기화 함수
+ * @details 100ms 주기로 체크 타이머 설정
+ */
 on start
 {
   setTimer(checkTimer, 100);
 }
 
+/**
+ * @brief 주기적 체크 타이머 이벤트 핸들러 (100ms)
+ * @details TMU 상태 및 OTA 프로세스를 관리:
+ *          - NORMAL_MODE: OTA 요청 처리 및 파일 전송
+ *          - BOOTLOADER_MODE: 부트로더에서 버전 읽기
+ *          - OTA_COMPLETE: OTA 완료 처리
+ */
 on timer checkTimer
 {
   tickCount++;
@@ -278,6 +357,12 @@ on timer checkTimer
   setTimer(checkTimer, 100);
 }
 
+/**
+ * @brief CGW에서 OTA 요청 응답 메시지 수신 이벤트 핸들러
+ * @details CGW로부터 사용자 승인/거부 응답을 받아 OTA 상태 업데이트
+ *          - 0x01: 사용자 승인
+ *          - 0x02: 사용자 거부
+ */
 on message CGW_TMU_E_OTA_REQ
 {
   if (this.byte(0) == 0x01)
@@ -291,6 +376,14 @@ on message CGW_TMU_E_OTA_REQ
     @OTA::Ota_flag = 3;
   }
 }
+
+/**
+ * @brief CGW에서 OTA 결과 메시지 수신 이벤트 핸들러
+ * @details CGW로부터 OTA 완료/실패 결과를 받아 처리
+ *          - 0x05: OTA 완료
+ *          - 0xAA: 복구 완료
+ *          - 0xFF: OTA 실패
+ */
 on message CGW_TMU_E_OTA_RESULT
 {
   if (this.byte(0) == 0x05)  // OTA 완료
@@ -308,15 +401,29 @@ on message CGW_TMU_E_OTA_RESULT
     
   }
 }
+
+/**
+ * @brief CGW에서 버전 정보 메시지 수신 이벤트 핸들러
+ * @details CGW의 현재 버전 정보를 시스템 변수에 저장
+ */
 on message CGW_TMU_E_VER_INFO
 {
   @OTA::Cur_version[(this.byte(0) & 0xF0) >> 4] = this.byte(0) & 0x0F;
 }
+
+/**
+ * @brief EDT에서 버전 정보 메시지 수신 이벤트 핸들러
+ * @details EDT의 현재 버전 정보를 시스템 변수에 저장
+ */
 on message EDT_TMU_E_VER_INFO
 {
   @OTA::Cur_version[(this.byte(0) & 0xF0) >> 4] = this.byte(0) & 0x0F;
 }
 
+/**
+ * @brief 키보드 'r' 키 입력 이벤트 핸들러 (신호등 빨간불)
+ * @details 교통 신호등을 빨간불로 설정
+ */
 on key 'r'
 {
   @TMU::TrafficLightRed = 1;
@@ -324,6 +431,10 @@ on key 'r'
   @TMU::TrafficLightGreen = 0;
 }
 
+/**
+ * @brief 키보드 'y' 키 입력 이벤트 핸들러 (신호등 노란불)
+ * @details 교통 신호등을 노란불로 설정
+ */
 on key 'y'
 {
   @TMU::TrafficLightRed = 0;
@@ -331,6 +442,10 @@ on key 'y'
   @TMU::TrafficLightGreen = 0;
 }
 
+/**
+ * @brief 키보드 'g' 키 입력 이벤트 핸들러 (신호등 초록불)
+ * @details 교통 신호등을 초록불로 설정
+ */
 on key 'g'
 {
   @TMU::TrafficLightRed = 0;

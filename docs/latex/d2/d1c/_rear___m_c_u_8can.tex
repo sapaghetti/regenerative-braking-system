@@ -1,27 +1,37 @@
 \doxysection{Rear\+\_\+\+MCU.\+can File Reference}
 \hypertarget{_rear___m_c_u_8can}{}\label{_rear___m_c_u_8can}\index{Rear\_MCU.can@{Rear\_MCU.can}}
+
+
+후방 모터 제어 \doxylink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{유닛(\+MCU)} CAPL 스크립트  
+
+
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{_rear___m_c_u_8can_a8048a45bb4a5c1e5a546050aaabbed26}{on\+\_\+start}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 시뮬레이션 시작 시 초기화 함수 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_rear___m_c_u_8can_aaaa8991e77b5b6ab518deea8a8f96554}{on\+\_\+timer\+\_\+mcu\+\_\+msg\+\_\+\+Timer}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em MCU 상태 메시지 전송 타이머 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_rear___m_c_u_8can_a949017cd91911a4f5c161b27cec8e538}{on\+\_\+timer\+\_\+act\+\_\+msg\+\_\+\+Timer}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em 액추에이터 제어 메시지 전송 타이머 이벤트 핸들러 \end{DoxyCompactList}\item 
 \mbox{\hyperlink{_rear___m_c_u_8can_ad672cbf1a91f20b656ea60035a7723d8}{on\+\_\+message\+\_\+\+L008\+\_\+\+MCU\+\_\+\+Control}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em MCU 제어 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} \mbox{\hyperlink{_rear___m_c_u_8can_a6f63cd3f193e934e7afd49216626a461}{act\+\_\+msg\+\_\+\+Timer}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_rear___m_c_u_8can_abfdcf2c32a5a3f0660be9c51e864b41c}{ACT\+\_\+\+MSG\+\_\+\+TIMEOUT}} = 100
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} \mbox{\hyperlink{_rear___m_c_u_8can_adeeb912ad2d32ba238b516de1bcad2bf}{mcu\+\_\+msg\+\_\+\+Timer}}
-\item 
-\mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_rear___m_c_u_8can_acbedd6124d47cad265ae925ff81f8407}{MCU\+\_\+\+MSG\+\_\+\+TIMEOUT}} = 100
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} \mbox{\hyperlink{_rear___m_c_u_8can_a6f63cd3f193e934e7afd49216626a461}{act\+\_\+msg\+\_\+\+Timer}}
+\begin{DoxyCompactList}\small\item\em 액추에이터 메시지 전송을 위한 타이머 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_rear___m_c_u_8can_abfdcf2c32a5a3f0660be9c51e864b41c}{ACT\+\_\+\+MSG\+\_\+\+TIMEOUT}} = 100
+\begin{DoxyCompactList}\small\item\em 액추에이터 메시지 전송 주기 (ms) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} \mbox{\hyperlink{_rear___m_c_u_8can_adeeb912ad2d32ba238b516de1bcad2bf}{mcu\+\_\+msg\+\_\+\+Timer}}
+\begin{DoxyCompactList}\small\item\em MCU 메시지 전송을 위한 타이머 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_rear___m_c_u_8can_acbedd6124d47cad265ae925ff81f8407}{MCU\+\_\+\+MSG\+\_\+\+TIMEOUT}} = 100
+\begin{DoxyCompactList}\small\item\em MCU 메시지 전송 주기 (ms) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+후방 모터 제어 \doxylink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{유닛(\+MCU)} CAPL 스크립트 
+
 
 
 \doxysubsection{Function Documentation}
@@ -31,19 +41,41 @@
 \doxysubsubsection{\texorpdfstring{on\_message\_L008\_MCU\_Control()}{on\_message\_L008\_MCU\_Control()}}
 {\footnotesize\ttfamily on\+\_\+message\+\_\+\+L008\+\_\+\+MCU\+\_\+\+Control (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_rear___m_c_u_8can_a8048a45bb4a5c1e5a546050aaabbed26}\label{_rear___m_c_u_8can_a8048a45bb4a5c1e5a546050aaabbed26} 
+
+
+MCU 제어 메시지 수신 이벤트 핸들러 
+
+상위 시스템으로부터 MCU 제어 명령을 수신하여 처리\+:
+\begin{DoxyItemize}
+\item 목표 토크 설정
+\item 회생 모드 설정 
+\end{DoxyItemize}\Hypertarget{_rear___m_c_u_8can_a8048a45bb4a5c1e5a546050aaabbed26}\label{_rear___m_c_u_8can_a8048a45bb4a5c1e5a546050aaabbed26} 
 \index{Rear\_MCU.can@{Rear\_MCU.can}!on\_start@{on\_start}}
 \index{on\_start@{on\_start}!Rear\_MCU.can@{Rear\_MCU.can}}
 \doxysubsubsection{\texorpdfstring{on\_start()}{on\_start()}}
 {\footnotesize\ttfamily on\+\_\+start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_rear___m_c_u_8can_a949017cd91911a4f5c161b27cec8e538}\label{_rear___m_c_u_8can_a949017cd91911a4f5c161b27cec8e538} 
+
+
+시뮬레이션 시작 시 초기화 함수 
+
+MCU 상태 전송 및 액추에이터 제어 타이머를 100ms 주기로 설정 \Hypertarget{_rear___m_c_u_8can_a949017cd91911a4f5c161b27cec8e538}\label{_rear___m_c_u_8can_a949017cd91911a4f5c161b27cec8e538} 
 \index{Rear\_MCU.can@{Rear\_MCU.can}!on\_timer\_act\_msg\_Timer@{on\_timer\_act\_msg\_Timer}}
 \index{on\_timer\_act\_msg\_Timer@{on\_timer\_act\_msg\_Timer}!Rear\_MCU.can@{Rear\_MCU.can}}
 \doxysubsubsection{\texorpdfstring{on\_timer\_act\_msg\_Timer()}{on\_timer\_act\_msg\_Timer()}}
 {\footnotesize\ttfamily on\+\_\+timer\+\_\+act\+\_\+msg\+\_\+\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
-\Hypertarget{_rear___m_c_u_8can_aaaa8991e77b5b6ab518deea8a8f96554}\label{_rear___m_c_u_8can_aaaa8991e77b5b6ab518deea8a8f96554} 
+
+
+액추에이터 제어 메시지 전송 타이머 이벤트 핸들러 
+
+100ms 주기로 모터 제어 상태를 전송\+:
+\begin{DoxyItemize}
+\item 목표 토크 값 (Nm) \begin{DoxyNote}{Note}
+타이머 재설정으로 지속적인 주기 전송을 보장 
+\end{DoxyNote}
+
+\end{DoxyItemize}\Hypertarget{_rear___m_c_u_8can_aaaa8991e77b5b6ab518deea8a8f96554}\label{_rear___m_c_u_8can_aaaa8991e77b5b6ab518deea8a8f96554} 
 \index{Rear\_MCU.can@{Rear\_MCU.can}!on\_timer\_mcu\_msg\_Timer@{on\_timer\_mcu\_msg\_Timer}}
 \index{on\_timer\_mcu\_msg\_Timer@{on\_timer\_mcu\_msg\_Timer}!Rear\_MCU.can@{Rear\_MCU.can}}
 \doxysubsubsection{\texorpdfstring{on\_timer\_mcu\_msg\_Timer()}{on\_timer\_mcu\_msg\_Timer()}}
@@ -51,28 +83,54 @@
 
 
 
+MCU 상태 메시지 전송 타이머 이벤트 핸들러 
+
+100ms 주기로 MCU 상세 상태 정보를 전송\+:
+\begin{DoxyItemize}
+\item 모터 토크 상태 (Nm) \begin{DoxyNote}{Note}
+타이머 재설정으로 지속적인 주기 전송을 보장 
+\end{DoxyNote}
+
+\end{DoxyItemize}
+
 \doxysubsection{Variable Documentation}
 \Hypertarget{_rear___m_c_u_8can_abfdcf2c32a5a3f0660be9c51e864b41c}\label{_rear___m_c_u_8can_abfdcf2c32a5a3f0660be9c51e864b41c} 
 \index{Rear\_MCU.can@{Rear\_MCU.can}!ACT\_MSG\_TIMEOUT@{ACT\_MSG\_TIMEOUT}}
 \index{ACT\_MSG\_TIMEOUT@{ACT\_MSG\_TIMEOUT}!Rear\_MCU.can@{Rear\_MCU.can}}
 \doxysubsubsection{\texorpdfstring{ACT\_MSG\_TIMEOUT}{ACT\_MSG\_TIMEOUT}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} ACT\+\_\+\+MSG\+\_\+\+TIMEOUT = 100}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} ACT\+\_\+\+MSG\+\_\+\+TIMEOUT = 100}
+
+
+
+액추에이터 메시지 전송 주기 (ms) 
 
 \Hypertarget{_rear___m_c_u_8can_a6f63cd3f193e934e7afd49216626a461}\label{_rear___m_c_u_8can_a6f63cd3f193e934e7afd49216626a461} 
 \index{Rear\_MCU.can@{Rear\_MCU.can}!act\_msg\_Timer@{act\_msg\_Timer}}
 \index{act\_msg\_Timer@{act\_msg\_Timer}!Rear\_MCU.can@{Rear\_MCU.can}}
 \doxysubsubsection{\texorpdfstring{act\_msg\_Timer}{act\_msg\_Timer}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} act\+\_\+msg\+\_\+\+Timer}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} act\+\_\+msg\+\_\+\+Timer}
+
+
+
+액추에이터 메시지 전송을 위한 타이머 
 
 \Hypertarget{_rear___m_c_u_8can_acbedd6124d47cad265ae925ff81f8407}\label{_rear___m_c_u_8can_acbedd6124d47cad265ae925ff81f8407} 
 \index{Rear\_MCU.can@{Rear\_MCU.can}!MCU\_MSG\_TIMEOUT@{MCU\_MSG\_TIMEOUT}}
 \index{MCU\_MSG\_TIMEOUT@{MCU\_MSG\_TIMEOUT}!Rear\_MCU.can@{Rear\_MCU.can}}
 \doxysubsubsection{\texorpdfstring{MCU\_MSG\_TIMEOUT}{MCU\_MSG\_TIMEOUT}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} MCU\+\_\+\+MSG\+\_\+\+TIMEOUT = 100}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} MCU\+\_\+\+MSG\+\_\+\+TIMEOUT = 100}
+
+
+
+MCU 메시지 전송 주기 (ms) 
 
 \Hypertarget{_rear___m_c_u_8can_adeeb912ad2d32ba238b516de1bcad2bf}\label{_rear___m_c_u_8can_adeeb912ad2d32ba238b516de1bcad2bf} 
 \index{Rear\_MCU.can@{Rear\_MCU.can}!mcu\_msg\_Timer@{mcu\_msg\_Timer}}
 \index{mcu\_msg\_Timer@{mcu\_msg\_Timer}!Rear\_MCU.can@{Rear\_MCU.can}}
 \doxysubsubsection{\texorpdfstring{mcu\_msg\_Timer}{mcu\_msg\_Timer}}
-{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c_2_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} mcu\+\_\+msg\+\_\+\+Timer}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} mcu\+\_\+msg\+\_\+\+Timer}
+
+
+
+MCU 메시지 전송을 위한 타이머 
 
