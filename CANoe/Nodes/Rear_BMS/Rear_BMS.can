@@ -1,4 +1,9 @@
 ﻿/*@!Encoding:65001*/
+/**
+ * @file HPC_BMS_Spoofer.cin
+ * @brief BMS 상태 정보를 주기적으로 생성하여 송신하는 테스트용 CAPL 스크립트
+ */
+
 includes
 {
   

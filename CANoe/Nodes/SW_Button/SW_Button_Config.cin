@@ -1,4 +1,9 @@
 /*@!Encoding:65001*/
+/**
+ * @file HPC_Button_Config.cin
+ * @brief 스위치 입력 메시지 처리를 위한 버튼 상수 및 상태 변수 정의
+ */
+
 variables
 {
   message L004_SW_Button_Input gMsg_L004;

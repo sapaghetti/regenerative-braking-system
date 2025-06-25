@@ -1,4 +1,9 @@
 ﻿/*@!Encoding:65001*/
+/**
+ * @file EDT.cin
+ * @brief EDT ECU의 OTA 업데이트 수신, 버전 관리 및 부트 모드 전환 로직 정의
+ */
+
 includes
 {
   

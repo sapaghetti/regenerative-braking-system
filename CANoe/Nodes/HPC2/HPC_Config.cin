@@ -1,4 +1,9 @@
 ﻿/*@!Encoding:65001*/
+/**
+ * @file HPC2_Config.cin
+ * @brief HPC2 시스템의 전역 상수, 상태 변수 및 구조체 정의용 설정 파일
+ */
+
 variables
 {
   const int ECU_ID = 0x01;

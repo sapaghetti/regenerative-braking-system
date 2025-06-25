@@ -1,4 +1,9 @@
 ﻿/*@!Encoding:65001*/
+/**
+ * @file HPC_Config.cin
+ * @brief HPC CAPL 스크립트의 모든 설정, 상수 및 전역 변수 정의
+ */
+
 variables
 {
   const int ECU_ID = 0x01;

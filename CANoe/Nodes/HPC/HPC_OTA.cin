@@ -1,4 +1,9 @@
 ﻿/*@!Encoding:65001*/
+/**
+ * @file HPC_OTA.cin
+ * @brief HPC 시스템에서 CGW와 TMU 간의 OTA 중계 처리 및 상태 관리를 위한 CAPL 정의
+ */
+
 includes
 {
   

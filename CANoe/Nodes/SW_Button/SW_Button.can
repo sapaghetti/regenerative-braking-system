@@ -1,4 +1,9 @@
 /*@!Encoding:65001*/
+/**
+ * @file SW_Button.can
+ * @brief 패널 버튼 입력을 감지하고 L004 메시지를 생성·전송하는 메인 CAPL 스크립트
+ */
+
 includes
 {
   #include "SW_Button_Config.cin"

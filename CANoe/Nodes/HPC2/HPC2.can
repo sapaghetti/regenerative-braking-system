@@ -1,4 +1,9 @@
 ﻿/*@!Encoding:65001*/
+/**
+ * @file HPC.can
+ * @brief HPC ECU의 이벤트 기반 메인 CAPL 스크립트
+ */
+
 includes
 {
   #include "HPC2_Functions.cin"

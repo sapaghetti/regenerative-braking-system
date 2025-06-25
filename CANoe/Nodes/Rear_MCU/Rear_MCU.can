@@ -1,4 +1,8 @@
 ﻿/*@!Encoding:65001*/
+/**
+ * @file HPC_MCU_Spoofer.cin
+ * @brief MCU 제어 및 상태 메시지 시뮬레이션 및 처리용 CAPL 스크립트
+ */
 includes
 {
   

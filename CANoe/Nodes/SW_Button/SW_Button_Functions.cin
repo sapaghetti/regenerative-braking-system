@@ -1,4 +1,9 @@
 /*@!Encoding:65001*/
+/**
+ * @file HPC_Button_Functions.cin
+ * @brief 스위치 입력 메시지(L004) 생성을 위한 버튼 처리 함수 정의
+ */
+
 void SendButtonMessage(byte buttonId, byte buttonAction, word pressDuration)
 {
   byte dataArray[6];

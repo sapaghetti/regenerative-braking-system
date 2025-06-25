@@ -1,4 +1,9 @@
 ﻿/*@!Encoding:65001*/
+/**
+ * @file TMU_OTA.can
+ * @brief TMU에서 OTA 승인 요청 및 펌웨어 파일 전송을 수행하는 메인 CAPL 스크립트
+ */
+
 variables
 {
   msTimer checkTimer;
