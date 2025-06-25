@@ -2,7 +2,6 @@ var _z_c_u___front___functions_8cin =
 [
     [ "ClearFault", "d6/db8/_z_c_u___front___functions_8cin.html#a1366b73e3db319850ae23722e5460d22", null ],
     [ "HandleAdasMessage", "d6/db8/_z_c_u___front___functions_8cin.html#a1da0ca86f36fed3b794fb3741b4117e9", null ],
-    [ "HandleClearFaultsKey", "d6/db8/_z_c_u___front___functions_8cin.html#a881f7319dd66e135c91ec8cafa7e0b16", null ],
     [ "HandleEpasMessage", "d6/db8/_z_c_u___front___functions_8cin.html#a1ba29d06e65650de5e70b426c7baa6cc", null ],
     [ "HandleFaultInjectionKey", "d6/db8/_z_c_u___front___functions_8cin.html#a7ad551283e601822ef0f4a49a33e46fb", null ],
     [ "HandleMainTaskTimer", "d6/db8/_z_c_u___front___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede", null ],

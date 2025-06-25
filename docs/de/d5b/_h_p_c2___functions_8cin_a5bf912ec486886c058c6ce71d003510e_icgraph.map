@@ -1,7 +1,7 @@
 <map id="CalculateOptimalTorque" name="CalculateOptimalTorque">
-<area shape="rect" id="Node000001" title=" " alt="" coords="431,5,591,32"/>
-<area shape="rect" id="Node000002" href="$de/d5b/_h_p_c2___functions_8cin.html#a423ebeea655dbb5e55334903ea57f2f4" title=" " alt="" coords="205,5,383,32"/>
+<area shape="rect" id="Node000001" title="운전자 입력과 차량 상태를 기반으로 최적의 모터 토크를 계산하는 함수" alt="" coords="431,5,591,32"/>
+<area shape="rect" id="Node000002" href="$de/d5b/_h_p_c2___functions_8cin.html#a423ebeea655dbb5e55334903ea57f2f4" title="주기적으로 모터 토크 제어 명령을 전송하는 태스크" alt="" coords="205,5,383,32"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="415,21,384,21,384,16,415,16"/>
-<area shape="rect" id="Node000003" href="$de/d5b/_h_p_c2___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title=" " alt="" coords="5,5,157,32"/>
+<area shape="rect" id="Node000003" href="$de/d5b/_h_p_c2___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title="메인 태스크 타이머 이벤트 발생 시 주기적으로 호출되는 함수" alt="" coords="5,5,157,32"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="189,21,157,21,157,16,189,16"/>
 </map>

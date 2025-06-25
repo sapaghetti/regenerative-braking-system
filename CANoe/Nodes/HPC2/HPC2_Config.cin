@@ -1,105 +1,237 @@
 ﻿/*@!Encoding:65001*/
 /**
- * @file HPC_Config.cin
+ * @file HPC2_Config.cin
  * @brief HPC CAPL 스크립트의 모든 설정, 상수 및 전역 변수 정의
  */
 
 variables
 {
+  /*******************************************************************************
+   * 시스템 설정 상수
+   ******************************************************************************/
+
+  /** @brief HPC ECU 식별자 */
   const int ECU_ID = 0x01;
+  
+  /** @brief 시스템 버전 (Major.Minor) */
   const int SYSTEM_VERSION = 0x0100;
 
+  /** @brief 메인 태스크 주기 (ms) */
   const int MAIN_CYCLE = 10;
+  
+  /** @brief 워치독 타임아웃 (ms) */
   const int WATCHDOG_TIMEOUT = 20;
 
-  const float VEHICLE_INERTIA = 1.5;    // kg*m^2, 차량의 등가 관성 모멘트 (모터 기준)
-  const float GEAR_RATIO = 9.1;         // 감속기 기어비
-  const float WHEEL_RADIUS = 0.33;      // m, 바퀴 반경
+  /*******************************************************************************
+   * 차량 물리 상수
+   ******************************************************************************/
 
+  /** @brief 차량의 등가 관성 모멘트 (kg*m^2, 모터 기준) */
+  const float VEHICLE_INERTIA = 1.5;
+  
+  /** @brief 감속기 기어비 */
+  const float GEAR_RATIO = 9.1;
+  
+  /** @brief 바퀴 반경 (m) */
+  const float WHEEL_RADIUS = 0.33;
+
+  /*******************************************************************************
+   * 배터리 보호 임계값
+   ******************************************************************************/
+
+  /** @brief 배터리 SOC 제한값 (%) */
   const float BATTERY_SOC_LIMIT = 95.0;
+  
+  /** @brief 배터리 최소 온도 (°C) */
   const byte BATTERY_TEMP_MIN = 10;
+  
+  /** @brief 배터리 최대 온도 (°C) */
   const byte BATTERY_TEMP_MAX = 45;
+  
+  /** @brief 제동등 점등을 위한 최대 감속도 (m/s^2) */
   const float MAX_DECEL_FOR_BRAKE_LIGHT = 1.3;
 
+  /*******************************************************************************
+   * 토크 제어 임계값
+   ******************************************************************************/
+
+  /** @brief 최대 구동 토크 (Nm) */
   const float MAX_PROPULSION_TORQUE = 350.0;
+  
+  /** @brief 페달 입력 시 최대 회생 토크 (Nm) */
   const float MAX_REGEN_TORQUE_AT_PEDAL = 200.0;
+  
+  /** @brief APS 데드존 (%) */
   const byte APS_DEADZONE = 5;
+  
+  /** @brief BPPS 데드존 (%) */
   const byte BPPS_DEADZONE = 5;
 
+  /*******************************************************************************
+   * 폴트 관리 비트 마스크
+   ******************************************************************************/
+
+  /** @brief 워치독 타임아웃 폴트 */
   const dword FAULT_WATCHDOG_TIMEOUT = 0x00000001;
+  
+  /** @brief 외부 ECU 심각한 폴트 */
   const dword FAULT_CRITICAL_EXTERNAL = 0x00000002;
+  
+  /** @brief 배터리 보호 폴트 */
   const dword FAULT_BATTERY_PROTECTION = 0x00000004;
 
+  /*******************************************************************************
+   * 시스템 상태 열거형
+   ******************************************************************************/
+
+  /**
+   * @brief 시스템의 현재 운영 상태를 나타내는 열거형
+   */
   enum SystemState
   {
-    STATE_INIT = 0,
-    STATE_NORMAL = 1,
-    STATE_BATTERY_PROTECTION = 2,
-    STATE_FAIL_SAFE = 3
+    STATE_INIT = 0,               /**< 초기화 상태 */
+    STATE_NORMAL = 1,             /**< 정상 작동 상태 */
+    STATE_BATTERY_PROTECTION = 2, /**< 배터리 보호 상태 */
+    STATE_FAIL_SAFE = 3           /**< 안전 상태 */
   };
 
+  /**
+   * @brief 회생 제동 모드를 나타내는 열거형
+   */
   enum RegenState
   {
-    REGEN_OFF = 0,
-    REGEN_LEVEL1 = 1,
-    REGEN_LEVEL2 = 2,
-    REGEN_LEVEL3 = 3,
-    REGEN_AUTO = 4
+    REGEN_OFF = 0,    /**< 회생 제동 비활성 */
+    REGEN_LEVEL1 = 1, /**< 회생 제동 레벨 1 (약함) */
+    REGEN_LEVEL2 = 2, /**< 회생 제동 레벨 2 (중간) */
+    REGEN_LEVEL3 = 3, /**< 회생 제동 레벨 3 (강함) */
+    REGEN_AUTO = 4    /**< 자동 회생 제동 모드 */
   };
 
+  /*******************************************************************************
+   * V2X 데이터 구조체
+   ******************************************************************************/
+
+  /**
+   * @brief V2X 통신을 통해 수신되는 도로 및 교통 정보를 저장하는 구조체
+   */
   struct V2XData
   {
+    /** @brief 신호등까지의 거리 (m) */
     byte trafficLightDistance;
+    /** @brief 신호등 상태 (0: 초록, 1: 노랑, 2: 빨강) */
     byte trafficLightStatus;
+    /** @brief 도로 경사도 (%) */
     byte roadGrade;
+    /** @brief 교통 정체 수준 (0-5, 5가 가장 심함) */
     byte congestionLevel;
+    /** @brief 데이터 수신 타임스탬프 */
     dword timestamp;
   };
 
+  /*******************************************************************************
+   * 진단 데이터 구조체
+   ******************************************************************************/
+
+  /**
+   * @brief 시스템 진단 정보를 저장하는 구조체
+   */
   struct DiagnosticData
   {
+    /** @brief CPU 사용률 (%) */
     byte cpuUsage;
+    /** @brief 메모리 사용률 (%) */
     byte memoryUsage;
+    /** @brief 동작 시간 (hours) */
     word operatingHours;
+    /** @brief 오류 플래그 */
     dword errorFlags;
   };
 
+  /*******************************************************************************
+   * 전역 변수
+   ******************************************************************************/
+
+  /** @brief 메인 태스크 타이머 */
   msTimer timerMainTask;
+  
+  /** @brief 워치독 타이머 */
   msTimer timerWatchdog;
 
+  /** @brief 현재 시스템 상태 */
   enum SystemState currentState;
+  
+  /** @brief 이전 시스템 상태 */
   enum SystemState previousState;
+  
+  /** @brief 현재 회생 제동 모드 */
   enum RegenState currentRegenMode;
 
+  /** @brief 현재 차량 속도 (km/h) */
   float currentVehicleSpeed;
+  
+  /** @brief 현재 모터 속도 (RPM) */
   float currentMotorSpeed;
+  
+  /** @brief 조향각 (deg) */
   float steeringAngle;
+  
+  /** @brief 가속 페달 위치 (%) */
   byte apsPosition;
+  
+  /** @brief 브레이크 페달 위치 (%) */
   byte bppsPosition;
 
+  /** @brief 목표 모터 토크 (Nm) */
   float targetMotorTorque;
+  
+  /** @brief 현재 회생 토크 (Nm) */
   float currentRegenTorque;
 
+  /** @brief 최대 회생 전력 (kW) */
   float maxRegenPower;
+  
+  /** @brief 누적 회생 에너지 (Wh) */
   float cumulativeRegenEnergy;
+  
+  /** @brief 순간 회생 전력 (W) */
   float instantRegenPower;
 
+  /** @brief 배터리 SOC (%) */
   byte batterySOC;
+  
+  /** @brief 배터리 온도 (°C) */
   byte batteryTemp;
 
+  /** @brief 폴트 레지스터 */
   dword faultRegister;
+  
+  /** @brief 워치독 카운터 */
   byte watchdogCounter;
+  
+  /** @brief 태스크 카운터 */
   dword gTaskCounter;
 
+  /** @brief V2X 데이터 인스턴스 */
   struct V2XData v2xData;
+  
+  /** @brief 진단 데이터 인스턴스 */
   struct DiagnosticData diagnostics;
   
+  /** @brief CRC 계산용 데이터 배열 */
   byte gCrcData[10];
+  
+  /** @brief CRC 계산 함수 반환값 */
   long gCrcRetval;
+  
+  /** @brief 계산된 CRC 값 */
   dword gCrcValue;
 
+  /** @brief 자동 모드 기본 회생 토크 (Nm) */
   float gAutoRegenBaseTorque;
 
+  /** @brief 이전 차량 속도 (감속도 계산용) */
   float gPrevVehicleSpeed_VD;
+  
+  /** @brief 이전 시간 (감속도 계산용) */
   dword gPrevTime_VD;
 }

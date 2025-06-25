@@ -1,5 +1,5 @@
 <map id="on_message_M006_Battery_Basic" name="on_message_M006_Battery_Basic">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,48,189,91"/>
+<area shape="rect" id="Node000001" title="배터리 기본 상태 메시지 수신 이벤트 핸들러" alt="" coords="5,48,189,91"/>
 <area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#a73d85badd86c2a7c8e87392ca5853774" title="&#39;on message M006_Battery_Basic&#39; 이벤트 핸들러 로직을 처리" alt="" coords="237,56,427,83"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,67,221,67,221,72,189,72"/>
 <area shape="rect" id="Node000003" href="$df/dc0/_h_p_c___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태를 새로운 상태로 전환하는 함수" alt="" coords="475,56,598,83"/>

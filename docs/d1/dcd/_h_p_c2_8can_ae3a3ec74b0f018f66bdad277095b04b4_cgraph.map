@@ -1,5 +1,5 @@
 <map id="on_message_M004_FailSafe_Status_3" name="on_message_M004_FailSafe_Status_3">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,195,65"/>
+<area shape="rect" id="Node000001" title="Fail&#45;Safe 상태 메시지 수신 이벤트 핸들러 (Type 3)" alt="" coords="5,23,195,65"/>
 <area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#a9da26348776e72e8c944d25ca103d523" title="Fail&#45;Safe 상태 메시지 수신 이벤트 핸들러 로직을 처리" alt="" coords="243,31,444,57"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,41,227,41,227,47,195,47"/>
 <area shape="rect" id="Node000003" href="$df/dc0/_h_p_c___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하는 함수" alt="" coords="887,5,958,32"/>

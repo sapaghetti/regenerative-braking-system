@@ -1,0 +1,658 @@
+\doxysection{HPC\+\_\+\+Config.\+cin File Reference}
+\hypertarget{_h_p_c___config_8cin}{}\label{_h_p_c___config_8cin}\index{HPC\_Config.cin@{HPC\_Config.cin}}
+
+
+HPC CAPL 스크립트의 모든 설정, 상수 및 전역 변수 정의  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_v2_x_data}{V2\+XData}}
+\begin{DoxyCompactList}\small\item\em V2X 통신을 통해 수신되는 도로 및 교통 정보를 저장하는 구조체 \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_diagnostic_data}{Diagnostic\+Data}}
+\begin{DoxyCompactList}\small\item\em 시스템 진단 정보를 저장하는 구조체 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} \{ \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75a98d2a2153b4ae0445fa0b114d65b94d9}{STATE\+\_\+\+INIT}} = 0
+, \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75ae583c55c9f9a3aa9888e4ed771d6a9b6}{STATE\+\_\+\+NORMAL}} = 1
+, \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75a95642547b96172a92ce02632b953bcc4}{STATE\+\_\+\+BATTERY\+\_\+\+PROTECTION}} = 2
+, \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75a966112b7657af62652ff33e7f19bd234}{STATE\+\_\+\+FAIL\+\_\+\+SAFE}} = 3
+ \}
+\begin{DoxyCompactList}\small\item\em 시스템의 현재 운영 상태를 나타내는 열거형 \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7}{Regen\+State}} \{ \newline
+\mbox{\hyperlink{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a6bb09a1cf5fbabb07f93fc63729cf121}{REGEN\+\_\+\+OFF}} = 0
+, \mbox{\hyperlink{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a0f39fd8afb12ffe4397d97cba9285b10}{REGEN\+\_\+\+LEVEL1}} = 1
+, \mbox{\hyperlink{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7acb0d9a872897d9e8ff8456451d6e048c}{REGEN\+\_\+\+LEVEL2}} = 2
+, \mbox{\hyperlink{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a48f354df51cd43b900e34f6c5a94f9d4}{REGEN\+\_\+\+LEVEL3}} = 3
+, \newline
+\mbox{\hyperlink{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a6ea02448e30f60e451ac867f6a970e3c}{REGEN\+\_\+\+AUTO}} = 4
+ \}
+\begin{DoxyCompactList}\small\item\em 회생 제동 모드를 나타내는 열거형 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c___config_8cin_ad15a621fb83201ce740e47f87afbeb71}{ECU\+\_\+\+ID}} = 0x01
+\begin{DoxyCompactList}\small\item\em HPC ECU 식별자 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c___config_8cin_af7398948a28fa4a4233c3ae86a9ba6d2}{SYSTEM\+\_\+\+VERSION}} = 0x0100
+\begin{DoxyCompactList}\small\item\em 시스템 버전 (Major.\+Minor) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c___config_8cin_ac3a4195a9d5c657561da7089f0083186}{MAIN\+\_\+\+CYCLE}} = 10
+\begin{DoxyCompactList}\small\item\em 메인 태스크 주기 (ms) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_h_p_c___config_8cin_ad201370b29831a088ae7b7ced6751fcd}{WATCHDOG\+\_\+\+TIMEOUT}} = 20
+\begin{DoxyCompactList}\small\item\em 워치독 타임아웃 (ms) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a848d8647f809b0d1c607c686320cc3f7}{VEHICLE\+\_\+\+INERTIA}} = 1.\+5
+\begin{DoxyCompactList}\small\item\em 차량의 등가 관성 모멘트 (kg\texorpdfstring{$\ast$}{*}m\texorpdfstring{$^\wedge$}{\string^}2, 모터 기준) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a4dc6acdd005a3435c0cb83b96a59d339}{GEAR\+\_\+\+RATIO}} = 9.\+1
+\begin{DoxyCompactList}\small\item\em 감속기 기어비 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a5d14774f474ac2036d6b4a330c76d653}{WHEEL\+\_\+\+RADIUS}} = 0.\+33
+\begin{DoxyCompactList}\small\item\em 바퀴 반경 (m) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_abfbd00eff03dbcf03c059ca80d342304}{BATTERY\+\_\+\+SOC\+\_\+\+LIMIT}} = 95.\+0
+\begin{DoxyCompactList}\small\item\em 배터리 SOC 제한값 (\%) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c___config_8cin_a35d8371419ade9ddc04170fe2d51e350}{BATTERY\+\_\+\+TEMP\+\_\+\+MIN}} = 10
+\begin{DoxyCompactList}\small\item\em 배터리 최소 온도 (°C) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c___config_8cin_aeee9b36eb46e328e012645c44af581c3}{BATTERY\+\_\+\+TEMP\+\_\+\+MAX}} = 45
+\begin{DoxyCompactList}\small\item\em 배터리 최대 온도 (°C) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_ac8435ad910a3313f1b56e12f39d34dc7}{MAX\+\_\+\+DECEL\+\_\+\+FOR\+\_\+\+BRAKE\+\_\+\+LIGHT}} = 1.\+3
+\begin{DoxyCompactList}\small\item\em 제동등 점등을 위한 최대 감속도 (m/s\texorpdfstring{$^\wedge$}{\string^}2) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a938dc2518e881241780bbf40dd2ebb9c}{MAX\+\_\+\+PROPULSION\+\_\+\+TORQUE}} = 350.\+0
+\begin{DoxyCompactList}\small\item\em 최대 구동 토크 (Nm) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a976ef1b0f59d27cc4d3111129051fb70}{MAX\+\_\+\+REGEN\+\_\+\+TORQUE\+\_\+\+AT\+\_\+\+PEDAL}} = 200.\+0
+\begin{DoxyCompactList}\small\item\em 페달 입력 시 최대 회생 토크 (Nm) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c___config_8cin_a617af43b08fcb9df7ff2db0ce1db4dc6}{APS\+\_\+\+DEADZONE}} = 5
+\begin{DoxyCompactList}\small\item\em APS 데드존 (\%) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c___config_8cin_a11d9bedab01b532379b299638b63e7be}{BPPS\+\_\+\+DEADZONE}} = 5
+\begin{DoxyCompactList}\small\item\em BPPS 데드존 (\%) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c___config_8cin_aa5aa61eacb9e30eacd23396b8794f357}{FAULT\+\_\+\+WATCHDOG\+\_\+\+TIMEOUT}} = 0x00000001
+\begin{DoxyCompactList}\small\item\em 워치독 타임아웃 폴트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c___config_8cin_ad18c94a0366e0950812d3f88bb9c7634}{FAULT\+\_\+\+CRITICAL\+\_\+\+EXTERNAL}} = 0x00000002
+\begin{DoxyCompactList}\small\item\em 외부 ECU 심각한 폴트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c___config_8cin_aecc77eecb0549e26c9288697b93e172a}{FAULT\+\_\+\+BATTERY\+\_\+\+PROTECTION}} = 0x00000004
+\begin{DoxyCompactList}\small\item\em 배터리 보호 폴트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} \mbox{\hyperlink{_h_p_c___config_8cin_af0d89bb27ecacf133e14158efcc3868e}{timer\+Main\+Task}}
+\begin{DoxyCompactList}\small\item\em 메인 태스크 타이머 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} \mbox{\hyperlink{_h_p_c___config_8cin_af1994ba365791c8ebfa09cb4cd3de07c}{timer\+Watchdog}}
+\begin{DoxyCompactList}\small\item\em 워치독 타이머 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} \mbox{\hyperlink{_h_p_c___config_8cin_a6929d1d13bf78fb41a5b10d92c3434f8}{current\+State}}
+\begin{DoxyCompactList}\small\item\em 현재 시스템 상태 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} \mbox{\hyperlink{_h_p_c___config_8cin_a284ab61ed7f469415bda716efac8cd57}{previous\+State}}
+\begin{DoxyCompactList}\small\item\em 이전 시스템 상태 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7}{Regen\+State}} \mbox{\hyperlink{_h_p_c___config_8cin_a3d63cf726791307ec3eb76b6b9c4d2b2}{current\+Regen\+Mode}}
+\begin{DoxyCompactList}\small\item\em 현재 회생 제동 모드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_ad93386f740a42c19ea6c75e8bb76e7d0}{current\+Vehicle\+Speed}}
+\begin{DoxyCompactList}\small\item\em 현재 차량 속도 (km/h) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_aadf23edbce45a557e0896ac86b847403}{current\+Motor\+Speed}}
+\begin{DoxyCompactList}\small\item\em 현재 모터 속도 (RPM) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a922f6bc63d0ee7587dda2d778c810731}{steering\+Angle}}
+\begin{DoxyCompactList}\small\item\em 조향각 (deg) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c___config_8cin_a8dd057bee60833e8c4d167e97ce8d397}{aps\+Position}}
+\begin{DoxyCompactList}\small\item\em 가속 페달 위치 (\%) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c___config_8cin_a901fc4cfedb034c8ffeddede3b0bc7e3}{bpps\+Position}}
+\begin{DoxyCompactList}\small\item\em 브레이크 페달 위치 (\%) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a53160886f8d4cd4b4c5d3561cd394bd1}{target\+Motor\+Torque}}
+\begin{DoxyCompactList}\small\item\em 목표 모터 토크 (Nm) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a7947066dfc79d6b7b741ea4cd355e12d}{current\+Regen\+Torque}}
+\begin{DoxyCompactList}\small\item\em 현재 회생 토크 (Nm) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a9b960f3605543526e809f842278b1a0f}{max\+Regen\+Power}}
+\begin{DoxyCompactList}\small\item\em 최대 회생 전력 (kW) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a3063d3c2ce9b70480d40c39ebc323846}{cumulative\+Regen\+Energy}}
+\begin{DoxyCompactList}\small\item\em 누적 회생 에너지 (Wh) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a214768bd19938dd7cb680d009cab13f7}{instant\+Regen\+Power}}
+\begin{DoxyCompactList}\small\item\em 순간 회생 전력 (W) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c___config_8cin_a023d9c27ef688fa14012c5f4d59d0112}{battery\+SOC}}
+\begin{DoxyCompactList}\small\item\em 배터리 SOC (\%) \end{DoxyCompactList}\item 
+byte \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{battery\+Temp}}
+\begin{DoxyCompactList}\small\item\em 배터리 온도 (°C) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c___config_8cin_a3e5530c1dea85cf43338b54d668ed8a1}{fault\+Register}}
+\begin{DoxyCompactList}\small\item\em 폴트 레지스터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c___config_8cin_a6a7e07c81ef48995a35742cb98e9353c}{watchdog\+Counter}}
+\begin{DoxyCompactList}\small\item\em 워치독 카운터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c___config_8cin_a12b8cb24277977922a5ea5f48ce682c3}{g\+Task\+Counter}}
+\begin{DoxyCompactList}\small\item\em 태스크 카운터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_v2_x_data}{V2\+XData}} \mbox{\hyperlink{_h_p_c___config_8cin_a284556f5689cd443c5625b5012485edf}{v2x\+Data}}
+\begin{DoxyCompactList}\small\item\em V2X 데이터 인스턴스 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_diagnostic_data}{Diagnostic\+Data}} \mbox{\hyperlink{_h_p_c___config_8cin_a69c8c525d5588b3255a4dd26426bc0b7}{diagnostics}}
+\begin{DoxyCompactList}\small\item\em 진단 데이터 인스턴스 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_h_p_c___config_8cin_add13ed76398e7abdeee05532e32f8580}{g\+Crc\+Data}} \mbox{[}10\mbox{]}
+\begin{DoxyCompactList}\small\item\em CRC 계산용 데이터 배열 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{long}} \mbox{\hyperlink{_h_p_c___config_8cin_a60691e26f0bb8454fa91403e1a11322b}{g\+Crc\+Retval}}
+\begin{DoxyCompactList}\small\item\em CRC 계산 함수 반환값 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c___config_8cin_a695eb1d4c19715f567db1e97c5671b4b}{g\+Crc\+Value}}
+\begin{DoxyCompactList}\small\item\em 계산된 CRC 값 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a8b7ddcc75497ea04147c9dd8e0bc45be}{g\+Auto\+Regen\+Base\+Torque}}
+\begin{DoxyCompactList}\small\item\em 자동 모드 기본 회생 토크 (Nm) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} \mbox{\hyperlink{_h_p_c___config_8cin_a15907f58c939c5a9b38ffa479e2976dc}{g\+Prev\+Vehicle\+Speed\+\_\+\+VD}}
+\begin{DoxyCompactList}\small\item\em 이전 차량 속도 (감속도 계산용) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_h_p_c___config_8cin_a8440e9cb32471989d8a28541d4303aab}{g\+Prev\+Time\+\_\+\+VD}}
+\begin{DoxyCompactList}\small\item\em 이전 시간 (감속도 계산용) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+HPC CAPL 스크립트의 모든 설정, 상수 및 전역 변수 정의 
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7}\label{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!RegenState@{RegenState}}
+\index{RegenState@{RegenState}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{RegenState}{RegenState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7}{Regen\+State}}}
+
+
+
+회생 제동 모드를 나타내는 열거형 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REGEN\_OFF@{REGEN\_OFF}!HPC\_Config.cin@{HPC\_Config.cin}}\index{HPC\_Config.cin@{HPC\_Config.cin}!REGEN\_OFF@{REGEN\_OFF}}}\Hypertarget{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a6bb09a1cf5fbabb07f93fc63729cf121}\label{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a6bb09a1cf5fbabb07f93fc63729cf121} 
+REGEN\+\_\+\+OFF&회생 제동 비활성 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REGEN\_LEVEL1@{REGEN\_LEVEL1}!HPC\_Config.cin@{HPC\_Config.cin}}\index{HPC\_Config.cin@{HPC\_Config.cin}!REGEN\_LEVEL1@{REGEN\_LEVEL1}}}\Hypertarget{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a0f39fd8afb12ffe4397d97cba9285b10}\label{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a0f39fd8afb12ffe4397d97cba9285b10} 
+REGEN\+\_\+\+LEVEL1&회생 제동 레벨 1 (약함) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REGEN\_LEVEL2@{REGEN\_LEVEL2}!HPC\_Config.cin@{HPC\_Config.cin}}\index{HPC\_Config.cin@{HPC\_Config.cin}!REGEN\_LEVEL2@{REGEN\_LEVEL2}}}\Hypertarget{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7acb0d9a872897d9e8ff8456451d6e048c}\label{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7acb0d9a872897d9e8ff8456451d6e048c} 
+REGEN\+\_\+\+LEVEL2&회생 제동 레벨 2 (중간) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REGEN\_LEVEL3@{REGEN\_LEVEL3}!HPC\_Config.cin@{HPC\_Config.cin}}\index{HPC\_Config.cin@{HPC\_Config.cin}!REGEN\_LEVEL3@{REGEN\_LEVEL3}}}\Hypertarget{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a48f354df51cd43b900e34f6c5a94f9d4}\label{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a48f354df51cd43b900e34f6c5a94f9d4} 
+REGEN\+\_\+\+LEVEL3&회생 제동 레벨 3 (강함) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REGEN\_AUTO@{REGEN\_AUTO}!HPC\_Config.cin@{HPC\_Config.cin}}\index{HPC\_Config.cin@{HPC\_Config.cin}!REGEN\_AUTO@{REGEN\_AUTO}}}\Hypertarget{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a6ea02448e30f60e451ac867f6a970e3c}\label{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7a6ea02448e30f60e451ac867f6a970e3c} 
+REGEN\+\_\+\+AUTO&자동 회생 제동 모드 \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}\label{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!SystemState@{SystemState}}
+\index{SystemState@{SystemState}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{SystemState}{SystemState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}}}
+
+
+
+시스템의 현재 운영 상태를 나타내는 열거형 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_INIT@{STATE\_INIT}!HPC\_Config.cin@{HPC\_Config.cin}}\index{HPC\_Config.cin@{HPC\_Config.cin}!STATE\_INIT@{STATE\_INIT}}}\Hypertarget{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75a98d2a2153b4ae0445fa0b114d65b94d9}\label{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75a98d2a2153b4ae0445fa0b114d65b94d9} 
+STATE\+\_\+\+INIT&초기화 상태 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_NORMAL@{STATE\_NORMAL}!HPC\_Config.cin@{HPC\_Config.cin}}\index{HPC\_Config.cin@{HPC\_Config.cin}!STATE\_NORMAL@{STATE\_NORMAL}}}\Hypertarget{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75ae583c55c9f9a3aa9888e4ed771d6a9b6}\label{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75ae583c55c9f9a3aa9888e4ed771d6a9b6} 
+STATE\+\_\+\+NORMAL&정상 작동 상태 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_BATTERY\_PROTECTION@{STATE\_BATTERY\_PROTECTION}!HPC\_Config.cin@{HPC\_Config.cin}}\index{HPC\_Config.cin@{HPC\_Config.cin}!STATE\_BATTERY\_PROTECTION@{STATE\_BATTERY\_PROTECTION}}}\Hypertarget{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75a95642547b96172a92ce02632b953bcc4}\label{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75a95642547b96172a92ce02632b953bcc4} 
+STATE\+\_\+\+BATTERY\+\_\+\+PROTECTION&배터리 보호 상태 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_FAIL\_SAFE@{STATE\_FAIL\_SAFE}!HPC\_Config.cin@{HPC\_Config.cin}}\index{HPC\_Config.cin@{HPC\_Config.cin}!STATE\_FAIL\_SAFE@{STATE\_FAIL\_SAFE}}}\Hypertarget{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75a966112b7657af62652ff33e7f19bd234}\label{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75a966112b7657af62652ff33e7f19bd234} 
+STATE\+\_\+\+FAIL\+\_\+\+SAFE&안전 상태 \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_h_p_c___config_8cin_a617af43b08fcb9df7ff2db0ce1db4dc6}\label{_h_p_c___config_8cin_a617af43b08fcb9df7ff2db0ce1db4dc6} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!APS\_DEADZONE@{APS\_DEADZONE}}
+\index{APS\_DEADZONE@{APS\_DEADZONE}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{APS\_DEADZONE}{APS\_DEADZONE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} APS\+\_\+\+DEADZONE = 5}
+
+
+
+APS 데드존 (\%) 
+
+\Hypertarget{_h_p_c___config_8cin_a8dd057bee60833e8c4d167e97ce8d397}\label{_h_p_c___config_8cin_a8dd057bee60833e8c4d167e97ce8d397} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!apsPosition@{apsPosition}}
+\index{apsPosition@{apsPosition}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{apsPosition}{apsPosition}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} aps\+Position}
+
+
+
+가속 페달 위치 (\%) 
+
+\Hypertarget{_h_p_c___config_8cin_abfbd00eff03dbcf03c059ca80d342304}\label{_h_p_c___config_8cin_abfbd00eff03dbcf03c059ca80d342304} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!BATTERY\_SOC\_LIMIT@{BATTERY\_SOC\_LIMIT}}
+\index{BATTERY\_SOC\_LIMIT@{BATTERY\_SOC\_LIMIT}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BATTERY\_SOC\_LIMIT}{BATTERY\_SOC\_LIMIT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} BATTERY\+\_\+\+SOC\+\_\+\+LIMIT = 95.\+0}
+
+
+
+배터리 SOC 제한값 (\%) 
+
+\Hypertarget{_h_p_c___config_8cin_aeee9b36eb46e328e012645c44af581c3}\label{_h_p_c___config_8cin_aeee9b36eb46e328e012645c44af581c3} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!BATTERY\_TEMP\_MAX@{BATTERY\_TEMP\_MAX}}
+\index{BATTERY\_TEMP\_MAX@{BATTERY\_TEMP\_MAX}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BATTERY\_TEMP\_MAX}{BATTERY\_TEMP\_MAX}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} BATTERY\+\_\+\+TEMP\+\_\+\+MAX = 45}
+
+
+
+배터리 최대 온도 (°C) 
+
+\Hypertarget{_h_p_c___config_8cin_a35d8371419ade9ddc04170fe2d51e350}\label{_h_p_c___config_8cin_a35d8371419ade9ddc04170fe2d51e350} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!BATTERY\_TEMP\_MIN@{BATTERY\_TEMP\_MIN}}
+\index{BATTERY\_TEMP\_MIN@{BATTERY\_TEMP\_MIN}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BATTERY\_TEMP\_MIN}{BATTERY\_TEMP\_MIN}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} BATTERY\+\_\+\+TEMP\+\_\+\+MIN = 10}
+
+
+
+배터리 최소 온도 (°C) 
+
+\Hypertarget{_h_p_c___config_8cin_a023d9c27ef688fa14012c5f4d59d0112}\label{_h_p_c___config_8cin_a023d9c27ef688fa14012c5f4d59d0112} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!batterySOC@{batterySOC}}
+\index{batterySOC@{batterySOC}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{batterySOC}{batterySOC}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} battery\+SOC}
+
+
+
+배터리 SOC (\%) 
+
+\Hypertarget{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}\label{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!batteryTemp@{batteryTemp}}
+\index{batteryTemp@{batteryTemp}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{batteryTemp}{batteryTemp}}
+{\footnotesize\ttfamily byte battery\+Temp}
+
+
+
+배터리 온도 (°C) 
+
+\Hypertarget{_h_p_c___config_8cin_a11d9bedab01b532379b299638b63e7be}\label{_h_p_c___config_8cin_a11d9bedab01b532379b299638b63e7be} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!BPPS\_DEADZONE@{BPPS\_DEADZONE}}
+\index{BPPS\_DEADZONE@{BPPS\_DEADZONE}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BPPS\_DEADZONE}{BPPS\_DEADZONE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} BPPS\+\_\+\+DEADZONE = 5}
+
+
+
+BPPS 데드존 (\%) 
+
+\Hypertarget{_h_p_c___config_8cin_a901fc4cfedb034c8ffeddede3b0bc7e3}\label{_h_p_c___config_8cin_a901fc4cfedb034c8ffeddede3b0bc7e3} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!bppsPosition@{bppsPosition}}
+\index{bppsPosition@{bppsPosition}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{bppsPosition}{bppsPosition}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} bpps\+Position}
+
+
+
+브레이크 페달 위치 (\%) 
+
+\Hypertarget{_h_p_c___config_8cin_a3063d3c2ce9b70480d40c39ebc323846}\label{_h_p_c___config_8cin_a3063d3c2ce9b70480d40c39ebc323846} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!cumulativeRegenEnergy@{cumulativeRegenEnergy}}
+\index{cumulativeRegenEnergy@{cumulativeRegenEnergy}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{cumulativeRegenEnergy}{cumulativeRegenEnergy}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} cumulative\+Regen\+Energy}
+
+
+
+누적 회생 에너지 (Wh) 
+
+\Hypertarget{_h_p_c___config_8cin_aadf23edbce45a557e0896ac86b847403}\label{_h_p_c___config_8cin_aadf23edbce45a557e0896ac86b847403} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!currentMotorSpeed@{currentMotorSpeed}}
+\index{currentMotorSpeed@{currentMotorSpeed}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{currentMotorSpeed}{currentMotorSpeed}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} current\+Motor\+Speed}
+
+
+
+현재 모터 속도 (RPM) 
+
+\Hypertarget{_h_p_c___config_8cin_a3d63cf726791307ec3eb76b6b9c4d2b2}\label{_h_p_c___config_8cin_a3d63cf726791307ec3eb76b6b9c4d2b2} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!currentRegenMode@{currentRegenMode}}
+\index{currentRegenMode@{currentRegenMode}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{currentRegenMode}{currentRegenMode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_a76e93b6043e445db41035a085b9301b7}{Regen\+State}} current\+Regen\+Mode}
+
+
+
+현재 회생 제동 모드 
+
+\Hypertarget{_h_p_c___config_8cin_a7947066dfc79d6b7b741ea4cd355e12d}\label{_h_p_c___config_8cin_a7947066dfc79d6b7b741ea4cd355e12d} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!currentRegenTorque@{currentRegenTorque}}
+\index{currentRegenTorque@{currentRegenTorque}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{currentRegenTorque}{currentRegenTorque}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} current\+Regen\+Torque}
+
+
+
+현재 회생 토크 (Nm) 
+
+\Hypertarget{_h_p_c___config_8cin_a6929d1d13bf78fb41a5b10d92c3434f8}\label{_h_p_c___config_8cin_a6929d1d13bf78fb41a5b10d92c3434f8} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!currentState@{currentState}}
+\index{currentState@{currentState}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{currentState}{currentState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} current\+State}
+
+
+
+현재 시스템 상태 
+
+\Hypertarget{_h_p_c___config_8cin_ad93386f740a42c19ea6c75e8bb76e7d0}\label{_h_p_c___config_8cin_ad93386f740a42c19ea6c75e8bb76e7d0} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!currentVehicleSpeed@{currentVehicleSpeed}}
+\index{currentVehicleSpeed@{currentVehicleSpeed}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{currentVehicleSpeed}{currentVehicleSpeed}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} current\+Vehicle\+Speed}
+
+
+
+현재 차량 속도 (km/h) 
+
+\Hypertarget{_h_p_c___config_8cin_a69c8c525d5588b3255a4dd26426bc0b7}\label{_h_p_c___config_8cin_a69c8c525d5588b3255a4dd26426bc0b7} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!diagnostics@{diagnostics}}
+\index{diagnostics@{diagnostics}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{diagnostics}{diagnostics}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_diagnostic_data}{Diagnostic\+Data}} diagnostics}
+
+
+
+진단 데이터 인스턴스 
+
+\Hypertarget{_h_p_c___config_8cin_ad15a621fb83201ce740e47f87afbeb71}\label{_h_p_c___config_8cin_ad15a621fb83201ce740e47f87afbeb71} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!ECU\_ID@{ECU\_ID}}
+\index{ECU\_ID@{ECU\_ID}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{ECU\_ID}{ECU\_ID}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} ECU\+\_\+\+ID = 0x01}
+
+
+
+HPC ECU 식별자 
+
+\Hypertarget{_h_p_c___config_8cin_aecc77eecb0549e26c9288697b93e172a}\label{_h_p_c___config_8cin_aecc77eecb0549e26c9288697b93e172a} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!FAULT\_BATTERY\_PROTECTION@{FAULT\_BATTERY\_PROTECTION}}
+\index{FAULT\_BATTERY\_PROTECTION@{FAULT\_BATTERY\_PROTECTION}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{FAULT\_BATTERY\_PROTECTION}{FAULT\_BATTERY\_PROTECTION}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} FAULT\+\_\+\+BATTERY\+\_\+\+PROTECTION = 0x00000004}
+
+
+
+배터리 보호 폴트 
+
+\Hypertarget{_h_p_c___config_8cin_ad18c94a0366e0950812d3f88bb9c7634}\label{_h_p_c___config_8cin_ad18c94a0366e0950812d3f88bb9c7634} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!FAULT\_CRITICAL\_EXTERNAL@{FAULT\_CRITICAL\_EXTERNAL}}
+\index{FAULT\_CRITICAL\_EXTERNAL@{FAULT\_CRITICAL\_EXTERNAL}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{FAULT\_CRITICAL\_EXTERNAL}{FAULT\_CRITICAL\_EXTERNAL}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} FAULT\+\_\+\+CRITICAL\+\_\+\+EXTERNAL = 0x00000002}
+
+
+
+외부 ECU 심각한 폴트 
+
+\Hypertarget{_h_p_c___config_8cin_aa5aa61eacb9e30eacd23396b8794f357}\label{_h_p_c___config_8cin_aa5aa61eacb9e30eacd23396b8794f357} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!FAULT\_WATCHDOG\_TIMEOUT@{FAULT\_WATCHDOG\_TIMEOUT}}
+\index{FAULT\_WATCHDOG\_TIMEOUT@{FAULT\_WATCHDOG\_TIMEOUT}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{FAULT\_WATCHDOG\_TIMEOUT}{FAULT\_WATCHDOG\_TIMEOUT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} FAULT\+\_\+\+WATCHDOG\+\_\+\+TIMEOUT = 0x00000001}
+
+
+
+워치독 타임아웃 폴트 
+
+\Hypertarget{_h_p_c___config_8cin_a3e5530c1dea85cf43338b54d668ed8a1}\label{_h_p_c___config_8cin_a3e5530c1dea85cf43338b54d668ed8a1} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!faultRegister@{faultRegister}}
+\index{faultRegister@{faultRegister}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{faultRegister}{faultRegister}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} fault\+Register}
+
+
+
+폴트 레지스터 
+
+\Hypertarget{_h_p_c___config_8cin_a8b7ddcc75497ea04147c9dd8e0bc45be}\label{_h_p_c___config_8cin_a8b7ddcc75497ea04147c9dd8e0bc45be} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!gAutoRegenBaseTorque@{gAutoRegenBaseTorque}}
+\index{gAutoRegenBaseTorque@{gAutoRegenBaseTorque}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gAutoRegenBaseTorque}{gAutoRegenBaseTorque}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} g\+Auto\+Regen\+Base\+Torque}
+
+
+
+자동 모드 기본 회생 토크 (Nm) 
+
+\Hypertarget{_h_p_c___config_8cin_add13ed76398e7abdeee05532e32f8580}\label{_h_p_c___config_8cin_add13ed76398e7abdeee05532e32f8580} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!gCrcData@{gCrcData}}
+\index{gCrcData@{gCrcData}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gCrcData}{gCrcData}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} g\+Crc\+Data\mbox{[}10\mbox{]}}
+
+
+
+CRC 계산용 데이터 배열 
+
+\Hypertarget{_h_p_c___config_8cin_a60691e26f0bb8454fa91403e1a11322b}\label{_h_p_c___config_8cin_a60691e26f0bb8454fa91403e1a11322b} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!gCrcRetval@{gCrcRetval}}
+\index{gCrcRetval@{gCrcRetval}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gCrcRetval}{gCrcRetval}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{long}} g\+Crc\+Retval}
+
+
+
+CRC 계산 함수 반환값 
+
+\Hypertarget{_h_p_c___config_8cin_a695eb1d4c19715f567db1e97c5671b4b}\label{_h_p_c___config_8cin_a695eb1d4c19715f567db1e97c5671b4b} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!gCrcValue@{gCrcValue}}
+\index{gCrcValue@{gCrcValue}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gCrcValue}{gCrcValue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} g\+Crc\+Value}
+
+
+
+계산된 CRC 값 
+
+\Hypertarget{_h_p_c___config_8cin_a4dc6acdd005a3435c0cb83b96a59d339}\label{_h_p_c___config_8cin_a4dc6acdd005a3435c0cb83b96a59d339} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!GEAR\_RATIO@{GEAR\_RATIO}}
+\index{GEAR\_RATIO@{GEAR\_RATIO}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{GEAR\_RATIO}{GEAR\_RATIO}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} GEAR\+\_\+\+RATIO = 9.\+1}
+
+
+
+감속기 기어비 
+
+\Hypertarget{_h_p_c___config_8cin_a8440e9cb32471989d8a28541d4303aab}\label{_h_p_c___config_8cin_a8440e9cb32471989d8a28541d4303aab} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!gPrevTime\_VD@{gPrevTime\_VD}}
+\index{gPrevTime\_VD@{gPrevTime\_VD}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gPrevTime\_VD}{gPrevTime\_VD}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} g\+Prev\+Time\+\_\+\+VD}
+
+
+
+이전 시간 (감속도 계산용) 
+
+\Hypertarget{_h_p_c___config_8cin_a15907f58c939c5a9b38ffa479e2976dc}\label{_h_p_c___config_8cin_a15907f58c939c5a9b38ffa479e2976dc} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!gPrevVehicleSpeed\_VD@{gPrevVehicleSpeed\_VD}}
+\index{gPrevVehicleSpeed\_VD@{gPrevVehicleSpeed\_VD}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gPrevVehicleSpeed\_VD}{gPrevVehicleSpeed\_VD}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} g\+Prev\+Vehicle\+Speed\+\_\+\+VD}
+
+
+
+이전 차량 속도 (감속도 계산용) 
+
+\Hypertarget{_h_p_c___config_8cin_a12b8cb24277977922a5ea5f48ce682c3}\label{_h_p_c___config_8cin_a12b8cb24277977922a5ea5f48ce682c3} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!gTaskCounter@{gTaskCounter}}
+\index{gTaskCounter@{gTaskCounter}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gTaskCounter}{gTaskCounter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} g\+Task\+Counter}
+
+
+
+태스크 카운터 
+
+\Hypertarget{_h_p_c___config_8cin_a214768bd19938dd7cb680d009cab13f7}\label{_h_p_c___config_8cin_a214768bd19938dd7cb680d009cab13f7} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!instantRegenPower@{instantRegenPower}}
+\index{instantRegenPower@{instantRegenPower}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{instantRegenPower}{instantRegenPower}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} instant\+Regen\+Power}
+
+
+
+순간 회생 전력 (W) 
+
+\Hypertarget{_h_p_c___config_8cin_ac3a4195a9d5c657561da7089f0083186}\label{_h_p_c___config_8cin_ac3a4195a9d5c657561da7089f0083186} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!MAIN\_CYCLE@{MAIN\_CYCLE}}
+\index{MAIN\_CYCLE@{MAIN\_CYCLE}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MAIN\_CYCLE}{MAIN\_CYCLE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} MAIN\+\_\+\+CYCLE = 10}
+
+
+
+메인 태스크 주기 (ms) 
+
+\Hypertarget{_h_p_c___config_8cin_ac8435ad910a3313f1b56e12f39d34dc7}\label{_h_p_c___config_8cin_ac8435ad910a3313f1b56e12f39d34dc7} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!MAX\_DECEL\_FOR\_BRAKE\_LIGHT@{MAX\_DECEL\_FOR\_BRAKE\_LIGHT}}
+\index{MAX\_DECEL\_FOR\_BRAKE\_LIGHT@{MAX\_DECEL\_FOR\_BRAKE\_LIGHT}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MAX\_DECEL\_FOR\_BRAKE\_LIGHT}{MAX\_DECEL\_FOR\_BRAKE\_LIGHT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} MAX\+\_\+\+DECEL\+\_\+\+FOR\+\_\+\+BRAKE\+\_\+\+LIGHT = 1.\+3}
+
+
+
+제동등 점등을 위한 최대 감속도 (m/s\texorpdfstring{$^\wedge$}{\string^}2) 
+
+\Hypertarget{_h_p_c___config_8cin_a938dc2518e881241780bbf40dd2ebb9c}\label{_h_p_c___config_8cin_a938dc2518e881241780bbf40dd2ebb9c} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!MAX\_PROPULSION\_TORQUE@{MAX\_PROPULSION\_TORQUE}}
+\index{MAX\_PROPULSION\_TORQUE@{MAX\_PROPULSION\_TORQUE}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MAX\_PROPULSION\_TORQUE}{MAX\_PROPULSION\_TORQUE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} MAX\+\_\+\+PROPULSION\+\_\+\+TORQUE = 350.\+0}
+
+
+
+최대 구동 토크 (Nm) 
+
+\Hypertarget{_h_p_c___config_8cin_a976ef1b0f59d27cc4d3111129051fb70}\label{_h_p_c___config_8cin_a976ef1b0f59d27cc4d3111129051fb70} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!MAX\_REGEN\_TORQUE\_AT\_PEDAL@{MAX\_REGEN\_TORQUE\_AT\_PEDAL}}
+\index{MAX\_REGEN\_TORQUE\_AT\_PEDAL@{MAX\_REGEN\_TORQUE\_AT\_PEDAL}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MAX\_REGEN\_TORQUE\_AT\_PEDAL}{MAX\_REGEN\_TORQUE\_AT\_PEDAL}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} MAX\+\_\+\+REGEN\+\_\+\+TORQUE\+\_\+\+AT\+\_\+\+PEDAL = 200.\+0}
+
+
+
+페달 입력 시 최대 회생 토크 (Nm) 
+
+\Hypertarget{_h_p_c___config_8cin_a9b960f3605543526e809f842278b1a0f}\label{_h_p_c___config_8cin_a9b960f3605543526e809f842278b1a0f} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!maxRegenPower@{maxRegenPower}}
+\index{maxRegenPower@{maxRegenPower}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{maxRegenPower}{maxRegenPower}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} max\+Regen\+Power}
+
+
+
+최대 회생 전력 (kW) 
+
+\Hypertarget{_h_p_c___config_8cin_a284ab61ed7f469415bda716efac8cd57}\label{_h_p_c___config_8cin_a284ab61ed7f469415bda716efac8cd57} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!previousState@{previousState}}
+\index{previousState@{previousState}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{previousState}{previousState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} previous\+State}
+
+
+
+이전 시스템 상태 
+
+\Hypertarget{_h_p_c___config_8cin_a922f6bc63d0ee7587dda2d778c810731}\label{_h_p_c___config_8cin_a922f6bc63d0ee7587dda2d778c810731} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!steeringAngle@{steeringAngle}}
+\index{steeringAngle@{steeringAngle}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{steeringAngle}{steeringAngle}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} steering\+Angle}
+
+
+
+조향각 (deg) 
+
+\Hypertarget{_h_p_c___config_8cin_af7398948a28fa4a4233c3ae86a9ba6d2}\label{_h_p_c___config_8cin_af7398948a28fa4a4233c3ae86a9ba6d2} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!SYSTEM\_VERSION@{SYSTEM\_VERSION}}
+\index{SYSTEM\_VERSION@{SYSTEM\_VERSION}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{SYSTEM\_VERSION}{SYSTEM\_VERSION}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} SYSTEM\+\_\+\+VERSION = 0x0100}
+
+
+
+시스템 버전 (Major.\+Minor) 
+
+\Hypertarget{_h_p_c___config_8cin_a53160886f8d4cd4b4c5d3561cd394bd1}\label{_h_p_c___config_8cin_a53160886f8d4cd4b4c5d3561cd394bd1} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!targetMotorTorque@{targetMotorTorque}}
+\index{targetMotorTorque@{targetMotorTorque}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{targetMotorTorque}{targetMotorTorque}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} target\+Motor\+Torque}
+
+
+
+목표 모터 토크 (Nm) 
+
+\Hypertarget{_h_p_c___config_8cin_af0d89bb27ecacf133e14158efcc3868e}\label{_h_p_c___config_8cin_af0d89bb27ecacf133e14158efcc3868e} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!timerMainTask@{timerMainTask}}
+\index{timerMainTask@{timerMainTask}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{timerMainTask}{timerMainTask}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} timer\+Main\+Task}
+
+
+
+메인 태스크 타이머 
+
+\Hypertarget{_h_p_c___config_8cin_af1994ba365791c8ebfa09cb4cd3de07c}\label{_h_p_c___config_8cin_af1994ba365791c8ebfa09cb4cd3de07c} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!timerWatchdog@{timerWatchdog}}
+\index{timerWatchdog@{timerWatchdog}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{timerWatchdog}{timerWatchdog}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} timer\+Watchdog}
+
+
+
+워치독 타이머 
+
+\Hypertarget{_h_p_c___config_8cin_a284556f5689cd443c5625b5012485edf}\label{_h_p_c___config_8cin_a284556f5689cd443c5625b5012485edf} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!v2xData@{v2xData}}
+\index{v2xData@{v2xData}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{v2xData}{v2xData}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_v2_x_data}{V2\+XData}} v2x\+Data}
+
+
+
+V2X 데이터 인스턴스 
+
+\Hypertarget{_h_p_c___config_8cin_a848d8647f809b0d1c607c686320cc3f7}\label{_h_p_c___config_8cin_a848d8647f809b0d1c607c686320cc3f7} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!VEHICLE\_INERTIA@{VEHICLE\_INERTIA}}
+\index{VEHICLE\_INERTIA@{VEHICLE\_INERTIA}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{VEHICLE\_INERTIA}{VEHICLE\_INERTIA}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} VEHICLE\+\_\+\+INERTIA = 1.\+5}
+
+
+
+차량의 등가 관성 모멘트 (kg\texorpdfstring{$\ast$}{*}m\texorpdfstring{$^\wedge$}{\string^}2, 모터 기준) 
+
+\Hypertarget{_h_p_c___config_8cin_ad201370b29831a088ae7b7ced6751fcd}\label{_h_p_c___config_8cin_ad201370b29831a088ae7b7ced6751fcd} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!WATCHDOG\_TIMEOUT@{WATCHDOG\_TIMEOUT}}
+\index{WATCHDOG\_TIMEOUT@{WATCHDOG\_TIMEOUT}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{WATCHDOG\_TIMEOUT}{WATCHDOG\_TIMEOUT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} WATCHDOG\+\_\+\+TIMEOUT = 20}
+
+
+
+워치독 타임아웃 (ms) 
+
+\Hypertarget{_h_p_c___config_8cin_a6a7e07c81ef48995a35742cb98e9353c}\label{_h_p_c___config_8cin_a6a7e07c81ef48995a35742cb98e9353c} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!watchdogCounter@{watchdogCounter}}
+\index{watchdogCounter@{watchdogCounter}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{watchdogCounter}{watchdogCounter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} watchdog\+Counter}
+
+
+
+워치독 카운터 
+
+\Hypertarget{_h_p_c___config_8cin_a5d14774f474ac2036d6b4a330c76d653}\label{_h_p_c___config_8cin_a5d14774f474ac2036d6b4a330c76d653} 
+\index{HPC\_Config.cin@{HPC\_Config.cin}!WHEEL\_RADIUS@{WHEEL\_RADIUS}}
+\index{WHEEL\_RADIUS@{WHEEL\_RADIUS}!HPC\_Config.cin@{HPC\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{WHEEL\_RADIUS}{WHEEL\_RADIUS}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{float}} WHEEL\+\_\+\+RADIUS = 0.\+33}
+
+
+
+바퀴 반경 (m) 
+

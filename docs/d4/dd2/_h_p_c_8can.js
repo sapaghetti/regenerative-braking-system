@@ -1,6 +1,5 @@
 var _h_p_c_8can =
 [
-    [ "on_key_c", "d4/dd2/_h_p_c_8can.html#aa9cb08678cc52d4bea23b4a68272844b", null ],
     [ "on_key_f", "d4/dd2/_h_p_c_8can.html#a14502ae856c6e44d8a6c3e10e7a083ab", null ],
     [ "on_message_M002_Regen_Torque_Feedback", "d4/dd2/_h_p_c_8can.html#ae2a939d9365c912200d2e4c8e67e178a", null ],
     [ "on_message_M004_FailSafe_Status_2", "d4/dd2/_h_p_c_8can.html#a519ae36aae5b1c9bf0c6c024962e0b56", null ],
