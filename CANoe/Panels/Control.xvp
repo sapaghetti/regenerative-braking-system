@@ -56,6 +56,7 @@
         <Property Name="Name">X47afc940eea4fe4466ea5c0eb53bdbcc3c93</Property>
         <Property Name="Size">83, 42</Property>
         <Property Name="Location">5, 101</Property>
+        <Property Name="IsVisibleByLoad">False</Property>
         <Property Name="FlatStyle">Flat</Property>
         <Property Name="TransparentColor">Transparent</Property>
         <Property Name="UseTransparentColor">False</Property>
