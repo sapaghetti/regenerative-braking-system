@@ -1119,23 +1119,6 @@ void HandleSimulateVoiceKey()
 }
 
 /**
- * @brief 'on key 'c'' 이벤트 핸들러 로직을 처리
- */
-void HandleClearFaultsKey()
-{
-  write("ZCU_Center: Clearing all faults");
-  faultRegister = 0;
-  diagnostics.errorFlags = 0;
-  commMon.failureCount_M012 = 0;
-  commMon.failureCount_M009 = 0;
-  commMon.waitingForResponse = 0;
-  hmiInput.pendingModeRequest = 0;
-  clusterDisplay.warningStatus = 0;
-  UpdateClusterDisplay();
-  TransitionToState(STATE_INIT);
-}
-
-/**
  * @brief 'on key 's'' 이벤트 핸들러 로직을 처리
  */
 void HandleStatusDisplayKey()

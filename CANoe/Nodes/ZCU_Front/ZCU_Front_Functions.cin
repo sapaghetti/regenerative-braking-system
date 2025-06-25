@@ -618,20 +618,6 @@ void HandleFaultInjectionKey()
 }
 
 /**
- * @brief 'on key 'c'' 이벤트 핸들러 로직을 처리
- */
-void HandleClearFaultsKey()
-{
-  write("ZCU_Front: Clearing all faults");
-  faultRegister = 0;
-  diagnostics.errorFlags = 0;
-  commMon.failureCount_EPAS = 0;
-  commMon.failureCount_ADAS = 0;
-  gLastWatchdogTime = timeNowNS() / 1000000;
-  TransitionToState(STATE_INIT);
-}
-
-/**
  * @brief 'on key 's'' 이벤트 핸들러 로직을 처리
  */
 void HandleStatusDisplayKey()

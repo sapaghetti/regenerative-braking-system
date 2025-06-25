@@ -123,12 +123,3 @@ on key 'f'
 {
   HandleWatchdogTimeout();
 }
-
-/**
- * @brief 키보드 'c' 키 입력 이벤트 핸들러
- * @note 시스템을 NORMAL 상태로 복구
- */
-on key 'c'
-{
-  TransitionToState(STATE_NORMAL);
-}
