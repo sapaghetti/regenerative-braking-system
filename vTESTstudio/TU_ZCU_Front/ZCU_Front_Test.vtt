@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Vector Test Table Editor-->
+<ttroot version="33" xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">
+  <tt>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_201</name>
+      <tcid>fdc5b698-3b5e-4b8a-b1e7-e6a5bab6bbe2</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_202</name>
+      <tcid>c4714bae-2171-4344-80f3-6ee1e9d1afe6</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_203</name>
+      <tcid>afeef608-18b3-4c4b-a405-631ebd7058d6</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_204</name>
+      <tcid>3b0f533e-9046-40d1-a689-3dc709ae7033</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_205</name>
+      <tcid>c1db8685-6eb5-4105-9f4a-87709ca94692</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_201</name>
+      <tcid>43931755-f64e-428c-861d-f283594c2944</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_202</name>
+      <tcid>8cc46592-f3d9-41c1-9829-91223e9d9c6e</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_203</name>
+      <tcid>df785639-336b-46d9-8448-c15c3d3eac69</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_204</name>
+      <tcid>8633a741-1c7e-4c22-b2eb-0ae317f10e89</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_201</name>
+      <tcid>20202997-e346-4f5d-a6fb-935a5b52996f</tcid>
+    </capltestcase>
+  </tt>
+  <ttlib>
+    <ts_definitions />
+    <tc_definitions />
+    <function_definitions />
+  </ttlib>
+</ttroot>

@@ -1,0 +1,125 @@
+﻿/*@!Encoding:65001*/
+/**
+ * @file HPC.can
+ * @brief HPC(High Performance Controller)의 메인 CAPL 스크립트
+ */
+
+includes
+{
+  #include "HPC_Config.cin"
+  #include "HPC_Functions.cin"
+  #include "HPC_OTA.cin"
+  #include "EDT.cin"
+}
+
+/**
+ * @brief 시뮬레이션 시작 시 호출되는 이벤트 핸들러
+ * @note 전역 변수 초기화, 메인 태스크 및 워치독 타이머 시작
+ */
+on start
+{
+  HandleStartEvent();
+}
+
+/**
+ * @brief 시뮬레이션 중지 시 호출되는 이벤트 핸들러
+ * @note 시스템 종료 작업을 수행
+ */
+on stopMeasurement
+{
+  HandleStopEvent();
+}
+
+/**
+ * @brief 메인 태스크 타이머 이벤트 핸들러
+ * @note 시스템 상태에 따라 다양한 주기로 작업을 예약하고 실행
+ *       - 10ms: 토크 제어 명령 전송, 차량 물리 시뮬레이션 업데이트
+ *       - 100ms: 클러스터 디스플레이 정보 전송
+ *       - 200ms: 에너지 효율 계산
+ *       - 500ms: 자동 모드 최적화
+ */
+on timer timerMainTask
+{
+  HandleMainTaskTimer();
+}
+
+/**
+ * @brief 워치독 타임아웃 이벤트 핸들러
+ * @note 통신 타임아웃 발생 시 FAIL_SAFE 상태로 전환
+ */
+on timer timerWatchdog
+{
+  HandleWatchdogTimeout();
+}
+
+/**
+ * @brief 회생 제동 모드 변경 요청 메시지 수신 이벤트 핸들러
+ * @note 운전자 또는 다른 ECU로부터 회생 제동 모드 변경 요청을 처리
+ */
+on message M008_Mode_Change_Req
+{
+  HandleModeChangeReqMessage(this);
+}
+
+/**
+ * @brief 배터리 기본 상태 메시지 수신 이벤트 핸들러
+ * @note 배터리 SOC 및 온도 정보를 수신하여 배터리 보호 상태를 결정
+ */
+on message M006_Battery_Basic
+{
+  HandleBatteryBasicMessage(this);
+}
+
+/**
+ * @brief 회생 토크 피드백 메시지 수신 이벤트 핸들러
+ * @note 실제 회생 토크와 목표 토크 차이를 기반으로 마찰 제동 보상 요청
+ */
+on message M002_Regen_Torque_Feedback
+{
+  HandleRegenTorqueFeedbackMessage(this);
+}
+
+/**
+ * @brief Fail-Safe 상태 메시지 수신 이벤트 핸들러 (Type 2)
+ * @note 다른 ECU로부터 심각한 폴트 정보를 수신하여 FAIL_SAFE 상태로 전환
+ */
+on message M004_FailSafe_Status_2
+{
+  HandleFailSafeStatusMessage(this.Fault_Code);
+}
+
+/**
+ * @brief Fail-Safe 상태 메시지 수신 이벤트 핸들러 (Type 3)
+ * @note 다른 ECU로부터 심각한 폴트 정보를 수신하여 FAIL_SAFE 상태로 전환
+ */
+on message M004_FailSafe_Status_3
+{
+  HandleFailSafeStatusMessage(this.Fault_Code);
+}
+
+/**
+ * @brief 차량 동역학 메시지 수신 이벤트 핸들러
+ * @note APS 위치, 차량 속도, 조향각 정보를 수신하여 감속도 기반 제동등 제어
+ */
+on message M005_Vehicle_Dynamics
+{
+  HandleVehicleDynamicsMessage(this);
+}
+
+/**
+ * @brief 브레이크 페달 메시지 수신 이벤트 핸들러
+ * @note BPPS 위치 정보를 수신하여 제동 의도를 파악
+ */
+on message M005_EXT_Brake_Pedal
+{
+  HandleBrakePedalMessage(this);
+}
+
+/**
+ * @brief 키보드 'f' 키 입력 이벤트 핸들러
+ * @note 수동으로 워치독 타임아웃을 발생시켜 FAIL_SAFE 모드 테스트
+ */
+on key 'f'
+{
+  HandleWatchdogTimeout();
+}

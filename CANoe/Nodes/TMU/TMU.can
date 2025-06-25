@@ -1,0 +1,454 @@
+﻿/*@!Encoding:65001*/
+/**
+ * @file TMU.can
+ * @brief 텔레매틱스 관리 유닛(TMU) CAPL 스크립트
+ */
+
+variables
+{
+  /** @brief 주기적 작업을 위한 체크 타이머 */
+  msTimer checkTimer;
+  
+  /** @brief 파일 핸들러 */
+  dword hFile;
+  
+  /** @brief ECU 정보 배열 (Init, CGW, TMU, EDT) */
+  char ecu_info[4][10] = {"Init", "CGW", "TMU", "EDT"};
+  
+  /** @brief OTA 결과 상태 */
+  char ota_result;
+  
+  /** @brief 현재 버전 정보 저장 배열 */
+  char cur_ver[2];
+  
+  /** @brief 펌웨어 파일명 저장 배열 */
+  char filename[128];
+  
+  /** @brief OTA 준비 상태 (-1: 실패, 0: 준비안됨, 1: 대기, 2: 승인됨, 3: 거부됨, 4: 완료) */
+  int otaReady = 0;
+  
+  /** @brief 틱 카운터 */
+  int tickCount = 0;
+  
+  /** @brief 대기 카운터 */
+  int waitCount = 0;
+  
+  /** @brief 요청 카운터 */
+  int reqCount = 0;
+  
+  /** @brief 현재 TMU 버전 */
+  int cur_tmu_version = 0;
+  
+  /** @brief TMU ECU 번호 */
+  int tmu_num = 2;
+  
+  /** @brief 부트로더 모드 */
+  int mode = 0;
+  
+  /**
+   * @brief TMU 시스템 상태 열거형
+   */
+  enum STATE
+  {
+    NOMAR_MODE,      /**< 정상 작동 모드 */
+    BOOTLOADER_MODE, /**< 부트로더 모드 */
+    OTA_COMPLETE     /**< OTA 완료 상태 */
+  }tmuState = BOOTLOADER_MODE;
+  
+  /** @brief 펌웨어 헤더 정보 (8바이트) */
+  byte header[8];
+  
+  /** @brief 매직 바이트 배열 (4바이트) */
+  byte magic_bytes[4];
+  
+  /** @brief 데이터 블록 배열 (61바이트) */
+  byte block[61];
+  
+  /** @brief OTA 시작 플래그 */
+  int started = 0;
+  
+  /** @brief ECU ID */
+  int ecu_id = 0;
+  
+  /** @brief 펌웨어 버전 */
+  int version = 0;
+  
+  /** @brief 코드 길이 */
+  int code_len = 0;
+  
+  /** @brief 총 전송 바이트 수 */
+  int totalSent = 0;
+  
+  /** @brief 읽은 바이트 수 */
+  long readBytes = 0;
+  
+  /** @brief 프레임 인덱스 */
+  int frameIndex = 0;
+  
+  /** @brief 프레임 페이로드 크기 */
+  int frame_payload_size= 61;
+  
+  /** @brief 매직 넘버 */
+  long magic;
+  
+  /** @brief CGW에 OTA 요청을 전송하는 메시지 */
+  message TMU_CGW_E_OTA_REQ otaReqMsg;
+  
+  /** @brief CGW에 OTA 데이터를 전송하는 메시지 */
+  message TMU_CGW_PE_OTA_DATA otaDataMsg;
+  
+  /** @brief CGW에 OTA 시작 명령을 전송하는 메시지 */
+  message TMU_CGW_E_OTA_START otaStartMsg;
+}
+
+/**
+ * @brief OTA 상태를 초기화하는 함수
+ * @details OTA 관련 모든 변수를 초기 상태로 리셋
+ */
+void resetOtaState()
+{
+  started = 0;
+  otaReady = 0;
+  @OTA::Ota_flag = -1;
+}
+
+/**
+ * @brief 부트로더에서 TMU 버전을 읽어오는 함수
+ * @details TMU_version.txt 파일에서 현재 버전 정보를 읽어와 시스템 변수에 저장
+ */
+void readBootloader()
+{
+  hFile = openFileRead("TMU\\TMU_version.txt", 0);
+  fileGetString(cur_ver, 2, hFile);
+  cur_tmu_version = _atoi64(cur_ver);
+  @OTA::Cur_version[tmu_num] = cur_tmu_version;
+  fileClose(hFile);
+}
+
+/**
+ * @brief 시뮬레이션 시작 시 초기화 함수
+ * @details 100ms 주기로 체크 타이머 설정
+ */
+on start
+{
+  setTimer(checkTimer, 100);
+}
+
+/**
+ * @brief 주기적 체크 타이머 이벤트 핸들러 (100ms)
+ * @details TMU 상태 및 OTA 프로세스를 관리:
+ *          - NORMAL_MODE: OTA 요청 처리 및 파일 전송
+ *          - BOOTLOADER_MODE: 부트로더에서 버전 읽기
+ *          - OTA_COMPLETE: OTA 완료 처리
+ */
+on timer checkTimer
+{
+  tickCount++;
+  switch(tmuState)
+  {
+    case NOMAR_MODE:
+      //if (tickCount % 5 == 0)
+      //{
+        tickCount = 0;
+        switch(otaReady)
+        {
+          case 0:
+            if (@OTA::Ota_flag == 1)
+            {
+              @OTA::Next_version[@OTA::ECU_id] = @OTA::ECU_ver;
+              if (@OTA::Cur_version[@OTA::ECU_id] !=  @OTA::Next_version[@OTA::ECU_id])
+              {
+                write(">>> OTA 준비됨 → CGW 에 승인 요청 전송");
+                write(">> OTA ECU: %d, NEW VERSION %d", @OTA::ECU_id, @OTA::Next_version[@OTA::ECU_id]);
+                // CGW 에 승인 요청 전송
+                otaReqMsg.byte(0) = 0x01;  // OTA 승인 요청
+                output(otaReqMsg);
+                otaReady = 1;  // 사용자 응답 대기 상태로 변경
+              }
+            }
+              break;
+          case 1:
+            waitCount++; // 현재 100ms 마다 +1씩 되는중 
+            if (waitCount % 100 == 0) // 예시로 10초 뒤에 다시 승인요청 전송
+            {
+              waitCount = 0;
+              write(">>> CGW에 승인 요청 재전송");
+              write(">> OTA ECU: %d, NEW VERSION %d", ecu_id, @OTA::Next_version[@OTA::ECU_id]);
+              // CGW 에 승인 요청 전송
+              otaReqMsg.byte(0) = 0x01;  // OTA 승인 요청
+              output(otaReqMsg);
+            }
+            break;
+          case 3:
+            otaReady = 1;  // 사용자 응답 대기 상태로 변경
+            break;
+          case 4:
+            write(">>> System 변수 변경");
+            write(">>> python client->server 시스템 변수값 전송, 서버가 ecu 버전 정보를 저장");
+            @OTA::Cur_version[(ota_result & 0xF0) >> 4] = ota_result & 0x0F;
+            @OTA::Ota_flag = 5;
+            otaReady = 0; // 이건 굳이 안해도 될듯?
+            break;
+          case 5:
+            write("Don't update ver.%d => rollback ver.%d", @OTA::ECU_ver, @OTA::Cur_version[@OTA::ECU_id]);
+            otaReady = 0;
+            //@OTA::Ota_flag= 8;
+            break;
+        } 
+      //}
+      if (@OTA::Ota_flag == 4)
+      {
+        otaReady = -1;
+      }
+      if (@OTA::Ota_flag == 7)
+      {
+          write("❌ ECU: Firmware update failed, preparing for fallback.");
+          //otaReady = -1;
+          otaReqMsg.byte(0) = ((@OTA::ECU_id << 4)|0x06);
+          otaReqMsg.dlc = 1;
+          output(otaReqMsg);
+          @OTA::Ota_flag = 0;
+      }
+      if (@OTA::Ota_flag == 9)
+      {
+        write(">>> 파일 삭제 완료");
+        @OTA::Ota_flag = 0;
+        otaReady = 0;
+      }
+      if (otaReady == 2)
+      {
+        int i;
+        int frame_count = 0;
+        int last_frame_len = 0;
+        reqCount++;
+
+        if (reqCount <= 10)
+        {
+          setTimer(checkTimer, 100);
+          return;
+        }
+        else reqCount = 20;
+    
+        if (!started)
+        {
+          started = 1;
+          @OTA::Ota_flag = 0;
+          snprintf(filename, elCount(filename), "C:/RBS/OTA_Client/OTA_update_file/firmware_update_ecu_%d_ver_%d.bin", @OTA::ECU_id, @OTA::ECU_ver);
+          //hFile = openFileRead("C:\\vscodestudy\\OTA\\OTA_Client\\OTA_update_file\\firmware_update.bin", 1);
+          hFile = openFileRead(filename, 1);
+          if (hFile != 0)
+          {
+            // 1.헤더 추출
+            if (fileGetBinaryBlock(header, elCount(header), hFile) != elCount(header))
+            {
+              write("❌ 헤더 읽기 실패");
+              resetOtaState();
+              fileClose(hFile);
+              return;
+            }
+            // 2.MAGIC 확인
+            magic_bytes[0] = header[0];
+            magic_bytes[1] = header[1];
+            magic_bytes[2] = header[2];
+            magic_bytes[3] = header[3];
+            magic = (long)magic_bytes[0] + ((long)magic_bytes[1] << 8) + 
+            ((long)magic_bytes[2] << 16) + ((long)magic_bytes[3] << 24);
+            if (magic != 0xDEADBEEF)
+            {
+              write("❌ MAGIC 불일치 : 0x%08X", magic);
+              resetOtaState();
+              fileClose(hFile);
+              return;
+            }
+            // 3. ECU ID, Version, Length 추출
+            ecu_id = header[4];
+            version = header[5];
+            code_len = header[6] + (header[7] << 8);
+        
+            write("✅ 헤더 정보 확인: ");
+            write(" -MAGIC    : 0x%08X", magic);
+            write(" -ECU ID   : %d", ecu_id);
+            write(" -VERSION  : %d", version);
+            write(" -CODE LEN : %d", code_len);
+        
+            write("📦 헤더 파싱 완료. 이후 단계로 전송 준비 가능.");
+            write("🚚 전송할 Payload 크기: %d 바이트", code_len);
+        
+            write("시작 메세지 전송");
+            frame_count = (code_len + frame_payload_size - 1) / frame_payload_size; 
+            last_frame_len = (code_len % frame_payload_size == 0) ? frame_payload_size : code_len % frame_payload_size;
+        
+            otaStartMsg.byte(0) = ((0x00 | ecu_id) << 4) | version;
+            otaStartMsg.byte(1) = code_len          & 0xFF;
+            otaStartMsg.byte(2) = (code_len >> 8)   & 0xFF;
+            otaStartMsg.byte(3) = (code_len >> 16)  & 0xFF;
+            otaStartMsg.byte(4) = (code_len >> 24)  & 0xFF;
+            otaStartMsg.byte(5) = frame_count & 0xFF;
+            otaStartMsg.byte(6) = (frame_count >> 8) & 0xFF;
+            otaStartMsg.byte(7) = last_frame_len;
+        
+            otaStartMsg.dlc = 8;
+            output(otaStartMsg);
+          }
+        }
+    
+        if (totalSent < code_len)
+        {
+          readBytes = fileGetBinaryBlock(block, elCount(block), hFile);
+          if (readBytes <= 0)
+          {
+            write("❌ 데이터 읽기 실패 또는 EOF");
+            resetOtaState();
+            fileClose(hFile);
+            return;
+          }
+      
+          write(">>> %d 번째 메시지 전송, %d byte", frameIndex, readBytes);
+          otaDataMsg.byte(0) = ((0x00 | ecu_id) << 4) | version;
+          otaDataMsg.byte(1) = frameIndex & 0xFF;
+          otaDataMsg.byte(2) = (frameIndex >> 8) & 0xFF;
+      
+          for (i = 0; i < readBytes; i++)
+          {
+            otaDataMsg.byte(i+3) = block[i];
+          }
+      
+          otaDataMsg.dlc = readBytes + 3;
+          output(otaDataMsg);
+      
+          frameIndex++;
+          totalSent += readBytes;
+        }
+        else
+        {
+          write("✅ 전송 완료: %d 바이트", totalSent);
+          fileClose(hFile);
+          started = 0;
+          otaReady = 0;
+          frameIndex = 0;
+          totalSent = 0;
+          readBytes = 0;
+          reqCount = 0;
+          code_len = 0;
+        }
+      }
+      //}
+      break;
+    case BOOTLOADER_MODE:
+      if (mode == 0)
+      {
+        readBootloader();
+        tmuState = NOMAR_MODE;
+      }
+      else if (mode == 1)
+      {
+        //ota
+        tmuState = OTA_COMPLETE;
+      }
+      break;
+    case OTA_COMPLETE:
+      tmuState = NOMAR_MODE;
+      break;
+    default:
+      break;
+  }
+  
+
+  setTimer(checkTimer, 100);
+}
+
+/**
+ * @brief CGW에서 OTA 요청 응답 메시지 수신 이벤트 핸들러
+ * @details CGW로부터 사용자 승인/거부 응답을 받아 OTA 상태 업데이트
+ *          - 0x01: 사용자 승인
+ *          - 0x02: 사용자 거부
+ */
+on message CGW_TMU_E_OTA_REQ
+{
+  if (this.byte(0) == 0x01)
+  {
+    otaReady = 2;  // 사용자 승인됨
+    @OTA::Ota_flag = 2;
+  }
+  else if (this.byte(0) == 0x02)
+  {
+    otaReady = 3;  // 사용자 거부됨
+    @OTA::Ota_flag = 3;
+  }
+}
+
+/**
+ * @brief CGW에서 OTA 결과 메시지 수신 이벤트 핸들러
+ * @details CGW로부터 OTA 완료/실패 결과를 받아 처리
+ *          - 0x05: OTA 완료
+ *          - 0xAA: 복구 완료
+ *          - 0xFF: OTA 실패
+ */
+on message CGW_TMU_E_OTA_RESULT
+{
+  if (this.byte(0) == 0x05)  // OTA 완료
+  {
+    otaReady = 4;
+    ota_result = this.byte(1);
+  }
+  else if(this.byte(0) == 0xAA) // 복구 완료
+  {
+    otaReady = 5;
+    @OTA::Ota_flag = 8;
+  }
+  else if(this.byte(0) == 0xFF)
+  {
+    
+  }
+}
+
+/**
+ * @brief CGW에서 버전 정보 메시지 수신 이벤트 핸들러
+ * @details CGW의 현재 버전 정보를 시스템 변수에 저장
+ */
+on message CGW_TMU_E_VER_INFO
+{
+  @OTA::Cur_version[(this.byte(0) & 0xF0) >> 4] = this.byte(0) & 0x0F;
+}
+
+/**
+ * @brief EDT에서 버전 정보 메시지 수신 이벤트 핸들러
+ * @details EDT의 현재 버전 정보를 시스템 변수에 저장
+ */
+on message EDT_TMU_E_VER_INFO
+{
+  @OTA::Cur_version[(this.byte(0) & 0xF0) >> 4] = this.byte(0) & 0x0F;
+}
+
+/**
+ * @brief 키보드 'r' 키 입력 이벤트 핸들러 (신호등 빨간불)
+ * @details 교통 신호등을 빨간불로 설정
+ */
+on key 'r'
+{
+  @TMU::TrafficLightRed = 1;
+  @TMU::TrafficLightYellow = 0;
+  @TMU::TrafficLightGreen = 0;
+}
+
+/**
+ * @brief 키보드 'y' 키 입력 이벤트 핸들러 (신호등 노란불)
+ * @details 교통 신호등을 노란불로 설정
+ */
+on key 'y'
+{
+  @TMU::TrafficLightRed = 0;
+  @TMU::TrafficLightYellow = 1;
+  @TMU::TrafficLightGreen = 0;
+}
+
+/**
+ * @brief 키보드 'g' 키 입력 이벤트 핸들러 (신호등 초록불)
+ * @details 교통 신호등을 초록불로 설정
+ */
+on key 'g'
+{
+  @TMU::TrafficLightRed = 0;
+  @TMU::TrafficLightYellow = 0;
+  @TMU::TrafficLightGreen = 1;
+}

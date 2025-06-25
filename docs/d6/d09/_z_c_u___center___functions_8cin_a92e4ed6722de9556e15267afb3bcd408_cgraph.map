@@ -1,0 +1,15 @@
+<map id="UpdateSystemState" name="UpdateSystemState">
+<area shape="rect" id="Node000001" title="현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트" alt="" coords="5,56,145,83"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태 간의 전환을 관리" alt="" coords="193,56,316,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,67,177,67,177,72,145,72"/>
+<area shape="rect" id="Node000003" href="$d6/d09/_z_c_u___center___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="364,5,489,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,53,364,34,365,39,303,58"/>
+<area shape="rect" id="Node000004" href="$d6/d09/_z_c_u___center___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="368,56,485,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="316,67,353,67,353,72,316,72"/>
+<area shape="rect" id="Node000007" href="$d6/d09/_z_c_u___center___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="371,107,482,133"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="303,81,365,99,364,104,302,86"/>
+<area shape="rect" id="Node000005" href="$d6/d09/_z_c_u___center___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="543,31,681,57"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="485,59,528,53,529,58,486,64"/>
+<area shape="rect" id="Node000006" href="$d6/d09/_z_c_u___center___functions_8cin.html#a8b9a584cbd1346ca9fc94f4857a5aaaa" title="클러스터 디스플레이를 업데이트" alt="" coords="537,81,687,108"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="486,75,523,80,522,85,485,80"/>
+</map>

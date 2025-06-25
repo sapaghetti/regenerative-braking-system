@@ -1,0 +1,27 @@
+<map id="HandleModeChangeRespMessage" name="HandleModeChangeRespMessage">
+<area shape="rect" id="Node000001" title="&#39;on message M009_Mode_Change_Resp&#39; 이벤트 핸들러 로직을 처리" alt="" coords="5,157,229,184"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#a1366b73e3db319850ae23722e5460d22" title="폴트 레지스터에서 특정 폴트 비트를 지움" alt="" coords="305,56,386,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="144,154,276,92,290,86,292,91,278,97,147,159"/>
+<area shape="rect" id="Node000003" href="$d6/d09/_z_c_u___center___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하고 상태 업데이트를 트리거" alt="" coords="311,107,381,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,154,295,128,296,134,181,159"/>
+<area shape="rect" id="Node000009" href="$d6/d09/_z_c_u___center___functions_8cin.html#a8b9a584cbd1346ca9fc94f4857a5aaaa" title="클러스터 디스플레이를 업데이트" alt="" coords="1024,157,1173,184"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="229,168,546,168,742,168,1008,168,1008,173,742,173,546,173,229,173"/>
+<area shape="rect" id="Node000011" href="$d6/d09/_z_c_u___center___functions_8cin.html#a0e249bdb595a702f63b2fe0ba68defa7" title="OTA 편안한 모드 활성화 여부에 따른 UI 업데이트" alt="" coords="463,208,631,235"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="229,181,448,207,447,212,229,186"/>
+<area shape="rect" id="Node000012" href="$d6/d09/_z_c_u___center___functions_8cin.html#ae3d1e63b132583b4264a9b2210fad30c" title="CAN 메시지의 E2E 보호 검증" alt="" coords="277,259,415,285"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="150,182,301,250,299,254,148,187"/>
+<area shape="rect" id="Node000004" href="$d6/d09/_z_c_u___center___functions_8cin.html#a92e4ed6722de9556e15267afb3bcd408" title="현재 폴트 레지스터를 기반으로 시스템 상태를 업데이트" alt="" coords="478,81,617,108"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="381,113,462,103,462,108,382,118"/>
+<area shape="rect" id="Node000005" href="$d6/d09/_z_c_u___center___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태 간의 전환을 관리" alt="" coords="679,69,803,96"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="617,88,664,85,664,90,617,93"/>
+<area shape="rect" id="Node000006" href="$d6/d09/_z_c_u___center___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="851,5,976,32"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="778,66,860,35,862,40,780,71"/>
+<area shape="rect" id="Node000007" href="$d6/d09/_z_c_u___center___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="855,56,972,83"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="803,75,839,72,840,78,803,81"/>
+<area shape="rect" id="Node000010" href="$d6/d09/_z_c_u___center___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="858,107,969,133"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="804,93,843,102,842,107,803,99"/>
+<area shape="rect" id="Node000008" href="$d6/d09/_z_c_u___center___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="1030,56,1167,83"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="972,67,1014,67,1014,72,972,72"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="952,81,977,92,1066,146,1063,150,975,97,950,85"/>
+<area shape="poly" id="edge12_Node000011_Node000009" title=" " alt="" coords="632,214,791,204,976,187,1008,182,1009,188,976,192,792,209,632,220"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="OnEnterFailSafe" name="OnEnterFailSafe">
+<area shape="rect" id="Node000001" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="5,5,123,32"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="171,5,308,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,16,155,16,155,21,123,21"/>
+</map>

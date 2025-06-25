@@ -1,0 +1,59 @@
+/*@!Encoding:65001*/
+/**
+ * @file SW_Button_Config.cin
+ * @brief 스티어링 휠 버튼 시스템의 설정 및 전역 변수 정의
+ */
+
+variables
+{
+  /** @brief 스티어링 휠 버튼 입력 메시지 전역 인스턴스 */
+  message L004_SW_Button_Input gMsg_L004;
+
+  /*******************************************************************************
+   * 버튼 ID 상수 정의
+   ******************************************************************************/
+
+  /** @brief 모드 증가 버튼 ID */
+  const byte BUTTON_ID_MODE_UP        = 0;
+  
+  /** @brief 모드 감소 버튼 ID */
+  const byte BUTTON_ID_MODE_DOWN      = 1;
+  
+  /** @brief 프로파일 변경 버튼 ID */
+  const byte BUTTON_ID_PROFILE_CHANGE = 2;
+  
+  /** @brief 자동 모드 토글 버튼 ID */
+  const byte BUTTON_ID_AUTO_TOGGLE    = 3;
+
+  /*******************************************************************************
+   * 버튼 액션 상수 정의
+   ******************************************************************************/
+
+  /** @brief 버튼 눌림 액션 */
+  const byte BUTTON_ACTION_PRESS        = 0;
+  
+  /** @brief 버튼 놓림 액션 */
+  const byte BUTTON_ACTION_RELEASE      = 1;
+  
+  /** @brief 버튼 길게 눌림 액션 */
+  const byte BUTTON_ACTION_LONG_PRESS   = 2;
+  
+  /*******************************************************************************
+   * 전역 변수
+   ******************************************************************************/
+  
+  /** @brief 이벤트 카운터 (메시지 시퀀스 관리용) */
+  byte gEventCounter;
+
+  /** @brief 모드 증가 버튼 눌림 시작 시간 (ms) */
+  dword gPressStartTime_ModeUp;
+  
+  /** @brief 모드 감소 버튼 눌림 시작 시간 (ms) */
+  dword gPressStartTime_ModeDown;
+  
+  /** @brief 프로파일 변경 버튼 눌림 시작 시간 (ms) */
+  dword gPressStartTime_ProfileChange;
+  
+  /** @brief 자동 모드 토글 버튼 눌림 시작 시간 (ms) */
+  dword gPressStartTime_AutoToggle;
+}

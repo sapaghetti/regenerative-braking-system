@@ -1,0 +1,7 @@
+<map id="on_timer_checkTimer" name="on_timer_checkTimer">
+<area shape="rect" id="Node000001" title="주기적 체크 타이머 이벤트 핸들러 (100ms)" alt="" coords="5,31,152,57"/>
+<area shape="rect" id="Node000002" href="$dc/db2/_t_m_u_8can.html#a3494f6389f7ea38e13e4e9e07bb997f0" title="부트로더에서 TMU 버전을 읽어오는 함수" alt="" coords="200,5,308,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,31,184,26,185,31,152,36"/>
+<area shape="rect" id="Node000003" href="$dc/db2/_t_m_u_8can.html#a360054e3f5acbaf8587a9d32b4509d86" title="OTA 상태를 초기화하는 함수" alt="" coords="203,56,305,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="152,52,187,57,187,62,152,57"/>
+</map>

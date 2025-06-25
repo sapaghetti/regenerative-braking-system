@@ -1,0 +1,5 @@
+<map id="ExecuteEnergyEfficiencyTask" name="ExecuteEnergyEfficiencyTask">
+<area shape="rect" id="Node000001" title="에너지 효율 계산(누적 회생 에너지)을 주기적으로 수행하는 태스크" alt="" coords="205,5,400,32"/>
+<area shape="rect" id="Node000002" href="$de/d5b/_h_p_c2___functions_8cin.html#ad2de22b5df4a2cb674be3bb2fdbb0ede" title="메인 태스크 타이머 이벤트 발생 시 주기적으로 호출되는 함수" alt="" coords="5,5,157,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="189,21,157,21,157,16,189,16"/>
+</map>

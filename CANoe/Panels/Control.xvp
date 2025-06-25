@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=19.0.155.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel1" ControlName="Control">
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl2" ControlName="Pedal Position">
+      <Object Type="Vector.CANalyzer.Panels.Design.ProgressBarControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X5ba8e38ae0246e439ae9d1ee146b06019feb" ControlName="Accel Progress Bar">
+        <Property Name="Name">X5ba8e38ae0246e439ae9d1ee146b06019feb</Property>
+        <Property Name="Size">27, 199</Property>
+        <Property Name="Location">73, 21</Property>
+        <Property Name="Alignment">RightBottom</Property>
+        <Property Name="DecimalPlaces">1</Property>
+        <Property Name="Orientation">Vertical</Property>
+        <Property Name="ValueBackColor">255, 231, 231, 231</Property>
+        <Property Name="ValueSize">33, 12</Property>
+        <Property Name="OriginValue">0</Property>
+        <Property Name="SymbolConfiguration">8;16;ZCU_Front;;;APS_Position;2;;;-1;;;Value;;;0</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.ProgressBarControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="ProgressBarControl1" ControlName="Brake Progress Bar">
+        <Property Name="Name">ProgressBarControl1</Property>
+        <Property Name="Size">26, 199</Property>
+        <Property Name="Location">27, 21</Property>
+        <Property Name="UseWindowsStyle">False</Property>
+        <Property Name="WithFrame">False</Property>
+        <Property Name="Alignment">RightBottom</Property>
+        <Property Name="DecimalPlaces">1</Property>
+        <Property Name="Orientation">Vertical</Property>
+        <Property Name="BarForeColor">Red</Property>
+        <Property Name="ValueBackColor">255, 231, 231, 231</Property>
+        <Property Name="ValueSize">33, 12</Property>
+        <Property Name="OriginValue">0</Property>
+        <Property Name="SymbolConfiguration">8;16;ZCU_Front;;;BPPS_Position;2;;;-1;;;Value;;;0</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X493c5d39e563de4306eaff0e8faa4e0d91a7" ControlName="Brake">
+        <Property Name="Name">X493c5d39e563de4306eaff0e8faa4e0d91a7</Property>
+        <Property Name="Size">37, 15</Property>
+        <Property Name="Location">22, 226</Property>
+        <Property Name="BackColor">White</Property>
+        <Property Name="Text">Brake</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X1fc4263fe966ce47bbeb0ecee35aa36d2856" ControlName="Accel">
+        <Property Name="Name">X1fc4263fe966ce47bbeb0ecee35aa36d2856</Property>
+        <Property Name="Size">35, 15</Property>
+        <Property Name="Location">69, 226</Property>
+        <Property Name="BackColor">White</Property>
+        <Property Name="Text">Accel</Property>
+      </Object>
+      <Property Name="Name">GroupBoxControl2</Property>
+      <Property Name="Size">127, 246</Property>
+      <Property Name="Location">176, 9</Property>
+      <Property Name="BackColor">Window</Property>
+      <Property Name="Text">Pedal position</Property>
+      <Property Name="TabIndex">9</Property>
+      <Property Name="UseWindowsStyle">False</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl1" ControlName="Regen Mode">
+      <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X47afc940eea4fe4466ea5c0eb53bdbcc3c93" ControlName="Comport Button">
+        <Property Name="Name">X47afc940eea4fe4466ea5c0eb53bdbcc3c93</Property>
+        <Property Name="Size">83, 42</Property>
+        <Property Name="Location">5, 101</Property>
+        <Property Name="IsVisibleByLoad">False</Property>
+        <Property Name="FlatStyle">Flat</Property>
+        <Property Name="TransparentColor">Transparent</Property>
+        <Property Name="UseTransparentColor">False</Property>
+        <Property Name="BackColor">255, 64, 64, 64</Property>
+        <Property Name="TabIndex">12</Property>
+        <Property Name="ForeColor">White</Property>
+        <Property Name="Text">Comport</Property>
+        <Property Name="PressValueVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;</Property>
+        <Property Name="PressValueVT">1;Lower;1</Property>
+        <Property Name="PressValue">1</Property>
+        <Property Name="ReleaseValueVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;</Property>
+        <Property Name="ReleaseValueVT">1;Lower;0</Property>
+        <Property Name="ReleaseValue">0</Property>
+        <Property Name="SymbolConfiguration">8;16;SW_Button;;;ProfileChange;1;;;-1;;;Value;;;0</Property>
+        <Property Name="FlatAppearance.BorderColor">128, 128, 128</Property>
+        <Property Name="FlatAppearance.BorderSize">1</Property>
+        <Property Name="FlatAppearance.MouseOverBackColor">96, 96, 96</Property>
+        <Property Name="FlatAppearance.MouseDownBackColor">48, 48, 48</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xc232525ae4e83e43d8eb29be9823a8ae1abc" ControlName="Auto Button">
+        <Property Name="Name">Xc232525ae4e83e43d8eb29be9823a8ae1abc</Property>
+        <Property Name="Size">83, 42</Property>
+        <Property Name="Location">5, 60</Property>
+        <Property Name="FlatStyle">Flat</Property>
+        <Property Name="TransparentColor">Transparent</Property>
+        <Property Name="UseTransparentColor">False</Property>
+        <Property Name="BackColor">255, 64, 64, 64</Property>
+        <Property Name="TabIndex">11</Property>
+        <Property Name="ForeColor">White</Property>
+        <Property Name="Text">Auto</Property>
+        <Property Name="PressValueVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;</Property>
+        <Property Name="PressValueVT">1;Lower;1</Property>
+        <Property Name="PressValue">1</Property>
+        <Property Name="ReleaseValueVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;</Property>
+        <Property Name="ReleaseValueVT">1;Lower;0</Property>
+        <Property Name="ReleaseValue">0</Property>
+        <Property Name="SymbolConfiguration">8;16;SW_Button;;;AutoToggle;1;;;-1;;;Value;;;0</Property>
+        <Property Name="FlatAppearance.BorderColor">128, 128, 128</Property>
+        <Property Name="FlatAppearance.BorderSize">1</Property>
+        <Property Name="FlatAppearance.MouseOverBackColor">96, 96, 96</Property>
+        <Property Name="FlatAppearance.MouseDownBackColor">48, 48, 48</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xcfbe260ae4a51e4a64eaeecebd84bb3fd0d9" ControlName="Down Button">
+        <Property Name="Name">Xcfbe260ae4a51e4a64eaeecebd84bb3fd0d9</Property>
+        <Property Name="Size">42, 42</Property>
+        <Property Name="Location">46, 19</Property>
+        <Property Name="FlatStyle">Flat</Property>
+        <Property Name="TransparentColor">Transparent</Property>
+        <Property Name="UseTransparentColor">False</Property>
+        <Property Name="BackColor">255, 64, 64, 64</Property>
+        <Property Name="TabIndex">8</Property>
+        <Property Name="ForeColor">White</Property>
+        <Property Name="Text">▼</Property>
+        <Property Name="ReleaseValueVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;</Property>
+        <Property Name="ReleaseValueVT">1;Lower;0</Property>
+        <Property Name="ReleaseValue">0</Property>
+        <Property Name="SymbolConfiguration">8;16;SW_Button;;;ModeDown;1;;;-1;;;Value;;;0</Property>
+        <Property Name="FlatAppearance.BorderColor">128, 128, 128</Property>
+        <Property Name="FlatAppearance.BorderSize">1</Property>
+        <Property Name="FlatAppearance.MouseOverBackColor">96, 96, 96</Property>
+        <Property Name="FlatAppearance.MouseDownBackColor">48, 48, 48</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="ButtonControl3" ControlName="Up Button">
+        <Property Name="Name">ButtonControl3</Property>
+        <Property Name="Size">42, 42</Property>
+        <Property Name="Location">5, 19</Property>
+        <Property Name="FlatStyle">Flat</Property>
+        <Property Name="TransparentColor">Transparent</Property>
+        <Property Name="UseTransparentColor">False</Property>
+        <Property Name="BackColor">255, 64, 64, 64</Property>
+        <Property Name="TabIndex">6</Property>
+        <Property Name="ForeColor">White</Property>
+        <Property Name="Text">▲</Property>
+        <Property Name="PressValueVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;</Property>
+        <Property Name="PressValueVT">1;Lower;1</Property>
+        <Property Name="PressValue">1</Property>
+        <Property Name="SymbolConfiguration">8;16;SW_Button;;;ModeUp;1;;;-1;;;Value;;;0</Property>
+        <Property Name="FlatAppearance.BorderColor">128, 128, 128</Property>
+        <Property Name="FlatAppearance.BorderSize">1</Property>
+        <Property Name="FlatAppearance.MouseOverBackColor">96, 96, 96</Property>
+        <Property Name="FlatAppearance.MouseDownBackColor">48, 48, 48</Property>
+      </Object>
+      <Property Name="Name">GroupBoxControl1</Property>
+      <Property Name="Size">94, 153</Property>
+      <Property Name="Location">309, 9</Property>
+      <Property Name="BackColor">Window</Property>
+      <Property Name="Text">Regen Mode</Property>
+      <Property Name="TabIndex">10</Property>
+      <Property Name="UseWindowsStyle">False</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl4" ControlName="Pedal Control">
+      <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X04458481ea345e43a0e80afebd40f503d709" ControlName="Accel">
+        <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X47292b2de4577e412feb565e646d9f1f0ca0" ControlName="Accel">
+          <Property Name="Name">X47292b2de4577e412feb565e646d9f1f0ca0</Property>
+          <Property Name="Size">35, 15</Property>
+          <Property Name="Location">6, 0</Property>
+          <Property Name="BackColor">White</Property>
+          <Property Name="Text">Accel</Property>
+        </Object>
+        <Object Type="Vector.CANalyzer.Panels.Design.TrackBarControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xd0a67a56e8550e4d45e81e5ee45213daa944" ControlName="Accel Track Bar">
+          <Property Name="Name">Xd0a67a56e8550e4d45e81e5ee45213daa944</Property>
+          <Property Name="Size">43, 203</Property>
+          <Property Name="Location">2, 19</Property>
+          <Property Name="BackColor">White</Property>
+          <Property Name="DisplayMinMax">True</Property>
+          <Property Name="Orientation">Vertical</Property>
+          <Property Name="TickStyle">None</Property>
+          <Property Name="TabIndex">1</Property>
+          <Property Name="MaximumDouble">100</Property>
+          <Property Name="CommitValue">OnlyLastValue</Property>
+          <Property Name="TickFrequencyDouble">5</Property>
+          <Property Name="MaximumSize">43, 100000</Property>
+          <Property Name="Maximum">100</Property>
+          <Property Name="TickFrequency">5</Property>
+          <Property Name="SymbolConfiguration">8;16;ZCU_Front;;;APS_Position;2;;;-1;;;Value;;;0</Property>
+        </Object>
+        <Property Name="Name">X04458481ea345e43a0e80afebd40f503d709</Property>
+        <Property Name="Size">67, 227</Property>
+        <Property Name="Location">87, 19</Property>
+        <Property Name="Text">Brake</Property>
+        <Property Name="TabIndex">2</Property>
+        <Property Name="UseWindowsStyle">False</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xcbd00956e99c2e4c84e98fee1db41ff97618" ControlName="Brake">
+        <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xdd419786ebf52e464eebb94e91f2d5e8c9e1" ControlName="Brake">
+          <Property Name="Name">Xdd419786ebf52e464eebb94e91f2d5e8c9e1</Property>
+          <Property Name="Size">37, 15</Property>
+          <Property Name="Location">6, 0</Property>
+          <Property Name="BackColor">White</Property>
+          <Property Name="Text">Brake</Property>
+        </Object>
+        <Object Type="Vector.CANalyzer.Panels.Design.TrackBarControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X3dc49f80ea2efe4002e8a80e3d6e8bae54ab" ControlName="Brake Track Bar">
+          <Property Name="Name">X3dc49f80ea2efe4002e8a80e3d6e8bae54ab</Property>
+          <Property Name="Size">43, 203</Property>
+          <Property Name="Location">2, 19</Property>
+          <Property Name="BackColor">White</Property>
+          <Property Name="DisplayMinMax">True</Property>
+          <Property Name="Orientation">Vertical</Property>
+          <Property Name="TickStyle">None</Property>
+          <Property Name="TabIndex">1</Property>
+          <Property Name="MaximumDouble">100</Property>
+          <Property Name="CommitValue">OnlyLastValue</Property>
+          <Property Name="TickFrequencyDouble">5</Property>
+          <Property Name="MaximumSize">43, 100000</Property>
+          <Property Name="Maximum">100</Property>
+          <Property Name="TickFrequency">5</Property>
+          <Property Name="SymbolConfiguration">8;16;ZCU_Front;;;BPPS_Position;2;;;-1;;;Value;;;0</Property>
+        </Object>
+        <Property Name="Name">Xcbd00956e99c2e4c84e98fee1db41ff97618</Property>
+        <Property Name="Size">67, 227</Property>
+        <Property Name="Location">5, 19</Property>
+        <Property Name="Text">Brake</Property>
+        <Property Name="TabIndex">1</Property>
+        <Property Name="UseWindowsStyle">False</Property>
+      </Object>
+      <Property Name="Name">GroupBoxControl4</Property>
+      <Property Name="Size">162, 253</Property>
+      <Property Name="Location">5, 9</Property>
+      <Property Name="BackColor">Window</Property>
+      <Property Name="Text">Manual Control</Property>
+      <Property Name="TabIndex">11</Property>
+      <Property Name="UseWindowsStyle">False</Property>
+    </Object>
+    <Property Name="Name">Panel1</Property>
+    <Property Name="Size">441, 263</Property>
+    <Property Name="Location">0, 0</Property>
+    <Property Name="BackColor">Window</Property>
+  </Object>
+</Panel>

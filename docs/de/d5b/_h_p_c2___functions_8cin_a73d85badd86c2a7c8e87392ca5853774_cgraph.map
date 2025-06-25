@@ -1,0 +1,15 @@
+<map id="HandleBatteryBasicMessage" name="HandleBatteryBasicMessage">
+<area shape="rect" id="Node000001" title="&#39;on message M006_Battery_Basic&#39; 이벤트 핸들러 로직을 처리" alt="" coords="5,56,196,83"/>
+<area shape="rect" id="Node000002" href="$de/d5b/_h_p_c2___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태를 새로운 상태로 전환하는 함수" alt="" coords="244,56,367,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,67,228,67,228,72,196,72"/>
+<area shape="rect" id="Node000003" href="$de/d5b/_h_p_c2___functions_8cin.html#abdb69cf2fc071a91146925ae09a0e165" title="배터리 보호 상태 진입 시 호출되는 함수" alt="" coords="415,5,585,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="359,53,431,34,432,39,360,58"/>
+<area shape="rect" id="Node000005" href="$de/d5b/_h_p_c2___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="Fail&#45;Safe 상태 진입 시 호출되는 함수" alt="" coords="442,56,559,83"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="367,67,426,67,426,72,367,72"/>
+<area shape="rect" id="Node000006" href="$de/d5b/_h_p_c2___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="정상 상태 진입 시 호출되는 함수" alt="" coords="444,107,556,133"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="360,81,432,100,431,105,359,86"/>
+<area shape="rect" id="Node000004" href="$de/d5b/_h_p_c2___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하는 함수" alt="" coords="639,5,709,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="586,16,623,16,623,21,586,21"/>
+<area shape="rect" id="Node000007" href="$de/d5b/_h_p_c2___functions_8cin.html#a1366b73e3db319850ae23722e5460d22" title="폴트 레지스터에서 특정 폴트 비트를 해제하는 함수" alt="" coords="633,107,715,133"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="556,117,618,117,618,123,556,123"/>
+</map>

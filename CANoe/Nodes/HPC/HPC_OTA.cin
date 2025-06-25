@@ -1,0 +1,249 @@
+﻿/*@!Encoding:65001*/
+/**
+ * @file HPC_OTA.cin
+ * @brief HPC의 OTA 시스템 및 CGW 중계 기능 구현
+ */
+
+includes
+{
+  
+}
+
+variables
+{
+  /** @brief 주기적 속도 업데이트를 위한 타이머 */
+  msTimer speedTimer;
+  
+  /** @brief EDT에 OTA 데이터를 전송하는 메시지 */
+  message CGW_EDT_PE_OTA_DATA otaDataMsg;
+  
+  /** @brief TMU에 사용자 승인 요청을 전송하는 메시지 */
+  message CGW_TMU_E_OTA_REQ userReqMsg;
+  
+  /** @brief TMU에 OTA 결과를 전송하는 메시지 */
+  message CGW_TMU_E_OTA_RESULT otaResMsg;
+  
+  /** @brief TMU에 CGW 버전 정보를 전송하는 메시지 */
+  message CGW_TMU_E_VER_INFO cgwVerMsg;
+  
+  /** @brief EDT에 OTA 시작 명령을 전송하는 메시지 */
+  message CGW_EDT_E_OTA_START otaStartMsg;
+  
+  /** @brief EDT에 롤백 명령을 전송하는 메시지 */
+  message CGW_EDT_E_OTA_ROLLBACK otaRollback;
+  
+  /**
+   * @brief CGW 시스템 상태를 나타내는 열거형
+   */
+  enum STATE
+  {
+    NOMAR_MODE,     /**< 정상 작동 모드 */
+    BOOTLOADER_MODE, /**< 부트로더 모드 */
+    OTA_COMPLETE    /**< OTA 완료 상태 */
+  }cgwState = BOOTLOADER_MODE;
+  
+  /** @brief OTA 요청 수신 상태 플래그 */
+  int otaRequestReceived = 0;
+  
+  /** @brief 버전 파일 핸들러 */
+  dword versionFile;
+  
+  /** @brief 현재 버전 정보 저장 배열 */
+  char cur_ver[2];
+  
+  /** @brief CGW ECU 번호 */
+  int cgw_num = 1;
+  
+  /** @brief 현재 CGW 버전 */
+  int cur_cgw_version = 0;
+}
+
+/**
+ * @brief 부트로더에서 CGW 버전을 읽어오는 함수
+ * @details CGW_version.txt 파일에서 현재 버전 정보를 읽어와 전역 변수에 저장
+ */
+void readBootloader()
+{
+  versionFile = openFileRead("CGW\\CGW_version.txt", 0);
+  fileGetString(cur_ver, 2, versionFile);
+  cur_cgw_version = _atoi64(cur_ver);
+  fileClose(versionFile);
+}
+
+/**
+ * @brief CGW 버전 정보를 TMU에 전송하는 함수
+ * @details ECU 번호와 현재 버전을 포함한 메시지를 TMU에 전송
+ */
+void sendCgwVersion()
+{
+  cgwVerMsg.byte(0) = ((0x00 | (cgw_num << 4)) | cur_cgw_version);
+  output(cgwVerMsg);
+}
+
+/**
+ * @brief 시뮬레이션 시작 시 초기화 함수
+ * @details 프로그램 시작 메시지 출력 및 주기적 타이머 설정
+ */
+on start
+{
+  write(">>> 프로그램 시작");
+  //write("%d", @sysvar::Cur_Version);
+  //readBootloader();
+  //write("%d", @sysvar::Cur_Version);
+  setTimer(speedTimer, 100);
+}
+
+/**
+ * @brief 주기적 타이머 이벤트 핸들러 (100ms)
+ * @details CGW 상태에 따라 다른 동작을 수행:
+ *          - NORMAL_MODE: 버전별 기능 수행
+ *          - BOOTLOADER_MODE: 부트로더에서 버전 읽기 및 전송
+ *          - OTA_COMPLETE: OTA 완료 처리
+ */
+on timer speedTimer
+{
+  switch (cgwState)
+  {
+    case NOMAR_MODE: // Default
+      if (cur_cgw_version >= @OTA::Version_num[1])
+      {
+        
+      }
+      else if (cur_cgw_version >= @OTA::Version_num[2])
+      {
+        
+      }
+      break;
+    case BOOTLOADER_MODE:
+      readBootloader(); // 현재 cgw 버전 읽어오기
+      sendCgwVersion();
+      cgwState = NOMAR_MODE;
+      break;
+    case OTA_COMPLETE:
+     
+      break;
+  }
+    setTimer(speedTimer, 100);
+}
+
+/**
+ * @brief TMU에서 EDT OTA 시작 메시지 수신 이벤트 핸들러
+ * @details TMU로부터 받은 OTA 시작 명령을 EDT에 중계
+ */
+on message TMU_CGW_E_OTA_START
+{
+  int i;
+  write("CGW -> EDT START Msg 전송");
+  for (i = 0; i < this.dlc; i++)
+  {
+    otaStartMsg.byte(i) = this.byte(i);
+  }
+  otaStartMsg.dlc = this.dlc;
+  output(otaStartMsg);
+}
+
+/**
+ * @brief TMU에서 OTA 요청 메시지 수신 이벤트 핸들러
+ * @details TMU로부터 OTA 승인 요청 또는 롤백 신호를 수신하여 처리
+ *          - 0x01: OTA 승인 요청 처리
+ *          - 0x06: 롤백 신호를 EDT에 전달
+ */
+on message TMU_CGW_E_OTA_REQ
+{
+  if (this.byte(0) == 0x01)
+  {
+    write(">>> TMU 로부터 OTA 승인 요청 수신 (0x500)");
+
+    otaRequestReceived = 1;
+    write(">>> OTA 설치 진행할까요?");
+  }
+  else if ((this.byte(0) & 0x06) == 0x06)
+  {
+    write(">>> TMU->CGW 롤백신호 전송");
+    otaRollback.byte(0) = this.byte(0);
+    otaRollback.dlc = 1;
+    output(otaRollback);
+  }
+}
+
+/**
+ * @brief TMU에서 OTA 데이터 메시지 수신 이벤트 핸들러
+ * @details TMU로부터 받은 펌웨어 데이터를 EDT에 중계 전송
+ */
+on message TMU_CGW_PE_OTA_DATA
+{
+    int i = 0;
+    otaRequestReceived = 0;
+    write(">>> CGW->EDT 수행 명령 및 .bin파일 전송");
+    for (i = 0; i < this.dlc; i++)
+    {
+      otaDataMsg.byte(i) = this.byte(i);
+    }
+    otaDataMsg.dlc = this.dlc;
+    output(otaDataMsg);
+}
+
+/**
+ * @brief EDT에서 OTA 결과 메시지 수신 이벤트 핸들러
+ * @details EDT로부터 받은 OTA 결과를 TMU에 중계하여 전달
+ *          - 0x05: OTA 성공
+ *          - 0xAA: 롤백 완료
+ *          - 0xFF: OTA 실패
+ */
+on message EDT_CGW_E_OTA_RESULT
+{
+   if (this.byte(0) == 0x05)
+  {
+    // EDT로부터 OTA 결과 수신
+    write(">>> Receive OTA Success from EDT");
+    write(">>> Transmit OTA Result to TMU");
+    otaResMsg.byte(0) = 0x05; 
+    otaResMsg.byte(1) = this.byte(1);
+    output(otaResMsg);
+  }
+  else if (this.byte(0) == 0xAA)
+  {
+    otaResMsg.byte(0) = this.byte(0);
+    output(otaResMsg);
+  }
+  else if (this.byte(0) == 0xFF)
+  {
+    write(">>> Receive OTA Fail from EDT");
+    write(">> Transmit OTA Fail to TMU");
+    otaResMsg.byte(0) = 0xFF;
+    output(otaResMsg);
+  }
+}
+
+/**
+ * @brief 사용자 OTA 선택 시스템 변수 변경 이벤트 핸들러
+ * @details 사용자의 OTA 승인/거부 선택을 처리하여 TMU에 전송
+ *          - 1: 사용자 승인
+ *          - 2: 사용자 거부
+ */
+on sysvar OTA::OTA_UserSelect
+{
+  if (otaRequestReceived == 1)  // 승인 요청이 들어온 경우에만 처리
+  {
+    if (@sysvar::OTA::OTA_UserSelect == 1)
+    {
+      userReqMsg.byte(0) = 0x01;  // 사용자 승인
+      output(userReqMsg);
+      write(">>> 사용자 승인 전송 완료");
+
+      otaRequestReceived = 0;  // 상태 초기화
+    }
+    else if (@sysvar::OTA::OTA_UserSelect == 2)
+    {
+      userReqMsg.byte(0) = 0x02;  // 사용자 거부
+      output(userReqMsg);
+      write(">>> 사용자 거부 전송 완료");
+
+      otaRequestReceived = 0;  // 상태 초기화
+    }
+  }
+  else if (otaRequestReceived == 2)
+  {
+    write(">>> OTA 승인 요청 상태가 아님 → 사용자 입력 무시");
+  }
+}

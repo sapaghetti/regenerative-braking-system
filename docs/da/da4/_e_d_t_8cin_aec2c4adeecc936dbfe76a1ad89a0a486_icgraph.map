@@ -1,0 +1,5 @@
+<map id="writeBootloader" name="writeBootloader">
+<area shape="rect" id="Node000001" title="부트로더 버전 정보를 파일에 쓰는 함수" alt="" coords="183,5,294,32"/>
+<area shape="rect" id="Node000002" href="$da/da4/_e_d_t_8cin.html#acc405dcc507b0da8b0fafe7ada30d258" title="OTA 타이머 이벤트 핸들러" alt="" coords="5,5,135,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="167,21,135,21,135,16,167,16"/>
+</map>

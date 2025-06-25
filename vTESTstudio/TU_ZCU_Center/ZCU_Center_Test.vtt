@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--Vector Test Table Editor-->
+<ttroot version="33" xmlns="http://www.vector-informatik.de/ITE/TestTable/1.0">
+  <tt>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_301</name>
+      <tcid>a9706ff8-a395-4a49-89d1-97bc9c7782d9</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_302</name>
+      <tcid>a8a3f554-3333-4108-8c42-467d4fd683fe</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_303</name>
+      <tcid>7436d2f3-0d75-416c-9e84-84fde432fa6e</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_304</name>
+      <tcid>0227d7d9-36e9-4485-8540-55cfe1ff1cb7</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_UNIT_305</name>
+      <tcid>8eb27159-290d-49f4-953d-082097baa4a3</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_301</name>
+      <tcid>0cd90931-5e46-43b4-b89b-b371236da596</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_302</name>
+      <tcid>14a9f31c-0eb5-40df-a8a9-badb42bc5efc</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_303</name>
+      <tcid>32b16d32-0714-4770-b4ef-9df679c971e9</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_INT_304</name>
+      <tcid>c21fbcc8-b744-43d0-b2f1-a507db530867</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_301</name>
+      <tcid>713a388d-5309-4440-86af-93ded2fa69ef</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_302</name>
+      <tcid>e4ecbb4b-d6f5-42f2-a9c4-f08008a3e5a7</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_303</name>
+      <tcid>cee3b1b0-6024-47a7-8fa5-7e9cd8a80a8d</tcid>
+    </capltestcase>
+    <capltestcase>
+      <title />
+      <name>TC_SW_304</name>
+      <tcid>148b0b14-8f79-4cb1-96c3-2fdda5ab433f</tcid>
+    </capltestcase>
+  </tt>
+  <ttlib>
+    <ts_definitions />
+    <tc_definitions />
+    <function_definitions />
+  </ttlib>
+</ttroot>

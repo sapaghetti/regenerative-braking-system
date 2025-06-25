@@ -1,0 +1,16 @@
+<map id="HandleClearFaultsKey" name="HandleClearFaultsKey">
+<area shape="rect" id="Node000001" title="&#39;on key &#39;c&#39;&#39; 이벤트 핸들러 로직을 처리" alt="" coords="5,132,158,159"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태 간의 전환을 관리" alt="" coords="206,81,329,108"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,129,201,110,202,115,134,134"/>
+<area shape="rect" id="Node000006" href="$d6/d09/_z_c_u___center___functions_8cin.html#a8b9a584cbd1346ca9fc94f4857a5aaaa" title="클러스터 디스플레이를 업데이트" alt="" coords="550,132,700,159"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="158,143,535,143,535,148,158,148"/>
+<area shape="rect" id="Node000003" href="$d6/d09/_z_c_u___center___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="377,5,502,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="296,78,376,42,389,36,391,41,378,46,299,83"/>
+<area shape="rect" id="Node000004" href="$d6/d09/_z_c_u___center___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="381,56,498,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="329,83,365,78,366,83,330,88"/>
+<area shape="rect" id="Node000007" href="$d6/d09/_z_c_u___center___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="384,107,495,133"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="330,101,369,107,368,112,329,106"/>
+<area shape="rect" id="Node000005" href="$d6/d09/_z_c_u___center___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="556,56,694,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="499,67,541,67,541,72,499,72"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="476,81,503,92,578,123,576,128,501,97,474,86"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="HandleWatchdogTimeout" name="HandleWatchdogTimeout">
+<area shape="rect" id="Node000001" title="워치독 타임아웃 발생 시 호출되는 이벤트 핸들러" alt="" coords="5,31,173,57"/>
+<area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하는 함수" alt="" coords="616,5,686,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="173,33,392,16,600,15,600,20,392,21,173,38"/>
+<area shape="rect" id="Node000003" href="$df/dc0/_h_p_c___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태를 새로운 상태로 전환하는 함수" alt="" coords="221,56,344,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="173,52,205,57,205,62,173,58"/>
+<area shape="rect" id="Node000004" href="$df/dc0/_h_p_c___functions_8cin.html#abdb69cf2fc071a91146925ae09a0e165" title="배터리 보호 상태 진입 시 호출되는 함수" alt="" coords="392,31,562,57"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="344,59,376,54,377,60,345,64"/>
+<area shape="rect" id="Node000005" href="$df/dc0/_h_p_c___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="Fail&#45;Safe 상태 진입 시 호출되는 함수" alt="" coords="418,81,536,108"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="345,75,403,82,403,88,344,80"/>
+<area shape="rect" id="Node000006" href="$df/dc0/_h_p_c___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="정상 상태 진입 시 호출되는 함수" alt="" coords="422,132,533,159"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="311,81,393,118,412,124,410,129,391,122,309,86"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="562,29,600,23,601,29,563,34"/>
+<area shape="rect" id="Node000007" href="$df/dc0/_h_p_c___functions_8cin.html#a1366b73e3db319850ae23722e5460d22" title="폴트 레지스터에서 특정 폴트 비트를 해제하는 함수" alt="" coords="610,132,692,159"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="533,143,595,143,595,148,533,148"/>
+</map>

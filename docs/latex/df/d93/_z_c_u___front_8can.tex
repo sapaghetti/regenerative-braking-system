@@ -1,0 +1,178 @@
+\doxysection{ZCU\+\_\+\+Front.\+can File Reference}
+\hypertarget{_z_c_u___front_8can}{}\label{_z_c_u___front_8can}\index{ZCU\_Front.can@{ZCU\_Front.can}}
+
+
+ZCU\+\_\+\+Front의 메인 CAPL 스크립트  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_z_c_u___front_8can_a8048a45bb4a5c1e5a546050aaabbed26}{on\+\_\+start}} ()
+\begin{DoxyCompactList}\small\item\em 시뮬레이션 시작 시 호출되는 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___front_8can_a2c8eccd93af8ee50c193b6ac98ad58cf}{on\+\_\+stop\+Measurement}} ()
+\begin{DoxyCompactList}\small\item\em 시뮬레이션 중지 시 호출되는 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___front_8can_af38b2fb7010733e753efee1f3cf09a51}{on\+\_\+timer\+\_\+timer\+Main\+Task}} ()
+\begin{DoxyCompactList}\small\item\em 메인 태스크 타이머 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___front_8can_a9b8f1cb6cc7058ed6be0f7008f6bd0c5}{on\+\_\+message\+\_\+\+L001\+\_\+\+EPAS\+\_\+\+Data}} ()
+\begin{DoxyCompactList}\small\item\em EPAS 데이터 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___front_8can_a635054bf01a50077190687528b6f8ff9}{on\+\_\+message\+\_\+\+L002\+\_\+\+ADAS\+\_\+\+Sensor}} ()
+\begin{DoxyCompactList}\small\item\em ADAS 센서 데이터 메시지 수신 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___front_8can_a14502ae856c6e44d8a6c3e10e7a083ab}{on\+\_\+key\+\_\+f}} ()
+\begin{DoxyCompactList}\small\item\em 키보드 \textquotesingle{}f\textquotesingle{} 키 입력 이벤트 핸들러 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_z_c_u___front_8can_af7fc68410f49daa3a1050a5182f07bda}{on\+\_\+key\+\_\+s}} ()
+\begin{DoxyCompactList}\small\item\em 키보드 \textquotesingle{}s\textquotesingle{} 키 입력 이벤트 핸들러 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+ZCU\+\_\+\+Front의 메인 CAPL 스크립트 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_z_c_u___front_8can_a14502ae856c6e44d8a6c3e10e7a083ab}\label{_z_c_u___front_8can_a14502ae856c6e44d8a6c3e10e7a083ab} 
+\index{ZCU\_Front.can@{ZCU\_Front.can}!on\_key\_f@{on\_key\_f}}
+\index{on\_key\_f@{on\_key\_f}!ZCU\_Front.can@{ZCU\_Front.can}}
+\doxysubsubsection{\texorpdfstring{on\_key\_f()}{on\_key\_f()}}
+{\footnotesize\ttfamily on\+\_\+key\+\_\+f (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+키보드 \textquotesingle{}f\textquotesingle{} 키 입력 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+수동으로 EPAS 통신 폴트를 주입하여 테스트 
+\end{DoxyNote}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d93/_z_c_u___front_8can_a14502ae856c6e44d8a6c3e10e7a083ab_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___front_8can_af7fc68410f49daa3a1050a5182f07bda}\label{_z_c_u___front_8can_af7fc68410f49daa3a1050a5182f07bda} 
+\index{ZCU\_Front.can@{ZCU\_Front.can}!on\_key\_s@{on\_key\_s}}
+\index{on\_key\_s@{on\_key\_s}!ZCU\_Front.can@{ZCU\_Front.can}}
+\doxysubsubsection{\texorpdfstring{on\_key\_s()}{on\_key\_s()}}
+{\footnotesize\ttfamily on\+\_\+key\+\_\+s (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+키보드 \textquotesingle{}s\textquotesingle{} 키 입력 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+현재 ZCU\+\_\+\+Front의 모든 주요 상태 정보를 콘솔에 출력 
+\end{DoxyNote}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{df/d93/_z_c_u___front_8can_af7fc68410f49daa3a1050a5182f07bda_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___front_8can_a9b8f1cb6cc7058ed6be0f7008f6bd0c5}\label{_z_c_u___front_8can_a9b8f1cb6cc7058ed6be0f7008f6bd0c5} 
+\index{ZCU\_Front.can@{ZCU\_Front.can}!on\_message\_L001\_EPAS\_Data@{on\_message\_L001\_EPAS\_Data}}
+\index{on\_message\_L001\_EPAS\_Data@{on\_message\_L001\_EPAS\_Data}!ZCU\_Front.can@{ZCU\_Front.can}}
+\doxysubsubsection{\texorpdfstring{on\_message\_L001\_EPAS\_Data()}{on\_message\_L001\_EPAS\_Data()}}
+{\footnotesize\ttfamily on\+\_\+message\+\_\+\+L001\+\_\+\+EPAS\+\_\+\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+EPAS 데이터 메시지 수신 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+EPAS로부터 조향 데이터를 수신하고 통신 상태 및 센서 유효성 검증 
+\end{DoxyNote}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d93/_z_c_u___front_8can_a9b8f1cb6cc7058ed6be0f7008f6bd0c5_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___front_8can_a635054bf01a50077190687528b6f8ff9}\label{_z_c_u___front_8can_a635054bf01a50077190687528b6f8ff9} 
+\index{ZCU\_Front.can@{ZCU\_Front.can}!on\_message\_L002\_ADAS\_Sensor@{on\_message\_L002\_ADAS\_Sensor}}
+\index{on\_message\_L002\_ADAS\_Sensor@{on\_message\_L002\_ADAS\_Sensor}!ZCU\_Front.can@{ZCU\_Front.can}}
+\doxysubsubsection{\texorpdfstring{on\_message\_L002\_ADAS\_Sensor()}{on\_message\_L002\_ADAS\_Sensor()}}
+{\footnotesize\ttfamily on\+\_\+message\+\_\+\+L002\+\_\+\+ADAS\+\_\+\+Sensor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+ADAS 센서 데이터 메시지 수신 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+ADAS로부터 센서 데이터를 수신하고 통신 상태 및 센서 유효성 검증 
+\end{DoxyNote}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d93/_z_c_u___front_8can_a635054bf01a50077190687528b6f8ff9_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___front_8can_a8048a45bb4a5c1e5a546050aaabbed26}\label{_z_c_u___front_8can_a8048a45bb4a5c1e5a546050aaabbed26} 
+\index{ZCU\_Front.can@{ZCU\_Front.can}!on\_start@{on\_start}}
+\index{on\_start@{on\_start}!ZCU\_Front.can@{ZCU\_Front.can}}
+\doxysubsubsection{\texorpdfstring{on\_start()}{on\_start()}}
+{\footnotesize\ttfamily on\+\_\+start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+시뮬레이션 시작 시 호출되는 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+전역 변수 초기화, 보안 부팅, 자체 테스트 수행 및 주기적 타이머 설정 
+\end{DoxyNote}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d93/_z_c_u___front_8can_a8048a45bb4a5c1e5a546050aaabbed26_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___front_8can_a2c8eccd93af8ee50c193b6ac98ad58cf}\label{_z_c_u___front_8can_a2c8eccd93af8ee50c193b6ac98ad58cf} 
+\index{ZCU\_Front.can@{ZCU\_Front.can}!on\_stopMeasurement@{on\_stopMeasurement}}
+\index{on\_stopMeasurement@{on\_stopMeasurement}!ZCU\_Front.can@{ZCU\_Front.can}}
+\doxysubsubsection{\texorpdfstring{on\_stopMeasurement()}{on\_stopMeasurement()}}
+{\footnotesize\ttfamily on\+\_\+stop\+Measurement (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+시뮬레이션 중지 시 호출되는 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+시스템 종료 작업을 수행 
+\end{DoxyNote}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{df/d93/_z_c_u___front_8can_a2c8eccd93af8ee50c193b6ac98ad58cf_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_z_c_u___front_8can_af38b2fb7010733e753efee1f3cf09a51}\label{_z_c_u___front_8can_af38b2fb7010733e753efee1f3cf09a51} 
+\index{ZCU\_Front.can@{ZCU\_Front.can}!on\_timer\_timerMainTask@{on\_timer\_timerMainTask}}
+\index{on\_timer\_timerMainTask@{on\_timer\_timerMainTask}!ZCU\_Front.can@{ZCU\_Front.can}}
+\doxysubsubsection{\texorpdfstring{on\_timer\_timerMainTask()}{on\_timer\_timerMainTask()}}
+{\footnotesize\ttfamily on\+\_\+timer\+\_\+timer\+Main\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+메인 태스크 타이머 이벤트 핸들러 
+
+\begin{DoxyNote}{Note}
+시스템 상태에 따라 다양한 주기로 작업을 예약하고 실행
+\begin{DoxyItemize}
+\item 10ms\+: 브레이크 페달 메시지 전송
+\item 20ms\+: 차량 동역학 메시지 전송
+\item 50ms\+: 워치독 검사
+\item 100ms\+: 진단, 통신 모니터링, 상태 업데이트 
+\end{DoxyItemize}
+\end{DoxyNote}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d93/_z_c_u___front_8can_af38b2fb7010733e753efee1f3cf09a51_cgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,5 @@
+<map id="OnEnterBatteryProtection" name="OnEnterBatteryProtection">
+<area shape="rect" id="Node000001" title="배터리 보호 상태 진입 시 호출되는 함수" alt="" coords="5,5,176,32"/>
+<area shape="rect" id="Node000002" href="$de/d5b/_h_p_c2___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하는 함수" alt="" coords="224,5,294,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="176,16,208,16,208,21,176,21"/>
+</map>

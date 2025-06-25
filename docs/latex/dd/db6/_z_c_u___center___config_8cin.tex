@@ -1,0 +1,801 @@
+\doxysection{ZCU\+\_\+\+Center\+\_\+\+Config.\+cin File Reference}
+\hypertarget{_z_c_u___center___config_8cin}{}\label{_z_c_u___center___config_8cin}\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+
+
+ZCU\+\_\+\+Center CAPL 스크립트의 모든 설정, 상수 및 전역 변수 정의  
+
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_h_m_i_input_data}{HMIInput\+Data}}
+\begin{DoxyCompactList}\small\item\em HMI 입력 관련 데이터를 저장하는 구조체 \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_cluster_display_data}{Cluster\+Display\+Data}}
+\begin{DoxyCompactList}\small\item\em 클러스터 표시 관련 데이터를 저장하는 구조체 \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_comm_monitor}{Comm\+Monitor}}
+\begin{DoxyCompactList}\small\item\em 통신 상태 및 오류를 모니터링하기 위한 데이터를 저장하는 구조체 \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_diagnostic_data}{Diagnostic\+Data}}
+\begin{DoxyCompactList}\small\item\em 시스템 진단 정보를 저장하는 구조체 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} \{ \mbox{\hyperlink{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75a98d2a2153b4ae0445fa0b114d65b94d9}{STATE\+\_\+\+INIT}} = 0
+, \mbox{\hyperlink{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75ae583c55c9f9a3aa9888e4ed771d6a9b6}{STATE\+\_\+\+NORMAL}} = 1
+, \mbox{\hyperlink{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75aecd42ac00d9f0c538291b2ba561b8c7e}{STATE\+\_\+\+DEGRADED}} = 2
+, \mbox{\hyperlink{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75a966112b7657af62652ff33e7f19bd234}{STATE\+\_\+\+FAIL\+\_\+\+SAFE}} = 3
+ \}
+\begin{DoxyCompactList}\small\item\em 시스템의 현재 운영 상태를 나타내는 열거형 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_ad15a621fb83201ce740e47f87afbeb71}{ECU\+\_\+\+ID}} = 0x03
+\begin{DoxyCompactList}\small\item\em ZCU\+\_\+\+Center ECU 식별자 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_af7398948a28fa4a4233c3ae86a9ba6d2}{SYSTEM\+\_\+\+VERSION}} = 0x0100
+\begin{DoxyCompactList}\small\item\em 시스템 버전 (Major.\+Minor) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_ac3a4195a9d5c657561da7089f0083186}{MAIN\+\_\+\+CYCLE}} = 10
+\begin{DoxyCompactList}\small\item\em 메인 태스크 주기 (ms) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_ae912a60b1645198621129d831197ad88}{TIMEOUT\+\_\+\+HPC\+\_\+\+M012}} = 300
+\begin{DoxyCompactList}\small\item\em HPC 통신 타임아웃 (ms) -\/ M012는 100ms 주기이므로 300ms. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a5599827db5a06c0f55a0e4961e35c68e}{TIMEOUT\+\_\+\+HPC\+\_\+\+M009}} = 1000
+\begin{DoxyCompactList}\small\item\em HPC 통신 타임아웃 (ms) -\/ M009는 이벤트성이므로 1000ms. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a75be4a7f5da2fbef829376dfd1ed9cc2}{MAX\+\_\+\+COMM\+\_\+\+FAILURES}} = 3
+\begin{DoxyCompactList}\small\item\em 최대 통신 실패 횟수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_af715285cee6a1cf237f6fa6737bd28a3}{HMI\+\_\+\+RESPONSE\+\_\+\+TIMEOUT}} = 200
+\begin{DoxyCompactList}\small\item\em HMI 응답 최대 대기 시간 (ms) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_ac03c02234cd8c61b6c9ca8c71ea1ea8e}{MIN\+\_\+\+BUTTON\+\_\+\+PRESS\+\_\+\+TIME}} = 30
+\begin{DoxyCompactList}\small\item\em 버튼 최소 눌림 시간 (ms) -\/ 잘못된 입력 방지 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a85da9629f752853bd1d5f3cea124b793}{MAX\+\_\+\+BUTTON\+\_\+\+PRESS\+\_\+\+TIME}} = 5000
+\begin{DoxyCompactList}\small\item\em 버튼 최대 눌림 시간 (ms) -\/ 스틱 방지 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_ac5cb26f56ec525a0cabb8e7fd7c8baf5}{MIN\+\_\+\+VOICE\+\_\+\+CONFIDENCE}} = 70
+\begin{DoxyCompactList}\small\item\em 음성 인식 최소 신뢰도 (\%) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_aa7c9c234fc2b8228dd0ff14e415f7ae2}{MIN\+\_\+\+INPUT\+\_\+\+INTERVAL}} = 300
+\begin{DoxyCompactList}\small\item\em 연속 입력 최소 간격 (ms) -\/ 중복 입력 방지 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_ab7554eab3e21ea607edeb68eafe9632b}{MAX\+\_\+\+REGEN\+\_\+\+MODES}} = 5
+\begin{DoxyCompactList}\small\item\em 회생제동 모드 개수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a74105258f2672bea05bff7d187f18b47}{MODE\+\_\+\+LEVEL\+\_\+0}} = 0
+\begin{DoxyCompactList}\small\item\em Level 0 모드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a98392e403adb54c7f3f53f62b3b4a499}{MODE\+\_\+\+LEVEL\+\_\+1}} = 1
+\begin{DoxyCompactList}\small\item\em Level 1 모드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a7d5ad10e8f16fbe4aa14b5bd694576a3}{MODE\+\_\+\+LEVEL\+\_\+2}} = 2
+\begin{DoxyCompactList}\small\item\em Level 2 모드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_ab62c99a0a61dca6dd26a77b067625bdc}{MODE\+\_\+\+LEVEL\+\_\+3}} = 3
+\begin{DoxyCompactList}\small\item\em Level 3 모드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a2e8eadab73706c773527d959a5f093cc}{MODE\+\_\+\+AUTO}} = 4
+\begin{DoxyCompactList}\small\item\em Auto 모드 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a638eece3b5e0f30dc49e1e6e2dbdf777}{PROFILE\+\_\+\+EFFICIENCY}} = 0
+\begin{DoxyCompactList}\small\item\em 효율성 프로파일 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a6e38429bd73eef09128268e2de533d79}{PROFILE\+\_\+\+COMFORT}} = 1
+\begin{DoxyCompactList}\small\item\em 편안함 프로파일 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a31c5ccf26359996302c76e8aa4f08fb5}{FAULT\+\_\+\+HPC\+\_\+\+COMM}} = 0x00000001
+\begin{DoxyCompactList}\small\item\em HPC 통신 폴트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a1492604a9e3473709bc2b5b8c7afd4d3}{FAULT\+\_\+\+BUTTON\+\_\+\+INPUT}} = 0x00000002
+\begin{DoxyCompactList}\small\item\em 버튼 입력 폴트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a269c664c1531795a3852472a0d4a5caa}{FAULT\+\_\+\+VOICE\+\_\+\+INPUT}} = 0x00000004
+\begin{DoxyCompactList}\small\item\em 음성 인식 폴트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a2f2c82a4a8ff99af0d78bfe63dfdfeb2}{FAULT\+\_\+\+CLUSTER\+\_\+\+DISPLAY}} = 0x00000008
+\begin{DoxyCompactList}\small\item\em 클러스터 표시 폴트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a9e38ce832a979750b8587e1d552e4666}{FAULT\+\_\+\+HMI\+\_\+\+TIMEOUT}} = 0x00000010
+\begin{DoxyCompactList}\small\item\em HMI 응답 타임아웃 폴트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_adc309f6f7b3f1ac683fb37d9035b6669}{FAULT\+\_\+\+SYSTEM\+\_\+\+OVERLOAD}} = 0x00000020
+\begin{DoxyCompactList}\small\item\em 시스템 과부하 폴트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_aeecc43e912e751354b1dbc29f7ff2b96}{FAULT\+\_\+\+MODE\+\_\+\+CHANGE\+\_\+\+FAIL}} = 0x00000040
+\begin{DoxyCompactList}\small\item\em 모드 변경 실패 폴트 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a6929d1d13bf78fb41a5b10d92c3434f8}{current\+State}}
+\begin{DoxyCompactList}\small\item\em 현재 시스템 상태 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a284ab61ed7f469415bda716efac8cd57}{previous\+State}}
+\begin{DoxyCompactList}\small\item\em 이전 시스템 상태 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_h_m_i_input_data}{HMIInput\+Data}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a611dfee3a0fb756f9090184f86f494ca}{hmi\+Input}}
+\begin{DoxyCompactList}\small\item\em HMI 입력 데이터 인스턴스 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_cluster_display_data}{Cluster\+Display\+Data}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a9d3ae797a2808232d792b076335ef192}{cluster\+Display}}
+\begin{DoxyCompactList}\small\item\em 클러스터 표시 데이터 인스턴스 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_comm_monitor}{Comm\+Monitor}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a6c7f8d405904ea723dceac417cf6baf8}{comm\+Mon}}
+\begin{DoxyCompactList}\small\item\em 통신 모니터링 인스턴스 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_diagnostic_data}{Diagnostic\+Data}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a69c8c525d5588b3255a4dd26426bc0b7}{diagnostics}}
+\begin{DoxyCompactList}\small\item\em 진단 데이터 인스턴스 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a9fe3673fcd6d4f743279cc182a9601de}{counter\+\_\+\+M008}}
+\begin{DoxyCompactList}\small\item\em M008 메시지 카운터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a573319238c0748689f7e6e3954134fd0}{counter\+\_\+\+M004}}
+\begin{DoxyCompactList}\small\item\em M004 메시지 카운터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a2cfac6837a04e292d0c2e17159a7dd97}{counter\+\_\+\+M016}}
+\begin{DoxyCompactList}\small\item\em M016 메시지 카운터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a3e5530c1dea85cf43338b54d668ed8a1}{fault\+Register}}
+\begin{DoxyCompactList}\small\item\em 폴트 레지스터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} \mbox{\hyperlink{_z_c_u___center___config_8cin_af0d89bb27ecacf133e14158efcc3868e}{timer\+Main\+Task}}
+\begin{DoxyCompactList}\small\item\em 메인 태스크 타이머 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a12b8cb24277977922a5ea5f48ce682c3}{g\+Task\+Counter}}
+\begin{DoxyCompactList}\small\item\em 태스크 카운터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a54b0ea4fff52c12c62cda286e7560d87}{g\+Hour\+Counter}}
+\begin{DoxyCompactList}\small\item\em 시간 카운터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a2714dc265cf3236801c39477e23d4aab}{g\+Watchdog\+Counter}}
+\begin{DoxyCompactList}\small\item\em 워치독 카운터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a09b39134ad802e2432d9cc51c59d77c5}{g\+Last\+Watchdog\+Time}}
+\begin{DoxyCompactList}\small\item\em 마지막 워치독 시간 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a48b1e004d17534b68ddbaba18bd8bc3b}{g\+Rolling\+Counter}}
+\begin{DoxyCompactList}\small\item\em E2E 보호용 롤링 카운터 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{_z_c_u___center___config_8cin_ac579d41327b5ccd54b91f040bba94811}{g\+Last\+E2\+EFail\+Time}}
+\begin{DoxyCompactList}\small\item\em 마지막 E2E 검증 실패 시간 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_ade100de8e442c8893af920e95c5f6052}{REQUEST\+\_\+\+SOURCE\+\_\+\+BUTTON}} = 0
+\begin{DoxyCompactList}\small\item\em 버튼 요청 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a6ff40c9ebb338681d124a70ac09509b8}{REQUEST\+\_\+\+SOURCE\+\_\+\+VOICE}} = 1
+\begin{DoxyCompactList}\small\item\em 음성 요청 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a63a1798017dc58b9190d55eb5390040e}{REQUEST\+\_\+\+SOURCE\+\_\+\+AUTO}} = 2
+\begin{DoxyCompactList}\small\item\em 자동 로직 요청 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_af3fd7dcad3502638a66571ac4f2a725d}{BUTTON\+\_\+\+MODE\+\_\+\+UP}} = 0
+\begin{DoxyCompactList}\small\item\em 모드 증가 버튼 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a603aaf4fc18bcfb744f8971ed70f0124}{BUTTON\+\_\+\+MODE\+\_\+\+DOWN}} = 1
+\begin{DoxyCompactList}\small\item\em 모드 감소 버튼 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a24c0fc462eb24abbe99140e8bd9b8c2f}{BUTTON\+\_\+\+PROFILE\+\_\+\+CHANGE}} = 2
+\begin{DoxyCompactList}\small\item\em 프로파일 변경 버튼 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a2cfe451b9ee8888a10b9acc71c59585f}{BUTTON\+\_\+\+AUTO\+\_\+\+TOGGLE}} = 3
+\begin{DoxyCompactList}\small\item\em 자동 모드 토글 버튼 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a29555d3f713c5cc9925dba4a3856a2b0}{BUTTON\+\_\+\+ACTION\+\_\+\+PRESS}} = 0
+\begin{DoxyCompactList}\small\item\em 버튼 눌림 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a1502587ddad3e07ecfb7aedbb67503bd}{BUTTON\+\_\+\+ACTION\+\_\+\+RELEASE}} = 1
+\begin{DoxyCompactList}\small\item\em 버튼 놓임 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a206f0c777fb2764c340edb5834b12b5b}{BUTTON\+\_\+\+ACTION\+\_\+\+LONG\+\_\+\+PRESS}} = 2
+\begin{DoxyCompactList}\small\item\em 버튼 길게 눌림 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a171bc205eda26cb76807a209cf1336e1}{VOICE\+\_\+\+CMD\+\_\+\+MODE\+\_\+\+CHANGE}} = 0
+\begin{DoxyCompactList}\small\item\em 모드 변경 명령 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_acf847f18c34f3203049471c5b0348b97}{VOICE\+\_\+\+CMD\+\_\+\+PROFILE\+\_\+\+CHANGE}} = 1
+\begin{DoxyCompactList}\small\item\em 프로파일 변경 명령 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a2fc72887123cc7fac6b6c7e29e43d64e}{VOICE\+\_\+\+CMD\+\_\+\+SYSTEM\+\_\+\+INFO}} = 2
+\begin{DoxyCompactList}\small\item\em 시스템 정보 요청 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a7fbdd0e99c233ad02ac05d3a924fbec2}{WARNING\+\_\+\+BATTERY}} = 0x01
+\begin{DoxyCompactList}\small\item\em 배터리 경고 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_ad55e690bc8e8077da8492529882ae96e}{WARNING\+\_\+\+ABS}} = 0x02
+\begin{DoxyCompactList}\small\item\em ABS 경고 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_aaa3cd956cbf94b51f4179a288ffcb593}{WARNING\+\_\+\+SYSTEM\+\_\+\+FAULT}} = 0x04
+\begin{DoxyCompactList}\small\item\em 시스템 고장 경고 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a664b664a684ed6b6a0e3ef27ba6ad858}{WARNING\+\_\+\+COMM\+\_\+\+ERROR}} = 0x08
+\begin{DoxyCompactList}\small\item\em 통신 오류 경고 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{_z_c_u___center___config_8cin_a15568f99ddb2ef17b927c84f971d5e4e}{WARNING\+\_\+\+OTA\+\_\+\+UPDATE}} = 0x10
+\begin{DoxyCompactList}\small\item\em OTA 업데이트 경고 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+ZCU\+\_\+\+Center CAPL 스크립트의 모든 설정, 상수 및 전역 변수 정의 
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75}\label{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!SystemState@{SystemState}}
+\index{SystemState@{SystemState}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{SystemState}{SystemState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}}}
+
+
+
+시스템의 현재 운영 상태를 나타내는 열거형 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_INIT@{STATE\_INIT}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!STATE\_INIT@{STATE\_INIT}}}\Hypertarget{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75a98d2a2153b4ae0445fa0b114d65b94d9}\label{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75a98d2a2153b4ae0445fa0b114d65b94d9} 
+STATE\+\_\+\+INIT&초기화 상태 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_NORMAL@{STATE\_NORMAL}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!STATE\_NORMAL@{STATE\_NORMAL}}}\Hypertarget{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75ae583c55c9f9a3aa9888e4ed771d6a9b6}\label{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75ae583c55c9f9a3aa9888e4ed771d6a9b6} 
+STATE\+\_\+\+NORMAL&정상 작동 상태 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_DEGRADED@{STATE\_DEGRADED}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!STATE\_DEGRADED@{STATE\_DEGRADED}}}\Hypertarget{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75aecd42ac00d9f0c538291b2ba561b8c7e}\label{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75aecd42ac00d9f0c538291b2ba561b8c7e} 
+STATE\+\_\+\+DEGRADED&기능 저하 상태 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_FAIL\_SAFE@{STATE\_FAIL\_SAFE}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!STATE\_FAIL\_SAFE@{STATE\_FAIL\_SAFE}}}\Hypertarget{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75a966112b7657af62652ff33e7f19bd234}\label{_z_c_u___center___config_8cin_aa51313be2faacb739a18fdeecefbac75a966112b7657af62652ff33e7f19bd234} 
+STATE\+\_\+\+FAIL\+\_\+\+SAFE&안전 상태 \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_z_c_u___center___config_8cin_a206f0c777fb2764c340edb5834b12b5b}\label{_z_c_u___center___config_8cin_a206f0c777fb2764c340edb5834b12b5b} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!BUTTON\_ACTION\_LONG\_PRESS@{BUTTON\_ACTION\_LONG\_PRESS}}
+\index{BUTTON\_ACTION\_LONG\_PRESS@{BUTTON\_ACTION\_LONG\_PRESS}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_ACTION\_LONG\_PRESS}{BUTTON\_ACTION\_LONG\_PRESS}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} BUTTON\+\_\+\+ACTION\+\_\+\+LONG\+\_\+\+PRESS = 2}
+
+
+
+버튼 길게 눌림 
+
+\Hypertarget{_z_c_u___center___config_8cin_a29555d3f713c5cc9925dba4a3856a2b0}\label{_z_c_u___center___config_8cin_a29555d3f713c5cc9925dba4a3856a2b0} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!BUTTON\_ACTION\_PRESS@{BUTTON\_ACTION\_PRESS}}
+\index{BUTTON\_ACTION\_PRESS@{BUTTON\_ACTION\_PRESS}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_ACTION\_PRESS}{BUTTON\_ACTION\_PRESS}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} BUTTON\+\_\+\+ACTION\+\_\+\+PRESS = 0}
+
+
+
+버튼 눌림 
+
+\Hypertarget{_z_c_u___center___config_8cin_a1502587ddad3e07ecfb7aedbb67503bd}\label{_z_c_u___center___config_8cin_a1502587ddad3e07ecfb7aedbb67503bd} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!BUTTON\_ACTION\_RELEASE@{BUTTON\_ACTION\_RELEASE}}
+\index{BUTTON\_ACTION\_RELEASE@{BUTTON\_ACTION\_RELEASE}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_ACTION\_RELEASE}{BUTTON\_ACTION\_RELEASE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} BUTTON\+\_\+\+ACTION\+\_\+\+RELEASE = 1}
+
+
+
+버튼 놓임 
+
+\Hypertarget{_z_c_u___center___config_8cin_a2cfe451b9ee8888a10b9acc71c59585f}\label{_z_c_u___center___config_8cin_a2cfe451b9ee8888a10b9acc71c59585f} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!BUTTON\_AUTO\_TOGGLE@{BUTTON\_AUTO\_TOGGLE}}
+\index{BUTTON\_AUTO\_TOGGLE@{BUTTON\_AUTO\_TOGGLE}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_AUTO\_TOGGLE}{BUTTON\_AUTO\_TOGGLE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} BUTTON\+\_\+\+AUTO\+\_\+\+TOGGLE = 3}
+
+
+
+자동 모드 토글 버튼 
+
+\Hypertarget{_z_c_u___center___config_8cin_a603aaf4fc18bcfb744f8971ed70f0124}\label{_z_c_u___center___config_8cin_a603aaf4fc18bcfb744f8971ed70f0124} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!BUTTON\_MODE\_DOWN@{BUTTON\_MODE\_DOWN}}
+\index{BUTTON\_MODE\_DOWN@{BUTTON\_MODE\_DOWN}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_MODE\_DOWN}{BUTTON\_MODE\_DOWN}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} BUTTON\+\_\+\+MODE\+\_\+\+DOWN = 1}
+
+
+
+모드 감소 버튼 
+
+\Hypertarget{_z_c_u___center___config_8cin_af3fd7dcad3502638a66571ac4f2a725d}\label{_z_c_u___center___config_8cin_af3fd7dcad3502638a66571ac4f2a725d} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!BUTTON\_MODE\_UP@{BUTTON\_MODE\_UP}}
+\index{BUTTON\_MODE\_UP@{BUTTON\_MODE\_UP}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_MODE\_UP}{BUTTON\_MODE\_UP}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} BUTTON\+\_\+\+MODE\+\_\+\+UP = 0}
+
+
+
+모드 증가 버튼 
+
+\Hypertarget{_z_c_u___center___config_8cin_a24c0fc462eb24abbe99140e8bd9b8c2f}\label{_z_c_u___center___config_8cin_a24c0fc462eb24abbe99140e8bd9b8c2f} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!BUTTON\_PROFILE\_CHANGE@{BUTTON\_PROFILE\_CHANGE}}
+\index{BUTTON\_PROFILE\_CHANGE@{BUTTON\_PROFILE\_CHANGE}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_PROFILE\_CHANGE}{BUTTON\_PROFILE\_CHANGE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} BUTTON\+\_\+\+PROFILE\+\_\+\+CHANGE = 2}
+
+
+
+프로파일 변경 버튼 
+
+\Hypertarget{_z_c_u___center___config_8cin_a9d3ae797a2808232d792b076335ef192}\label{_z_c_u___center___config_8cin_a9d3ae797a2808232d792b076335ef192} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!clusterDisplay@{clusterDisplay}}
+\index{clusterDisplay@{clusterDisplay}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{clusterDisplay}{clusterDisplay}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_cluster_display_data}{Cluster\+Display\+Data}} cluster\+Display}
+
+
+
+클러스터 표시 데이터 인스턴스 
+
+\Hypertarget{_z_c_u___center___config_8cin_a6c7f8d405904ea723dceac417cf6baf8}\label{_z_c_u___center___config_8cin_a6c7f8d405904ea723dceac417cf6baf8} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!commMon@{commMon}}
+\index{commMon@{commMon}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{commMon}{commMon}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_comm_monitor}{Comm\+Monitor}} comm\+Mon}
+
+
+
+통신 모니터링 인스턴스 
+
+\Hypertarget{_z_c_u___center___config_8cin_a573319238c0748689f7e6e3954134fd0}\label{_z_c_u___center___config_8cin_a573319238c0748689f7e6e3954134fd0} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!counter\_M004@{counter\_M004}}
+\index{counter\_M004@{counter\_M004}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{counter\_M004}{counter\_M004}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} counter\+\_\+\+M004}
+
+
+
+M004 메시지 카운터 
+
+\Hypertarget{_z_c_u___center___config_8cin_a9fe3673fcd6d4f743279cc182a9601de}\label{_z_c_u___center___config_8cin_a9fe3673fcd6d4f743279cc182a9601de} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!counter\_M008@{counter\_M008}}
+\index{counter\_M008@{counter\_M008}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{counter\_M008}{counter\_M008}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} counter\+\_\+\+M008}
+
+
+
+M008 메시지 카운터 
+
+\Hypertarget{_z_c_u___center___config_8cin_a2cfac6837a04e292d0c2e17159a7dd97}\label{_z_c_u___center___config_8cin_a2cfac6837a04e292d0c2e17159a7dd97} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!counter\_M016@{counter\_M016}}
+\index{counter\_M016@{counter\_M016}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{counter\_M016}{counter\_M016}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} counter\+\_\+\+M016}
+
+
+
+M016 메시지 카운터 
+
+\Hypertarget{_z_c_u___center___config_8cin_a6929d1d13bf78fb41a5b10d92c3434f8}\label{_z_c_u___center___config_8cin_a6929d1d13bf78fb41a5b10d92c3434f8} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!currentState@{currentState}}
+\index{currentState@{currentState}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{currentState}{currentState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} current\+State}
+
+
+
+현재 시스템 상태 
+
+\Hypertarget{_z_c_u___center___config_8cin_a69c8c525d5588b3255a4dd26426bc0b7}\label{_z_c_u___center___config_8cin_a69c8c525d5588b3255a4dd26426bc0b7} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!diagnostics@{diagnostics}}
+\index{diagnostics@{diagnostics}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{diagnostics}{diagnostics}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_diagnostic_data}{Diagnostic\+Data}} diagnostics}
+
+
+
+진단 데이터 인스턴스 
+
+\Hypertarget{_z_c_u___center___config_8cin_ad15a621fb83201ce740e47f87afbeb71}\label{_z_c_u___center___config_8cin_ad15a621fb83201ce740e47f87afbeb71} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!ECU\_ID@{ECU\_ID}}
+\index{ECU\_ID@{ECU\_ID}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{ECU\_ID}{ECU\_ID}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} ECU\+\_\+\+ID = 0x03}
+
+
+
+ZCU\+\_\+\+Center ECU 식별자 
+
+\Hypertarget{_z_c_u___center___config_8cin_a1492604a9e3473709bc2b5b8c7afd4d3}\label{_z_c_u___center___config_8cin_a1492604a9e3473709bc2b5b8c7afd4d3} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!FAULT\_BUTTON\_INPUT@{FAULT\_BUTTON\_INPUT}}
+\index{FAULT\_BUTTON\_INPUT@{FAULT\_BUTTON\_INPUT}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{FAULT\_BUTTON\_INPUT}{FAULT\_BUTTON\_INPUT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} FAULT\+\_\+\+BUTTON\+\_\+\+INPUT = 0x00000002}
+
+
+
+버튼 입력 폴트 
+
+\Hypertarget{_z_c_u___center___config_8cin_a2f2c82a4a8ff99af0d78bfe63dfdfeb2}\label{_z_c_u___center___config_8cin_a2f2c82a4a8ff99af0d78bfe63dfdfeb2} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!FAULT\_CLUSTER\_DISPLAY@{FAULT\_CLUSTER\_DISPLAY}}
+\index{FAULT\_CLUSTER\_DISPLAY@{FAULT\_CLUSTER\_DISPLAY}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{FAULT\_CLUSTER\_DISPLAY}{FAULT\_CLUSTER\_DISPLAY}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} FAULT\+\_\+\+CLUSTER\+\_\+\+DISPLAY = 0x00000008}
+
+
+
+클러스터 표시 폴트 
+
+\Hypertarget{_z_c_u___center___config_8cin_a9e38ce832a979750b8587e1d552e4666}\label{_z_c_u___center___config_8cin_a9e38ce832a979750b8587e1d552e4666} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!FAULT\_HMI\_TIMEOUT@{FAULT\_HMI\_TIMEOUT}}
+\index{FAULT\_HMI\_TIMEOUT@{FAULT\_HMI\_TIMEOUT}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{FAULT\_HMI\_TIMEOUT}{FAULT\_HMI\_TIMEOUT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} FAULT\+\_\+\+HMI\+\_\+\+TIMEOUT = 0x00000010}
+
+
+
+HMI 응답 타임아웃 폴트 
+
+\Hypertarget{_z_c_u___center___config_8cin_a31c5ccf26359996302c76e8aa4f08fb5}\label{_z_c_u___center___config_8cin_a31c5ccf26359996302c76e8aa4f08fb5} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!FAULT\_HPC\_COMM@{FAULT\_HPC\_COMM}}
+\index{FAULT\_HPC\_COMM@{FAULT\_HPC\_COMM}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{FAULT\_HPC\_COMM}{FAULT\_HPC\_COMM}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} FAULT\+\_\+\+HPC\+\_\+\+COMM = 0x00000001}
+
+
+
+HPC 통신 폴트 
+
+\Hypertarget{_z_c_u___center___config_8cin_aeecc43e912e751354b1dbc29f7ff2b96}\label{_z_c_u___center___config_8cin_aeecc43e912e751354b1dbc29f7ff2b96} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!FAULT\_MODE\_CHANGE\_FAIL@{FAULT\_MODE\_CHANGE\_FAIL}}
+\index{FAULT\_MODE\_CHANGE\_FAIL@{FAULT\_MODE\_CHANGE\_FAIL}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{FAULT\_MODE\_CHANGE\_FAIL}{FAULT\_MODE\_CHANGE\_FAIL}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} FAULT\+\_\+\+MODE\+\_\+\+CHANGE\+\_\+\+FAIL = 0x00000040}
+
+
+
+모드 변경 실패 폴트 
+
+\Hypertarget{_z_c_u___center___config_8cin_adc309f6f7b3f1ac683fb37d9035b6669}\label{_z_c_u___center___config_8cin_adc309f6f7b3f1ac683fb37d9035b6669} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!FAULT\_SYSTEM\_OVERLOAD@{FAULT\_SYSTEM\_OVERLOAD}}
+\index{FAULT\_SYSTEM\_OVERLOAD@{FAULT\_SYSTEM\_OVERLOAD}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{FAULT\_SYSTEM\_OVERLOAD}{FAULT\_SYSTEM\_OVERLOAD}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} FAULT\+\_\+\+SYSTEM\+\_\+\+OVERLOAD = 0x00000020}
+
+
+
+시스템 과부하 폴트 
+
+\Hypertarget{_z_c_u___center___config_8cin_a269c664c1531795a3852472a0d4a5caa}\label{_z_c_u___center___config_8cin_a269c664c1531795a3852472a0d4a5caa} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!FAULT\_VOICE\_INPUT@{FAULT\_VOICE\_INPUT}}
+\index{FAULT\_VOICE\_INPUT@{FAULT\_VOICE\_INPUT}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{FAULT\_VOICE\_INPUT}{FAULT\_VOICE\_INPUT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} FAULT\+\_\+\+VOICE\+\_\+\+INPUT = 0x00000004}
+
+
+
+음성 인식 폴트 
+
+\Hypertarget{_z_c_u___center___config_8cin_a3e5530c1dea85cf43338b54d668ed8a1}\label{_z_c_u___center___config_8cin_a3e5530c1dea85cf43338b54d668ed8a1} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!faultRegister@{faultRegister}}
+\index{faultRegister@{faultRegister}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{faultRegister}{faultRegister}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} fault\+Register}
+
+
+
+폴트 레지스터 
+
+\Hypertarget{_z_c_u___center___config_8cin_a54b0ea4fff52c12c62cda286e7560d87}\label{_z_c_u___center___config_8cin_a54b0ea4fff52c12c62cda286e7560d87} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!gHourCounter@{gHourCounter}}
+\index{gHourCounter@{gHourCounter}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gHourCounter}{gHourCounter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} g\+Hour\+Counter}
+
+
+
+시간 카운터 
+
+\Hypertarget{_z_c_u___center___config_8cin_ac579d41327b5ccd54b91f040bba94811}\label{_z_c_u___center___config_8cin_ac579d41327b5ccd54b91f040bba94811} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!gLastE2EFailTime@{gLastE2EFailTime}}
+\index{gLastE2EFailTime@{gLastE2EFailTime}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gLastE2EFailTime}{gLastE2EFailTime}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} g\+Last\+E2\+EFail\+Time}
+
+
+
+마지막 E2E 검증 실패 시간 
+
+\Hypertarget{_z_c_u___center___config_8cin_a09b39134ad802e2432d9cc51c59d77c5}\label{_z_c_u___center___config_8cin_a09b39134ad802e2432d9cc51c59d77c5} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!gLastWatchdogTime@{gLastWatchdogTime}}
+\index{gLastWatchdogTime@{gLastWatchdogTime}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gLastWatchdogTime}{gLastWatchdogTime}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} g\+Last\+Watchdog\+Time}
+
+
+
+마지막 워치독 시간 
+
+\Hypertarget{_z_c_u___center___config_8cin_a48b1e004d17534b68ddbaba18bd8bc3b}\label{_z_c_u___center___config_8cin_a48b1e004d17534b68ddbaba18bd8bc3b} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!gRollingCounter@{gRollingCounter}}
+\index{gRollingCounter@{gRollingCounter}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gRollingCounter}{gRollingCounter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} g\+Rolling\+Counter}
+
+
+
+E2E 보호용 롤링 카운터 
+
+\Hypertarget{_z_c_u___center___config_8cin_a12b8cb24277977922a5ea5f48ce682c3}\label{_z_c_u___center___config_8cin_a12b8cb24277977922a5ea5f48ce682c3} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!gTaskCounter@{gTaskCounter}}
+\index{gTaskCounter@{gTaskCounter}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gTaskCounter}{gTaskCounter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} g\+Task\+Counter}
+
+
+
+태스크 카운터 
+
+\Hypertarget{_z_c_u___center___config_8cin_a2714dc265cf3236801c39477e23d4aab}\label{_z_c_u___center___config_8cin_a2714dc265cf3236801c39477e23d4aab} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!gWatchdogCounter@{gWatchdogCounter}}
+\index{gWatchdogCounter@{gWatchdogCounter}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{gWatchdogCounter}{gWatchdogCounter}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} g\+Watchdog\+Counter}
+
+
+
+워치독 카운터 
+
+\Hypertarget{_z_c_u___center___config_8cin_af715285cee6a1cf237f6fa6737bd28a3}\label{_z_c_u___center___config_8cin_af715285cee6a1cf237f6fa6737bd28a3} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!HMI\_RESPONSE\_TIMEOUT@{HMI\_RESPONSE\_TIMEOUT}}
+\index{HMI\_RESPONSE\_TIMEOUT@{HMI\_RESPONSE\_TIMEOUT}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{HMI\_RESPONSE\_TIMEOUT}{HMI\_RESPONSE\_TIMEOUT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} HMI\+\_\+\+RESPONSE\+\_\+\+TIMEOUT = 200}
+
+
+
+HMI 응답 최대 대기 시간 (ms) 
+
+\Hypertarget{_z_c_u___center___config_8cin_a611dfee3a0fb756f9090184f86f494ca}\label{_z_c_u___center___config_8cin_a611dfee3a0fb756f9090184f86f494ca} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!hmiInput@{hmiInput}}
+\index{hmiInput@{hmiInput}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{hmiInput}{hmiInput}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{struct}} \mbox{\hyperlink{struct_h_m_i_input_data}{HMIInput\+Data}} hmi\+Input}
+
+
+
+HMI 입력 데이터 인스턴스 
+
+\Hypertarget{_z_c_u___center___config_8cin_ac3a4195a9d5c657561da7089f0083186}\label{_z_c_u___center___config_8cin_ac3a4195a9d5c657561da7089f0083186} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MAIN\_CYCLE@{MAIN\_CYCLE}}
+\index{MAIN\_CYCLE@{MAIN\_CYCLE}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MAIN\_CYCLE}{MAIN\_CYCLE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} MAIN\+\_\+\+CYCLE = 10}
+
+
+
+메인 태스크 주기 (ms) 
+
+\Hypertarget{_z_c_u___center___config_8cin_a85da9629f752853bd1d5f3cea124b793}\label{_z_c_u___center___config_8cin_a85da9629f752853bd1d5f3cea124b793} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MAX\_BUTTON\_PRESS\_TIME@{MAX\_BUTTON\_PRESS\_TIME}}
+\index{MAX\_BUTTON\_PRESS\_TIME@{MAX\_BUTTON\_PRESS\_TIME}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MAX\_BUTTON\_PRESS\_TIME}{MAX\_BUTTON\_PRESS\_TIME}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} MAX\+\_\+\+BUTTON\+\_\+\+PRESS\+\_\+\+TIME = 5000}
+
+
+
+버튼 최대 눌림 시간 (ms) -\/ 스틱 방지 
+
+\Hypertarget{_z_c_u___center___config_8cin_a75be4a7f5da2fbef829376dfd1ed9cc2}\label{_z_c_u___center___config_8cin_a75be4a7f5da2fbef829376dfd1ed9cc2} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MAX\_COMM\_FAILURES@{MAX\_COMM\_FAILURES}}
+\index{MAX\_COMM\_FAILURES@{MAX\_COMM\_FAILURES}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MAX\_COMM\_FAILURES}{MAX\_COMM\_FAILURES}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} MAX\+\_\+\+COMM\+\_\+\+FAILURES = 3}
+
+
+
+최대 통신 실패 횟수 
+
+\Hypertarget{_z_c_u___center___config_8cin_ab7554eab3e21ea607edeb68eafe9632b}\label{_z_c_u___center___config_8cin_ab7554eab3e21ea607edeb68eafe9632b} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MAX\_REGEN\_MODES@{MAX\_REGEN\_MODES}}
+\index{MAX\_REGEN\_MODES@{MAX\_REGEN\_MODES}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MAX\_REGEN\_MODES}{MAX\_REGEN\_MODES}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} MAX\+\_\+\+REGEN\+\_\+\+MODES = 5}
+
+
+
+회생제동 모드 개수 
+
+\Hypertarget{_z_c_u___center___config_8cin_ac03c02234cd8c61b6c9ca8c71ea1ea8e}\label{_z_c_u___center___config_8cin_ac03c02234cd8c61b6c9ca8c71ea1ea8e} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MIN\_BUTTON\_PRESS\_TIME@{MIN\_BUTTON\_PRESS\_TIME}}
+\index{MIN\_BUTTON\_PRESS\_TIME@{MIN\_BUTTON\_PRESS\_TIME}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MIN\_BUTTON\_PRESS\_TIME}{MIN\_BUTTON\_PRESS\_TIME}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} MIN\+\_\+\+BUTTON\+\_\+\+PRESS\+\_\+\+TIME = 30}
+
+
+
+버튼 최소 눌림 시간 (ms) -\/ 잘못된 입력 방지 
+
+\Hypertarget{_z_c_u___center___config_8cin_aa7c9c234fc2b8228dd0ff14e415f7ae2}\label{_z_c_u___center___config_8cin_aa7c9c234fc2b8228dd0ff14e415f7ae2} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MIN\_INPUT\_INTERVAL@{MIN\_INPUT\_INTERVAL}}
+\index{MIN\_INPUT\_INTERVAL@{MIN\_INPUT\_INTERVAL}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MIN\_INPUT\_INTERVAL}{MIN\_INPUT\_INTERVAL}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} MIN\+\_\+\+INPUT\+\_\+\+INTERVAL = 300}
+
+
+
+연속 입력 최소 간격 (ms) -\/ 중복 입력 방지 
+
+\Hypertarget{_z_c_u___center___config_8cin_ac5cb26f56ec525a0cabb8e7fd7c8baf5}\label{_z_c_u___center___config_8cin_ac5cb26f56ec525a0cabb8e7fd7c8baf5} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MIN\_VOICE\_CONFIDENCE@{MIN\_VOICE\_CONFIDENCE}}
+\index{MIN\_VOICE\_CONFIDENCE@{MIN\_VOICE\_CONFIDENCE}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MIN\_VOICE\_CONFIDENCE}{MIN\_VOICE\_CONFIDENCE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} MIN\+\_\+\+VOICE\+\_\+\+CONFIDENCE = 70}
+
+
+
+음성 인식 최소 신뢰도 (\%) 
+
+\Hypertarget{_z_c_u___center___config_8cin_a2e8eadab73706c773527d959a5f093cc}\label{_z_c_u___center___config_8cin_a2e8eadab73706c773527d959a5f093cc} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MODE\_AUTO@{MODE\_AUTO}}
+\index{MODE\_AUTO@{MODE\_AUTO}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MODE\_AUTO}{MODE\_AUTO}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} MODE\+\_\+\+AUTO = 4}
+
+
+
+Auto 모드 
+
+\Hypertarget{_z_c_u___center___config_8cin_a74105258f2672bea05bff7d187f18b47}\label{_z_c_u___center___config_8cin_a74105258f2672bea05bff7d187f18b47} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MODE\_LEVEL\_0@{MODE\_LEVEL\_0}}
+\index{MODE\_LEVEL\_0@{MODE\_LEVEL\_0}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MODE\_LEVEL\_0}{MODE\_LEVEL\_0}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} MODE\+\_\+\+LEVEL\+\_\+0 = 0}
+
+
+
+Level 0 모드 
+
+\Hypertarget{_z_c_u___center___config_8cin_a98392e403adb54c7f3f53f62b3b4a499}\label{_z_c_u___center___config_8cin_a98392e403adb54c7f3f53f62b3b4a499} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MODE\_LEVEL\_1@{MODE\_LEVEL\_1}}
+\index{MODE\_LEVEL\_1@{MODE\_LEVEL\_1}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MODE\_LEVEL\_1}{MODE\_LEVEL\_1}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} MODE\+\_\+\+LEVEL\+\_\+1 = 1}
+
+
+
+Level 1 모드 
+
+\Hypertarget{_z_c_u___center___config_8cin_a7d5ad10e8f16fbe4aa14b5bd694576a3}\label{_z_c_u___center___config_8cin_a7d5ad10e8f16fbe4aa14b5bd694576a3} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MODE\_LEVEL\_2@{MODE\_LEVEL\_2}}
+\index{MODE\_LEVEL\_2@{MODE\_LEVEL\_2}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MODE\_LEVEL\_2}{MODE\_LEVEL\_2}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} MODE\+\_\+\+LEVEL\+\_\+2 = 2}
+
+
+
+Level 2 모드 
+
+\Hypertarget{_z_c_u___center___config_8cin_ab62c99a0a61dca6dd26a77b067625bdc}\label{_z_c_u___center___config_8cin_ab62c99a0a61dca6dd26a77b067625bdc} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!MODE\_LEVEL\_3@{MODE\_LEVEL\_3}}
+\index{MODE\_LEVEL\_3@{MODE\_LEVEL\_3}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{MODE\_LEVEL\_3}{MODE\_LEVEL\_3}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} MODE\+\_\+\+LEVEL\+\_\+3 = 3}
+
+
+
+Level 3 모드 
+
+\Hypertarget{_z_c_u___center___config_8cin_a284ab61ed7f469415bda716efac8cd57}\label{_z_c_u___center___config_8cin_a284ab61ed7f469415bda716efac8cd57} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!previousState@{previousState}}
+\index{previousState@{previousState}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{previousState}{previousState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{enum}} \mbox{\hyperlink{_h_p_c___config_8cin_aa51313be2faacb739a18fdeecefbac75}{System\+State}} previous\+State}
+
+
+
+이전 시스템 상태 
+
+\Hypertarget{_z_c_u___center___config_8cin_a6e38429bd73eef09128268e2de533d79}\label{_z_c_u___center___config_8cin_a6e38429bd73eef09128268e2de533d79} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!PROFILE\_COMFORT@{PROFILE\_COMFORT}}
+\index{PROFILE\_COMFORT@{PROFILE\_COMFORT}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{PROFILE\_COMFORT}{PROFILE\_COMFORT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} PROFILE\+\_\+\+COMFORT = 1}
+
+
+
+편안함 프로파일 
+
+\Hypertarget{_z_c_u___center___config_8cin_a638eece3b5e0f30dc49e1e6e2dbdf777}\label{_z_c_u___center___config_8cin_a638eece3b5e0f30dc49e1e6e2dbdf777} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!PROFILE\_EFFICIENCY@{PROFILE\_EFFICIENCY}}
+\index{PROFILE\_EFFICIENCY@{PROFILE\_EFFICIENCY}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{PROFILE\_EFFICIENCY}{PROFILE\_EFFICIENCY}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} PROFILE\+\_\+\+EFFICIENCY = 0}
+
+
+
+효율성 프로파일 
+
+\Hypertarget{_z_c_u___center___config_8cin_a63a1798017dc58b9190d55eb5390040e}\label{_z_c_u___center___config_8cin_a63a1798017dc58b9190d55eb5390040e} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!REQUEST\_SOURCE\_AUTO@{REQUEST\_SOURCE\_AUTO}}
+\index{REQUEST\_SOURCE\_AUTO@{REQUEST\_SOURCE\_AUTO}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{REQUEST\_SOURCE\_AUTO}{REQUEST\_SOURCE\_AUTO}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} REQUEST\+\_\+\+SOURCE\+\_\+\+AUTO = 2}
+
+
+
+자동 로직 요청 
+
+\Hypertarget{_z_c_u___center___config_8cin_ade100de8e442c8893af920e95c5f6052}\label{_z_c_u___center___config_8cin_ade100de8e442c8893af920e95c5f6052} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!REQUEST\_SOURCE\_BUTTON@{REQUEST\_SOURCE\_BUTTON}}
+\index{REQUEST\_SOURCE\_BUTTON@{REQUEST\_SOURCE\_BUTTON}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{REQUEST\_SOURCE\_BUTTON}{REQUEST\_SOURCE\_BUTTON}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} REQUEST\+\_\+\+SOURCE\+\_\+\+BUTTON = 0}
+
+
+
+버튼 요청 
+
+\Hypertarget{_z_c_u___center___config_8cin_a6ff40c9ebb338681d124a70ac09509b8}\label{_z_c_u___center___config_8cin_a6ff40c9ebb338681d124a70ac09509b8} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!REQUEST\_SOURCE\_VOICE@{REQUEST\_SOURCE\_VOICE}}
+\index{REQUEST\_SOURCE\_VOICE@{REQUEST\_SOURCE\_VOICE}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{REQUEST\_SOURCE\_VOICE}{REQUEST\_SOURCE\_VOICE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} REQUEST\+\_\+\+SOURCE\+\_\+\+VOICE = 1}
+
+
+
+음성 요청 
+
+\Hypertarget{_z_c_u___center___config_8cin_af7398948a28fa4a4233c3ae86a9ba6d2}\label{_z_c_u___center___config_8cin_af7398948a28fa4a4233c3ae86a9ba6d2} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!SYSTEM\_VERSION@{SYSTEM\_VERSION}}
+\index{SYSTEM\_VERSION@{SYSTEM\_VERSION}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{SYSTEM\_VERSION}{SYSTEM\_VERSION}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} SYSTEM\+\_\+\+VERSION = 0x0100}
+
+
+
+시스템 버전 (Major.\+Minor) 
+
+\Hypertarget{_z_c_u___center___config_8cin_a5599827db5a06c0f55a0e4961e35c68e}\label{_z_c_u___center___config_8cin_a5599827db5a06c0f55a0e4961e35c68e} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!TIMEOUT\_HPC\_M009@{TIMEOUT\_HPC\_M009}}
+\index{TIMEOUT\_HPC\_M009@{TIMEOUT\_HPC\_M009}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{TIMEOUT\_HPC\_M009}{TIMEOUT\_HPC\_M009}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} TIMEOUT\+\_\+\+HPC\+\_\+\+M009 = 1000}
+
+
+
+HPC 통신 타임아웃 (ms) -\/ M009는 이벤트성이므로 1000ms. 
+
+\Hypertarget{_z_c_u___center___config_8cin_ae912a60b1645198621129d831197ad88}\label{_z_c_u___center___config_8cin_ae912a60b1645198621129d831197ad88} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!TIMEOUT\_HPC\_M012@{TIMEOUT\_HPC\_M012}}
+\index{TIMEOUT\_HPC\_M012@{TIMEOUT\_HPC\_M012}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{TIMEOUT\_HPC\_M012}{TIMEOUT\_HPC\_M012}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} TIMEOUT\+\_\+\+HPC\+\_\+\+M012 = 300}
+
+
+
+HPC 통신 타임아웃 (ms) -\/ M012는 100ms 주기이므로 300ms. 
+
+\Hypertarget{_z_c_u___center___config_8cin_af0d89bb27ecacf133e14158efcc3868e}\label{_z_c_u___center___config_8cin_af0d89bb27ecacf133e14158efcc3868e} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!timerMainTask@{timerMainTask}}
+\index{timerMainTask@{timerMainTask}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{timerMainTask}{timerMainTask}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{ms\+Timer}} timer\+Main\+Task}
+
+
+
+메인 태스크 타이머 
+
+\Hypertarget{_z_c_u___center___config_8cin_a171bc205eda26cb76807a209cf1336e1}\label{_z_c_u___center___config_8cin_a171bc205eda26cb76807a209cf1336e1} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!VOICE\_CMD\_MODE\_CHANGE@{VOICE\_CMD\_MODE\_CHANGE}}
+\index{VOICE\_CMD\_MODE\_CHANGE@{VOICE\_CMD\_MODE\_CHANGE}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{VOICE\_CMD\_MODE\_CHANGE}{VOICE\_CMD\_MODE\_CHANGE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} VOICE\+\_\+\+CMD\+\_\+\+MODE\+\_\+\+CHANGE = 0}
+
+
+
+모드 변경 명령 
+
+\Hypertarget{_z_c_u___center___config_8cin_acf847f18c34f3203049471c5b0348b97}\label{_z_c_u___center___config_8cin_acf847f18c34f3203049471c5b0348b97} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!VOICE\_CMD\_PROFILE\_CHANGE@{VOICE\_CMD\_PROFILE\_CHANGE}}
+\index{VOICE\_CMD\_PROFILE\_CHANGE@{VOICE\_CMD\_PROFILE\_CHANGE}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{VOICE\_CMD\_PROFILE\_CHANGE}{VOICE\_CMD\_PROFILE\_CHANGE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} VOICE\+\_\+\+CMD\+\_\+\+PROFILE\+\_\+\+CHANGE = 1}
+
+
+
+프로파일 변경 명령 
+
+\Hypertarget{_z_c_u___center___config_8cin_a2fc72887123cc7fac6b6c7e29e43d64e}\label{_z_c_u___center___config_8cin_a2fc72887123cc7fac6b6c7e29e43d64e} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!VOICE\_CMD\_SYSTEM\_INFO@{VOICE\_CMD\_SYSTEM\_INFO}}
+\index{VOICE\_CMD\_SYSTEM\_INFO@{VOICE\_CMD\_SYSTEM\_INFO}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{VOICE\_CMD\_SYSTEM\_INFO}{VOICE\_CMD\_SYSTEM\_INFO}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} VOICE\+\_\+\+CMD\+\_\+\+SYSTEM\+\_\+\+INFO = 2}
+
+
+
+시스템 정보 요청 
+
+\Hypertarget{_z_c_u___center___config_8cin_ad55e690bc8e8077da8492529882ae96e}\label{_z_c_u___center___config_8cin_ad55e690bc8e8077da8492529882ae96e} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!WARNING\_ABS@{WARNING\_ABS}}
+\index{WARNING\_ABS@{WARNING\_ABS}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{WARNING\_ABS}{WARNING\_ABS}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} WARNING\+\_\+\+ABS = 0x02}
+
+
+
+ABS 경고 
+
+\Hypertarget{_z_c_u___center___config_8cin_a7fbdd0e99c233ad02ac05d3a924fbec2}\label{_z_c_u___center___config_8cin_a7fbdd0e99c233ad02ac05d3a924fbec2} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!WARNING\_BATTERY@{WARNING\_BATTERY}}
+\index{WARNING\_BATTERY@{WARNING\_BATTERY}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{WARNING\_BATTERY}{WARNING\_BATTERY}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} WARNING\+\_\+\+BATTERY = 0x01}
+
+
+
+배터리 경고 
+
+\Hypertarget{_z_c_u___center___config_8cin_a664b664a684ed6b6a0e3ef27ba6ad858}\label{_z_c_u___center___config_8cin_a664b664a684ed6b6a0e3ef27ba6ad858} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!WARNING\_COMM\_ERROR@{WARNING\_COMM\_ERROR}}
+\index{WARNING\_COMM\_ERROR@{WARNING\_COMM\_ERROR}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{WARNING\_COMM\_ERROR}{WARNING\_COMM\_ERROR}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} WARNING\+\_\+\+COMM\+\_\+\+ERROR = 0x08}
+
+
+
+통신 오류 경고 
+
+\Hypertarget{_z_c_u___center___config_8cin_a15568f99ddb2ef17b927c84f971d5e4e}\label{_z_c_u___center___config_8cin_a15568f99ddb2ef17b927c84f971d5e4e} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!WARNING\_OTA\_UPDATE@{WARNING\_OTA\_UPDATE}}
+\index{WARNING\_OTA\_UPDATE@{WARNING\_OTA\_UPDATE}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{WARNING\_OTA\_UPDATE}{WARNING\_OTA\_UPDATE}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} WARNING\+\_\+\+OTA\+\_\+\+UPDATE = 0x10}
+
+
+
+OTA 업데이트 경고 
+
+\Hypertarget{_z_c_u___center___config_8cin_aaa3cd956cbf94b51f4179a288ffcb593}\label{_z_c_u___center___config_8cin_aaa3cd956cbf94b51f4179a288ffcb593} 
+\index{ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}!WARNING\_SYSTEM\_FAULT@{WARNING\_SYSTEM\_FAULT}}
+\index{WARNING\_SYSTEM\_FAULT@{WARNING\_SYSTEM\_FAULT}!ZCU\_Center\_Config.cin@{ZCU\_Center\_Config.cin}}
+\doxysubsubsection{\texorpdfstring{WARNING\_SYSTEM\_FAULT}{WARNING\_SYSTEM\_FAULT}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{const}} \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} WARNING\+\_\+\+SYSTEM\+\_\+\+FAULT = 0x04}
+
+
+
+시스템 고장 경고 
+

@@ -1,0 +1,7 @@
+<map id="readBootloader" name="readBootloader">
+<area shape="rect" id="Node000001" title="부트로더에서 CGW 버전을 읽어오는 함수" alt="" coords="200,31,308,57"/>
+<area shape="rect" id="Node000002" href="$da/da4/_e_d_t_8cin.html#acc405dcc507b0da8b0fafe7ada30d258" title="OTA 타이머 이벤트 핸들러" alt="" coords="14,5,143,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,37,143,31,144,25,185,31"/>
+<area shape="rect" id="Node000003" href="$d5/dc0/_h_p_c___o_t_a_8cin.html#af1823995c799f322d93b5722d7577390" title="주기적 타이머 이벤트 핸들러 (100ms)" alt="" coords="5,56,152,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="185,57,153,61,152,56,184,51"/>
+</map>

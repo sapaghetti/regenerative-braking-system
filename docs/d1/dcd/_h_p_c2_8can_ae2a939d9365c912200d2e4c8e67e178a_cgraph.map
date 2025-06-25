@@ -1,0 +1,5 @@
+<map id="on_message_M002_Regen_Torque_Feedback" name="on_message_M002_Regen_Torque_Feedback">
+<area shape="rect" id="Node000001" title="회생 토크 피드백 메시지 수신 이벤트 핸들러" alt="" coords="5,5,185,48"/>
+<area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#a53da730e3423fce16ab918e06a569285" title="&#39;on message M002_Regen_Torque_Feedback&#39; 이벤트 핸들러 로직을 처리" alt="" coords="233,5,429,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,24,217,24,217,29,185,29"/>
+</map>

@@ -1,0 +1,91 @@
+\doxysection{V2\+XData Struct Reference}
+\hypertarget{struct_v2_x_data}{}\label{struct_v2_x_data}\index{V2XData@{V2XData}}
+
+
+V2X 통신을 통해 수신되는 도로 및 교통 정보를 저장하는 구조체  
+
+
+
+
+Collaboration diagram for V2\+XData\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{d3/dbb/struct_v2_x_data__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_h_p_c2___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_v2_x_data_ab5edbae19d9e5273fa181c7140909437}{traffic\+Light\+Distance}}
+\begin{DoxyCompactList}\small\item\em 신호등까지의 거리 (m) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c2___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_v2_x_data_a63e82917f38b7e65c266ab9163db649b}{traffic\+Light\+Status}}
+\begin{DoxyCompactList}\small\item\em 신호등 상태 (0\+: 초록, 1\+: 노랑, 2\+: 빨강) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c2___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_v2_x_data_abe0ea2d728a95bd6575ab1014a6fa7d1}{road\+Grade}}
+\begin{DoxyCompactList}\small\item\em 도로 경사도 (\%) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c2___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_v2_x_data_aa878aa9d4cc876ee5aa5e0b776197bc0}{congestion\+Level}}
+\begin{DoxyCompactList}\small\item\em 교통 정체 수준 (0-\/5, 5가 가장 심함) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c2___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{struct_v2_x_data_a38a0efef20083715380722dfabd3a763}{timestamp}}
+\begin{DoxyCompactList}\small\item\em 데이터 수신 타임스탬프 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+V2X 통신을 통해 수신되는 도로 및 교통 정보를 저장하는 구조체 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_v2_x_data_aa878aa9d4cc876ee5aa5e0b776197bc0}\label{struct_v2_x_data_aa878aa9d4cc876ee5aa5e0b776197bc0} 
+\index{V2XData@{V2XData}!congestionLevel@{congestionLevel}}
+\index{congestionLevel@{congestionLevel}!V2XData@{V2XData}}
+\doxysubsubsection{\texorpdfstring{congestionLevel}{congestionLevel}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c2___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} V2\+XData\+::congestion\+Level}
+
+
+
+교통 정체 수준 (0-\/5, 5가 가장 심함) 
+
+\Hypertarget{struct_v2_x_data_abe0ea2d728a95bd6575ab1014a6fa7d1}\label{struct_v2_x_data_abe0ea2d728a95bd6575ab1014a6fa7d1} 
+\index{V2XData@{V2XData}!roadGrade@{roadGrade}}
+\index{roadGrade@{roadGrade}!V2XData@{V2XData}}
+\doxysubsubsection{\texorpdfstring{roadGrade}{roadGrade}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c2___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} V2\+XData\+::road\+Grade}
+
+
+
+도로 경사도 (\%) 
+
+\Hypertarget{struct_v2_x_data_a38a0efef20083715380722dfabd3a763}\label{struct_v2_x_data_a38a0efef20083715380722dfabd3a763} 
+\index{V2XData@{V2XData}!timestamp@{timestamp}}
+\index{timestamp@{timestamp}!V2XData@{V2XData}}
+\doxysubsubsection{\texorpdfstring{timestamp}{timestamp}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c2___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} V2\+XData\+::timestamp}
+
+
+
+데이터 수신 타임스탬프 
+
+\Hypertarget{struct_v2_x_data_ab5edbae19d9e5273fa181c7140909437}\label{struct_v2_x_data_ab5edbae19d9e5273fa181c7140909437} 
+\index{V2XData@{V2XData}!trafficLightDistance@{trafficLightDistance}}
+\index{trafficLightDistance@{trafficLightDistance}!V2XData@{V2XData}}
+\doxysubsubsection{\texorpdfstring{trafficLightDistance}{trafficLightDistance}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c2___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} V2\+XData\+::traffic\+Light\+Distance}
+
+
+
+신호등까지의 거리 (m) 
+
+\Hypertarget{struct_v2_x_data_a63e82917f38b7e65c266ab9163db649b}\label{struct_v2_x_data_a63e82917f38b7e65c266ab9163db649b} 
+\index{V2XData@{V2XData}!trafficLightStatus@{trafficLightStatus}}
+\index{trafficLightStatus@{trafficLightStatus}!V2XData@{V2XData}}
+\doxysubsubsection{\texorpdfstring{trafficLightStatus}{trafficLightStatus}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c2___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} V2\+XData\+::traffic\+Light\+Status}
+
+
+
+신호등 상태 (0\+: 초록, 1\+: 노랑, 2\+: 빨강) 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_h_p_c___config_8cin}{HPC\+\_\+\+Config.\+cin}}\item 
+\mbox{\hyperlink{_h_p_c2___config_8cin}{HPC2\+\_\+\+Config.\+cin}}\end{DoxyCompactItemize}

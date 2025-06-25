@@ -1,0 +1,15 @@
+<map id="SendModeChangeRequest" name="SendModeChangeRequest">
+<area shape="rect" id="Node000001" title="모드 변경 요청 메시지(M008)를 전송" alt="" coords="478,64,655,91"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#acc2a475f9c71f60ca2822640d5abd13f" title="&#39;on key &#39;v&#39;&#39; 이벤트 핸들러 로직을 처리 (음성 명령 시뮬레이션)" alt="" coords="242,9,410,36"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="489,63,388,39,389,34,491,57"/>
+<area shape="rect" id="Node000004" href="$d6/d09/_z_c_u___center___functions_8cin.html#a47730f4911cc48000c6c00372ebeea03" title="&#39;on message L004_SW_Button_Input&#39; 이벤트 핸들러 로직을 처리" alt="" coords="226,64,427,91"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="462,80,428,80,428,75,462,75"/>
+<area shape="rect" id="Node000006" href="$d6/d09/_z_c_u___center___functions_8cin.html#afeb35a6cbc7536f113abaa2a0e7831a6" title="&#39;on message L003_Voice_Command&#39; 이벤트 핸들러 로직을 처리" alt="" coords="223,123,430,149"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="495,97,385,125,383,120,494,92"/>
+<area shape="rect" id="Node000003" href="$d8/d1a/_z_c_u___center_8can.html#a9e1d5a38599fca270e04258c4b290f15" title="키보드 &#39;v&#39; 키 입력 이벤트 핸들러" alt="" coords="51,5,129,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="227,24,129,22,129,17,227,18"/>
+<area shape="rect" id="Node000005" href="$d8/d1a/_z_c_u___center_8can.html#a94aa8c12c778744941b6132cd8d0220b" title="스티어링 휠 버튼 입력 메시지 수신 이벤트 핸들러" alt="" coords="10,56,170,99"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="210,80,170,80,170,75,210,75"/>
+<area shape="rect" id="Node000007" href="$d8/d1a/_z_c_u___center_8can.html#a60681a91e13e0350940216c9fb745a2a" title="음성 명령 메시지 수신 이벤트 핸들러" alt="" coords="5,123,175,165"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="207,143,175,144,175,138,207,137"/>
+</map>

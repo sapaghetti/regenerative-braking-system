@@ -1,0 +1,47 @@
+﻿/*@!Encoding:65001*/
+/**
+ * @file Rear_BMS.can
+ * @brief 후방 배터리 관리 시스템(BMS) CAPL 스크립트
+ */
+
+includes
+{
+  
+}
+
+variables
+{
+  /** @brief BMS 메시지 전송을 위한 타이머 */
+  msTimer bms_msg_Timer;
+  
+  /** @brief BMS 메시지 전송 주기 (ms) */
+  const dword BMS_MSG_TIMEOUT = 100;
+}
+
+/**
+ * @brief 시뮬레이션 시작 시 초기화 함수
+ * @details BMS 메시지 전송 타이머를 100ms 주기로 설정
+ */
+on start
+{
+  settimer(bms_msg_Timer, BMS_MSG_TIMEOUT);
+}
+
+/**
+ * @brief BMS 메시지 전송 타이머 이벤트 핸들러
+ * @details 100ms 주기로 배터리 상세 상태 정보를 전송:
+ *          - 배터리 SOC (State of Charge)
+ *          - 배터리 전류 (A)
+ *          - 배터리 전압 (V)
+ * @note 타이머 재설정으로 지속적인 주기 전송을 보장
+ */
+on timer bms_msg_Timer
+{
+  message L007_BMS_Detail_Status bms_msg;
+  bms_msg.Battery_SoC = (int)(@BMS::SoC);
+  bms_msg.Battery_Current.phys = @BMS::Current;
+  bms_msg.Battery_Voltage.phys = @BMS::Voltage;
+  output(bms_msg);
+  cancelTimer(bms_msg_Timer);
+  settimer(bms_msg_Timer, BMS_MSG_TIMEOUT);
+}

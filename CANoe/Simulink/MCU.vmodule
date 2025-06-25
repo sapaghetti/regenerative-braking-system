@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="CANoe_vmodule_1.6.xsd">
+   <Name>MCU</Name>
+   <Version>16.0</Version>
+   <Application>CANoe</Application>
+   <ModuleType>Matlab-Specific</ModuleType>
+   <ModuleType>CAPL-DLL</ModuleType>
+   <SupportedArchitecture arch="Windows-x64"/>
+   <LibraryPath arch="Windows-x64" moduleType="Matlab-Specific">MCU_cn_mingw_rtw/Release64/MCU.dll</LibraryPath>
+   <LibraryPath arch="Windows-x64" moduleType="CAPL-DLL">MCU_cn_mingw_rtw/Release64/MCU.dll</LibraryPath>
+   <SysvarPath>MCU_cn_mingw_rtw/release/MCU.vsysvar</SysvarPath>
+   <AdditionalFile moduleType="Matlab-Specific">MCU_cn_mingw_rtw/release/MCU.ini</AdditionalFile>
+</Module>

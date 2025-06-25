@@ -1,0 +1,13 @@
+<map id="TransitionToState" name="TransitionToState">
+<area shape="rect" id="Node000001" title="시스템 상태 간의 전환을 관리" alt="" coords="5,56,129,83"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="177,5,302,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,53,176,34,178,39,116,58"/>
+<area shape="rect" id="Node000003" href="$d6/d09/_z_c_u___center___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="181,56,298,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="129,67,165,67,165,72,129,72"/>
+<area shape="rect" id="Node000006" href="$d6/d09/_z_c_u___center___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="184,107,295,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="116,81,178,99,176,104,114,86"/>
+<area shape="rect" id="Node000004" href="$d6/d09/_z_c_u___center___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="356,31,493,57"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="298,59,341,53,341,58,299,64"/>
+<area shape="rect" id="Node000005" href="$d6/d09/_z_c_u___center___functions_8cin.html#a8b9a584cbd1346ca9fc94f4857a5aaaa" title="클러스터 디스플레이를 업데이트" alt="" coords="350,81,499,108"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="299,75,335,80,334,85,298,80"/>
+</map>

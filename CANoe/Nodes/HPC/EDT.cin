@@ -1,0 +1,392 @@
+﻿/*@!Encoding:65001*/
+/**
+ * @file EDT.cin
+ * @brief EDT ECU의 OTA 업데이트 시스템 구현
+ */
+
+includes
+{
+  
+}
+
+variables
+{
+  /** @brief OTA 프로세스를 관리하는 타이머 */
+  msTimer otaTimer;
+  
+  /** @brief CGW에 OTA 결과를 전송하는 메시지 */
+  message EDT_CGW_E_OTA_RESULT edtOtaResMsg;
+  
+  /** @brief TMU에 버전 정보를 전송하는 메시지 */
+  message EDT_TMU_E_VER_INFO edtVerMsg;
+  
+  /** @brief EDT 시스템 상태를 나타내는 열거형 */
+  enum STATE edtState;
+ 
+  /** @brief 파일 핸들러 */
+  dword hFile;
+  
+  /** @brief 업데이트된 버전 정보 저장용 배열 */
+  char update_ver[1];
+  
+  /** @brief 현재 버전 정보 저장용 배열 */
+  char edt_cur_ver[2];
+  
+  /** @brief 부트로더 모드 상태 (0: 첫 부팅, 1: OTA 모드, 2: 기본 모드) */
+  int mode = 0;
+  
+  /** @brief OTA 결과 상태 */
+  int ota_result = 0;
+  
+  /** @brief 현재 EDT 버전 */
+  int cur_edt_version = 0;
+  
+  /** @brief EDT ECU 번호 */
+  int edt_num = 3;
+  
+  /** @brief 펌웨어 파일명 저장용 배열 */
+  char filename[128];
+  
+  /** @brief 데이터 청크 저장용 배열 */
+  byte chunk[61];
+  
+  /** @brief 헤더 정보 */
+  byte header;
+  
+  /** @brief ECU ID */
+  byte ecu_id = 0;
+  
+  /** @brief 펌웨어 버전 */
+  byte version = 0;
+  
+  /** @brief 청크 길이 */
+  int chunk_len = 0;
+  
+  /** @brief 수신 상태 플래그 */
+  int is_receiving = 0;
+  
+  /** @brief 현재 프레임 인덱스 */
+  int frameIndex;
+  
+  /** @brief 마지막 프레임 인덱스 */
+  int lastFrameIndex = -1;
+  
+  /** @brief OTA 시작 플래그 */
+  int otaStartFlag = 0;
+  
+  /** @brief 코드 길이 */
+  int code_len = 0;
+  
+  /** @brief 총 프레임 수 */
+  int frameCount = 0;
+  
+  /** @brief 마지막 프레임 길이 */
+  int lastFrameLength = 0;
+  
+  /** @brief 페이로드 길이 */
+  long payloadLen = 0;
+  
+  /** @brief 모듈로 계산용 변수 */
+  double mod = 0.0;
+}
+
+/**
+ * @brief 시뮬레이션 시작 시 OTA 타이머 초기화
+ * @note 100ms 주기로 OTA 타이머를 설정하여 시스템 상태를 관리
+ */
+on start
+{
+  setTimer(otaTimer, 100);
+}
+
+/**
+ * @brief 부트로더 버전 정보를 파일에 쓰는 함수
+ * @return 성공 시 1, 실패 시 0
+ * @details 현재 EDT 버전을 파일에 저장하여 부트로더가 참조할 수 있도록 함
+ */
+int writeBootloader()
+{
+  hFile = openFileWrite("EDT\\EDT_version.txt", 0);
+  if (hFile != 0)
+  {
+    snprintf(update_ver, 8, "%d", cur_edt_version);
+    filePutString(update_ver, 1, hFile);
+    fileClose(hFile);
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
+}
+
+/**
+ * @brief 현재 버전을 업데이트하는 함수
+ * @details 수신된 버전 정보로 현재 EDT 버전을 업데이트
+ */
+void updateVersion()
+{
+  cur_edt_version = version;
+}
+
+/**
+ * @brief 부트로더에서 버전 정보를 읽어오는 함수
+ * @param flag 읽기 모드 (1: 일반 버전, 2: 백업 버전)
+ * @details 파일에서 버전 정보를 읽어와 현재 버전 변수에 저장
+ */
+void readBootloader(int flag)
+{
+  dword bFile;
+  if (flag == 1)
+  {
+    bFile = openFileRead("EDT\\EDT_version.txt", 0);
+    fileGetString(edt_cur_ver, 2, bFile);
+    cur_edt_version = _atoi64(edt_cur_ver);
+    fileClose(bFile);
+  }
+  else if (flag == 2)
+  {
+    bFile = openFileRead("EDT\\EDT_backup\\EDT_backup_version.txt", 0);
+    fileGetString(edt_cur_ver, 2, bFile);
+    cur_edt_version = _atoi64(edt_cur_ver);
+    fileClose(bFile);
+    write(">>> EDT_backup_version 읽기 완료");
+  }
+}
+
+/**
+ * @brief EDT 버전 정보를 TMU에 전송하는 함수
+ * @details ECU 번호와 현재 버전을 포함한 메시지를 TMU에 전송
+ */
+void sendEdtVersion()
+{
+  edtVerMsg.byte(0) = ((0x00 | edt_num << 4) | cur_edt_version);
+  output(edtVerMsg);
+}
+
+/**
+ * @brief CAN FD DLC에 따른 실제 데이터 길이를 반환하는 함수
+ * @param dlc Data Length Code
+ * @return 실제 데이터 길이 (bytes)
+ * @details CAN FD의 DLC 9-15에 대응하는 실제 데이터 길이를 매핑
+ */
+int getFdLength(int dlc) {
+  switch (dlc) {
+    case 9: return 12;
+    case 10: return 16;
+    case 11: return 20;
+    case 12: return 24;
+    case 13: return 32;
+    case 14: return 48;
+    case 15: return 64;
+    default: return dlc; // 0~8은 그대로
+  }
+}
+
+/**
+ * @brief OTA 타이머 이벤트 핸들러
+ * @details 100ms 주기로 EDT 상태에 따라 다른 동작을 수행:
+ *          - NORMAL_MODE: 버전별 기능 수행
+ *          - BOOTLOADER_MODE: 부트로더 동작 처리
+ *          - OTA_COMPLETE: OTA 완료 처리
+ */
+on timer otaTimer
+{
+  switch (edtState)
+  {
+    case NOMAR_MODE: // Default
+      if (cur_edt_version >= @OTA::Version_num[1])
+      {
+        // version : 1
+      }
+      if (cur_edt_version >= @OTA::Version_num[2])
+      {
+        // version : 2
+//        if (@CAR::Distance > 20)
+//        {
+//          if (@CAR::vehSpeed <= 200)
+//          {
+//            if (@CAR::acc == 1)
+//            {
+//              @CAR::addSpeed += 0.1;
+//            }
+//            else
+//            {
+//              if (@CAR::addSpeed > 0)
+//              {
+//                 @CAR::addSpeed -=0.3;
+//              }
+//              else
+//              {
+//                @CAR::addSpeed = 0;
+//              }
+//            }
+//            if (@CAR::brake == 1)
+//            {
+//              @CAR::vehSpeed-=1;
+//            }
+//            @CAR::vehSpeed -= 0.1;
+//            @CAR::vehSpeed += (double)@CAR::addSpeed;
+//          }
+//        }
+//        else
+//        {
+//          if (@sysvar::CAR::vehSpeed > 0)
+//          {
+//            @sysvar::CAR::vehSpeed-=2;   
+//          }
+//        } 
+      }
+      
+      break;
+    case BOOTLOADER_MODE:
+      if (mode == 0)
+      {
+        write(">>> EDT bootMode 진입");
+        readBootloader(1); // 현재 저장된 버전 가져오기
+        sendEdtVersion();
+        edtState = NOMAR_MODE;
+      }
+      else if (mode == 1)
+      {
+        write(">>> OTA bootMode 진입");
+        updateVersion();
+        ota_result = writeBootloader();
+        edtState = OTA_COMPLETE;
+      }
+      else if (mode == 3)
+      {
+        write(">>> 롤백 모드");
+        readBootloader(2); // 백업 버전 읽기
+        sendEdtVersion();
+        otaResMsg.byte(0) = 0xAA;
+        output(otaResMsg);
+        edtState = NOMAR_MODE;
+      }
+      mode = 2;
+      break;
+    case OTA_COMPLETE:
+      write(">>> 버전 %d로 업데이트", cur_edt_version);
+      if (ota_result == 1)
+      {
+        ota_result = 0;
+        write(">>> OTA Success!");
+        otaResMsg.byte(0) = 0x05; // Send Complete Msg to CGW
+        otaResMsg.byte(1) = ((edt_num << 4) | cur_edt_version);
+        output(otaResMsg);
+      }
+      else
+      {
+        write(">>> OTA Fail!");
+        otaResMsg.byte(0) = 0xFF;
+      }
+      edtState = NOMAR_MODE;
+      break;
+  }
+  setTimer(otaTimer, 100);
+}
+
+/**
+ * @brief CGW에서 OTA 시작 메시지 수신 이벤트 핸들러
+ * @details CGW로부터 OTA 시작 명령을 받아 펌웨어 업데이트 준비
+ *          - ECU ID 및 버전 확인
+ *          - 코드 길이, 프레임 수, 마지막 프레임 길이 추출
+ */
+on message CGW_EDT_E_OTA_START
+{
+  write("EDT START MSG 수신");
+  ecu_id = ((this.byte(0) & 0xF0) >> 4);
+  version = (this.byte(0) & 0x0F);
+  if (ecu_id == edt_num)
+  {
+    code_len = this.byte(1) + (this.byte(2) << 8)
+              + (this.byte(3) << 16) + (this.byte(4) << 24);
+    frameCount = this.byte(5) + (this.byte(6) << 8);
+    lastFrameLength = this.byte(7);
+    mod = (double)(frameCount/100);
+    otaStartFlag = 1;
+  }
+}
+
+/**
+ * @brief CGW에서 OTA 데이터 메시지 수신 이벤트 핸들러
+ * @details 펌웨어 데이터를 청크 단위로 수신하여 파일에 저장
+ *          - 프레임 순서 검증
+ *          - 파일 쓰기 및 진행률 업데이트
+ *          - 수신 완료 시 파일 이동 및 정리
+ */
+on message CGW_EDT_PE_OTA_DATA
+{
+  int i;
+  ecu_id = ((this.byte(0) & 0xF0) >> 4);
+  version = (this.byte(0) & 0x0F);
+  frameIndex = this.byte(1) + (this.byte(2) << 8);
+  payloadLen = getFdLength(this.dlc) - 3;
+  
+  if (otaStartFlag == 1 && ecu_id == edt_num)
+  {
+     if (!is_receiving)
+     {
+       snprintf(filename, elCount(filename), "EDT\\EDT_update\\firmware_ecu_%d_ver%d.bin", ecu_id, version);
+       hFile = openFileWrite(filename, 1);
+       is_receiving = 1;
+     }
+     if (frameIndex < lastFrameIndex)
+     {
+       write("⚠️ 프레임 순서 이상: %d → %d", lastFrameIndex, frameIndex);
+     }
+     lastFrameIndex = frameIndex;
+     for (i = 0; i < payloadLen; i++)
+     {
+       chunk[i] = this.byte(i + 3);
+     }
+     write("%d 번째 FrameIndex 저장", frameIndex);
+     @OTA::Progress = (frameIndex*100) / (frameCount-1);
+     fileWriteBinaryBlock(chunk, payloadLen, hFile); 
+     
+     if (frameIndex + 1 == frameCount)
+     {
+       dword updateFile;
+       mode = 1;
+       edtState = BOOTLOADER_MODE;
+       otaStartFlag = 0;
+       is_receiving = 0;
+       lastFrameIndex = -1;
+       fileClose(hFile);
+       write("✅ OTA 수신 완료: 파일 닫음 → %s", filename);
+       
+       hFile = openFileRead(filename, 1);
+       snprintf(filename, elCount(filename), "EDT\\firmware_ecu_%d_ver%d.bin", ecu_id, version);
+       updateFile = openFileWrite(filename, 1);
+       while (fileGetBinaryBlock(chunk, elCount(chunk), hFile) > 0)
+       {
+         fileWriteBinaryBlock(chunk, elCount(chunk), updateFile);
+       }
+       fileClose(hFile);
+       fileClose(updateFile);
+     }
+  }
+}
+
+/**
+ * @brief CGW에서 OTA 롤백 메시지 수신 이벤트 핸들러
+ * @details OTA 실패 시 이전 버전으로 롤백 수행
+ *          - 현재 OTA 프로세스 중단
+ *          - 백업 버전으로 복구 모드 진입
+ */
+on message CGW_EDT_E_OTA_ROLLBACK
+{
+  if (this.byte(0) == ((ecu_id<<4)|0x06))
+  {
+    write(">>> 롤백 신호 수신");
+    if (hFile != 0)
+    {
+      fileClose(hFile);
+    }
+    otaStartFlag = 0;
+    is_receiving = 0;
+    lastFrameIndex = -1;
+    mode = 3; // 백업 버전 읽기 모드
+    edtState = BOOTLOADER_MODE;
+  }
+}

@@ -1,0 +1,211 @@
+\doxysection{Comm\+Monitor Struct Reference}
+\hypertarget{struct_comm_monitor}{}\label{struct_comm_monitor}\index{CommMonitor@{CommMonitor}}
+
+
+통신 상태 및 오류를 모니터링하기 위한 데이터를 저장하는 구조체  
+
+
+
+
+Collaboration diagram for Comm\+Monitor\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{de/d02/struct_comm_monitor__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{struct_comm_monitor_aa0121935c5f70deb013feb5441cf9cf8}{last\+Rx\+Time\+\_\+\+M012}}
+\begin{DoxyCompactList}\small\item\em HPC M012 마지막 수신 시간 (ms) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{struct_comm_monitor_ac16bc0cee3db6bd87f132749cb203a96}{last\+Rx\+Time\+\_\+\+M009}}
+\begin{DoxyCompactList}\small\item\em HPC M009 마지막 수신 시간 (ms) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{struct_comm_monitor_a95606d26986ca92c323697c731ec7090}{failure\+Count\+\_\+\+M012}}
+\begin{DoxyCompactList}\small\item\em HPC M012 실패 횟수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{struct_comm_monitor_aefcfbdfcd697af8a48348301acf4e798}{failure\+Count\+\_\+\+M009}}
+\begin{DoxyCompactList}\small\item\em HPC M009 실패 횟수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_comm_monitor_af2ce6c368b5e027d5c1d8c1ab2bcead6}{comm\+Status}}
+\begin{DoxyCompactList}\small\item\em 통신 상태 비트 마스크 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_comm_monitor_a67611e6e8cdb8db072c9beadc8d8aab4}{first\+Msg\+Received\+\_\+\+M012}}
+\begin{DoxyCompactList}\small\item\em M012 첫 메시지 수신 플래그 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_comm_monitor_a8d92e79a337383d83ddd8417a8c85fbf}{first\+Msg\+Received\+\_\+\+M009}}
+\begin{DoxyCompactList}\small\item\em M009 첫 메시지 수신 플래그 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{struct_comm_monitor_aa28b75d63e51b988c0f4b8a3840970fa}{last\+Tx\+Time\+\_\+\+M008}}
+\begin{DoxyCompactList}\small\item\em 마지막 M008 전송 시간 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_comm_monitor_a5325f329a7b7c2901c919daf2a781a09}{waiting\+For\+Response}}
+\begin{DoxyCompactList}\small\item\em M008 응답 대기 중 플래그 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{struct_comm_monitor_a62a303ca57e7016a13b3ae8adda9319e}{last\+Rx\+Time\+\_\+\+EPAS}}
+\begin{DoxyCompactList}\small\item\em EPAS 마지막 수신 시간 (ms) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} \mbox{\hyperlink{struct_comm_monitor_a5ef4c0528fdeeeba597bcf6af48bbc1d}{last\+Rx\+Time\+\_\+\+ADAS}}
+\begin{DoxyCompactList}\small\item\em ADAS 마지막 수신 시간 (ms) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{struct_comm_monitor_a8499db2bafd1f681c739f895b4c22ae6}{failure\+Count\+\_\+\+EPAS}}
+\begin{DoxyCompactList}\small\item\em EPAS 실패 횟수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} \mbox{\hyperlink{struct_comm_monitor_a0b344db0eb63aabb39a5d7ca055b6ef2}{failure\+Count\+\_\+\+ADAS}}
+\begin{DoxyCompactList}\small\item\em ADAS 실패 횟수 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_comm_monitor_a5ff6e050e2aa5e48a84db954031c6203}{first\+Msg\+Received\+\_\+\+EPAS}}
+\begin{DoxyCompactList}\small\item\em EPAS 첫 메시지 수신 플래그 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} \mbox{\hyperlink{struct_comm_monitor_a477c4785c88e4cd547e1e2c45a856276}{first\+Msg\+Received\+\_\+\+ADAS}}
+\begin{DoxyCompactList}\small\item\em ADAS 첫 메시지 수신 플래그 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+통신 상태 및 오류를 모니터링하기 위한 데이터를 저장하는 구조체 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_comm_monitor_af2ce6c368b5e027d5c1d8c1ab2bcead6}\label{struct_comm_monitor_af2ce6c368b5e027d5c1d8c1ab2bcead6} 
+\index{CommMonitor@{CommMonitor}!commStatus@{commStatus}}
+\index{commStatus@{commStatus}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{commStatus}{commStatus}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Comm\+Monitor\+::comm\+Status}
+
+
+
+통신 상태 비트 마스크 
+
+\Hypertarget{struct_comm_monitor_a0b344db0eb63aabb39a5d7ca055b6ef2}\label{struct_comm_monitor_a0b344db0eb63aabb39a5d7ca055b6ef2} 
+\index{CommMonitor@{CommMonitor}!failureCount\_ADAS@{failureCount\_ADAS}}
+\index{failureCount\_ADAS@{failureCount\_ADAS}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{failureCount\_ADAS}{failureCount\_ADAS}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} Comm\+Monitor\+::failure\+Count\+\_\+\+ADAS}
+
+
+
+ADAS 실패 횟수 
+
+\Hypertarget{struct_comm_monitor_a8499db2bafd1f681c739f895b4c22ae6}\label{struct_comm_monitor_a8499db2bafd1f681c739f895b4c22ae6} 
+\index{CommMonitor@{CommMonitor}!failureCount\_EPAS@{failureCount\_EPAS}}
+\index{failureCount\_EPAS@{failureCount\_EPAS}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{failureCount\_EPAS}{failureCount\_EPAS}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} Comm\+Monitor\+::failure\+Count\+\_\+\+EPAS}
+
+
+
+EPAS 실패 횟수 
+
+\Hypertarget{struct_comm_monitor_aefcfbdfcd697af8a48348301acf4e798}\label{struct_comm_monitor_aefcfbdfcd697af8a48348301acf4e798} 
+\index{CommMonitor@{CommMonitor}!failureCount\_M009@{failureCount\_M009}}
+\index{failureCount\_M009@{failureCount\_M009}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{failureCount\_M009}{failureCount\_M009}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} Comm\+Monitor\+::failure\+Count\+\_\+\+M009}
+
+
+
+HPC M009 실패 횟수 
+
+\Hypertarget{struct_comm_monitor_a95606d26986ca92c323697c731ec7090}\label{struct_comm_monitor_a95606d26986ca92c323697c731ec7090} 
+\index{CommMonitor@{CommMonitor}!failureCount\_M012@{failureCount\_M012}}
+\index{failureCount\_M012@{failureCount\_M012}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{failureCount\_M012}{failureCount\_M012}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{int}} Comm\+Monitor\+::failure\+Count\+\_\+\+M012}
+
+
+
+HPC M012 실패 횟수 
+
+\Hypertarget{struct_comm_monitor_a477c4785c88e4cd547e1e2c45a856276}\label{struct_comm_monitor_a477c4785c88e4cd547e1e2c45a856276} 
+\index{CommMonitor@{CommMonitor}!firstMsgReceived\_ADAS@{firstMsgReceived\_ADAS}}
+\index{firstMsgReceived\_ADAS@{firstMsgReceived\_ADAS}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{firstMsgReceived\_ADAS}{firstMsgReceived\_ADAS}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Comm\+Monitor\+::first\+Msg\+Received\+\_\+\+ADAS}
+
+
+
+ADAS 첫 메시지 수신 플래그 
+
+\Hypertarget{struct_comm_monitor_a5ff6e050e2aa5e48a84db954031c6203}\label{struct_comm_monitor_a5ff6e050e2aa5e48a84db954031c6203} 
+\index{CommMonitor@{CommMonitor}!firstMsgReceived\_EPAS@{firstMsgReceived\_EPAS}}
+\index{firstMsgReceived\_EPAS@{firstMsgReceived\_EPAS}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{firstMsgReceived\_EPAS}{firstMsgReceived\_EPAS}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Comm\+Monitor\+::first\+Msg\+Received\+\_\+\+EPAS}
+
+
+
+EPAS 첫 메시지 수신 플래그 
+
+\Hypertarget{struct_comm_monitor_a8d92e79a337383d83ddd8417a8c85fbf}\label{struct_comm_monitor_a8d92e79a337383d83ddd8417a8c85fbf} 
+\index{CommMonitor@{CommMonitor}!firstMsgReceived\_M009@{firstMsgReceived\_M009}}
+\index{firstMsgReceived\_M009@{firstMsgReceived\_M009}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{firstMsgReceived\_M009}{firstMsgReceived\_M009}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Comm\+Monitor\+::first\+Msg\+Received\+\_\+\+M009}
+
+
+
+M009 첫 메시지 수신 플래그 
+
+\Hypertarget{struct_comm_monitor_a67611e6e8cdb8db072c9beadc8d8aab4}\label{struct_comm_monitor_a67611e6e8cdb8db072c9beadc8d8aab4} 
+\index{CommMonitor@{CommMonitor}!firstMsgReceived\_M012@{firstMsgReceived\_M012}}
+\index{firstMsgReceived\_M012@{firstMsgReceived\_M012}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{firstMsgReceived\_M012}{firstMsgReceived\_M012}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Comm\+Monitor\+::first\+Msg\+Received\+\_\+\+M012}
+
+
+
+M012 첫 메시지 수신 플래그 
+
+\Hypertarget{struct_comm_monitor_a5ef4c0528fdeeeba597bcf6af48bbc1d}\label{struct_comm_monitor_a5ef4c0528fdeeeba597bcf6af48bbc1d} 
+\index{CommMonitor@{CommMonitor}!lastRxTime\_ADAS@{lastRxTime\_ADAS}}
+\index{lastRxTime\_ADAS@{lastRxTime\_ADAS}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{lastRxTime\_ADAS}{lastRxTime\_ADAS}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} Comm\+Monitor\+::last\+Rx\+Time\+\_\+\+ADAS}
+
+
+
+ADAS 마지막 수신 시간 (ms) 
+
+\Hypertarget{struct_comm_monitor_a62a303ca57e7016a13b3ae8adda9319e}\label{struct_comm_monitor_a62a303ca57e7016a13b3ae8adda9319e} 
+\index{CommMonitor@{CommMonitor}!lastRxTime\_EPAS@{lastRxTime\_EPAS}}
+\index{lastRxTime\_EPAS@{lastRxTime\_EPAS}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{lastRxTime\_EPAS}{lastRxTime\_EPAS}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} Comm\+Monitor\+::last\+Rx\+Time\+\_\+\+EPAS}
+
+
+
+EPAS 마지막 수신 시간 (ms) 
+
+\Hypertarget{struct_comm_monitor_ac16bc0cee3db6bd87f132749cb203a96}\label{struct_comm_monitor_ac16bc0cee3db6bd87f132749cb203a96} 
+\index{CommMonitor@{CommMonitor}!lastRxTime\_M009@{lastRxTime\_M009}}
+\index{lastRxTime\_M009@{lastRxTime\_M009}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{lastRxTime\_M009}{lastRxTime\_M009}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} Comm\+Monitor\+::last\+Rx\+Time\+\_\+\+M009}
+
+
+
+HPC M009 마지막 수신 시간 (ms) 
+
+\Hypertarget{struct_comm_monitor_aa0121935c5f70deb013feb5441cf9cf8}\label{struct_comm_monitor_aa0121935c5f70deb013feb5441cf9cf8} 
+\index{CommMonitor@{CommMonitor}!lastRxTime\_M012@{lastRxTime\_M012}}
+\index{lastRxTime\_M012@{lastRxTime\_M012}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{lastRxTime\_M012}{lastRxTime\_M012}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} Comm\+Monitor\+::last\+Rx\+Time\+\_\+\+M012}
+
+
+
+HPC M012 마지막 수신 시간 (ms) 
+
+\Hypertarget{struct_comm_monitor_aa28b75d63e51b988c0f4b8a3840970fa}\label{struct_comm_monitor_aa28b75d63e51b988c0f4b8a3840970fa} 
+\index{CommMonitor@{CommMonitor}!lastTxTime\_M008@{lastTxTime\_M008}}
+\index{lastTxTime\_M008@{lastTxTime\_M008}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{lastTxTime\_M008}{lastTxTime\_M008}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{dword}} Comm\+Monitor\+::last\+Tx\+Time\+\_\+\+M008}
+
+
+
+마지막 M008 전송 시간 
+
+\Hypertarget{struct_comm_monitor_a5325f329a7b7c2901c919daf2a781a09}\label{struct_comm_monitor_a5325f329a7b7c2901c919daf2a781a09} 
+\index{CommMonitor@{CommMonitor}!waitingForResponse@{waitingForResponse}}
+\index{waitingForResponse@{waitingForResponse}!CommMonitor@{CommMonitor}}
+\doxysubsubsection{\texorpdfstring{waitingForResponse}{waitingForResponse}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_h_p_c___config_8cin_a3ad9b57a24fa3048c75cdd7f9c3a34a5}{byte}} Comm\+Monitor\+::waiting\+For\+Response}
+
+
+
+M008 응답 대기 중 플래그 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_z_c_u___center___config_8cin}{ZCU\+\_\+\+Center\+\_\+\+Config.\+cin}}\item 
+\mbox{\hyperlink{_z_c_u___front___config_8cin}{ZCU\+\_\+\+Front\+\_\+\+Config.\+cin}}\end{DoxyCompactItemize}

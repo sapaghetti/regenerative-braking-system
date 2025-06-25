@@ -1,0 +1,17 @@
+<map id="HandleStartEvent" name="HandleStartEvent">
+<area shape="rect" id="Node000001" title="&#39;on start&#39; 이벤트 핸들러 로직을 처리" alt="" coords="5,31,130,57"/>
+<area shape="rect" id="Node000002" href="$de/d5b/_h_p_c2___functions_8cin.html#a9bcdcb765a42512f7ff98bf5feafcdc5" title="시작 시 모든 전역 변수를 기본 상태로 초기화" alt="" coords="183,5,296,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,32,167,27,168,32,130,37"/>
+<area shape="rect" id="Node000003" href="$de/d5b/_h_p_c2___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태를 새로운 상태로 전환하는 함수" alt="" coords="178,56,301,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="130,51,162,55,162,61,130,56"/>
+<area shape="rect" id="Node000004" href="$de/d5b/_h_p_c2___functions_8cin.html#abdb69cf2fc071a91146925ae09a0e165" title="배터리 보호 상태 진입 시 호출되는 함수" alt="" coords="349,5,519,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="293,53,365,34,366,39,294,58"/>
+<area shape="rect" id="Node000006" href="$de/d5b/_h_p_c2___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="Fail&#45;Safe 상태 진입 시 호출되는 함수" alt="" coords="376,56,493,83"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="301,67,360,67,360,72,301,72"/>
+<area shape="rect" id="Node000007" href="$de/d5b/_h_p_c2___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="정상 상태 진입 시 호출되는 함수" alt="" coords="378,107,490,133"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="294,81,366,100,365,105,293,86"/>
+<area shape="rect" id="Node000005" href="$de/d5b/_h_p_c2___functions_8cin.html#a3687ef7ceccb672c6d9dc192a4a3f13e" title="폴트 레지스터에 특정 폴트 비트를 설정하는 함수" alt="" coords="573,5,643,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="520,16,557,16,557,21,520,21"/>
+<area shape="rect" id="Node000008" href="$de/d5b/_h_p_c2___functions_8cin.html#a1366b73e3db319850ae23722e5460d22" title="폴트 레지스터에서 특정 폴트 비트를 해제하는 함수" alt="" coords="567,107,649,133"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="490,117,552,117,552,123,490,123"/>
+</map>

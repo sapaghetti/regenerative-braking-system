@@ -1,0 +1,13 @@
+<map id="HandleClearFaultsKey" name="HandleClearFaultsKey">
+<area shape="rect" id="Node000001" title="&#39;on key &#39;c&#39;&#39; 이벤트 핸들러 로직을 처리" alt="" coords="5,56,158,83"/>
+<area shape="rect" id="Node000002" href="$d6/db8/_z_c_u___front___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태 간의 전환을 관리" alt="" coords="206,56,329,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,67,190,67,190,72,158,72"/>
+<area shape="rect" id="Node000003" href="$d6/db8/_z_c_u___front___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="377,5,502,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="315,53,377,34,378,39,316,58"/>
+<area shape="rect" id="Node000004" href="$d6/db8/_z_c_u___front___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="381,56,498,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="329,67,366,67,366,72,329,72"/>
+<area shape="rect" id="Node000006" href="$d6/db8/_z_c_u___front___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="384,107,495,133"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="316,81,378,99,377,104,315,86"/>
+<area shape="rect" id="Node000005" href="$d6/db8/_z_c_u___front___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="550,56,688,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="499,67,535,67,535,72,499,72"/>
+</map>

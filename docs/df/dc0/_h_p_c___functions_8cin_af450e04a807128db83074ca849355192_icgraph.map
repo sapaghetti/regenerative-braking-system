@@ -1,0 +1,7 @@
+<map id="SendModeChangeResponse" name="SendModeChangeResponse">
+<area shape="rect" id="Node000001" title="회생제동 모드 변경 요청에 대한 응답 메시지를 전송하는 함수" alt="" coords="491,13,678,40"/>
+<area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#ac66c8f49082857f2dc040501bb308c29" title="&#39;on message M008_Mode_Change_Req&#39; 이벤트 핸들러 로직을 처리" alt="" coords="227,13,443,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="475,29,444,29,444,24,475,24"/>
+<area shape="rect" id="Node000003" href="$d4/dd2/_h_p_c_8can.html#aa6a6bab8f6d67a6db796ec0e47deef80" title="회생 제동 모드 변경 요청 메시지 수신 이벤트 핸들러" alt="" coords="5,5,179,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="211,29,179,29,179,24,211,24"/>
+</map>

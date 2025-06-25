@@ -1,0 +1,5 @@
+<map id="HandleSimulateVoiceKey" name="HandleSimulateVoiceKey">
+<area shape="rect" id="Node000001" title="&#39;on key &#39;v&#39;&#39; 이벤트 핸들러 로직을 처리 (음성 명령 시뮬레이션)" alt="" coords="5,5,174,32"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#aa8a5bb905e77e44b01f1175685e49836" title="모드 변경 요청 메시지(M008)를 전송" alt="" coords="222,5,399,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="174,16,206,16,206,21,174,21"/>
+</map>

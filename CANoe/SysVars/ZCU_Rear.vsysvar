@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="MCU" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Motor_Torque" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Target_Torque" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+    </namespace>
+    <namespace name="ZCU_Rear" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Brake_Light" comment="" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Current" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Motor_Torque" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Regen_Mode" comment="" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="SoC" comment="" bitcount="32" isSigned="false" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Target_Torque" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Voltage" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" startValue="0" />
+    </namespace>
+  </namespace>
+</systemvariables>

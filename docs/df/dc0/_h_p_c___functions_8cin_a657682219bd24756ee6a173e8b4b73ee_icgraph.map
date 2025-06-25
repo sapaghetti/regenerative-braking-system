@@ -1,0 +1,5 @@
+<map id="HandleBrakePedalMessage" name="HandleBrakePedalMessage">
+<area shape="rect" id="Node000001" title="&#39;on message M005_EXT_Brake_Pedal&#39; 이벤트 핸들러 로직을 처리" alt="" coords="221,13,403,40"/>
+<area shape="rect" id="Node000002" href="$d4/dd2/_h_p_c_8can.html#ab6d55c14e3e060248ab998d47cb57246" title="브레이크 페달 메시지 수신 이벤트 핸들러" alt="" coords="5,5,173,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,29,173,29,173,24,205,24"/>
+</map>

@@ -1,0 +1,18 @@
+<map id="on_key_c" name="on_key_c">
+<area shape="rect" id="Node000001" title="키보드 &#39;c&#39; 키 입력 이벤트 핸들러" alt="" coords="5,132,83,159"/>
+<area shape="rect" id="Node000002" href="$d6/d09/_z_c_u___center___functions_8cin.html#a881f7319dd66e135c91ec8cafa7e0b16" title="&#39;on key &#39;c&#39;&#39; 이벤트 핸들러 로직을 처리" alt="" coords="131,132,283,159"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,143,115,143,115,148,83,148"/>
+<area shape="rect" id="Node000003" href="$d6/d09/_z_c_u___center___functions_8cin.html#af1b0517afcfeca68cdbae6a6c5713681" title="시스템 상태 간의 전환을 관리" alt="" coords="331,81,454,108"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="258,129,326,110,327,115,259,134"/>
+<area shape="rect" id="Node000007" href="$d6/d09/_z_c_u___center___functions_8cin.html#a8b9a584cbd1346ca9fc94f4857a5aaaa" title="클러스터 디스플레이를 업데이트" alt="" coords="676,132,825,159"/>
+<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="283,143,660,143,660,148,283,148"/>
+<area shape="rect" id="Node000004" href="$d6/d09/_z_c_u___center___functions_8cin.html#ae17e103908732a0e9095af5898aeb993" title="DEGRADED 상태 진입 시 호출되는 함수" alt="" coords="502,5,628,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="422,78,501,42,514,36,516,41,503,46,424,83"/>
+<area shape="rect" id="Node000005" href="$d6/d09/_z_c_u___center___functions_8cin.html#a598bf7b3ec0ae1d926518b0efeb737b6" title="FAIL_SAFE 상태 진입 시 호출되는 함수" alt="" coords="506,56,624,83"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="454,83,491,78,491,83,455,88"/>
+<area shape="rect" id="Node000008" href="$d6/d09/_z_c_u___center___functions_8cin.html#a31603fc205c3ff32f36ad4526390a568" title="NORMAL 상태 진입 시 호출되는 함수" alt="" coords="509,107,621,133"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="455,101,494,107,494,112,454,106"/>
+<area shape="rect" id="Node000006" href="$d6/d09/_z_c_u___center___functions_8cin.html#adbe029b647d08d864d1b19a5163c792d" title="Fail&#45;Safe 상태 메시지(M004)를 전송" alt="" coords="682,56,819,83"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="624,67,666,67,666,72,624,72"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="601,81,629,92,703,123,701,128,627,97,599,86"/>
+</map>

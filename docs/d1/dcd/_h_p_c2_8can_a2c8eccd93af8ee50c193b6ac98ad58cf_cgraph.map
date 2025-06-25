@@ -1,0 +1,5 @@
+<map id="on_stopMeasurement" name="on_stopMeasurement">
+<area shape="rect" id="Node000001" title="시뮬레이션 정지 이벤트 핸들러" alt="" coords="5,5,152,32"/>
+<area shape="rect" id="Node000002" href="$df/dc0/_h_p_c___functions_8cin.html#a31eb42e7dd5ed8642efb93b2a9c6b713" title="&#39;on stopMeasurement&#39; 이벤트 핸들러 로직을 처리" alt="" coords="200,5,323,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,16,184,16,184,21,152,21"/>
+</map>
